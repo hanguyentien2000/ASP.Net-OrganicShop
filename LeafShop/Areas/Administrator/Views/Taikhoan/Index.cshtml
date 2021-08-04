@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<LeafShop.Models.Taikhoan>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Quản lý tài khoản</h2>
+<br />
+<p>
+    <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink(" Thêm mới", "Create")
+</p>
+<table class="table table-bordered table-hover ">
+    <tr>
+        <th>
+            Tên nhân viên
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            Password
+        </th>
+        <th>
+            Quản trị
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USERNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PASSWORD)
+            </td>
+            <td>
+                @(item.Quantri?"Quản trị viên":"Nhân viên")
+            </td>
+            <td>
+                @Html.ActionLink("Cập nhật", "Edit", new { id = item.USERNAME }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.USERNAME }) |
+                @Html.ActionLink("Xoá", "Delete", new { id = item.USERNAME })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("Index", new
+            {
+                page,
+            currentFilter = ViewBag.CurrentFilter
+            }))

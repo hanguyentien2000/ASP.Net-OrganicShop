@@ -1,0 +1,66 @@
+﻿@model PagedList.IPagedList<LeafShop.Models.Blog>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Quản lý bài viết</h2>
+<br />
+<div class="pull-right">
+    <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink(" Thêm mới", "Create")
+</div>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            Tên nhân viên
+        </th>
+        <th>
+            Tiêu đề
+        </th>
+        <th>
+            Ảnh
+        </th>
+        <th>
+            Tóm tắt
+        </th>
+        <th>
+            Nội dung
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TieuDe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tomtat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Noidung)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.MaBaiViet }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaBaiViet }) |
+                @Html.ActionLink("Xoá", "Delete", new { id = item.MaBaiViet })
+            </td>
+        </tr>
+    }
+
+</table>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+{
+    page,
+currentFilter = ViewBag.CurrentFilter
+}))
