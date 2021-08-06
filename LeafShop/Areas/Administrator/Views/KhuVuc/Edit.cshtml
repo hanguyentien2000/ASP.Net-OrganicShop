@@ -5,7 +5,7 @@
 }
 
 <h2>Cập nhật khu vực</h2>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,16 +14,6 @@
             <div class="row">
 
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h5 class="mb-4 pb-1">Mã khu vực</h5>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="md-form md-outline mt-0">
-                                @Html.EditorFor(model => model.MaKhuVuc, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MaKhuVuc, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="md-form md-outline my-0">
                         <label for="form13">Tên khu vực </label>
                         <div class="select-outline position-relative w-100">
