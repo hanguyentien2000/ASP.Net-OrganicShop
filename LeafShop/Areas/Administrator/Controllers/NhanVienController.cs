@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -67,16 +68,26 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaNhanVien,TenNhanVien,GioiTinh,Avatar,Email,NgaySinh,DienThoai,DiaChi")] NhanVien nhanVien)
+        public ActionResult Create(NhanVien nv, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            db.NhanViens.Add(nv);
+            db.SaveChanges();
+            uploadhinh = Request.Files["ImagesFile"];
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                db.NhanViens.Add(nhanVien);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                string id = db.NhanViens.ToList().Last().MaNhanVien.ToString();
 
-            return View(nhanVien);
+                string _FileName = "";
+                int index = uploadhinh.FileName.IndexOf('.');
+                _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/NhanVien/"), _FileName);
+                uploadhinh.SaveAs(_path);
+
+                NhanVien nguoi = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == id);
+                nguoi.Avatar = ("/Areas/UploadFile/NhanVien/" + _FileName);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Administrator/NhanVien/Edit/5
@@ -98,16 +109,28 @@ namespace LeafShop.Areas.Administrator.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaNhanVien,TenNhanVien,GioiTinh,Avatar,Email,NgaySinh,DienThoai,DiaChi")] NhanVien nhanVien)
+        public ActionResult Edit(NhanVien nv, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            NhanVien nvs = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == nv.MaNhanVien);
+            nvs.TenNhanVien = nv.TenNhanVien;
+            nvs.DienThoai = nv.DienThoai;
+            nvs.Email = nv.Email;
+            nvs.DiaChi = nv.DiaChi;
+            nvs.NgaySinh = nv.NgaySinh;
+            nvs.GioiTinh = nv.GioiTinh;
+            uploadhinh = Request.Files["ImagesFile"];
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                db.Entry(nhanVien).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string id = nv.MaNhanVien;
+                string _FileName = "";
+                int index = uploadhinh.FileName.IndexOf('.');
+                _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/NhanVien"), _FileName);
+                uploadhinh.SaveAs(_path);
+                nvs.Avatar = ("/Areas/UploadFile/NhanVien/" + _FileName);
             }
-            return View(nhanVien);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Administrator/NhanVien/Delete/5

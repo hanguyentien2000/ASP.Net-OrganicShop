@@ -5,12 +5,12 @@
 }
 
 <h2>Cập nhật khách hàng</h2>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaKhachHang)
         <div class="pt-4 pb-3">
@@ -54,15 +54,17 @@
                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                     </div>
                     <br />
-                    <div class="md-form md-outline mt-0">
-                        <label for="form15">Giới tính</label>
 
+                    <div class="md-form md-outline mt-0">
+                        <label for="form15" >Giới tính</label>
                         @Html.RadioButtonFor(model => model.GioiTinh, true)
                         <span>Nam</span>
 
                         @Html.RadioButtonFor(model => model.GioiTinh, false)
                         <span>Nữ</span>
                     </div>
+
+
                     <br />
                     <div class="md-form md-outline mt-0">
                         <label for="form15">Email</label>

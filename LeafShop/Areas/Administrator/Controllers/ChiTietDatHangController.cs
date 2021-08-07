@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using LeafShop.Models;
 using PagedList;
+using Microsoft.Reporting.WebForms;
+using Microsoft.Build.Tasks;
 
 namespace LeafShop.Areas.Administrator.Controllers
 {
@@ -150,6 +152,42 @@ namespace LeafShop.Areas.Administrator.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Reports(string ReportType)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Areas/Reports/ChiTietReport.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource();
+            reportDataSource.Name = "ChiTietDataSet";
+            reportDataSource.Value = db.ChiTietDatHangs.ToList();
+            localReport.DataSources.Add(reportDataSource);
+            string reportType = ReportType;
+            string mimeType;
+            string encoding;
+            string filenameExtension;
+            if (reportType == "Excel")
+            {
+                filenameExtension = "xlsx";
+            }
+            if (reportType == "Word")
+            {
+                filenameExtension = "docx";
+            }
+            if (reportType == "PDF")
+            {
+                filenameExtension = "pdf";
+            }
+            else
+                filenameExtension = "jpg";
+
+            string[] streams;
+            Microsoft.Reporting.WebForms.Warning[] warnings;
+            byte[] renderedByte;
+            renderedByte = localReport.Render(reportType, "", out mimeType, out encoding, out filenameExtension,
+                out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename= chitietdathang_report." + filenameExtension);
+            return File(renderedByte, filenameExtension);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -158,5 +196,6 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

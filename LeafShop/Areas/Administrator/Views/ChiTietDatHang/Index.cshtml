@@ -6,8 +6,11 @@
     ViewBag.Title = "Index";
 }
 
-
-
+<h2>@Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
+@Html.ActionLink("Export to Pdf", "Reports", new { ReportType = "PDF" })|
+@Html.ActionLink("Export to Word", "Reports", new { ReportType = "Word" })|
+@Html.ActionLink("Export to Images", "Reports", new { ReportType = "Image" })
+</h2>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
         <div class="title_left">
@@ -22,7 +25,11 @@
                 </div>
                 <div class="col-sm-6">
                     <div id="datatable_filter" class="dataTables_filter">
-                        Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
+                        @*Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>*@
+                        <p>
+                            <input type="submit" value="Tìm" />
+                            @Html.TextBox("SearchString")
+                        </p>
                     </div>
                 </div>
             </div>
@@ -50,7 +57,7 @@
                         <th>
                             Ngày giao hàng
                         </th>
-                        <th>Thao tác</th>
+                        @*<th>Thao tác</th>*@
                     </tr>
                 </thead>
                 @foreach (var item in Model)
@@ -78,11 +85,11 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.NgayGiaoHang)
                             </td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Chi tiết", "Details", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Xoá", "Delete", new { /* id=item.PrimaryKey */ })
-                            </td>
+                            @*<td>*@
+                            @* @Html.ActionLink("Chỉnh sửa", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                            @*@Html.ActionLink("Chi tiết", "Details", new { /* id=item.PrimaryKey */ })*@
+                            @*@Html.ActionLink("Xoá", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            @*</td>*@
                         </tr>
                     </tbody>
                 }

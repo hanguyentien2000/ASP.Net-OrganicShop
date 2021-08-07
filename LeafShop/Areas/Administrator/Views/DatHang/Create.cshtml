@@ -5,7 +5,7 @@
 }
 
 <h2>Thêm mới đặt hàng</h2>
-
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <br />
                     <div class="md-form md-outline my-0">
                         <label for="form13">Tên khách hàng </label>
                         <div class="select-outline position-relative w-100">
@@ -31,7 +31,7 @@
                             @Html.ValidationMessageFor(model => model.MaKhachHang, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <br />
                     <div class="md-form md-outline my-0">
                         <label for="form13">Tên nhân viên </label>
                         <div class="select-outline position-relative w-100">
@@ -39,17 +39,17 @@
                             @Html.ValidationMessageFor(model => model.MaNhanVien, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <br />
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tổng tiền</label>
                         @Html.EditorFor(model => model.TongTien, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.TongTien, "", new { @class = "text-danger" })
                     </div>
-
+                    <br />
                     <div class="md-form md-outline mt-0">
                         <label for="form15">Ngày khởi tạo</label>
                         @Html.EditorFor(model => model.NgayKhoiTao, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.NgayKhoiTao, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NgayKhoiTao, "", new { @class = "datepicker" })
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
@@ -62,6 +62,5 @@
     </div>
 
 }
-
 
 

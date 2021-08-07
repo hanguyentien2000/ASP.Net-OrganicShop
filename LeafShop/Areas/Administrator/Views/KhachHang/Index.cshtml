@@ -20,7 +20,11 @@
                 </div>
                 <div class="col-sm-6">
                     <div id="datatable_filter" class="dataTables_filter">
-                        Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
+                        @*Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>*@
+                        <p>
+                            <input type="submit" value="Tìm" />
+                            @Html.TextBox("SearchString")
+                        </p>
                     </div>
                 </div>
             </div>
