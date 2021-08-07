@@ -20,7 +20,14 @@
                 </div>
                 <div class="col-sm-6">
                     <div id="datatable_filter" class="dataTables_filter">
-                        Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
+                        @using (Html.BeginForm())
+                        {
+                            //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
+                            <p>
+                                <input type="submit" value="Tìm" />
+                                @Html.TextBox("SearchString")
+                            </p>
+                        }
                     </div>
                 </div>
             </div>
@@ -101,7 +108,7 @@
                         @Html.DisplayFor(modelItem => item.NgayCapNhat)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HinhMinhHoa)
+                        <img style="width:100px; height: 100px" src="@item.HinhMinhHoa" class="img-thumbnail" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.BinhLuan)

@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Thêm mới nhân viên</h2>
+<h2 style="font-size: 30px">Thêm mới nhân viên</h2>
 <hr />
 
 @using (Html.BeginForm("Create", "NhanVien", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -90,3 +90,9 @@
         image.src = URL.createObjectURL(event.target.files[0]);
     }
 </script>
+
+@*@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}*@

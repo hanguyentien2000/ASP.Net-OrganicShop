@@ -4,10 +4,10 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Thêm mới sản phẩm</h2>
+<h2 style="font-size: 30px">Thêm mới sản phẩm</h2>
 <hr />
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -88,9 +88,11 @@
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <label for="form15">Hình minh hoạ</label>
-                        @Html.EditorFor(model => model.HinhMinhHoa, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.HinhMinhHoa, "", new { @class = "text-danger" })
+                        <label for="form14">Hình minh hoạ</label>
+                        <br />
+                        <img id="output" class="img-rounded" alt="Ảnh" width="130" height="130" />
+
+                        <input type="file" id="uploadhinh" name="ImagesFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
@@ -107,4 +109,9 @@
             </div>
         </div>
     </div>
+}
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
 }

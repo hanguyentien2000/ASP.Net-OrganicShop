@@ -33,7 +33,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     .OrderBy(x => x.MaKhuVuc);
             if (!String.IsNullOrEmpty(SearchString))
             {
-                khuvucs = khuvucs.Where(p => p.MaKhuVuc.Contains(SearchString));
+                khuvucs = khuvucs.Where(p => p.TenKhuVuc.Contains(SearchString));
             }
             int pageSize = 5;
 

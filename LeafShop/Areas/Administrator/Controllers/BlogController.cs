@@ -33,7 +33,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     .OrderBy(x => x.MaBaiViet);
             if (!String.IsNullOrEmpty(SearchString))
             {
-                blogs = blogs.Where(p => p.MaBaiViet.Contains(SearchString));
+                blogs = blogs.Where(p => p.TieuDe.Contains(SearchString));
             }
             int pageSize = 5;
 

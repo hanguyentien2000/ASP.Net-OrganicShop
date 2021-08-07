@@ -33,7 +33,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     .OrderBy(student => student.MaDatHang);
             if (!String.IsNullOrEmpty(SearchString))
             {
-                datHangs = datHangs.Where(p => p.MaDatHang.Contains(SearchString));
+                datHangs = datHangs.Where(p => p.NhanVien.TenNhanVien.Contains(SearchString));
             }
             int pageSize = 5;
 

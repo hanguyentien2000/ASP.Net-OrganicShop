@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -74,21 +75,54 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/SanPham/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "MaSanPham,TenSanPham,MaDanhMuc,MaThuongHieu,MaKhuVuc,DonViTinh,SoLuong,SoLuongBan,DonGia,MoTa,NgayCapNhat,HinhMinhHoa,BinhLuan")] SanPham sanPham)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.SanPhams.Add(sanPham);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
+        //    ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
+        //    ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
+        //    return View(sanPham);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSanPham,TenSanPham,MaDanhMuc,MaThuongHieu,MaKhuVuc,DonViTinh,SoLuong,SoLuongBan,DonGia,MoTa,NgayCapNhat,HinhMinhHoa,BinhLuan")] SanPham sanPham)
+        public ActionResult Create(SanPham sp, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SanPhams.Add(sanPham);
+                db.SanPhams.Add(sp);
                 db.SaveChanges();
+                uploadhinh = Request.Files["ImagesFile"];
+                if (uploadhinh != null && uploadhinh.ContentLength > 0)
+                {
+                    string id = db.SanPhams.ToList().Last().MaSanPham.ToString();
+
+                    string _FileName = "";
+                    int index = uploadhinh.FileName.IndexOf('.');
+                    _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                    string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/SanPham/"), _FileName);
+                    uploadhinh.SaveAs(_path);
+
+                    SanPham item = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
+                    item.HinhMinhHoa = ("/Areas/UploadFile/SanPham/" + _FileName);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-
-            ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
-            ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
-            ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
-            return View(sanPham);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(sp);
+            }
+            
         }
 
         // GET: Administrator/SanPham/Edit/5
@@ -112,20 +146,50 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/SanPham/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "MaSanPham,TenSanPham,MaDanhMuc,MaThuongHieu,MaKhuVuc,DonViTinh,SoLuong,SoLuongBan,DonGia,MoTa,NgayCapNhat,HinhMinhHoa,BinhLuan")] SanPham sanPham)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(sanPham).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
+        //    ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
+        //    ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
+        //    return View(sanPham);
+        //}
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaSanPham,TenSanPham,MaDanhMuc,MaThuongHieu,MaKhuVuc,DonViTinh,SoLuong,SoLuongBan,DonGia,MoTa,NgayCapNhat,HinhMinhHoa,BinhLuan")] SanPham sanPham)
+        public ActionResult Edit(SanPham sp, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            SanPham sps = db.SanPhams.FirstOrDefault(x => x.MaSanPham == sp.MaSanPham);
+            sps.MoTa = sp.MoTa;
+            sps.NgayCapNhat = sp.NgayCapNhat;
+            sps.SoLuong = sp.SoLuong;
+            sps.SoLuongBan = sp.SoLuongBan;
+            sps.MaKhuVuc = sp.MaKhuVuc;
+            sps.MaDanhMuc = sp.MaDanhMuc;
+            sps.MaThuongHieu = sp.MaThuongHieu;
+            sps.DonViTinh = sp.DonViTinh;
+            sps.DonGia = sp.DonGia;
+            sps.BinhLuan = sp.BinhLuan;
+            sps.MoTa = sp.MoTa;
+            uploadhinh = Request.Files["ImagesFile"];
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                db.Entry(sanPham).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string id = sp.MaSanPham;
+                string _FileName = "";
+                int index = uploadhinh.FileName.IndexOf('.');
+                _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/SanPham"), _FileName);
+                uploadhinh.SaveAs(_path);
+                sps.HinhMinhHoa = ("/Areas/UploadFile/SanPham/" + _FileName);
             }
-            ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
-            ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
-            ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
-            return View(sanPham);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Administrator/SanPham/Delete/5
@@ -149,9 +213,18 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             SanPham sanPham = db.SanPhams.Find(id);
-            db.SanPhams.Remove(sanPham);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.SanPhams.Remove(sanPham);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này!";
+                return View("Delete", sanPham);
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

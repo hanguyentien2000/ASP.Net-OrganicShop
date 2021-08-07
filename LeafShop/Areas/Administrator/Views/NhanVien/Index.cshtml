@@ -23,12 +23,12 @@
                         @using (Html.BeginForm())
                         {
                             //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
-                        <p>
-                            <input type="submit" value="Tìm" />
-                            @Html.TextBox("SearchString")
-                        </p>
+                            <p>
+                                <input type="submit" value="Tìm" />
+                                @Html.TextBox("SearchString")
+                            </p>
                         }
-                        
+
                     </div>
                 </div>
             </div>
@@ -103,3 +103,8 @@
         </div>
     </div>
 </div>
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}
