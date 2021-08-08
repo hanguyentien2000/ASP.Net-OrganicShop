@@ -69,14 +69,29 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaKhuVuc,TenKhuVuc")] KhuVuc khuVuc)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.KhuVucs.Add(khuVuc);
-                db.SaveChanges();
+                KhuVuc existData = db.KhuVucs.FirstOrDefault(x => x.MaKhuVuc == khuVuc.MaKhuVuc);
+                if (existData != null)
+                {
+                    ViewBag.Error = "Mã khu vực đã tồn tại";
+                    return View(khuVuc);
+                }
+                else if (existData == null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.KhuVucs.Add(khuVuc);
+                        db.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index");
             }
-
-            return View(khuVuc);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!";
+                return View(khuVuc);
+            }
         }
 
         // GET: Administrator/KhuVuc/Edit/5

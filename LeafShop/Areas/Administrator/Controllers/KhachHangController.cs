@@ -69,14 +69,30 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,DienThoaiKhachHang,TenDangNhap,MatKhau,NgaySinh,GioiTinh,Email")] KhachHang khachHang)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.KhachHangs.Add(khachHang);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var existData = db.KhachHangs.Where(x => x.MaKhachHang == khachHang.MaKhachHang).FirstOrDefault();
+                if (existData != null)
+                {
+                    ViewBag.Error = "Khách hàng này đã tồn tại!";
+                    return View(khachHang);
+                }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.KhachHangs.Add(khachHang);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(khachHang);
             }
 
-            return View(khachHang);
         }
 
         // GET: Administrator/KhachHang/Edit/5
@@ -131,9 +147,18 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             KhachHang khachHang = db.KhachHangs.Find(id);
-            db.KhachHangs.Remove(khachHang);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.KhachHangs.Remove(khachHang);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không được xoá bản ghi này!" + ex.Message;
+                return View(khachHang);
+            }
+         
         }
 
         protected override void Dispose(bool disposing)

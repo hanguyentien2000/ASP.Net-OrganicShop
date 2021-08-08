@@ -2,12 +2,18 @@
 
 @{
     ViewBag.Title = "Edit";
+    var ImagePath = Model.Anh;
 }
-
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
 <h2 style="font-size: 30px">Cập nhật Blog</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -19,7 +25,7 @@
                     @Html.HiddenFor(model => model.MaBaiViet)
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <label for="form14">Mã nhân viên</label>
+                        <label for="form14">Tên nhân viên</label>
                         @Html.DropDownList("MaNhanVien", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.MaNhanVien, "", new { @class = "text-danger" })
                     </div>
@@ -32,9 +38,11 @@
 
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <label for="form15">Ảnh</label>
-                        @Html.EditorFor(model => model.Anh, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Anh, "", new { @class = "text-danger" })
+                        <label for="form14">Ảnh</label>
+                        <br />
+                        <img id="output" class="img-rounded" alt="Ảnh" width="200" height="200" src="@Url.Content(ImagePath)" />
+
+                        <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
                     </div>
 
                     <br />
@@ -61,3 +69,4 @@
         </div>
     </div>
 }
+

@@ -70,24 +70,41 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(NhanVien nv, HttpPostedFileBase uploadhinh)
         {
-            db.NhanViens.Add(nv);
-            db.SaveChanges();
-            uploadhinh = Request.Files["ImagesFile"];
-            if (uploadhinh != null && uploadhinh.ContentLength > 0)
+            try
             {
-                string id = db.NhanViens.ToList().Last().MaNhanVien.ToString();
+                NhanVien existData = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == nv.MaNhanVien);
+                if (existData != null)
+                {
+                    ViewBag.Error = "Đã tồn tại mã nhân viên này";
+                    return View(nv);
+                }
+                else
+                {
+                    db.NhanViens.Add(nv);
+                    db.SaveChanges();
+                    uploadhinh = Request.Files["ImagesFile"];
+                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
+                    {
+                        string id = db.NhanViens.ToList().Last().MaNhanVien.ToString();
 
-                string _FileName = "";
-                int index = uploadhinh.FileName.IndexOf('.');
-                _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/NhanVien/"), _FileName);
-                uploadhinh.SaveAs(_path);
+                        string _FileName = "";
+                        int index = uploadhinh.FileName.IndexOf('.');
+                        _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/NhanVien/"), _FileName);
+                        uploadhinh.SaveAs(_path);
 
-                NhanVien nguoi = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == id);
-                nguoi.Avatar = ("/Areas/UploadFile/NhanVien/" + _FileName);
-                db.SaveChanges();
+                        NhanVien nguoi = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == id);
+                        nguoi.Avatar = ("/Areas/UploadFile/NhanVien/" + _FileName);
+                        db.SaveChanges();
+                    }
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!";
+                return View(nv);
+            }
         }
 
         // GET: Administrator/NhanVien/Edit/5
@@ -154,9 +171,17 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             NhanVien nhanVien = db.NhanViens.Find(id);
-            db.NhanViens.Remove(nhanVien);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.NhanViens.Remove(nhanVien);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
+                return View(nhanVien);
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -71,16 +71,29 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao")] DatHang datHang)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.DatHangs.Add(datHang);
-                db.SaveChanges();
+
+                ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "TenKhachHang", datHang.MaKhachHang);
+                ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", datHang.MaNhanVien);
+
+                var existData = db.DatHangs.Where(x => x.MaDatHang == datHang.MaDatHang).FirstOrDefault();
+                if(existData != null)
+                {
+                    ViewBag.Error = "Mã đặt hàng này đã tồn tại";
+                }
+                if (ModelState.IsValid)
+                {
+                    db.DatHangs.Add(datHang);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "TenKhachHang", datHang.MaKhachHang);
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", datHang.MaNhanVien);
-            return View(datHang);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(datHang);
+            }
         }
 
         // GET: Administrator/DatHang/Edit/5
@@ -139,9 +152,17 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             DatHang datHang = db.DatHangs.Find(id);
-            db.DatHangs.Remove(datHang);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.DatHangs.Remove(datHang);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này" + " "+ ex.Message;
+                return View("Delete", datHang);
+            }
         }
 
         protected override void Dispose(bool disposing)

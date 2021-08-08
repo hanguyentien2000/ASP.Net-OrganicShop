@@ -35,6 +35,9 @@
                 <thead>
                     <tr>
                         <th>
+                            Mã bài viết
+                        </th>
+                        <th>
                             Tên nhân viên
                         </th>
                         <th>
@@ -56,12 +59,15 @@
                 {
                     <tbody>
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => item.MaBaiViet)</td>
                             <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
                             <td>@Html.DisplayFor(modelItem => item.TieuDe)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Anh)</td>
+                            <td>
+                                <img style="width:100px; height: 100px" src="@item.Anh" class="img-thumbnail" />
+                            </td>
                             <td>@Html.DisplayFor(modelItem => item.Tomtat)</td>
                             <td>@Html.DisplayFor(modelItem => item.Noidung)</td>
-                            
+
                             <td>
                                 @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaBaiViet }) |
                                 @Html.ActionLink("Chi tiết", "Details", new { id = item.MaBaiViet }) |

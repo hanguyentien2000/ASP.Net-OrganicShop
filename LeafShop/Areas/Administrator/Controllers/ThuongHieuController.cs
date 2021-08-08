@@ -69,14 +69,30 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaThuongHieu,TenThuongHieu,DiaChiThuongHieu,DienThoaiThuongHieu")] ThuongHieu thuongHieu)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.ThuongHieux.Add(thuongHieu);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ThuongHieu existData = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == thuongHieu.MaThuongHieu);
+                if (existData != null)
+                {
+                    ViewBag.Error = "Đã tồn tại mã thương hiệu này";
+                    return View(thuongHieu);
+                }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.ThuongHieux.Add(thuongHieu);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
             }
-
-            return View(thuongHieu);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(thuongHieu);
+            }
+            
         }
 
         // GET: Administrator/ThuongHieu/Edit/5

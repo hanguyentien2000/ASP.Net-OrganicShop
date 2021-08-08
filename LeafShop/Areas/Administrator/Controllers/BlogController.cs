@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -68,17 +69,43 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaBaiViet,MaNhanVien,TieuDe,Anh,Tomtat,Noidung")] Blog blog)
+        public ActionResult Create(Blog blog, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Blogs.Add(blog);
-                db.SaveChanges();
+                ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
+                Blog existData = db.Blogs.FirstOrDefault(x => x.MaBaiViet == blog.MaBaiViet);
+                if (existData != null)
+                {
+                    ViewBag.Error = "Mã bài viết này đã tồn tại!";
+                    return View(blog);
+                }
+                else if (existData == null)
+                {
+                    db.Blogs.Add(blog);
+                    db.SaveChanges();
+                    uploadhinh = Request.Files["ImageFile"];
+                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
+                    {
+                        string id = db.Blogs.ToList().Last().MaBaiViet.ToString();
+                        string _FileName = "";
+                        int index = uploadhinh.FileName.IndexOf('.');
+                        _FileName = "blog" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/Blog/"), _FileName);
+                        uploadhinh.SaveAs(_path);
+
+                        Blog blog1 = db.Blogs.FirstOrDefault(x => x.MaBaiViet == id);
+                        blog1.Anh = ("/Areas/UploadFile/Blog/" + _FileName);
+                        db.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index");
             }
-
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
-            return View(blog);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(blog);
+            }
         }
 
         // GET: Administrator/Blog/Edit/5
@@ -102,16 +129,27 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaBaiViet,MaNhanVien,TieuDe,Anh,Tomtat,Noidung")] Blog blog)
+        public ActionResult Edit(Blog blog, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            Blog bls = db.Blogs.FirstOrDefault(x => x.MaBaiViet == blog.MaBaiViet);
+            bls.MaNhanVien = blog.MaNhanVien;
+            bls.Noidung = blog.Noidung;
+            bls.TieuDe = blog.TieuDe;
+            bls.Tomtat = blog.Tomtat;
+  
+            uploadhinh = Request.Files["ImagesFile"];
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                db.Entry(blog).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string id = blog.MaBaiViet;
+                string _FileName = "";
+                int index = uploadhinh.FileName.IndexOf('.');
+                _FileName = "blog" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/Blog"), _FileName);
+                uploadhinh.SaveAs(_path);
+                bls.Anh = ("/Areas/UploadFile/Blog/" + _FileName);
             }
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
-            return View(blog);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Administrator/Blog/Delete/5

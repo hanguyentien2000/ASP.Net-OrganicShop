@@ -69,14 +69,30 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaDanhMuc,TenDanhMuc,ParentId")] DanhMuc danhMuc)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.DanhMucs.Add(danhMuc);
-                db.SaveChanges();
+                DanhMuc existData = db.DanhMucs.FirstOrDefault(x => x.MaDanhMuc == danhMuc.MaDanhMuc);
+                if (existData != null)
+                {
+                    ViewBag.Error = "Mã danh mục đã tồn tại";
+                    return View(danhMuc);
+                }
+                else if (existData == null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.DanhMucs.Add(danhMuc);
+                        db.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index");
             }
-
-            return View(danhMuc);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!";
+                return View(danhMuc);
+            }
+            
         }
 
         // GET: Administrator/DanhMuc/Edit/5

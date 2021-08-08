@@ -24,8 +24,7 @@
         [DisplayName("Tiêu đề")]
         public string TieuDe { get; set; }
 
-        [Required(ErrorMessage = "Bắt buộc phải có ảnh!")]
-        [StringLength(500)]
+        [StringLength(1000)]
         [DisplayName("Ảnh")]
         public string Anh { get; set; }
 

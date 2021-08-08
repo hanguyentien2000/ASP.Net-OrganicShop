@@ -98,22 +98,34 @@ namespace LeafShop.Areas.Administrator.Controllers
         {
             try
             {
-                db.SanPhams.Add(sp);
-                db.SaveChanges();
-                uploadhinh = Request.Files["ImagesFile"];
-                if (uploadhinh != null && uploadhinh.ContentLength > 0)
+                ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
+                ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc");
+                ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
+                var existData = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
+                if(existData != null)
                 {
-                    string id = db.SanPhams.ToList().Last().MaSanPham.ToString();
-
-                    string _FileName = "";
-                    int index = uploadhinh.FileName.IndexOf('.');
-                    _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                    string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/SanPham/"), _FileName);
-                    uploadhinh.SaveAs(_path);
-
-                    SanPham item = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
-                    item.HinhMinhHoa = ("/Areas/UploadFile/SanPham/" + _FileName);
+                    ViewBag.Error = "Mã sản phẩm này đã tồn tại";
+                    return View(sp);
+                }
+                else if(existData == null)
+                {
+                    db.SanPhams.Add(sp);
                     db.SaveChanges();
+                    uploadhinh = Request.Files["ImageFile"];
+                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
+                    {
+                        string id = db.SanPhams.ToList().Last().MaSanPham.ToString();
+
+                        string _FileName = "";
+                        int index = uploadhinh.FileName.IndexOf('.');
+                        _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/SanPham/"), _FileName);
+                        uploadhinh.SaveAs(_path);
+
+                        SanPham item = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
+                        item.HinhMinhHoa = ("/Areas/UploadFile/SanPham/" + _FileName);
+                        db.SaveChanges();
+                    }
                 }
                 return RedirectToAction("Index");
             }
@@ -177,7 +189,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             sps.DonGia = sp.DonGia;
             sps.BinhLuan = sp.BinhLuan;
             sps.MoTa = sp.MoTa;
-            uploadhinh = Request.Files["ImagesFile"];
+            uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
                 string id = sp.MaSanPham;
@@ -221,7 +233,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Không xoá được bản ghi này!";
+                ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
                 return View("Delete", sanPham);
             }
            

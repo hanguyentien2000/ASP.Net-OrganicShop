@@ -4805,7 +4805,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Data\" />
-    <Folder Include="Areas\UploadFile\KhachHang\" />
+    <Folder Include="Areas\UploadFile\Blog\" />
     <Folder Include="Areas\UploadFile\NhanVien\" />
     <Folder Include="Areas\UploadFile\SanPham\" />
     <Folder Include="Models\" />

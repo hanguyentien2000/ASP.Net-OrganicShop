@@ -35,13 +35,16 @@
                 <thead>
                     <tr>
                         <th>
+                            Mã thương hiệu
+                        </th>
+                        <th>
                             Tên thương hiệu
                         </th>
                         <th>
-                            Địa chỉ 
+                            Địa chỉ
                         </th>
                         <th>
-                            Điện thoại 
+                            Điện thoại
                         </th>
                         <th>Thao tác</th>
                     </tr>
@@ -50,6 +53,7 @@
                 {
                     <tbody>
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => item.MaThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.TenThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DiaChiThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DienThoaiThuongHieu)</td>

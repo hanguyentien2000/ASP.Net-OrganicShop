@@ -77,15 +77,32 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "USERNAME,PASSWORD,Quantri,MaNhanVien")] Taikhoan taikhoan)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Taikhoans.Add(taikhoan);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", taikhoan.MaNhanVien);
+                Taikhoan existData = db.Taikhoans.FirstOrDefault(x => x.MaNhanVien == taikhoan.MaNhanVien);
 
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", taikhoan.MaNhanVien);
-            return View(taikhoan);
+                if (existData != null)
+                {
+                    ViewBag.Error = "Nhân viên này đã có tài khoản";
+                    return View(taikhoan);
+                }
+                else if (existData == null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Taikhoans.Add(taikhoan);
+                        db.SaveChanges();
+                    }
+                }
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(taikhoan);
+            }
         }
 
         // GET: Administrator/Taikhoan/Edit/5
