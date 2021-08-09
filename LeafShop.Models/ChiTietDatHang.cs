@@ -32,11 +32,17 @@
         public int? ThanhTien { get; set; }
 
         [DisplayName("Ngày đặt hàng")]
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         public DateTime? NgayDatHang { get; set; }
 
         [DisplayName("Ngày giao hàng")]
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         public DateTime? NgayGiaoHang { get; set; }
 
         public virtual DatHang DatHang { get; set; }

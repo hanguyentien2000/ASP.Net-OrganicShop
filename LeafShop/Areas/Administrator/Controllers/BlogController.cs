@@ -137,7 +137,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             bls.TieuDe = blog.TieuDe;
             bls.Tomtat = blog.Tomtat;
   
-            uploadhinh = Request.Files["ImagesFile"];
+            uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
                 string id = blog.MaBaiViet;

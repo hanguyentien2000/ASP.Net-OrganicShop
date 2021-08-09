@@ -44,7 +44,10 @@ namespace LeafShop.Models
         [Column(TypeName = "ntext")]
         public string MoTa { get; set; }
 
-        [Column(TypeName = "smalldatetime")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         public DateTime? NgayCapNhat { get; set; }
 
         [StringLength(1000)]

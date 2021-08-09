@@ -32,7 +32,10 @@
         [DisplayName("Tổng tiền")]
         public int? TongTien { get; set; }
 
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         [DisplayName("Ngày khởi tạo")]
         public DateTime? NgayKhoiTao { get; set; }
 

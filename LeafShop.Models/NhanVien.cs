@@ -38,7 +38,10 @@
         [DisplayName("Email")]
         public string Email { get; set; }
 
-        [Column(TypeName = "smalldatetime")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         [DisplayName("Ngày sinh")]
         public DateTime? NgaySinh { get; set; }
 
