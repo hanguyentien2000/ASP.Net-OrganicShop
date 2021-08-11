@@ -18,7 +18,6 @@ namespace LeafShop.Models
         [Key]
         public int MaSanPham { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string TenSanPham { get; set; }
 
@@ -54,6 +53,7 @@ namespace LeafShop.Models
 
         [StringLength(1000)]
         public string HinhMinhHoa { get; set; }
+        public bool TrangThai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDatHang> ChiTietDatHangs { get; set; }

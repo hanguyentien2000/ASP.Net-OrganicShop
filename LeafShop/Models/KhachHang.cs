@@ -44,7 +44,6 @@ namespace LeafShop.Models
 
         public bool GioiTinh { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string Email { get; set; }
 
