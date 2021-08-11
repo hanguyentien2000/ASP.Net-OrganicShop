@@ -1,8 +1,7 @@
-﻿namespace LeafShop.Models
+namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -17,31 +16,24 @@
         }
 
         [Key]
-        [StringLength(10)]
-        [DisplayName("Mã khách hàng")]
         public int MaKhachHang { get; set; }
 
-        [Required(ErrorMessage = "Tên khách hàng không được để trống!")]
+        [Required]
         [StringLength(50)]
-        [DisplayName("Tên khách hàng")]
         public string TenKhachHang { get; set; }
 
         [StringLength(100)]
-        [DisplayName("Địa chỉ khách hàng")]
         public string DiaChiKhachHang { get; set; }
 
         [StringLength(20)]
-        [DisplayName("Điện thoại khách hàng")]
         public string DienThoaiKhachHang { get; set; }
 
-        [Required(ErrorMessage = "Tên đăng nhập không được để trống!")]
+        [Required]
         [StringLength(50)]
-        [DisplayName("Tên đăng nhập")]
         public string TenDangNhap { get; set; }
 
-        [Required(ErrorMessage = "Mật khẩu không được để trống!")]
+        [Required]
         [StringLength(50)]
-        [DisplayName("Mật khẩu")]
         public string MatKhau { get; set; }
 
         [DataType(DataType.Date)]
@@ -50,16 +42,12 @@
         ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
-        [DisplayName("Giới tính")]
         public bool GioiTinh { get; set; }
 
-        [Required(ErrorMessage = "Email không được để trống!")]
+        [Required]
         [StringLength(50)]
-        [DisplayName("Email")]
         public string Email { get; set; }
 
-
-        [DisplayName("Trạng thái")]
         public bool TrangThai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

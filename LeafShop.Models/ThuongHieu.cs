@@ -19,7 +19,7 @@
         [Key]
         [StringLength(10)]
         [DisplayName("Mã thương hiệu")]
-        public string MaThuongHieu { get; set; }
+        public int MaThuongHieu { get; set; }
 
         [Required(ErrorMessage ="Tên thương hiệu không được để trống!")]
         [StringLength(100)]

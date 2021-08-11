@@ -1,30 +1,32 @@
-﻿namespace LeafShop.Models
+namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("KhuVuc")]
-    public partial class KhuVuc
+    [Table("ThuongHieu")]
+    public partial class ThuongHieu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KhuVuc()
+        public ThuongHieu()
         {
             SanPhams = new HashSet<SanPham>();
         }
 
         [Key]
-        [StringLength(10)]
-        [DisplayName("Mã khu vực")]
-        public int MaKhuVuc { get; set; }
+        public int MaThuongHieu { get; set; }
 
-        [Required(ErrorMessage = "Tên khu vực không được để trống!")]
+        [Required]
         [StringLength(100)]
-        [DisplayName("Tên khu vực")]
-        public string TenKhuVuc { get; set; }
+        public string TenThuongHieu { get; set; }
+
+        [StringLength(100)]
+        public string DiaChiThuongHieu { get; set; }
+
+        [StringLength(20)]
+        public string DienThoaiThuongHieu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPhams { get; set; }

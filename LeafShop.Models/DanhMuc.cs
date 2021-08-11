@@ -19,7 +19,7 @@
         [Key]
         [StringLength(10)]
         [DisplayName("Mã danh mục")]
-        public string MaDanhMuc { get; set; }
+        public int MaDanhMuc { get; set; }
 
         [Required]
         [StringLength(100)]

@@ -14,15 +14,7 @@
         <div class="pt-4 pb-3">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h5 class="mb-4 pb-1">Mã sản phẩm</h5>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="md-form md-outline mt-0">
-                                @Html.EditorFor(model => model.MaSanPham, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MaSanPham, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
+                    
                     <br />
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tên sản phẩm</label>
@@ -79,6 +71,12 @@
                         <label for="form15">Mô tả</label>
                         @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <div class="md-form md-outline mt-0">
+                        <label for="form15">Ngày khởi tạo</label>
+                        @Html.EditorFor(model => model.NgayKhoiTao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NgayCapNhat, "", new { @class = "text-danger" })
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">

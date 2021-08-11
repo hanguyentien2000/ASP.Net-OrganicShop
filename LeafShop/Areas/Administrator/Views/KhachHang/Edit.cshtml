@@ -1,5 +1,4 @@
 ﻿@model LeafShop.Models.KhachHang
-
 @{
     ViewBag.Title = "Edit";
 }
@@ -74,6 +73,18 @@
                         <label for="form15">Email</label>
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <div class="md-form md-outline mt-0">
+                        <br />
+                        <label for="form15">Trạng thái</label>
+                        <div class="form-group row">
+                            @Html.RadioButtonFor(model => model.TrangThai, true)
+                            <span>Đang hoạt động</span>
+
+                            @Html.RadioButtonFor(model => model.TrangThai, false)
+                            <span>Không hoạt động</span>
+                        </div>
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">

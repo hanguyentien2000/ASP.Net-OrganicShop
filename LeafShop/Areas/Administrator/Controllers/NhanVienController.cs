@@ -43,7 +43,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/NhanVien/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     uploadhinh = Request.Files["ImagesFile"];
                     if (uploadhinh != null && uploadhinh.ContentLength > 0)
                     {
-                        string id = db.NhanViens.ToList().Last().MaNhanVien.ToString();
+                        int id = int.Parse(db.NhanViens.ToList().Last().MaNhanVien.ToString());
 
                         string _FileName = "";
                         int index = uploadhinh.FileName.IndexOf('.');
@@ -108,7 +108,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/NhanVien/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -138,7 +138,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             uploadhinh = Request.Files["ImagesFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                string id = nv.MaNhanVien;
+                int id = nv.MaNhanVien;
                 string _FileName = "";
                 int index = uploadhinh.FileName.IndexOf('.');
                 _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
@@ -151,7 +151,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/NhanVien/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -168,7 +168,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/NhanVien/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             NhanVien nhanVien = db.NhanViens.Find(id);
             try

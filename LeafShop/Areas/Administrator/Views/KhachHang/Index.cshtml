@@ -58,6 +58,9 @@
                         <th>
                             Email
                         </th>
+                        <th>
+                            Trạng thái
+                        </th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -73,6 +76,7 @@
                             <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
                             <td>@(item.GioiTinh?"Nam":"Nữ")</td>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>@(item.TrangThai?"Đang hoạt động":"Không hoạt động")</td>
                             <td>
                                 @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaKhachHang }) |
                                 @Html.ActionLink("Chi tiết", "Details", new { id = item.MaKhachHang }) |

@@ -42,7 +42,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/KhachHang/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -96,7 +96,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/KhachHang/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -115,19 +115,27 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,DienThoaiKhachHang,TenDangNhap,MatKhau,NgaySinh,GioiTinh,Email")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,DienThoaiKhachHang,TenDangNhap,MatKhau,NgaySinh,GioiTinh,Email,TrangThai")] KhachHang khachHang)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(khachHang).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(khachHang).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-            return View(khachHang);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
+                return View(khachHang);
+            }
+            
         }
 
         // GET: Administrator/KhachHang/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -144,7 +152,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/KhachHang/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             KhachHang khachHang = db.KhachHangs.Find(id);
             try

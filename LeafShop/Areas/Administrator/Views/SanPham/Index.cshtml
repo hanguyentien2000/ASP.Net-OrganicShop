@@ -62,14 +62,15 @@
                             Mô tả
                         </th>
                         <th>
+                            Ngày khởi tạo
+                        </th>
+                        <th>
                             Ngày cập nhật
                         </th>
                         <th>
                             Hình minh hoạ
                         </th>
-                        <th>
-                            Bình luận
-                        </th>
+                      
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -105,14 +106,15 @@
                         @Html.DisplayFor(modelItem => item.MoTa)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.NgayKhoiTao)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.NgayCapNhat)
                     </td>
                     <td>
                         <img style="width:100px; height: 100px" src="@item.HinhMinhHoa" class="img-thumbnail" />
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BinhLuan)
-                    </td>
+                
                     <td>
                         @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaSanPham }) |
                         @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSanPham }) |

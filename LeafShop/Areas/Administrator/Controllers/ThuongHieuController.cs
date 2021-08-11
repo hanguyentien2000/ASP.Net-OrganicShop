@@ -96,7 +96,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/ThuongHieu/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -127,7 +127,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/ThuongHieu/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -144,7 +144,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/ThuongHieu/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
             db.ThuongHieux.Remove(thuongHieu);

@@ -71,7 +71,13 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </dt>
 
+        <dd>
+            @(Model.GioiTinh?"Đang hoạt động":"Không hoạt động")
+        </dd>
     </dl>
 
     @using (Html.BeginForm())

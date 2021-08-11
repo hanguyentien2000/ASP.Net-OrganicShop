@@ -49,7 +49,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/SanPham/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -114,7 +114,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     uploadhinh = Request.Files["ImageFile"];
                     if (uploadhinh != null && uploadhinh.ContentLength > 0)
                     {
-                        string id = db.SanPhams.ToList().Last().MaSanPham.ToString();
+                        int id = int.Parse(db.SanPhams.ToList().Last().MaSanPham.ToString());
 
                         string _FileName = "";
                         int index = uploadhinh.FileName.IndexOf('.');
@@ -138,7 +138,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/SanPham/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -187,12 +187,12 @@ namespace LeafShop.Areas.Administrator.Controllers
             sps.MaThuongHieu = sp.MaThuongHieu;
             sps.DonViTinh = sp.DonViTinh;
             sps.DonGia = sp.DonGia;
-            sps.BinhLuan = sp.BinhLuan;
+     
             sps.MoTa = sp.MoTa;
             uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                string id = sp.MaSanPham;
+                int id = sp.MaSanPham;
                 string _FileName = "";
                 int index = uploadhinh.FileName.IndexOf('.');
                 _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
@@ -205,7 +205,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/SanPham/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -222,7 +222,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/SanPham/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             SanPham sanPham = db.SanPhams.Find(id);
             try

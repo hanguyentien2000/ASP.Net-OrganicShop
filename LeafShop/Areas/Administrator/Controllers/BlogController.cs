@@ -43,7 +43,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/Blog/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -87,7 +87,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     uploadhinh = Request.Files["ImageFile"];
                     if (uploadhinh != null && uploadhinh.ContentLength > 0)
                     {
-                        string id = db.Blogs.ToList().Last().MaBaiViet.ToString();
+                        int id = int.Parse(db.Blogs.ToList().Last().MaBaiViet.ToString());
                         string _FileName = "";
                         int index = uploadhinh.FileName.IndexOf('.');
                         _FileName = "blog" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
@@ -109,7 +109,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/Blog/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -140,7 +140,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                string id = blog.MaBaiViet;
+                int id = blog.MaBaiViet;
                 string _FileName = "";
                 int index = uploadhinh.FileName.IndexOf('.');
                 _FileName = "blog" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
@@ -153,7 +153,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/Blog/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -170,7 +170,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/Blog/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Blog blog = db.Blogs.Find(id);
             db.Blogs.Remove(blog);

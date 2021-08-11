@@ -35,13 +35,13 @@ namespace LeafShop.Areas.Administrator.Controllers
                 SearchString = currentFilter;
             }
             ViewBag.CurrentFilter = SearchString;
-            //var thuonghieus = db.ThuongHieux.Select(d => d);
+            //var ctdh = db.ChiTietDatHangs.Select(d => d);
             IQueryable<ChiTietDatHang> ctdh = (from ct in db.ChiTietDatHangs
-                                                  select ct)
+                                               select ct)
                     .OrderBy(x => x.MaDatHang);
             if (!String.IsNullOrEmpty(SearchString))
             {
-                ctdh = ctdh.Where(p => p.MaDatHang.Contains(SearchString));
+                ctdh = ctdh.Where(p => p.SanPham.TenSanPham.Contains(SearchString));
             }
             int pageSize = 5;
 
@@ -50,12 +50,9 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/ChiTietDatHang/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+           
             ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Find(id);
             if (chiTietDatHang == null)
             {
@@ -92,7 +89,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/ChiTietDatHang/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -127,7 +124,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/ChiTietDatHang/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -144,7 +141,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // POST: Administrator/ChiTietDatHang/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Find(id);
             db.ChiTietDatHangs.Remove(chiTietDatHang);

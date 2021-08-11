@@ -14,16 +14,7 @@
             <div class="row">
 
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h5 class="mb-4 pb-1">Mã khách hàng</h5>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="md-form md-outline mt-0">
-                                @Html.EditorFor(model => model.MaKhachHang, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MaKhachHang, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <br />
+                    
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tên khách hàng</label>
                         @Html.EditorFor(model => model.TenKhachHang, new { htmlAttributes = new { @class = "form-control" } })
@@ -77,6 +68,18 @@
                         <label for="form15">Email</label>
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <div class="md-form md-outline mt-0">
+                        <br />
+                        <label for="form15">Trạng thái</label>
+                        <div class="form-group row">
+                            @Html.RadioButtonFor(model => model.TrangThai, true)
+                            <span>Đang hoạt động</span>
+
+                            @Html.RadioButtonFor(model => model.TrangThai, false)
+                            <span>Không hoạt động</span>
+                        </div>
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">

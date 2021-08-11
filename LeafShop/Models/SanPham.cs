@@ -16,21 +16,17 @@ namespace LeafShop.Models
         }
 
         [Key]
-        [StringLength(10)]
         public int MaSanPham { get; set; }
 
         [Required]
         [StringLength(500)]
         public string TenSanPham { get; set; }
 
-        [StringLength(10)]
-        public int MaDanhMuc { get; set; }
+        public int? MaDanhMuc { get; set; }
 
-        [StringLength(10)]
-        public int MaThuongHieu { get; set; }
+        public int? MaThuongHieu { get; set; }
 
-        [StringLength(10)]
-        public int MaKhuVuc { get; set; }
+        public int? MaKhuVuc { get; set; }
 
         [StringLength(50)]
         public string DonViTinh { get; set; }
@@ -41,15 +37,14 @@ namespace LeafShop.Models
 
         public int? DonGia { get; set; }
 
-        [Column(TypeName = "ntext")]
+        [StringLength(2000)]
         public string MoTa { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString =
         "{0:yyyy-MM-dd}",
         ApplyFormatInEditMode = true)]
-        public DateTime? NgayKhoiTao{ get; set; }
-
+        public DateTime? NgayKhoiTao { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString =
@@ -59,9 +54,6 @@ namespace LeafShop.Models
 
         [StringLength(1000)]
         public string HinhMinhHoa { get; set; }
-
-        [Column(TypeName = "text")]
-        public string BinhLuan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDatHang> ChiTietDatHangs { get; set; }

@@ -14,16 +14,7 @@
         <div class="pt-4 pb-3">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h5 class="mb-4 pb-1">Mã bài viết</h5>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="md-form md-outline mt-0">
-                                @Html.EditorFor(model => model.MaBaiViet, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MaBaiViet, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <br />
+                    
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tên nhân viên</label>
                         @Html.DropDownList("MaNhanVien", null, htmlAttributes: new { @class = "form-control" })
