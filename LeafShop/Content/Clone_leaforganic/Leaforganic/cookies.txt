@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+leaforganic.vn	TRUE	/	FALSE	1999999999	_landing_page	%252Frobots.txt
+.google.com	TRUE	/	FALSE	1999999999	NID	220=FcYTj9uG6blCixxQGt8aBP0D4kxQ117vJNPY-j5IuzXLygvCmZZB6ex-0DuY8soVQdxQaKOs7RHYN6igDRptaVwVvmKAfrpcEh8J4WM2BFTI9mUddHi2T_M-kc3Sx0dPKqbulvEbTNWeyUNzHGUxU2EoAn1oBESwWX5YBjA8Qy0
+.hoasuafoods.com	TRUE	/	FALSE	1999999999	sid	e12e230c-f5d3-11eb-9c2e-b8bb56be0c49
+
