@@ -60,7 +60,7 @@ namespace LeafShop.Controllers
             (a => a.TenDangNhap.Equals(user.TenDangNhap) && a.MatKhau.Equals(user.MatKhau)).FirstOrDefault();
             if (kh != null)
             {
-                if (kh.TrangThai == true)
+                if (kh.TrangThai == false)
                 {
                     ModelState.AddModelError("ErrorLogin", "Tài khoản của bạn đã bị vô hiệu hóa !");
                 }
@@ -102,7 +102,7 @@ namespace LeafShop.Controllers
             {
                 try
                 {
-                    kh.TrangThai = false;
+                    kh.TrangThai = true;
                     db.KhachHangs.Add(kh);
                     db.SaveChanges();
                     KhachHang session = db.KhachHangs.Where(a => a.TenDangNhap.Equals(kh.TenDangNhap)).FirstOrDefault();
