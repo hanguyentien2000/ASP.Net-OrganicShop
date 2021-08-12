@@ -21,10 +21,11 @@ namespace LeafShop.Areas.Administrator.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
-            Taikhoan user = db.Taikhoans.SingleOrDefault(x => x.USERNAME == username && x.PASSWORD == password && x.Quantri == true);
+            Taikhoan user = db.Taikhoans.SingleOrDefault(x => x.USERNAME == username && x.PASSWORD == password);
             if(user != null)
             {
                 Session["username"] = user.USERNAME;
+                Session["quantri"] = user.Quantri;
                 return RedirectToAction("Index");
             }
             ViewBag.Error = "Sai tên đăng nhập hoặc mật khẩu!";

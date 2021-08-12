@@ -57,10 +57,11 @@
                             <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
                             <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
                             <td>@Html.DisplayFor(modelItem => item.NgayKhoiTao)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
                             <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDatHang }) |
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDatHang }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaDatHang })
+                                @*@Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDatHang }) |*@
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDatHang }) 
+                                @*@Html.ActionLink("Xoá", "Delete", new { id = item.MaDatHang })*@
                             </td>
                         </tr>
                     </tbody>

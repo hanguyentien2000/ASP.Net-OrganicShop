@@ -33,13 +33,6 @@ namespace LeafShop.Controllers
             return View();
         }
 
-        public ActionResult TrangChu()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         public ActionResult DangNhap_DangKy()
         {
             ViewBag.Message = "Your contact page.";

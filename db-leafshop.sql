@@ -62,7 +62,6 @@ CREATE TABLE SanPham
 	NgayKhoiTao Date NULL,
 	NgayCapNhat Date NULL,
 	HinhMinhHoa VARCHAR(1000) NULL,
-	TrangThai BIT NULL,
 	constraint PK_sanpham primary key (MaSanPham),
 	constraint PK_sanpham1 foreign key (MaDanhMuc) REFERENCES DanhMuc(MaDanhMuc),
 	constraint PK_sanpham2 foreign key (MaKhuVuc) REFERENCES KhuVuc(MaKhuVuc),
@@ -115,6 +114,7 @@ CREATE TABLE DatHang(
 	MaNhanVien INT,
 	TongTien Int,
 	NgayKhoiTao Date,
+	GhiChu nvarchar(1000) null,
 	constraint PK_DH primary key (MaDatHang),
 	constraint PK_DH1 FOREIGN KEY (MaKhachHang)  REFERENCES KhachHang(MaKhachHang),
 	constraint PK_DH2 FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien)
