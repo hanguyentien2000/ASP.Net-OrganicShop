@@ -228,6 +228,8 @@
     <Compile Include="Areas\Administrator\Controllers\TaikhoanController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ThuongHieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserDetailtsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -5229,6 +5231,8 @@
     <Folder Include="Content\Clone_leaforganic\Leaforganic\file.hstatic.net\1000104489\article\" />
     <Folder Include="Content\Clone_leaforganic\Leaforganic\file.hstatic.net\1000104489\file\" />
     <Folder Include="Content\Clone_leaforganic\Leaforganic\product.hstatic.net\1000104489\product\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Views\UserDetailts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
