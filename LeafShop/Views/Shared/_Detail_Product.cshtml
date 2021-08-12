@@ -1,5 +1,5 @@
 ﻿@{
-    
+
     LeafShop.Models.KhachHang db = (LeafShop.Models.KhachHang)HttpContext.Current.Session[LeafShop.Session.ConstaintUser.USER_SESSION];
 
 }
@@ -486,7 +486,7 @@
     </div>
 
 
-
+    
 
 
 
@@ -2403,957 +2403,238 @@
     ============================================= -->
 
                             <div class="col-xs-12">
+
+
                             </div>
-                            @RenderBody()
+                            
                             <!-- .postcontent end -->
                             <!-- Sidebar
     ============================================= -->
-                            <div class="sidebar nobottommargin  left-sidebar col-sm-12 col-xs-12 col-md-3">
-                                <div class="sidebar-widgets-wrap">
-                                    <!-- begin: filters -->
+                        <div class="sidebar nobottommargin left-sidebar col-sm-3 hidden-xs hidden-sm">
+                            <div class="sidebar-widgets-wrap">
+                                <!-- categories -->
 
-                                    <div class="left-sidebar">
-                                        <div class="panel-heading">
-                                            <a data-toggle="collapse" href="#filter_group">
-                                                <h4 class="panel-title">
-                                                    Danh mục sản phẩm
-                                                </h4>
-                                            </a>
-                                        </div>
+                                <div class="widget widget_links clearfix hidden">
+                                    <h4>Danh mục</h4>
+                                    <ul class='sidebar_menu'>
 
-                                        <ul class="lv1">
 
+                                        <li><a href="../index.html">Trang chủ</a></li>
 
-                                            <li>
-                                                <a class="one1" data-href="/collections/thuc-pham-tuoi-song-che-bien" href="javacript:0">Thực phẩm tươi sống <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
 
 
+                                        <li><a href="../collections/all.html">Sản phẩm</a></li>
 
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thịt & thủy hải sản <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
 
-                                                            <li><a href="thit-xuong-noi-tang-san-pham-tu-lon.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thịt, xương, nội tạng & sản phẩm từ lợn</a></li>
 
-                                                            <li><a href="gia-cam-trung.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Gia cầm & trứng</a></li>
+                                        <li><a href="../pages/gioi-thieu-ve-leaf-shop.html">Giới thiệu</a></li>
 
-                                                            <li><a href="thuy-hai-san.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thủy hải sản</a></li>
 
-                                                        </ul>
+                                    </ul>
+                                </div>
 
-                                                    </li>
+                                <!-- end categories -->
+                                <!-- recent product -->
 
+                                <div class="widget clearfix">
 
+                                    <h4><a href='../collections/sale.html'>Sản phẩm khuyến mãi</a></h4>
+                                    <div id="post-list-footer" class='sidebar_menu'>
 
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Rau, củ quả tươi <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="rau-an-la-than.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Rau ăn lá, thân</a></li>
-
-                                                            <li><a href="rau-an-cu-qua.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Rau ăn củ, quả</a></li>
-
-                                                            <li><a href="nam-tuoi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nấm tươi</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Trái cây tươi <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="trai-cay-trong-nuoc.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Trái cây trong nước</a></li>
-
-                                                            <li><a href="trai-cay-nhap-khau.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Trái cây nhập khẩu</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thực phẩm chế biến sẵn <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="cac-loai-banh.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Các loại bánh</a></li>
-
-                                                            <li><a href="bun-pho-banh-trang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Bún, phở, bánh tráng</a></li>
-
-                                                            <li><a href="dau-phu-thach-tuoi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đậu phụ, thạch tươi</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/thuc-pham" href="javacript:0">Thực phẩm khô <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đồ uống <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="sua-thuc-vat.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa thực vật</a></li>
-
-                                                            <li><a href="sua-tuoi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa tươi</a></li>
-
-                                                            <li><a href="cafe-cacao.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Cafe & cacao</a></li>
-
-                                                            <li><a href="tra.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Trà</a></li>
-
-                                                            <li><a href="nuoc-trai-cay.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nước trái cây</a></li>
-
-                                                            <li><a href="ruou.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Rượu</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-                                                    <li><a href="gao.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Gạo hữu cơ</a></li>
-
-
-
-
-                                                    <li><a href="pho-bun-mien-banh-trang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Phở, bún, miến, bánh tráng</a></li>
-
-
-
-
-                                                    <li><a href="mi-nui-spaghetti.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Mì, Nui, Spaghetti</a></li>
-
-
-
-
-                                                    <li><a href="dau-hat.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đậu, Đỗ, Hạt</a></li>
-
-
-
-
-                                                    <li><a href="trai-cay-kho.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Trái cây khô</a></li>
-
-
-
-
-                                                    <li><a href="banh-keo-snack.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Bánh kẹo, snack</a></li>
-
-
-
-
-                                                    <li><a href="ngu-coc-an-sang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Ngũ cốc, Muesli</a></li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Gia vị & Nguyên liệu nấu ăn <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="dau-giam.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dầu & giấm</a></li>
-
-                                                            <li><a href="gia-vi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Muối, gia vị, hạt nêm</a></li>
-
-                                                            <li><a href="nuoc-sot-nuoc-cham.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nước chấm & nước sốt</a></li>
-
-                                                            <li><a href="duong-chat-tao-ngot.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đường, chất tạo ngọt</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-                                                    <li><a href="bot-banh-mi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nguyên liệu làm bánh, đồ tráng miệng</a></li>
-
-
-
-
-                                                    <li><a href="do-hop-do-lo.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Đồ hộp, đồ lọ</a></li>
-
-
-
-
-                                                    <li><a href="thuc-pham-che-bien-chay.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thực phẩm chế biến chay</a></li>
-
-
-
-
-                                                    <li><a href="superfoods.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Superfood/TPCN</a></li>
-
-
-
-
-                                                    <li><a href="thuc-pham-khac-1.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thực phẩm khác</a></li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/lam-dep" href="javacript:0">Làm đẹp <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Trang điểm <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="mat.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Mặt</a></li>
-
-                                                            <li><a href="mat-1.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Mắt</a></li>
-
-                                                            <li><a href="moi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Môi</a></li>
-
-                                                            <li><a href="mong.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Móng</a></li>
-
-                                                            <li><a href="phu-kien-trang-diem.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Phụ kiện trang điểm</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc da mặt <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="sua-rua-mat.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa rửa mặt</a></li>
-
-                                                            <li><a href="lotion-toner-xit-khoang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Lotion/Toner/Xịt khoáng</a></li>
-
-                                                            <li><a href="tay-trang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tẩy trang</a></li>
-
-                                                            <li><a href="duong-am-ngay-dem.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Kem/ Serum</a></li>
-
-                                                            <li><a href="dau-duong.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dầu dưỡng</a></li>
-
-                                                            <li><a href="mat-na.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Mặt nạ/ Tẩy da chết</a></li>
-
-                                                            <li><a href="duong-mat-moi.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dưỡng mắt & môi</a></li>
-
-                                                            <li><a href="kem-chong-nang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Kem chống nắng</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/cham-soc-co-the" href="javacript:0">Chăm sóc cơ thể <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-                                                    <li><a href="cham-soc-rang-mieng-1.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc răng miệng</a></li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Vệ sinh cơ thể <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="sua-tam.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa tắm</a></li>
-
-                                                            <li><a href="dau-goi-xa.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dầu gội, xả, dưỡng tóc</a></li>
-
-                                                            <li><a href="xa-phong.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Xà phòng</a></li>
-
-                                                            <li><a href="nuoc-rua-tay.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nước rửa tay</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dưỡng thể <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="duong-body.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dưỡng body</a></li>
-
-                                                            <li><a href="duong-tay.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dưỡng tay chân</a></li>
-
-                                                            <li><a href="tay-da-chet-toan-than.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tẩy da chết</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-                                                    <li><a href="khu-mui-co-the.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Khử mùi cơ thể</a></li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc vùng kín <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="bang-ve-sinh.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Băng vệ sinh</a></li>
-
-                                                            <li><a href="tampon.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tampon</a></li>
-
-                                                            <li><a href="coc-nguyet-san.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Cốc nguyệt san</a></li>
-
-                                                            <li><a href="dung-dich-ve-sinh.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Dung dịch vệ sinh</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-                                                    <li><a href="cham-soc-ca-nhan.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc cá nhân</a></li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/cham-soc-me-be" href="javacript:0">Mẹ & bé <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sơ sinh & Trẻ nhỏ <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="ve-sinh-co-the.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Vệ sinh cơ thể bé</a></li>
-
-                                                            <li><a href="cham-soc-bao-ve-da.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc bảo vệ da bé</a></li>
-
-                                                            <li><a href="cham-soc-rang-mieng.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc răng miệng cho bé</a></li>
-
-                                                            <li><a href="nuoc-hoa-cho-be.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nước hoa cho bé</a></li>
-
-                                                            <li><a href="giat-xa-quan-ao.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Giặt/ xả quần áo cho bé</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa & Thực phẩm cho bé <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="sua-cho-be.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa cho bé</a></li>
-
-                                                            <li><a href="an-dam.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Ăn dặm</a></li>
-
-                                                            <li><a href="superfoods-tpcn-cho-be.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Superfood/ TPCN cho bé</a></li>
-
-                                                            <li><a href="thuc-pham-khac-cho-be.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Thực phẩm khác cho bé</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                    <li>
-                                                        <a href="javacript:0" class="one2"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Mẹ bầu & Sau sinh <i class="fa fa-angle-right right-icon" aria-hidden="true"></i></a>
-                                                        <ul class="lv3">
-
-                                                            <li><a href="sua-cho-me.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sữa cho mẹ</a></li>
-
-                                                            <li><a href="cham-soc-da-cho-me.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc da cho mẹ</a></li>
-
-                                                            <li><a href="superfoods-tpcn-cho-me.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Superfood/ TPCN cho mẹ</a></li>
-
-                                                            <li><a href="cham-soc-ca-nhan-cho-me.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Chăm sóc cá nhân cho mẹ</a></li>
-
-                                                        </ul>
-
-                                                    </li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/cham-soc-nha-cua" href="javacript:0">Chăm sóc nhà cửa <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-                                                    <li><a href="nuoc-rua-chen-bat.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Nước rửa chén bát</a></li>
-
-
-
-
-                                                    <li><a href="san-pham-giat-xa-quan-ao.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Giặt/ xả quần áo</a></li>
-
-
-
-
-                                                    <li><a href="ve-sinh-nha-cua.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tẩy rửa, làm sạch</a></li>
-
-
-
-
-                                                    <li><a href="khu-mui-thanh-loc-khong-gian.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Khử mùi, thanh lọc không gian</a></li>
-
-
-
-
-                                                    <li><a href="giay-ve-sinh-khan-giay.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Giấy vệ sinh, khăn giấy</a></li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/doi-song-tinh-than" href="javacript:0">Đời sống & Tinh thần <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-                                                    <li><a href="tinh-dau.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Tinh dầu</a></li>
-
-
-
-
-                                                    <li><a href="huong-nhang.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Hương nhang</a></li>
-
-
-
-
-
-                                                </ul>
-
-
-
-                                            <li><a data-href="/collections/zero-waste" href="zero-waste.html">Zero Waste</a></li>
-
-
-
-                                            <li>
-                                                <a class="one1" data-href="/collections/sale" href="javacript:0">Sale <i class="fa fa-angle-right right-icon " aria-hidden="true"></i></a>
-                                                <ul class="lv2">
-
-
-                                                    <li><a href="soft-5.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> soft 5%</a></li>
-
-
-
-
-                                                    <li><a href="soft-10.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sale off 10%</a></li>
-
-
-
-
-                                                    <li><a href="soft-15.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sale off 15%</a></li>
-
-
-
-
-                                                    <li><a href="soft-20.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sale off 20%</a></li>
-
-
-
-
-                                                    <li><a href="sale-50.html"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Sale off 50%</a></li>
-
-
-
-
-
-                                                </ul>
-
-
-                                        </ul>
 
 
                                     </div>
-
-
-
-                                    <style>
-                                        .right-icon {
-                                            float: right;
-                                            padding-right: 10px;
-                                        }
-
-                                        .lv1 {
-                                            list-style: none;
-                                            border: 1px solid #ccc;
-                                            border-top: none;
-                                        }
-
-                                            .lv1 > li {
-                                                border-bottom: 1px solid #ccc;
-                                            }
-
-                                                .lv1 > li > a {
-                                                    color: #000;
-                                                    padding: 5px 10px;
-                                                    width: 100%;
-                                                    display: block;
-                                                }
-
-                                        .lv2 {
-                                            list-style: none;
-                                            display: none;
-                                        }
-
-                                            .lv2 > li {
-                                                border-top: 1px solid #ccc;
-                                            }
-
-                                            .lv2 li > a {
-                                                font-size: 12px;
-                                                color: #000;
-                                                width: 100%;
-                                                padding: 3px 20px;
-                                                display: block;
-                                            }
-
-                                            .lv2 li:last-child, .lv1 > li:last-child, .lv3 li:last-child {
-                                                border-bottom: none;
-                                            }
-
-                                        .lv3 {
-                                            display: none;
-                                        }
-
-                                            .lv3 > li {
-                                                border-top: 1px solid #ccc;
-                                                list-style: none;
-                                            }
-
-                                            .lv3 li > a {
-                                                font-size: 12px;
-                                                color: #000;
-                                                width: 100%;
-                                                padding: 3px 0px;
-                                                padding-left: 30px;
-                                                display: block;
-                                            }
-                                    </style>
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('.one1').click(function () {
-                                                if ($(this).next('.lv2').css('display') == ('none')) {
-                                                    $('.lv2').hide();
-                                                    $(this).next('.lv2').show();
-                                                } else {
-                                                    $(this).next('.lv2').hide();
-                                                }
-                                            });
-                                        });
-
-
-                                        $(document).ready(function () {
-                                            $('.one2').click(function () {
-                                                if ($(this).next('.lv3').css('display') == ('none')) {
-                                                    $('.lv3').hide();
-                                                    $(this).next('.lv3').show();
-                                                } else {
-                                                    $(this).next('.lv3').hide();
-                                                }
-                                            });
-                                        });
-
-
-                                        $(document).ready(function () {
-                                            $("ul.lv2 > li a").each(function (item) {
-                                                if (window.location.pathname === $(this).attr("href")) {
-                                                    $(this).closest('ul.lv2 > li').addClass("active");
-                                                    $(this).closest('lul.lv1').addClass("active");
-                                                    $(this).closest('ul.lv2').show();
-                                                }
-                                            });
-                                            $("ul.lv1 > li > a").each(function (item) {
-                                                if (window.location.pathname === $(this).attr("data-href")) {
-                                                    $(this).closest('ul.lv1 > li > a').addClass("active");
-                                                }
-                                            });
-                                        });</script>
-                                    <div class="panel-group filter_group">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <a href="javascrip:0">
-                                                    <h4 class="panel-title">
-                                                        LỌC SẢN PHẨM<!--<i class='fa fa-angle-down'></i>-->
-                                                    </h4>
-                                                </a>
-                                            </div>
-                                            <div id="filter_group" class="panel-collapse collapse in">
-                                                <!-- BEGIN: Vendor filter -->
-
-
-                                                <div class="widget_links clearfix">
-                                                    <a href='#filter_group_1' data-toggle='collapse'><h4>Thương hiệu<i class='fa-angle-down fa'></i></h4></a>
-                                                    <ul id='filter_group_1' class='panel-collapse collapse in filter_list'>
-
-                                                        <li class='col-xs-12 col-sm-12 col-md-12'>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <i class='fa-check fa hidden'></i>
-                                                                    <input class="vendor" type="checkbox" value="(vendor:product=Minh Phú)">
-                                                                </span>
-                                                                Minh Phú
-                                                            </label>
-                                                        </li>
-
-                                                        <li class='col-xs-12 col-sm-12 col-md-12'>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <i class='fa-check fa hidden'></i>
-                                                                    <input class="vendor" type="checkbox" value="(vendor:product=Nguyên Khôi Farm)">
-                                                                </span>
-                                                                Nguyên Khôi Farm
-                                                            </label>
-                                                        </li>
-
-                                                    </ul>
-                                                    <div class="mfj">
-                                                        <a class="view_ss view_ops" href="javascript:0">Xem Thêm</a>
-                                                        <a class="view_small view_ops" href="javascript:0">Thu Nhỏ</a>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <!-- END: Vendor filter -->
-                                                <!-- BEGIN: Type filter -->
-                                                <!-- END: Type filter -->
-                                                <!-- BEGIN: Color filter -->
-                                                <!-- END: Color filter -->
-                                                <!-- BEGIN: Price filter -->
-
-                                                <div class="widget_links clearfix">
-                                                    <a href='#filter_group_4' data-toggle='collapse'><h4>Giá<i class='fa-angle-down fa'></i></h4></a>
-                                                    <ul id='filter_group_4' class='panel-collapse collapse in filter_list'>
-                                                        <li>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <input class="price" type="checkbox" value="(price:product<=100000)">
-                                                                </span>
-                                                                dưới 100,000₫
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <input class="price" type="checkbox" value="((price:product>=100000)&&(price:product<=300000))">
-                                                                </span>
-                                                                100,000₫ - 300,000₫
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <input class="price" type="checkbox" value="((price:product>=300000)&&(price:product<=500000))">
-                                                                </span>
-                                                                300,000₫ - 500,000₫
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <input class="price" type="checkbox" value="((price:product>=500000)&&(price:product<=1000000))">
-                                                                </span>
-                                                                500,000₫ - 1,000,000₫
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <label class='filter_checkbox'>
-                                                                <span>
-                                                                    <input class="price" type="checkbox" value="(price:product>=1000000)">
-                                                                </span>
-                                                                trên 1,000,000₫
-                                                            </label>
-                                                        </li>
-                                                    </ul>
-
-                                                    <div class="mfj">
-                                                        <a class="view_sss view_ops" href="javascript:0">Xem Thêm</a>
-                                                        <a class="view_smalls view_ops" href="javascript:0">Thu Nhỏ</a>
-                                                    </div>
-                                                </div>
-
-                                                <!-- END: Price filter -->
-                                                <!-- BEGIN: Tag_Custom_1 filter -->
-                                                <!-- END: Tag_Custom_1 filter -->
-                                                <!-- BEGIN: Tag_Custom_2 filter -->
-                                                <!-- END: Tag_Custom_2 filter -->
-                                                <!-- BEGIN: Tag_Custom_3 filter -->
-                                                <!-- END: Tag_Custom_3 filter -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        $(document).ready(function () {
-
-                                            $('#sortControl option[sort_by=title-ascending]').attr('selected', true);
-
-
-                                            $(".widget_links li input").click(function () {
-                                                var searchString = "";
-                                                $('#sortControl option[sort_by=manual]').attr('selected', true);
-                                                searchString = getStringFilter($(this));
-                                                var shop_url = '../index.html';
-                                                var urlState = shop_url + '/' + searchString;
-                                                window.history.pushState(null, null, urlState);
-                                                var url_final = '/' + searchString + '&view=grid_and_control';
-                                                loadResultBy(url_final, $("#shop"));
-                                                //$(this).parent().find('i').toggleClass('hidden');
-                                            });
-                                        });
-                                        $('#filter_group .widget_links > a').click(function () {
-                                            var $current = $(this).next().attr('id');
-                                            $.each($('#filter_group .widget_links .panel-collapse'), function () {
-                                                if ($(this).attr('id') != $current) {
-                                                    $(this).removeClass('in');
-                                                }
-                                            })
-                                        })</script>
-
-
-                                    <script>
-                                        $(document).ready(function () {
-
-                                            if ($('#filter_group_1').height() >= 232) {
-                                                $('#filter_group_1').css('height', '232px');
-                                                $('.view_small').hide();
-                                                $('.view_ss').click(function () {
-                                                    $('#filter_group_1').css('height', 'auto');
-                                                    $('.view_ss').hide();
-                                                    $('.view_small').show();
-                                                });
-
-
-                                                $('.view_small').click(function () {
-                                                    $('#filter_group_1').css('height', '232px');
-                                                    $('.view_small').hide();
-                                                    $('.view_ss').show();
-                                                });
-
-                                            }
-                                            else {
-                                                $('.view_small').hide();
-                                                $('.view_ss').hide();
-                                            }
-
-                                        });</script>
-
-
-
-                                    <script>
-                                        $(document).ready(function () {
-
-                                            if ($('#filter_group_4').height() >= 232) {
-                                                $('#filter_group_4').css('height', '232px');
-                                                $('.view_smalls').hide();
-                                                $('.view_sss').click(function () {
-                                                    $('#filter_group_4').css('height', 'auto');
-                                                    $('.view_sss').hide();
-                                                    $('.view_smalls').show();
-                                                });
-
-
-                                                $('.view_small').click(function () {
-                                                    $('#filter_group_4').css('height', '232px');
-                                                    $('.view_smalls').hide();
-                                                    $('.view_sss').show();
-                                                });
-
-                                            }
-                                            else {
-                                                $('.view_smalls').hide();
-                                                $('.view_sss').hide();
-                                            }
-
-                                        });</script>
-
-                                    <!-- end: filters -->
-
-                                    <div class='hidden-xs hidden-sm'>
-                                        <!-- categories -->
-                                        <!-- end categories -->
-                                        <!-- recent product -->
-
-                                        <div class="widget clearfix">
-
-                                            <h4><a href='sale.html'>Sản phẩm khuyến mãi</a></h4>
-                                            <div id="post-list-footer" class='sidebar_menu'>
-
-
-
-                                            </div>
-
-                                        </div>
-
-                                        <!-- end recent product -->
-                                        <!-- most popular -->
-
-                                        <div class="widget clearfix">
-
-                                            <h4><a href='cham-soc-da-mat.html'>Sản phẩm nổi bật</a></h4>
-                                            <div id="Popular-item" class='sidebar_menu'>
-
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="cham-soc-da-mat/products/dau-tam-xuan-huu-co-gravier-50ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2545624429571_13058ec86121b7cbcf3b315b3e7caa6a_c6f5c9a71e174a1ca12c928dfb21348e_small.jpg" alt="Dầu tầm xuân hữu cơ Gravier 50ml"></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="cham-soc-da-mat/products/dau-tam-xuan-huu-co-gravier-50ml.html">Dầu tầm xuân hữu cơ Gravier 50ml</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li class="color">
-                                                                <ins>480,000₫</ins>
-
-                                                            </li>
-                                                            <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="cham-soc-da-mat/products/dau-argan-huu-co-gravier-50ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2545624433750_55daa70e2e15c5c99a257e9a7f193bd5_88cc1ddb69f847879dc409032a6aeca1_small.jpg" alt="Dầu argan hữu cơ Gravier 50ml"></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="cham-soc-da-mat/products/dau-argan-huu-co-gravier-50ml.html">Dầu argan hữu cơ Gravier 50ml</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li class="color">
-                                                                <ins>375,000₫</ins>
-
-                                                            </li>
-                                                            <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="spost clearfix">
-                                                    <div class="entry-image">
-                                                        <a href="cham-soc-da-mat/products/dau-hanh-nhan-huu-co-gravier-50ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2545840045213_e687cb1a1590edc51f588635267a9145_2ef6050d1bd0415a98e50bc9e2849283_small.jpg" alt="Dầu hạnh nhân hữu cơ Gravier 50ml"></a>
-                                                    </div>
-                                                    <div class="entry-c">
-                                                        <div class="entry-title">
-                                                            <h4><a href="cham-soc-da-mat/products/dau-hanh-nhan-huu-co-gravier-50ml.html">Dầu hạnh nhân hữu cơ Gravier 50ml</a></h4>
-                                                        </div>
-                                                        <ul class="entry-meta">
-                                                            <li class="color">
-                                                                <ins>270,000₫</ins>
-
-                                                            </li>
-                                                            <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <!-- end most popular -->
-                                        <!-- recent view -->
-
-                                        <div class="widget clearfix">
-
-                                            <h4>Sản phẩm vừa xem</h4>
-                                            <div class="widget-last-view sidebar_menu">
-
-                                            </div>
-
-                                        </div>
-
-                                        <script>
-                                            $(document).ready(function () {
-                                                var $strHTML = get_viewed_items_html('');
-                                                $('.widget .widget-last-view').html($strHTML);
-                                            })</script>
-
-                                        <!-- end recent view -->
-
-
-                                        <div class="widget clearfix">
-
-
-                                        </div>
-
-
-                                    </div>
-
-
-
 
                                 </div>
+
+                                <!-- end recent product -->
+                                <!-- most popular -->
+
+                                <div class="widget clearfix">
+
+                                    <h4><a href='../collections/cham-soc-da-mat.html'>Sản phẩm nổi bật</a></h4>
+                                    <div id="Popular-item" class="sidebar_menu">
+
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="dau-tam-xuan-huu-co-gravier-50ml.html"><img src="../../product.hstatic.net/1000104489/product/z2545624429571_13058ec86121b7cbcf3b315b3e7caa6a_c6f5c9a71e174a1ca12c928dfb21348e_small.jpg" alt="Dầu tầm xuân hữu cơ Gravier 50ml"></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="dau-tam-xuan-huu-co-gravier-50ml.html">Dầu tầm xuân hữu cơ Gravier 50ml</a></h4>
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li class="color">
+                                                        <ins> 480,000₫</ins>
+
+                                                    </li>
+                                                    <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="dau-argan-huu-co-gravier-50ml.html"><img src="../../product.hstatic.net/1000104489/product/z2545624433750_55daa70e2e15c5c99a257e9a7f193bd5_88cc1ddb69f847879dc409032a6aeca1_small.jpg" alt="Dầu argan hữu cơ Gravier 50ml"></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="dau-argan-huu-co-gravier-50ml.html">Dầu argan hữu cơ Gravier 50ml</a></h4>
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li class="color">
+                                                        <ins> 375,000₫</ins>
+
+                                                    </li>
+                                                    <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="dau-hanh-nhan-huu-co-gravier-50ml.html"><img src="../../product.hstatic.net/1000104489/product/z2545840045213_e687cb1a1590edc51f588635267a9145_2ef6050d1bd0415a98e50bc9e2849283_small.jpg" alt="Dầu hạnh nhân hữu cơ Gravier 50ml"></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+                                                    <h4><a href="dau-hanh-nhan-huu-co-gravier-50ml.html">Dầu hạnh nhân hữu cơ Gravier 50ml</a></h4>
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li class="color">
+                                                        <ins> 270,000₫</ins>
+
+                                                    </li>
+                                                    <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- end most recent -->
+                                <!-- related product -->
+                                <div class="widget clearfix">
+                                    <h4><a href='#'>Sản phẩm liên quan</a></h4>
+                                    <div id="Popular-item" class="sidebar_menu">
+
+
+
+
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="vien-uong-bach-qua-huu-co-purasana-70-vien-nang-620mg.html"><img src="../../product.hstatic.net/1000104489/product/z2618446510147_38461d62fe7fe31f87b878efe3f7a9bd_78b2bb8bdf0745b4b029a759b0de1fc1_small.jpg" alt="Viên uống bạch quả hữu cơ Purasana 70 viên nang 620mg"></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+
+
+                                                    <h4><a href="vien-uong-bach-qua-huu-co-purasana-70-vien-nang-620mg.html">Viên uống bạch quả hữu cơ Purasana 70 viên nang 620mg</a></h4>
+
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li class="color">
+                                                        <ins> 510,000₫</ins>
+
+                                                    </li>
+                                                    <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="hon-hop-chong-lao-hoa-premix-hop-60-vien-vo-nang.html"><img src="../../product.hstatic.net/1000104489/product/hon_hop_chong_lao_hoa_b38b84b03a444dbd86dde8efcf001554_small.jpg" alt="Hỗn hợp chống lão hoá Premix hộp 60 viên vỏ nang"></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+
+
+                                                    <h4><a href="hon-hop-chong-lao-hoa-premix-hop-60-vien-vo-nang.html">Hỗn hợp chống lão hoá Premix hộp 60 viên vỏ nang</a></h4>
+
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li class="color">
+                                                        <ins> 380,000₫</ins>
+
+                                                    </li>
+                                                    <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="spost clearfix">
+                                            <div class="entry-image">
+                                                <a href="hon-hop-tang-cuong-tieu-hoa-premix-hop-60-vien-vo-nang.html"><img src="../../product.hstatic.net/1000104489/product/hon_hop_tang_cuong_tieu_hoa_32ed937799464356b5848cfa19be9304_small.jpg" alt="Hỗn hợp tăng cường tiêu hoá Premix hộp 60 viên vỏ nang"></a>
+                                            </div>
+                                            <div class="entry-c">
+                                                <div class="entry-title">
+
+
+                                                    <h4><a href="hon-hop-tang-cuong-tieu-hoa-premix-hop-60-vien-vo-nang.html">Hỗn hợp tăng cường tiêu hoá Premix hộp 60 viên vỏ nang</a></h4>
+
+                                                </div>
+                                                <ul class="entry-meta">
+                                                    <li class="color">
+                                                        <ins> 380,000₫</ins>
+
+                                                    </li>
+                                                    <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- recent view -->
+
+                                <div class="widget clearfix">
+                                    <h4>Sản phẩm vừa xem</h4>
+                                    <div class="widget-last-view sidebar_menu">
+                                    </div>
+                                </div>
+                                <script>
+                                    if (typeof get_viewed_items_html == 'function')
+                                        var $strHTML = get_viewed_items_html('');
+                                    $('.widget .widget-last-view').html($strHTML);
+                                </script>
+
+                                <!-- end recent view -->
+
+
+                                <div class="widget clearfix" style='overflow:hidden'>
+
+
+
+                                    <div style="width: 100%;">
+                                        <!-- Page plugin's width will be 180px -->
+                                        <div class="fb-page" data-href="https://www.facebook.com/leafshop.vn/" data-width="320"></div>
+                                    </div>
+
+
+
+                                    <script>
+                                        (function (d, s, id) {
+                                            var js, fjs = d.getElementsByTagName(s)[0];
+                                            if (d.getElementById(id)) return;
+                                            js = d.createElement(s); js.id = id;
+                                            js.src = "../../connect.facebook.net/en_US/sdk.js#xfbml=1&appId=263266547210244&version=v2.0";
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'facebook-jssdk'));
+                                    </script>
+                                </div>
+
+
                             </div>
+                        </div>
                             <!-- .sidebar end -->
-                            
+                           @RenderBody()
                         </div>
                     </div>
                 </div>
@@ -4007,8 +3288,8 @@ jQuery(document).ready(function() {
     <script src='~/Content/js/bootstrap.min.js' type='text/javascript'></script>
     <script src='~/Content/js/plugins.min9a76.js?v=3659' type='text/javascript'></script>
     <!-- Haravan plugins BEGIN -->
-    <script src= '~/Content/js/option_selection.js' type='text/javascript'></script>
-    <script src= '~/Content/js/api.jquery.js' type='text/javascript'></script>
+    <script src='~/Content/js/option_selection.js' type='text/javascript'></script>
+    <script src='~/Content/js/api.jquery.js' type='text/javascript'></script>
     <!-- Haravan plugins END -->
     <script src='~/Content/js/slick.min9a76.js?v=3659' type='text/javascript'></script>
     <script src='~/Content/js/jgrowl9a76.js?v=3659' type='text/javascript'></script>

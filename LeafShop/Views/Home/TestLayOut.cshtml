@@ -3,15 +3,22 @@
     ViewBag.Title = "TestLayOut";
 }
 
-<h2>TestLayOut</h2>
-
 <div class="post_content pull-right col-sm-12 col-xs-12 col-md-9" style="margin-bottom: 15px !important;">
+    <h2>TestLayOut</h2>
     Thực phẩm tươi sống/ chế biến
+
+
+
+    '~/Content/css/
+
+    '~/Content/js/
+
+    ~/Content/image/
 
 
     <!-- Shop
     ============================================= -->
-    <div id="shop" class="product-3 clearfix">
+    <!--<div id="shop" class="product-3 clearfix">
         <div class="dess">
 
         </div>
@@ -44,7 +51,7 @@
             </div>
 
             <script>
-Haravan.queryParams = {};
+                Haravan.queryParams = {};
                 if (location.search.length) {
                     for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
                         aKeyValue = aCouples[i].split('=');
@@ -474,168 +481,166 @@ Haravan.queryParams = {};
 
 
             </div>
-            <div class='pagination_wrapper'>
+            <div class='pagination_wrapper'>-->
+    <!-- BEGIN: AJAX-FILTER -->
+    <!--<script>
+        $(".resetButton").click(function (e) {
+            e.preventDefault();	// không tự nhảy lên đầu trang
+            $(':input[filtertype=search]:checked').each(function () {
+                this.checked = false;
+                var searchString = getStringFilter($(this));
+                var url_final = '/' + searchString + '&view=grid_and_control';
+                //loadResultBy(url_final,$("#results"));
+            });
+        });
 
-
-                <!-- BEGIN: AJAX-FILTER -->
-                <script>
-$(".resetButton").click(function (e) {
-                        e.preventDefault();	// không tự nhảy lên đầu trang
-                        $(':input[filtertype=search]:checked').each(function () {
-                            this.checked = false;
-                            var searchString = getStringFilter($(this));
-                            var url_final = '/' + searchString + '&view=grid_and_control';
-                            //loadResultBy(url_final,$("#results"));
-                        });
-                    });
-
-                    function getStringFilter(currentSelected) {
-                        var vendor = "", product_type = "", price = "", color = '', tag_custom_1 = "", tag_custom_2 = "", tag_custom_3 = "";
-                        var tag_prefix_1 = 'xuatxu',
-                            tag_prefix_2 = 'manhinh',
-                            tag_prefix_3 = 'dungtich';
-                        var searchString = "search?q=";
-                        // if current page is search
-                        if ($("#collection_id").val() == ">=0") {
-                            searchString += $("#search_term").val() + "&";
-                        }
-                        searchString += "filter=(";
-                        // BEGIN: Filter
-                        var collectionFilter = "";
-                        if ($("#collection_id").val() != ">=0") {
-                            if ($("#collection_id").val() != "=0") {
-                                collectionFilter += "(collectionid:product" + $("#collection_id").val() + ")";
-                            }
-                            else {
-                                collectionFilter = "(collectionid:product>=0)";
-                            }
-                        }
-                        else {
-                            collectionFilter = "(collectionid:product>=0)";
-                        }
+        function getStringFilter(currentSelected) {
+            var vendor = "", product_type = "", price = "", color = '', tag_custom_1 = "", tag_custom_2 = "", tag_custom_3 = "";
+            var tag_prefix_1 = 'xuatxu',
+                tag_prefix_2 = 'manhinh',
+                tag_prefix_3 = 'dungtich';
+            var searchString = "search?q=";
+            // if current page is search
+            if ($("#collection_id").val() == ">=0") {
+                searchString += $("#search_term").val() + "&";
+            }
+            searchString += "filter=(";
+            // BEGIN: Filter
+            var collectionFilter = "";
+            if ($("#collection_id").val() != ">=0") {
+                if ($("#collection_id").val() != "=0") {
+                    collectionFilter += "(collectionid:product" + $("#collection_id").val() + ")";
+                }
+                else {
+                    collectionFilter = "(collectionid:product>=0)";
+                }
+            }
+            else {
+                collectionFilter = "(collectionid:product>=0)";
+            }
 
 
 
-                        // BEGIN: GET All checked filter string
-                        // standard filter
-                        vendor = getCheckedBy("vendor", vendor).replace("=", "**");
-                        product_type = getCheckedBy("product_type", product_type);
-                        price = getCheckedBy("price", price);
-                        // custom filer
+            // BEGIN: GET All checked filter string
+            // standard filter
+            vendor = getCheckedBy("vendor", vendor).replace("=", "**");
+            product_type = getCheckedBy("product_type", product_type);
+            price = getCheckedBy("price", price);
+            // custom filer
 
-                        color = getCheckedBy("mausac", color);
+            color = getCheckedBy("mausac", color);
 
-                        tag_custom_1 = (tag_prefix_1 != '') ? getCheckedBy(tag_prefix_1, tag_custom_1) : getCheckedBy('a', tag_custom_1);
-                        tag_custom_2 = (tag_prefix_2 != '') ? getCheckedBy(tag_prefix_2, tag_custom_2) : getCheckedBy('a', tag_custom_2);
-                        tag_custom_3 = (tag_prefix_3 != '') ? getCheckedBy(tag_prefix_3, tag_custom_3) : getCheckedBy('a', tag_custom_3);
-                        // END: GET FILTER
+            tag_custom_1 = (tag_prefix_1 != '') ? getCheckedBy(tag_prefix_1, tag_custom_1) : getCheckedBy('a', tag_custom_1);
+            tag_custom_2 = (tag_prefix_2 != '') ? getCheckedBy(tag_prefix_2, tag_custom_2) : getCheckedBy('a', tag_custom_2);
+            tag_custom_3 = (tag_prefix_3 != '') ? getCheckedBy(tag_prefix_3, tag_custom_3) : getCheckedBy('a', tag_custom_3);
+            // END: GET FILTER
 
-                        //console.log(vendor);
-                        //console.log(color);
-                        // BEGIN: MERGE all filter string
-                        collectionFilter = mergeFilterWith(vendor, collectionFilter);
-                        collectionFilter = mergeFilterWith(product_type, collectionFilter);
-                        collectionFilter = mergeFilterWith(price, collectionFilter);
+            //console.log(vendor);
+            //console.log(color);
+            // BEGIN: MERGE all filter string
+            collectionFilter = mergeFilterWith(vendor, collectionFilter);
+            collectionFilter = mergeFilterWith(product_type, collectionFilter);
+            collectionFilter = mergeFilterWith(price, collectionFilter);
 
-                        collectionFilter = mergeFilterWith(color, collectionFilter);
-                        collectionFilter = mergeFilterWith(tag_custom_1, collectionFilter);
-                        collectionFilter = mergeFilterWith(tag_custom_2, collectionFilter);
-                        collectionFilter = mergeFilterWith(tag_custom_3, collectionFilter);
+            collectionFilter = mergeFilterWith(color, collectionFilter);
+            collectionFilter = mergeFilterWith(tag_custom_1, collectionFilter);
+            collectionFilter = mergeFilterWith(tag_custom_2, collectionFilter);
+            collectionFilter = mergeFilterWith(tag_custom_3, collectionFilter);
 
-                        searchString += collectionFilter;
-                        searchString += ')';
-                        // END: MERGE
+            searchString += collectionFilter;
+            searchString += ')';
+            // END: MERGE
 
-                        // BEGIN: Sorting
-                        if ($("#sortControl option:selected").val() != "") {
-                            //searchString += "&sortby="+$( "#sortControl option:selected" ).attr('sort_by');
-                        }
-                        else {
-                            //searchString+='&sortby=(updated_at:product=desc)';
-                        }
-                        // END: Sorting
+            // BEGIN: Sorting
+            if ($("#sortControl option:selected").val() != "") {
+                //searchString += "&sortby="+$( "#sortControl option:selected" ).attr('sort_by');
+            }
+            else {
+                //searchString+='&sortby=(updated_at:product=desc)';
+            }
+            // END: Sorting
 
-                        return searchString;
-                    }
+            return searchString;
+        }
 
-                    function getCheckedBy(filterKey, filterOption) {
-                        $(':input[class^=' + filterKey + ']:checked').each(function () {
-                            if (filterOption == "") {
-                                filterOption = $(this).val();
-                            }
-                            else {
-                                filterOption = filterOption + '||' + $(this).val();
-                            }
-                        });
-                        return filterOption;
-                    }
+        function getCheckedBy(filterKey, filterOption) {
+            $(':input[class^=' + filterKey + ']:checked').each(function () {
+                if (filterOption == "") {
+                    filterOption = $(this).val();
+                }
+                else {
+                    filterOption = filterOption + '||' + $(this).val();
+                }
+            });
+            return filterOption;
+        }
 
-                    function mergeFilterWith(filterCondition, currCollectionFilter) {
-                        if (filterCondition != "") {
-                            filterCondition = '(' + filterCondition + ')';
-                            currCollectionFilter += '&&' + filterCondition;
-                        }
-                        return currCollectionFilter;
-                    }
+        function mergeFilterWith(filterCondition, currCollectionFilter) {
+            if (filterCondition != "") {
+                filterCondition = '(' + filterCondition + ')';
+                currCollectionFilter += '&&' + filterCondition;
+            }
+            return currCollectionFilter;
+        }
 
-                    function loadResultBy(url_building, position_load) {
-                        var c = url_building.replace('&view=grid_and_control', '');
-                        console.log(c);
-                        var a = encodeURIComponent(c.replace('/search?q=filter=', ''));
-                        $.ajax({
-                            'url': '/search?q=filter=' + a + '&view=gid-search',
-                            'type': 'POST',
-                            'success': function (data) {
-                                //console.log(data);
-                                position_load.html(data);
-                            },
-                            'complete': function () {
-                                ega.init();
-                            }
-                        });
-                    }
+        function loadResultBy(url_building, position_load) {
+            var c = url_building.replace('&view=grid_and_control', '');
+            console.log(c);
+            var a = encodeURIComponent(c.replace('/search?q=filter=', ''));
+            $.ajax({
+                'url': '/search?q=filter=' + a + '&view=gid-search',
+                'type': 'POST',
+                'success': function (data) {
+                    //console.log(data);
+                    position_load.html(data);
+                },
+                'complete': function () {
+                    ega.init();
+                }
+            });
+        }
 
-                    // ajax sorting
+        // ajax sorting
 
-                    jQuery('.sort-by').val('title-ascending')
-                        .bind('change', function () {
-                            Haravan.queryParams.sort_by = $(this).val();
-                            location.search = $.param(Haravan.queryParams);
-                        })
-
-
-                    // ajax pagination
-                    $('.ajax-pagination li as').click(function (e) {
-
-                    });
+        jQuery('.sort-by').val('title-ascending')
+            .bind('change', function () {
+                Haravan.queryParams.sort_by = $(this).val();
+                location.search = $.param(Haravan.queryParams);
+            })
 
 
-                    function scrollToShop(margin) {
-                        var locate = parseInt($('#content').offset().top) + margin;
-                        $('html, body').animate({
-                            scrollTop: locate
-                        }, 1000);
-                        return false;
-                    }
-                    // end scroll
+        // ajax pagination
+        $('.ajax-pagination li as').click(function (e) {
 
-                    //$('.pagination li a').click(function() {scrollToShop(0)});
+        });
 
 
-                    /** align single element ***/
-                    $(document).ready(function () {
-                        align_single_element();
-                    });
-                    var align_single_element = function () {
-                        var num_pro = $('#shop .product').length;
-                        if (num_pro % 2 == 1) {
-                            $('#shop .product').last().addClass('product-last');
-                        }
-                    }</script>
-                <!-- END: AJAX-FILTER -->
+        function scrollToShop(margin) {
+            var locate = parseInt($('#content').offset().top) + margin;
+            $('html, body').animate({
+                scrollTop: locate
+            }, 1000);
+            return false;
+        }
+        // end scroll
 
-            </div>
+        //$('.pagination li a').click(function() {scrollToShop(0)});
+
+
+        /** align single element ***/
+        $(document).ready(function () {
+            align_single_element();
+        });
+        var align_single_element = function () {
+            var num_pro = $('#shop .product').length;
+            if (num_pro % 2 == 1) {
+                $('#shop .product').last().addClass('product-last');
+            }
+        }</script>-->
+    <!-- END: AJAX-FILTER -->
+    <!--</div>
 
         </div>
-    </div><!-- #shop end -->
+    </div>-->
+    <!-- #shop end -->
 </div>
