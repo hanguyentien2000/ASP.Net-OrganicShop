@@ -228,6 +228,8 @@
     <Compile Include="Areas\Administrator\Controllers\TaikhoanController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ThuongHieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserDetailtsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

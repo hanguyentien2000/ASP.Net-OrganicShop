@@ -140,10 +140,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/SanPham/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             SanPham sanPham = db.SanPhams.Find(id);
             if (sanPham == null)
             {
@@ -207,10 +203,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/SanPham/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             SanPham sanPham = db.SanPhams.Find(id);
             if (sanPham == null)
             {
@@ -231,9 +223,9 @@ namespace LeafShop.Areas.Administrator.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
+                ViewBag.Error = "Không xoá được bản ghi này, bạn cần phải xoá danh mục, khu vực và thương hiệu tương ứng trước khi xoá sản phẩm!";
                 return View("Delete", sanPham);
             }
            

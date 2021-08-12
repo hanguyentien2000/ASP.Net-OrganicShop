@@ -7,7 +7,7 @@ namespace LeafShop.Session
 {
     public class ConstaintUser
     {
-        //public static string ADMIN_SESSION = "ADMIN";
+        public static string ADMIN_SESSION = "ADMIN";
         public static string USER_SESSION = "USER";
     }
 }

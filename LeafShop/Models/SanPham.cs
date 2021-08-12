@@ -18,7 +18,6 @@ namespace LeafShop.Models
         [Key]
         public int MaSanPham { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string TenSanPham { get; set; }
 

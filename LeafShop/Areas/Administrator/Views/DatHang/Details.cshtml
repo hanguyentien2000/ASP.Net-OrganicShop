@@ -1,4 +1,4 @@
-﻿@model LeafShop.Models.DatHang
+﻿    @model LeafShop.Models.DatHang
 
 @{
     ViewBag.Title = "Details";
@@ -40,7 +40,13 @@
         <dd>
             @Html.DisplayFor(model => model.NgayKhoiTao)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
     </dl>
 </div>
 <p>

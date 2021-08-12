@@ -42,7 +42,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/DatHang/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -99,10 +99,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DatHang/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             DatHang datHang = db.DatHangs.Find(id);
             if (datHang == null)
             {
@@ -134,10 +130,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DatHang/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             DatHang datHang = db.DatHangs.Find(id);
             if (datHang == null)
             {
@@ -158,9 +150,9 @@ namespace LeafShop.Areas.Administrator.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = "Không xoá được bản ghi này" + " "+ ex.Message;
+                ViewBag.Error = "Không xoá được bản ghi này, yêu cầu xoá thông tin nhân viên và khách hàng trước khi xoá đặt hàng";
                 return View("Delete", datHang);
             }
         }

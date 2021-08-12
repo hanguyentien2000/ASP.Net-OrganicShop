@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Login & Signup";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutNoLeftSideBar.cshtml";
 }
 
 <!-- #page-title end -->
@@ -51,9 +51,9 @@
                             </div>
 
                             <div class="col_full">
-                                <label for="register-form-email">Email:<span class="required require_symbol">*</span></label>
-                                @Html.TextBoxFor(model => model.Email,
-                                            new { @class = "form-control", @name = "email", @autoforcus = "autofocus", @required = "required", @placeholder = "Email" })
+                                <label for="register-form-email">Tên đăng nhập:<span class="required require_symbol">*</span></label>
+                                @Html.TextBoxFor(model => model.TenDangNhap,
+                                            new { @class = "form-control", @name = "tendangnhap", @autoforcus = "autofocus", @required = "required", @placeholder = "Username" })
                             </div>
 
                             <div class="col_full">
@@ -63,8 +63,7 @@
 
                             <div class="col_full">
                                 <label for="register-form-repassword">Nhập lại mật khẩu:<span class="required require_symbol">*</span></label>
-                                <span class='require_symbol repassword_warning'> Mật khẩu nhập lại không đúng</span>
-                                <<input type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu" required>
+                                <input type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu" required>
                             </div>
 
                             <div class="col_full nobottommargin">
