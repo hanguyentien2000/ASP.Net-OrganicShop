@@ -4851,12 +4851,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\TestLayOut.cshtml" />
+    <Content Include="Views\Products\TestLayOut.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SearchBox.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Detail_Product.cshtml" />
-    <Content Include="Views\Home\TestDetailProducts.cshtml" />
+    <Content Include="Views\Shared\_Layout_Product.cshtml" />
+    <Content Include="Views\Products\TestDetailProducts.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoLeftSideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
