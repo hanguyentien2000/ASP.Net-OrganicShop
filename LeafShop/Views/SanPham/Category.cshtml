@@ -1,4 +1,5 @@
-﻿
+﻿@model PagedList.IPagedList<LeafShop.Models.SanPham>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Category";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,6 +7,8 @@
 
 }
 <link href="~/Content/css/style9a76.css" type="text/css" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/e38e0bb8bb.js" crossorigin="anonymous"></script>
+
 <section id="content">
     <div class="content-wrap">
         <div class="container clearfix">
@@ -71,21 +74,18 @@
                         </div>
                         <div id='grid_pagination'>
                             <div class='grid'>
-                                @foreach (var product in @ViewBag.listProduct)
+                                @foreach (var product in Model)
                                 {
                                     <div class='col-sm-4 col-xs-12 noleftpadding norightpadding product_single'>
                                         <div class="product clearfix">
 
                                             <div class="haravan-product-reviews-badge" data-id="1003020409">
-
                                             </div>
                                             <div class="product-image">
                                                 <a href="/SanPham/Detail/@product.MaSanPham">
-                                                    <img src="~/Areas/UploadFile/SanPham/@product.[HinhMinhHoa]"
+                                                    <img src="@product.HinhMinhHoa"
                                                          alt="@product.TenSanPham">
                                                 </a>
-
-
                                                 <div class="product-overlay">
                                                     <a href='../products/dau-goi-huu-co-tri-gau-gravier-500ml.html'
                                                        class='add-to-cart' data-toggle='tooltip'
@@ -114,12 +114,7 @@
                                                 <div class="product-price">
 
                                                     <ins> @product.DonGia ₫ </ins>
-
-
                                                 </div>
-
-
-
                                                 <div class="buy_all">
                                                     <a class="product_quick_add" data-toggle='tooltip'
                                                        href="/SanPham/Detail/@product.MaSanPham">
@@ -127,210 +122,24 @@
                                                         Ngay
                                                     </a>
                                                 </div>
-
-
                                             </div>
-
-
                                         </div>
                                     </div>
                                 }
-
-
-
                             </div>
                             <div class='pagination_wrapper'>
 
-                                <ul class="pagination ajax-pagination ">
-
-                                    <li class='disabled'><a>&laquo;</a></li>
-                                    <li class='active'><a>1</a></li>
-                                    <li>
-                                        <a href="cham-soc-co-the4658.html?page=2"
-                                           pagefilter="/collections/cham-soc-co-the?page=2"
-                                           pageid="2">2</a>
-                                    </li>
-                                    <li>
-                                        <a href="cham-soc-co-the9ba9.html?page=3"
-                                           pagefilter="/collections/cham-soc-co-the?page=3"
-                                           pageid="3">3</a>
-                                    </li>
-                                    <li>
-                                        <a href="cham-soc-co-thefdb0.html?page=4"
-                                           pagefilter="/collections/cham-soc-co-the?page=4"
-                                           pageid="4">4</a>
-                                    </li>
-                                    <li>
-                                        <a href="cham-soc-co-the4658.html?page=2"
-                                           pagefilter="/collections/cham-soc-co-the?page=2"
-                                           pageid="2">&raquo;</a>
-                                    </li>
-
-                                </ul>
-                                <script>
-                                    $(".resetButton").click(function (e) {
-                                        e.preventDefault();	// không tự nhảy lên đầu trang
-                                        $(':input[filtertype=search]:checked').each(function () {
-                                            this.checked = false;
-                                            var searchString = getStringFilter($(this));
-                                            var url_final = '/' + searchString + '&view=grid_and_control';
-                                            //loadResultBy(url_final,$("#results"));
-                                        });
-                                    });
-
-                                    function getStringFilter(currentSelected) {
-                                        var vendor = "", product_type = "", price = "", color = '', tag_custom_1 = "", tag_custom_2 = "", tag_custom_3 = "";
-                                        var tag_prefix_1 = 'xuatxu',
-                                            tag_prefix_2 = 'manhinh',
-                                            tag_prefix_3 = 'dungtich';
-                                        var searchString = "search?q=";
-                                        // if current page is search
-                                        if ($("#collection_id").val() == ">=0") {
-                                            searchString += $("#search_term").val() + "&";
-                                        }
-                                        searchString += "filter=(";
-                                        // BEGIN: Filter
-                                        var collectionFilter = "";
-                                        if ($("#collection_id").val() != ">=0") {
-                                            if ($("#collection_id").val() != "=0") {
-                                                collectionFilter += "(collectionid:product" + $("#collection_id").val() + ")";
-                                            }
-                                            else {
-                                                collectionFilter = "(collectionid:product>=0)";
-                                            }
-                                        }
-                                        else {
-                                            collectionFilter = "(collectionid:product>=0)";
-                                        }
-
-
-
-                                        // BEGIN: GET All checked filter string
-                                        // standard filter
-                                        vendor = getCheckedBy("vendor", vendor).replace("=", "**");
-                                        product_type = getCheckedBy("product_type", product_type);
-                                        price = getCheckedBy("price", price);
-                                        // custom filer
-
-                                        color = getCheckedBy("mausac", color);
-
-                                        tag_custom_1 = (tag_prefix_1 != '') ? getCheckedBy(tag_prefix_1, tag_custom_1) : getCheckedBy('a', tag_custom_1);
-                                        tag_custom_2 = (tag_prefix_2 != '') ? getCheckedBy(tag_prefix_2, tag_custom_2) : getCheckedBy('a', tag_custom_2);
-                                        tag_custom_3 = (tag_prefix_3 != '') ? getCheckedBy(tag_prefix_3, tag_custom_3) : getCheckedBy('a', tag_custom_3);
-                                        // END: GET FILTER
-
-                                        //console.log(vendor);
-                                        //console.log(color);
-                                        // BEGIN: MERGE all filter string
-                                        collectionFilter = mergeFilterWith(vendor, collectionFilter);
-                                        collectionFilter = mergeFilterWith(product_type, collectionFilter);
-                                        collectionFilter = mergeFilterWith(price, collectionFilter);
-
-                                        collectionFilter = mergeFilterWith(color, collectionFilter);
-                                        collectionFilter = mergeFilterWith(tag_custom_1, collectionFilter);
-                                        collectionFilter = mergeFilterWith(tag_custom_2, collectionFilter);
-                                        collectionFilter = mergeFilterWith(tag_custom_3, collectionFilter);
-
-                                        searchString += collectionFilter;
-                                        searchString += ')';
-                                        // END: MERGE
-
-                                        // BEGIN: Sorting
-                                        if ($("#sortControl option:selected").val() != "") {
-                                            //searchString += "&sortby="+$( "#sortControl option:selected" ).attr('sort_by');
-                                        }
-                                        else {
-                                            //searchString+='&sortby=(updated_at:product=desc)';
-                                        }
-                                        // END: Sorting
-
-                                        return searchString;
-                                    }
-
-                                    function getCheckedBy(filterKey, filterOption) {
-                                        $(':input[class^=' + filterKey + ']:checked').each(function () {
-                                            if (filterOption == "") {
-                                                filterOption = $(this).val();
-                                            }
-                                            else {
-                                                filterOption = filterOption + '||' + $(this).val();
-                                            }
-                                        });
-                                        return filterOption;
-                                    }
-
-                                    function mergeFilterWith(filterCondition, currCollectionFilter) {
-                                        if (filterCondition != "") {
-                                            filterCondition = '(' + filterCondition + ')';
-                                            currCollectionFilter += '&&' + filterCondition;
-                                        }
-                                        return currCollectionFilter;
-                                    }
-
-                                    function loadResultBy(url_building, position_load) {
-                                        var c = url_building.replace('&view=grid_and_control', '');
-                                        console.log(c);
-                                        var a = encodeURIComponent(c.replace('/search?q=filter=', ''));
-                                        $.ajax({
-                                            'url': '/search?q=filter=' + a + '&view=gid-search',
-                                            'type': 'POST',
-                                            'success': function (data) {
-                                                //console.log(data);
-                                                position_load.html(data);
-                                            },
-                                            'complete': function () {
-                                                ega.init();
-                                            }
-                                        });
-                                    }
-
-                                    // ajax sorting
-
-                                    jQuery('.sort-by').val('manual')
-                                        .bind('change', function () {
-                                            Haravan.queryParams.sort_by = $(this).val();
-                                            location.search = $.param(Haravan.queryParams);
-                                        })
-
-
-                                    // ajax pagination
-                                    $('.ajax-pagination li as').click(function (e) {
-
-                                    });
-
-
-                                    function scrollToShop(margin) {
-                                        var locate = parseInt($('#content').offset().top) + margin;
-                                        $('html, body').animate({
-                                            scrollTop: locate
-                                        }, 1000);
-                                        return false;
-                                    }
-                                    // end scroll
-
-                                    //$('.pagination li a').click(function() {scrollToShop(0)});
-
-
-                                    /** align single element ***/
-                                    $(document).ready(function () {
-                                        align_single_element();
-                                    });
-                                    var align_single_element = function () {
-                                        var num_pro = $('#shop .product').length;
-                                        if (num_pro % 2 == 1) {
-                                            $('#shop .product').last().addClass('product-last');
-                                        }
-                                    }
-
-                                </script>
+                                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                                @Html.PagedListPager(Model, page => Url.Action("Category", new
+                                {
+                                    page
+                                }))
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="sidebar nobottommargin  left-sidebar col-sm-12 col-xs-12 col-md-3">
                     <div class="sidebar-widgets-wrap">
-                        begin: filters
-
                         <div class="left-sidebar">
                             <div class="panel-heading">
                                 <a data-toggle="collapse" href="#filter_group">
@@ -341,8 +150,6 @@
                             </div>
 
                             <ul class="lv1">
-
-
                                 <li>
                                     <a class="one1" data-href="/collections/thuc-pham-tuoi-song-che-bien"
                                        href="javacript:0">
@@ -350,9 +157,6 @@
                                                                aria-hidden="true"></i>
                                     </a>
                                     <ul class="lv2">
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -360,7 +164,6 @@
                                                                        aria-hidden="true"></i>
                                             </a>
                                             <ul class="lv3">
-
                                                 <li>
                                                     <a href="thit-xuong-noi-tang-san-pham-tu-lon.html">
                                                         <i class="fa fa-angle-double-right"
@@ -368,7 +171,6 @@
                                                         sản phẩm từ lợn
                                                     </a>
                                                 </li>
-
                                                 <li>
                                                     <a href="gia-cam-trung.html">
                                                         <i class="fa fa-angle-double-right"
@@ -890,11 +692,6 @@
                                                 Chăm sóc răng miệng
                                             </a>
                                         </li>
-
-
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -935,11 +732,6 @@
                                             </ul>
 
                                         </li>
-
-
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -972,21 +764,12 @@
                                             </ul>
 
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="khu-mui-co-the.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Khử mùi cơ thể
                                             </a>
                                         </li>
-
-
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -1026,25 +809,13 @@
                                             </ul>
 
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="cham-soc-ca-nhan.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Chăm sóc cá nhân
                                             </a>
                                         </li>
-
-
-
-
-
                                     </ul>
-
-
-
                                 <li>
                                     <a class="one1" data-href="/collections/cham-soc-me-be"
                                        href="javacript:0">
@@ -1052,9 +823,6 @@
                                                    aria-hidden="true"></i>
                                     </a>
                                     <ul class="lv2">
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -1104,11 +872,6 @@
                                             </ul>
 
                                         </li>
-
-
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -1150,11 +913,6 @@
                                             </ul>
 
                                         </li>
-
-
-
-
-
                                         <li>
                                             <a href="javacript:0" class="one2">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -1196,15 +954,7 @@
                                             </ul>
 
                                         </li>
-
-
-
-
-
                                     </ul>
-
-
-
                                 <li>
                                     <a class="one1" data-href="/collections/cham-soc-nha-cua"
                                        href="javacript:0">
@@ -1212,63 +962,37 @@
                                                             aria-hidden="true"></i>
                                     </a>
                                     <ul class="lv2">
-
-
                                         <li>
                                             <a href="nuoc-rua-chen-bat.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Nước rửa chén bát
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="san-pham-giat-xa-quan-ao.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Giặt/ xả quần áo
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="ve-sinh-nha-cua.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Tẩy rửa, làm sạch
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="khu-mui-thanh-loc-khong-gian.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Khử mùi, thanh lọc không gian
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="giay-ve-sinh-khan-giay.html">
                                                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                                 Giấy vệ sinh, khăn giấy
                                             </a>
                                         </li>
-
-
-
-
-
                                     </ul>
-
-
-
                                 <li>
                                     <a class="one1" data-href="/collections/doi-song-tinh-than"
                                        href="javacript:0">
@@ -1276,46 +1000,28 @@
                                                                 aria-hidden="true"></i>
                                     </a>
                                     <ul class="lv2">
-
-
                                         <li>
                                             <a href="tinh-dau.html">
                                                 <i class="fa fa-angle-double-right"
                                                    aria-hidden="true"></i> Tinh dầu
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="huong-nhang.html">
                                                 <i class="fa fa-angle-double-right"
                                                    aria-hidden="true"></i> Hương nhang
                                             </a>
                                         </li>
-
-
-
-
-
                                     </ul>
-
-
-
                                 <li>
                                     <a data-href="/collections/zero-waste" href="zero-waste.html">
                                         Zero
                                         Waste
                                     </a>
                                 </li>
-
-
-
                                 <li>
                                     <a class="one1" data-href="/collections/sale" href="javacript:0">
-                                        Sale <i class="fa fa-angle-right right-icon "
-                                                aria-hidden="true"></i>
+                                        Sale <i class="fa fa-angle-right right-icon " aria-hidden="true"></i>
                                     </a>
                                     <ul class="lv2">
 
@@ -1326,61 +1032,33 @@
                                                    aria-hidden="true"></i> soft 5%
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="soft-10.html">
                                                 <i class="fa fa-angle-double-right"
                                                    aria-hidden="true"></i> Sale off 10%
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="soft-15.html">
                                                 <i class="fa fa-angle-double-right"
                                                    aria-hidden="true"></i> Sale off 15%
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="soft-20.html">
                                                 <i class="fa fa-angle-double-right"
                                                    aria-hidden="true"></i> Sale off 20%
                                             </a>
                                         </li>
-
-
-
-
                                         <li>
                                             <a href="sale-50.html">
                                                 <i class="fa fa-angle-double-right"
                                                    aria-hidden="true"></i> Sale off 50%
                                             </a>
                                         </li>
-
-
-
-
-
                                     </ul>
-
-
                             </ul>
-
-
                         </div>
-
-
-
                         <style>
                             .right-icon {
                                 float: right;
@@ -1468,8 +1146,6 @@
                                     }
                                 });
                             });
-
-
                             $(document).ready(function () {
                                 $("ul.lv2 > li a").each(function (item) {
                                     if (window.location.pathname === $(this).attr("href")) {
@@ -1668,15 +1344,6 @@
                                         </div>
 
                                     </div>
-
-
-                                    END: Vendor filter
-                                    BEGIN: Type filter
-                                    END: Type filter
-                                    BEGIN: Color filter
-                                    END: Color filter
-                                    BEGIN: Price filter
-
                                     <div class="widget_links clearfix">
                                         <a href='#filter_group_4' data-toggle='collapse'>
                                             <h4>Giá<i class='fa-angle-down fa'></i></h4>
@@ -1735,14 +1402,6 @@
                                             <a class="view_smalls view_ops" href="javascript:0">Thu Nhỏ</a>
                                         </div>
                                     </div>
-
-                                    END: Price filter
-                                    BEGIN: Tag_Custom_1 filter
-                                    END: Tag_Custom_1 filter
-                                    BEGIN: Tag_Custom_2 filter
-                                    END: Tag_Custom_2 filter
-                                    BEGIN: Tag_Custom_3 filter
-                                    END: Tag_Custom_3 filter
                                 </div>
                             </div>
                         </div>
@@ -1803,9 +1462,6 @@
                             });
 
                         </script>
-
-
-
                         <script>
                             $(document).ready(function () {
 
@@ -1834,30 +1490,15 @@
                             });
 
                         </script>
-
-                        end: filters
-
                         <div class='hidden-xs hidden-sm'>
-                            categories
-                            end categories
-                            recent product
 
                             <div class="widget clearfix">
 
                                 <h4><a href='sale.html'>Sản phẩm khuyến mãi</a></h4>
                                 <div id="post-list-footer" class='sidebar_menu'>
-
-
-
                                 </div>
-
                             </div>
-
-                            end recent product
-                            most popular
-
                             <div class="widget clearfix">
-
                                 <h4><a href='cham-soc-da-mat.html'>Sản phẩm nổi bật</a></h4>
                                 <div id="Popular-item" class='sidebar_menu'>
 
@@ -1887,8 +1528,6 @@
                                             </ul>
                                         </div>
                                     </div>
-
-
                                     <div class="spost clearfix">
                                         <div class="entry-image">
                                             <a href="cham-soc-da-mat/products/dau-argan-huu-co-gravier-50ml.html">
@@ -1914,8 +1553,6 @@
                                             </ul>
                                         </div>
                                     </div>
-
-
                                     <div class="spost clearfix">
                                         <div class="entry-image">
                                             <a href="cham-soc-da-mat/products/dau-hanh-nhan-huu-co-gravier-50ml.html">
@@ -1944,40 +1581,21 @@
 
                                 </div>
                             </div>
-
-                            end most popular
-                            recent view
-
                             <div class="widget clearfix">
 
                                 <h4>Sản phẩm vừa xem</h4>
                                 <div class="widget-last-view sidebar_menu">
-
                                 </div>
-
                             </div>
-
                             <script>
                                 $(document).ready(function () {
                                     var $strHTML = get_viewed_items_html('');
                                     $('.widget .widget-last-view').html($strHTML);
                                 })
                             </script>
-
-                            end recent view
-
-
                             <div class="widget clearfix">
-
-
                             </div>
-
-
                         </div>
-
-
-
-
                     </div>
                 </div>
 

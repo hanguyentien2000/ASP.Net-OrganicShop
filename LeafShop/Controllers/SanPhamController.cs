@@ -1,4 +1,5 @@
 ﻿using LeafShop.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,16 +40,17 @@ namespace LeafShop.Controllers
         //    int pageNumber = (page ?? 1);
         //    return View(danhmucs.ToPagedList(pageNumber, pageSize));
         //}
-        public ActionResult Category(int? id)
+        public ActionResult Category(int? id,int? page)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
-            var product = db.SanPhams.Where(s => s.MaDanhMuc == id);
-            ViewBag.listProduct = product;
-            return View();
+            var product = db.SanPhams.Where(s => s.MaDanhMuc == id).ToList();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(product.ToPagedList(pageNumber, pageSize));
         }
     }
 }
