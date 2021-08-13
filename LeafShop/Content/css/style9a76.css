@@ -1,5 +1,7 @@
 * {
 	font-family: Open Sans, sans-serif!important;
+	margin: 0px;
+	padding: 0px;
 }
 [class^="fa-"], [class*=" fa-"] {
 	font-family: 'FontAwesome'!important;
@@ -896,7 +898,6 @@ Logo
 	font-family: 'Raleway', sans-serif;
 	font-size: 36px;
 	line-height: 100%;
-	margin-right: 40px;
 }
 
 #header.full-header #logo {
@@ -1610,15 +1611,14 @@ Top Search
 	margin: 40px 0 40px 15px;
 }
 
-#top-cart { position: relative; margin: 40px 0 40px 15px;}
+#top-cart { position: relative; }
 
 #top-search a,
 #top-cart a,
 #side-panel-trigger a {
 	display: block;
 	position: relative;
-	width: 14px;
-	height: 14px;
+	
 	font-size: 14px;
 	text-align: center;
 	color: #333;
@@ -1946,7 +1946,6 @@ body.top-search-open #side-panel-trigger { opacity: 0; }
 #header.sticky-header:not(.static-sticky) #primary-menu > ul > li.mega-menu > .mega-menu-content { top: 60px; }
 
 #header.sticky-header:not(.static-sticky) #top-search,
-#header.sticky-header:not(.static-sticky) #top-cart,
 #header.sticky-header:not(.static-sticky) #side-panel-trigger {
 	margin-top: 20px !important;
 	margin-bottom: 20px !important;

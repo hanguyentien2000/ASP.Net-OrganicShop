@@ -228,7 +228,7 @@
     <Compile Include="Areas\Administrator\Controllers\TaikhoanController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ThuongHieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\UserDetailtsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,6 +241,7 @@
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\ChiTietDatHang.cs" />
     <Compile Include="Models\DanhMuc.cs" />
+    <Compile Include="Models\DAO\SanPhamDAO.cs" />
     <Compile Include="Models\DatHang.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\KhuVuc.cs" />
@@ -4851,13 +4852,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Products\TestLayOut.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SearchBox.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Product.cshtml" />
-    <Content Include="Views\Products\TestDetailProducts.cshtml" />
     <Content Include="Views\Shared\_LayoutNoLeftSideBar.cshtml" />
+    <Content Include="Views\SanPham\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
