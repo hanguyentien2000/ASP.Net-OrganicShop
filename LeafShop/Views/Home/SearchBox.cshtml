@@ -4,5 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SearchBox</h2>
+<div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">
+    <div class="categorie-search-box">
+        @using (Html.BeginForm("Category", "SanPham", FormMethod.Get))
+        {
+            @*<div class="form-group">
+                <select class="bootstrap-select" name="madm">
+                    <option value="0">Tất cả danh mục</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.MaDanhMuc">@item.TenDanhMuc</option>
+                    }
+                </select>
+            </div>*@
+            <input name="SearchString" type="text" placeholder="Tìm kiếm">
+            <button type="submit"><i class="lnr lnr-magnifier"></i></button>}
+    </div>
+</div>
 

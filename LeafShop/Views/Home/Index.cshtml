@@ -2,7 +2,6 @@
 @{
     Layout = null;
     LeafShop.Models.KhachHang db = (LeafShop.Models.KhachHang)HttpContext.Current.Session[LeafShop.Session.ConstaintUser.USER_SESSION];
-
 }
 
 <!DOCTYPE html>
@@ -56,18 +55,12 @@
         }
     </style>
 
-
-
-    
-   
     <style>
         .grecaptcha-badge {
             visibility: hidden;
         }
     </style>
 
- 
-   
     <link href='~/Content/css/ae-multilang-custom9a76.css?v=3659' rel='stylesheet' type='text/css' media='all' />
     <style id="ae-switch-lang-css">
         .ae-lang-vi {
@@ -269,7 +262,6 @@
         <!-- Sidebar -->
         <ul class="sidebar-nav">
 
-
             <li class=''>
                 <a href="collections/thuc-pham-tuoi-song-che-bien.html" class='menu'>Thực phẩm tươi sống<span>+</span></a>
                 <ul>
@@ -334,8 +326,6 @@
 
                 </ul>
             </li>
-
-
 
             <li class=''>
                 <a href="collections/thuc-pham.html" class='menu'>Thực phẩm khô<span>+</span></a>
@@ -430,8 +420,6 @@
                 </ul>
             </li>
 
-
-
             <li class=''>
                 <a href="collections/lam-dep.html" class='menu'>Làm đẹp<span>+</span></a>
                 <ul>
@@ -482,8 +470,6 @@
 
                 </ul>
             </li>
-
-
 
             <li class=''>
                 <a href="collections/cham-soc-co-the.html" class='menu'>Chăm sóc cơ thể<span>+</span></a>
@@ -553,8 +539,6 @@
                 </ul>
             </li>
 
-
-
             <li class=''>
                 <a href="collections/cham-soc-me-be.html" class='menu'>Mẹ & bé<span>+</span></a>
                 <ul>
@@ -615,8 +599,6 @@
                 </ul>
             </li>
 
-
-
             <li class=''>
                 <a href="collections/cham-soc-nha-cua.html" class='menu'>Chăm sóc nhà cửa<span>+</span></a>
                 <ul>
@@ -644,8 +626,6 @@
                 </ul>
             </li>
 
-
-
             <li class=''>
                 <a href="collections/doi-song-tinh-than.html" class='menu'>Đời sống & Tinh thần<span>+</span></a>
                 <ul>
@@ -660,12 +640,6 @@
 
                 </ul>
             </li>
-
-
-
-            <li class=''><a href="collections/zero-waste.html">Zero Waste</a></li>
-
-
 
             <li class=''>
                 <a href="collections/sale.html" class='menu'>Sale<span>+</span></a>
@@ -693,7 +667,6 @@
 
                 </ul>
             </li>
-
 
             <li></li>
         </ul>
@@ -1962,425 +1935,48 @@
                                 <div class="titre_nouveaute">Sản Phẩm Mới</div>
 
                                 <div class='col-lg-12 nopadding index_sale col-sm-12'>
+                                    @foreach (var item in ViewBag.SanPhamMoiNhat)
+                                    {
+                                        <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
+                                            <div class="border-product">
+                                                <div class="product clearfix">
+                                                    <div class="haravan-product-reviews-badge" data-id="1034900940">
 
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
+                                                    </div>
+                                                    <div class="product-image">
 
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1034900940">
-
-                                                </div>
-                                                <div class="product-image">
-
-                                                    <a href="products/banh-gao-lut-bi-ngo-cho-be-alvins-30g.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2655498300864_dbf060b0968bc0fdec15a90ff102fce1_3750aefd65ba436ea9ef3913344ca950.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/z2655498300864_dbf060b0968bc0fdec15a90ff102fce1_3750aefd65ba436ea9ef3913344ca950.jpg" alt="Bánh gạo lứt bí ngô cho bé Alvins 30g"></a>
-                                                    <div class="product-overlay">
-                                                        <a href='products/banh-gao-lut-bi-ngo-cho-be-alvins-30g.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/banh-gao-lut-bi-ngo-cho-be-alvins-30g" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
+                                                        <a href="#"><img src="@item.HinhMinhHoa" data-lazyload="@item.HinhMinhHoa" alt="@item.TenSanPham"></a>
+                                                        <div class="product-overlay">
+                                                            <a href='#' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
+                                                            <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-title">
+                                                        <h4><a href="#" title="@item.TenSanPham">@item.TenSanPham</a></h4>
+                                                        <span>8809539862323</span>
+                                                    </div>
+                                                    <div class="product-desc">
+                                                        <div class="product-price">
+                                                            <ins> @item.DonGia ₫ </ins>
+                                                        </div>
+                                                        @if (item.SoLuong == 0)
+                                                        {
+                                                            <div class="buy_alls">
+                                                                <a href="javascript::0">Hết Hàng</a>
+                                                            </div>
+                                                        }
+                                                        @if (item.SoLuong > 0)
+                                                        {
+                                                            <div class="buy_all">
+                                                                <a class="product_quick_add" data-toggle='tooltip' href="#">Mua Ngay</a>
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
-                                                <div class="product-title">
-                                                    <h4><a href="products/banh-gao-lut-bi-ngo-cho-be-alvins-30g.html" title="Bánh gạo lứt bí ngô cho bé Alvins 30g">Bánh gạo lứt bí ngô cho bé Alvins 30g</a></h4>
-                                                    <span>8809539862323</span>
-                                                </div>
-                                                <div class="product-desc">
-                                                    <div class="product-price">
-                                                        <ins> 90,000₫ </ins>
-                                                    </div>
-
-                                                    <div class="buy_alls">
-                                                        <a href="javascript::0">Hết Hàng</a>
-                                                    </div>
-
-
-                                                </div>
-
-
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1034900241">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/banh-gao-lut-dau-nanh-cho-be-alvins-30g.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2655498319296_aded74217139a2ec5448f3d6f480745b_3bcc5f8526c34dcf842e3aa599911ac4.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/z2655498319296_aded74217139a2ec5448f3d6f480745b_3bcc5f8526c34dcf842e3aa599911ac4.jpg" alt="Bánh gạo lứt đậu nành cho bé Alvins 30g"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/banh-gao-lut-dau-nanh-cho-be-alvins-30g.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/banh-gao-lut-dau-nanh-cho-be-alvins-30g" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/banh-gao-lut-dau-nanh-cho-be-alvins-30g.html" title="Bánh gạo lứt đậu nành cho bé Alvins 30g">Bánh gạo lứt đậu nành cho bé Alvins 30g</a></h4>
-                                                    <span>8809539862316</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 90,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_alls">
-                                                        <a href="javascript::0">Hết Hàng</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1034777025">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/bun-tuoi-gao-lut-huu-co-say-kho-vietsuisse-70g-x-15-goi-tui.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2651479922185_55db8c8fcdd7c4c1717dad3f84c6eea8_58ce9ab123e147848ced95f1a7c3ace9.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/z2651479922185_55db8c8fcdd7c4c1717dad3f84c6eea8_58ce9ab123e147848ced95f1a7c3ace9.jpg" alt="Bún tươi gạo lứt hữu cơ sấy khô VietSuisse (70g x 15 gói/túi)"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/bun-tuoi-gao-lut-huu-co-say-kho-vietsuisse-70g-x-15-goi-tui.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/bun-tuoi-gao-lut-huu-co-say-kho-vietsuisse-70g-x-15-goi-tui" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/bun-tuoi-gao-lut-huu-co-say-kho-vietsuisse-70g-x-15-goi-tui.html" title="Bún tươi gạo lứt hữu cơ sấy khô VietSuisse (70g x 15 gói/túi)">Bún tươi gạo lứt hữu cơ sấy khô VietSuisse (70g x 15 gói/túi)</a></h4>
-                                                    <span>8936146490172</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 139,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/bun-tuoi-gao-lut-huu-co-say-kho-vietsuisse-70g-x-15-goi-tui.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1034850931">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/giam-gao-huu-co-pb-farm-200ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/586-giam-gao-huu-co-pb-farm-200ml_7a13036c7ed543a884b277834f6af45c.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/586-giam-gao-huu-co-pb-farm-200ml_7a13036c7ed543a884b277834f6af45c.jpeg" alt="Giấm gạo hữu cơ PB Farm 200ml"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/giam-gao-huu-co-pb-farm-200ml.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/giam-gao-huu-co-pb-farm-200ml" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/giam-gao-huu-co-pb-farm-200ml.html" title="Giấm gạo hữu cơ PB Farm 200ml">Giấm gạo hữu cơ PB Farm 200ml</a></h4>
-                                                    <span>8858710455021</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 79,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/giam-gao-huu-co-pb-farm-200ml.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1034851074">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/dau-an-huong-duong-ep-lanh-huu-co-sungarden-1l.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/dau_huong_duong_58f4400f2afb49018668a88ce5838aa9.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/dau_huong_duong_58f4400f2afb49018668a88ce5838aa9.jpg" alt="Dầu ăn hướng dương ép lạnh hữu cơ Sungarden 1L"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/dau-an-huong-duong-ep-lanh-huu-co-sungarden-1l.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/dau-an-huong-duong-ep-lanh-huu-co-sungarden-1l" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/dau-an-huong-duong-ep-lanh-huu-co-sungarden-1l.html" title="Dầu ăn hướng dương ép lạnh hữu cơ Sungarden 1L">Dầu ăn hướng dương ép lạnh hữu cơ Sungarden 1L</a></h4>
-                                                    <span>8588005518260</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 168,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/dau-an-huong-duong-ep-lanh-huu-co-sungarden-1l.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1033890872">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/hon-hop-gia-vi-huu-co-24-loai-thao-moc-bragg-42g.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/hon_hop_24_gia_vi_57ef1e07cbd34a2ca4632b44b3bb8670.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/hon_hop_24_gia_vi_57ef1e07cbd34a2ca4632b44b3bb8670.jpg" alt="Hỗn hợp gia vị hữu cơ 24 loại thảo mộc Bragg 42g"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/hon-hop-gia-vi-huu-co-24-loai-thao-moc-bragg-42g.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/hon-hop-gia-vi-huu-co-24-loai-thao-moc-bragg-42g" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/hon-hop-gia-vi-huu-co-24-loai-thao-moc-bragg-42g.html" title="Hỗn hợp gia vị hữu cơ 24 loại thảo mộc Bragg 42g">Hỗn hợp gia vị hữu cơ 24 loại thảo mộc Bragg 42g</a></h4>
-                                                    <span>074305060021</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 180,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/hon-hop-gia-vi-huu-co-24-loai-thao-moc-bragg-42g.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1033821158">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/dung-dich-ve-sinh-phu-nu-huu-co-dang-gel-sobio-etic.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/dung_dich_ve_sinh_sobio_d4cc48eb7b9f4ff1a47fc776ea498501.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/dung_dich_ve_sinh_sobio_d4cc48eb7b9f4ff1a47fc776ea498501.jpg" alt="Dung dịch vệ sinh phụ nữ hữu cơ dạng gel Sobio Etic"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/dung-dich-ve-sinh-phu-nu-huu-co-dang-gel-sobio-etic.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/dung-dich-ve-sinh-phu-nu-huu-co-dang-gel-sobio-etic" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/dung-dich-ve-sinh-phu-nu-huu-co-dang-gel-sobio-etic.html" title="Dung dịch vệ sinh phụ nữ hữu cơ dạng gel Sobio Etic">Dung dịch vệ sinh phụ nữ hữu cơ dạng gel Sobio Etic</a></h4>
-                                                    <span>3517360016864</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 185,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/dung-dich-ve-sinh-phu-nu-huu-co-dang-gel-sobio-etic.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1033806178">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-                                                    <a href="products/dau-tam-xuan-huu-co-gravier-50ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2545624429571_13058ec86121b7cbcf3b315b3e7caa6a_c6f5c9a71e174a1ca12c928dfb21348e.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/z2545624429571_13058ec86121b7cbcf3b315b3e7caa6a_c6f5c9a71e174a1ca12c928dfb21348e.jpg" alt="Dầu tầm xuân hữu cơ Gravier 50ml"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/dau-tam-xuan-huu-co-gravier-50ml.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/dau-tam-xuan-huu-co-gravier-50ml" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/dau-tam-xuan-huu-co-gravier-50ml.html" title="Dầu tầm xuân hữu cơ Gravier 50ml">Dầu tầm xuân hữu cơ Gravier 50ml</a></h4>
-                                                    <span>3489943760047</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 480,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/dau-tam-xuan-huu-co-gravier-50ml.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    }
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -2391,510 +1987,55 @@
                                 <div class="titre_nouveautess">Sản Phẩm Bán Chạy</div>
 
                                 <div class='col-lg-12 nopadding index_sale col-sm-12'>
+                                    @foreach (var item in ViewBag.SanPhamNoiBat)
+                                    {
+                                        <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
+                                            <div class="border-product">
+                                                <div class="product clearfix">
+                                                    <div class="haravan-product-reviews-badge" data-id="1015804368">
+                                                    </div>
+                                                    <div class="product-image">
+                                                        <div class="selling ">
+                                                            <span>Bán chạy</span>
+                                                        </div>
+                                                        <a href="#"><img src="@item.HinhMinhHoa" alt="@item.TenSanPham"></a>
 
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
+                                                        <div class="product-overlay">
+
+                                                            <a href='#' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
 
 
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1015804368">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
+                                                            <a href="#" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
+                                                        </div>
                                                     </div>
 
-
-
-                                                    <a href="products/hat-chia-huu-co-markal-250g.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/d17768874990b4ceed81_886517f6190b4fcda98e3a245cc1655f.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/d17768874990b4ceed81_886517f6190b4fcda98e3a245cc1655f.jpg" alt="Hạt chia hữu cơ Markal 250g"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/hat-chia-huu-co-markal-250g.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/hat-chia-huu-co-markal-250g" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/hat-chia-huu-co-markal-250g.html" title="Hạt chia hữu cơ Markal 250g">Hạt chia hữu cơ Markal 250g</a></h4>
-                                                    <span>3329488732508</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 145,000₫ </ins>
-
-
+                                                    <div class="product-title">
+                                                        <h4><a href="#" title="@item.TenSanPham">@item.TenSanPham</a></h4>
+                                                        <span>3329488732508</span>
                                                     </div>
 
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/hat-chia-huu-co-markal-250g.html">Mua Ngay</a>
+                                                    <div class="product-desc">
+                                                        <div class="product-price">
+                                                            <ins> @item.DonGia ₫ </ins>
+                                                        </div>
+                                                        @if (item.SoLuong == 0)
+                                                        {
+                                                            <div class="buy_alls">
+                                                                <a href="javascript::0">Hết Hàng</a>
+                                                            </div>
+                                                        }
+                                                        @if (item.SoLuong > 0)
+                                                        {
+                                                            <div class="buy_all">
+                                                                <a class="product_quick_add" data-toggle='tooltip' href="#">Mua Ngay</a>
+                                                            </div>
+                                                        }
                                                     </div>
-
-
                                                 </div>
-
-
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1006278462">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-                                                    <a href="products/yen-mach-can-mong-huu-co-markal-500g.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/yen_mach_can_mong_huu_co_markal_500g__1__052fef376da945888341479130655b57.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/yen_mach_can_mong_huu_co_markal_500g__1__052fef376da945888341479130655b57.jpg" alt="Yến mạch cán mỏng hữu cơ Markal 500g"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/yen-mach-can-mong-huu-co-markal-500g.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/yen-mach-can-mong-huu-co-markal-500g" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/yen-mach-can-mong-huu-co-markal-500g.html" title="Yến mạch cán mỏng hữu cơ Markal 500g">Yến mạch cán mỏng hữu cơ Markal 500g</a></h4>
-                                                    <span>3329483601205</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 89,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/yen-mach-can-mong-huu-co-markal-500g.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1009910824">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-                                                    <a href="products/nuoc-tinh-chat-hoa-hong-huu-co-gravier-200ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/3_acb7596363ad47bf9eedccde5054d624.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/3_acb7596363ad47bf9eedccde5054d624.jpg" alt="Nước tinh chất hoa hồng hữu cơ Gravier 200ml"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/nuoc-tinh-chat-hoa-hong-huu-co-gravier-200ml.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/nuoc-tinh-chat-hoa-hong-huu-co-gravier-200ml" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/nuoc-tinh-chat-hoa-hong-huu-co-gravier-200ml.html" title="Nước tinh chất hoa hồng hữu cơ Gravier 200ml">Nước tinh chất hoa hồng hữu cơ Gravier 200ml</a></h4>
-                                                    <span>3489941950006</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 350,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/nuoc-tinh-chat-hoa-hong-huu-co-gravier-200ml.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1004315292">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-
-
-                                                    <a href="products/nuoc-rua-bat-huu-co-bac-ha-harmonie-verte-1l.html"><img src="~/Content/image/nuoc-rua-bat-bac-ha_ef2e8b9a2c1f411cafa45cf7c5035173.png" data-lazyload="https://product.hstatic.net/1000104489/product/nuoc-rua-bat-bac-ha_ef2e8b9a2c1f411cafa45cf7c5035173.png" alt="Nước rửa bát hữu cơ bạc hà Harmonie Verte 1L"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/nuoc-rua-bat-huu-co-bac-ha-harmonie-verte-1l.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/nuoc-rua-bat-huu-co-bac-ha-harmonie-verte-1l" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/nuoc-rua-bat-huu-co-bac-ha-harmonie-verte-1l.html" title="Nước rửa bát hữu cơ bạc hà Harmonie Verte 1L">Nước rửa bát hữu cơ bạc hà Harmonie Verte 1L</a></h4>
-                                                    <span>TT3700445920006</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 160,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/nuoc-rua-bat-huu-co-bac-ha-harmonie-verte-1l.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1003020304">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-                                                    <a href="products/chi-ke-vien-moi-huu-co-avril-mau-rouge-france-1g-163.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/5121480crayon-contour-des-levres-rouge-bio.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/5121480crayon-contour-des-levres-rouge-bio.jpg" alt="Chì kẻ viền môi hữu cơ AVRIL màu Rouge Franc 1g"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/chi-ke-vien-moi-huu-co-avril-mau-rouge-france-1g-163.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/chi-ke-vien-moi-huu-co-avril-mau-rouge-france-1g-163" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/chi-ke-vien-moi-huu-co-avril-mau-rouge-france-1g-163.html" title="Chì kẻ viền môi hữu cơ AVRIL màu Rouge Franc 1g">Chì kẻ viền môi hữu cơ AVRIL màu Rouge Franc 1g</a></h4>
-                                                    <span>3662217005857</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 230,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/chi-ke-vien-moi-huu-co-avril-mau-rouge-france-1g-163.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1006010632">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-                                                    <a href="products/sua-gao-huu-co-khong-duong-organic-balance-1000ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/123_87580c28a029469296ff95fbc7bc08f3.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/123_87580c28a029469296ff95fbc7bc08f3.jpg" alt="Sữa gạo hữu cơ không đường 4CARE BALANCE 1L"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/sua-gao-huu-co-khong-duong-organic-balance-1000ml.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/sua-gao-huu-co-khong-duong-organic-balance-1000ml" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/sua-gao-huu-co-khong-duong-organic-balance-1000ml.html" title="Sữa gạo hữu cơ không đường 4CARE BALANCE 1L">Sữa gạo hữu cơ không đường 4CARE BALANCE 1L</a></h4>
-                                                    <span>8857072000771</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 89,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/sua-gao-huu-co-khong-duong-organic-balance-1000ml.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1006010637">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-                                                    <a href="products/sua-gao-huu-co-vani-organic-balance-180ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2571519936924_fc96af45ba0f4a573669b5467639a30b_3cad952d70ed48ebbd56828f7ee54239.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/z2571519936924_fc96af45ba0f4a573669b5467639a30b_3cad952d70ed48ebbd56828f7ee54239.jpg" alt="Sữa gạo hữu cơ vị vani 4Care Balance 180ml"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/sua-gao-huu-co-vani-organic-balance-180ml.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/sua-gao-huu-co-vani-organic-balance-180ml" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/sua-gao-huu-co-vani-organic-balance-180ml.html" title="Sữa gạo hữu cơ vị vani 4Care Balance 180ml">Sữa gạo hữu cơ vị vani 4Care Balance 180ml</a></h4>
-                                                    <span>8857072000436</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 24,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/sua-gao-huu-co-vani-organic-balance-180ml.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 col-sm-6 col-xs-12 noleftpadding norightpadding">
-                                        <div class="border-product">
-
-
-
-
-                                            <div class="product clearfix">
-
-                                                <div class="haravan-product-reviews-badge" data-id="1008401784">
-
-                                                </div>
-                                                <div class="product-image">
-
-
-
-
-
-
-                                                    <div class="selling ">
-                                                        <span>Bán chạy</span>
-                                                    </div>
-
-
-
-                                                    <a href="products/sua-gao-huu-co-vi-dau-4care-balance-organic-180ml.html"><img src="~/Content/Clone_leaforganic/Leaforganic/product.hstatic.net/1000104489/product/z2571519953769_6028821f33d912eae3f341c81c400943_9fa27f5b964a4045a291c3391cbde091.jpg" data-lazyload="https://product.hstatic.net/1000104489/product/z2571519953769_6028821f33d912eae3f341c81c400943_9fa27f5b964a4045a291c3391cbde091.jpg" alt="Sữa gạo tím hữu cơ 4Care Balance 180ml"></a>
-
-
-                                                    <div class="product-overlay">
-
-                                                        <a href='products/sua-gao-huu-co-vi-dau-4care-balance-organic-180ml.html' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-
-
-                                                        <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="/products/sua-gao-huu-co-vi-dau-4care-balance-organic-180ml" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-title">
-
-                                                    <h4><a href="products/sua-gao-huu-co-vi-dau-4care-balance-organic-180ml.html" title="Sữa gạo tím hữu cơ 4Care Balance 180ml">Sữa gạo tím hữu cơ 4Care Balance 180ml</a></h4>
-                                                    <span>8857072000443</span>
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="product-price">
-
-                                                        <ins> 24,000₫ </ins>
-
-
-                                                    </div>
-
-
-
-                                                    <div class="buy_all">
-                                                        <a class="product_quick_add" data-toggle='tooltip' href="products/sua-gao-huu-co-vi-dau-4care-balance-organic-180ml.html">Mua Ngay</a>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    }
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -2903,31 +2044,16 @@
                             <div class="row separateur_nouveautess blog_index">
                                 <div class="ligne_nouveautess polis"></div>
                                 <div class="titre_nouveautess blogsss">Tin tức</div>
-
-                                <div class="col-xs-12 col-md-4 arc-item">
-                                    <a href="blogs/kien-thuc-chung/quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho.html"><img src="~/Content/Clone_leaforganic/Leaforganic/file.hstatic.net/1000104489/article/dao_paula_5607ab7b47f34e23a3a733146254c93b_d1b82ac0e57348489fe821f8de30a34d.jpg" alt=""></a>
-                                    <a href="blogs/kien-thuc-chung/quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho.html" title="Quốc gia đầu tiên cấm kem chống nắng để bảo vệ san hô" class="title_blogss ">Quốc gia đầu tiên cấm kem chống nắng để bảo vệ san hô</a>
-                                    <p class="des-blogs">
-                                        Palau - một đất nước nhỏ bé nằm ở phía tây Thái Bình Dương đã vừa đi vào lịch sử là quốc gia đầu tiên trên thế giới...
-                                    </p>
-                                </div>
-
-                                <div class="col-xs-12 col-md-4 arc-item">
-                                    <a href="blogs/kien-thuc-chung/kem-chong-nang-da-huy-hoai-cac-ran-san-ho-nhu-the-nao.html"><img src="~/Content/Clone_leaforganic/Leaforganic/file.hstatic.net/1000104489/article/30-the-coral-bleaching-in-new-caledonia-1024x678_c9a6c0f77684403a8bb78654167473fd.jpg" alt=""></a>
-                                    <a href="blogs/kien-thuc-chung/kem-chong-nang-da-huy-hoai-cac-ran-san-ho-nhu-the-nao.html" title="Kem chống nắng đã hủy hoại các rạn san hô như thế nào?" class="title_blogss ">Kem chống nắng đã hủy hoại các rạn san hô như thế nào?</a>
-                                    <p class="des-blogs">
-                                        Theo ước tính chỉ khoảng từ 6-10 năm nữa thôi nếu con người vẫn tiếp tục sử dụng các loại kem chống nắng có thành phần hóa học...
-                                    </p>
-                                </div>
-
-                                <div class="col-xs-12 col-md-4 arc-item">
-                                    <a href="blogs/kien-thuc-chung/kem-chong-nang-co-hai-nhu-the-nao-den-moi-truong-bien.html"><img src="~/Content/Clone_leaforganic/Leaforganic/file.hstatic.net/1000104489/article/kem-chong-nang-tot-cho-da-kho_96a881e8792645a3bb71809f27c5910d.jpg" alt=""></a>
-                                    <a href="blogs/kien-thuc-chung/kem-chong-nang-co-hai-nhu-the-nao-den-moi-truong-bien.html" title="Kem chống nắng có hại như thế nào đến môi trường biển?" class="title_blogss ">Kem chống nắng có hại như thế nào đến môi trường biển?</a>
-                                    <p class="des-blogs">
-                                        Kem chống nắng thông thường có chứa rất nhiều các thành phần hóa học gây hại môi trường biển mà có thể bạn chưa biết?Kem chống nắng là...
-                                    </p>
-                                </div>
-
+                                @foreach (var item in ViewBag.TinTuc)
+                                {
+                                    <div class="col-xs-12 col-md-4 arc-item">
+                                        <a href="#"><img src="@item.Anh" alt=""></a>
+                                        <a href="#" title="@item.TieuDe" class="title_blogss ">@item.TieuDe</a>
+                                        <p class="des-blogs">
+                                            @item.Noidung
+                                        </p>
+                                    </div>
+                                }
                             </div>
                         </div>
 
@@ -2938,7 +2064,7 @@
                                 display: block;
                                 padding: 5px;
                                 height: 52px
-                            }
+                                    }
 
                             .blog_index {
                                 margin-bottom: 0;
@@ -2947,20 +2073,20 @@
                             .blogsss {
                                 background: #FF9900;
                                 margin-bottom: 20px;
-                            }
+                                }
 
                             .arc-item img {
                                 height: 250px;
-                            }
+                                }
 
                             .polis {
-                                border-bottom: 1px solid #FF9900;
+                                    border-bottom: 1px solid #FF9900;
                             }
 
-                            p.des-blogs {
+                                p.des-blogs {
                                 margin: 0px 5px 10px;
-                                min-height: 85px;
-                            }
+                                    min-height: 85px;
+                                }
                         </style>
                         <!-- end collection group -->
                     </div>
@@ -2972,7 +2098,7 @@
                 }
 
                     .content-wrap > .container, .slide_wrapper {
-                        background-color: #fff
+                                    background-color: #fff
                     }
             </style>
         </div>
@@ -3164,160 +2290,153 @@
     <div id="gotoTop" class="fa fa-angle-up"></div>
     <!-- quick add cart -->
     <div id='product-pop-up' style="display:none;" class="single-product shop-quick-view-ajax clearfix">
-
-        <div class="ajax-modal-title">
-            <a href='#'><h2>Pink Printed Dress</h2></a>
-        </div>
-
-        <div class="product-page product modal-padding clearfix">
-            <div class="col-md-6 nobottommargin">
-                <div class="product-image">
-                    <div class="product-main-image">
-                        <div class="pd_slide_qv">
-                            <img data-lazy="">
-                        </div>
-                        <div class='pd_slide_thumb_qv'>
-
-                        </div>
-                    </div>
-                    <div class="sale-flash">Sale!</div>
-                </div>
+        @foreach (var item in ViewBag.SanPham)
+        {
+            <div class="ajax-modal-title">
+                <a href='#'><h2>@item.TenSanPham</h2></a>
             </div>
-            <div class="col-md-6 nobottommargin product-desc">
-                <div class="product-price"> <ins style='margin-right: 5px;'>$24.99</ins> <del>$39.99</del></div>
-                <div class="clear"></div>
-                <div class="line"></div>
-                <!-- variants -->
-                <div class="product-page-options ">
-                    <div class="sizePicker">
-                        <label class="control-label options-title">Kích thước:</label>
-                        <div class='options-selection'>
-                            <select class="form-control input-sm size"></select>
-                        </div>
-                    </div>
-                    <div class="sizePicker">
-                        <label class="control-label options-title">Màu sắc:</label>
-                        <div class='options-selection'>
-                            <select class="form-control input-sm color" style='color:#555!important;'></select>
-                        </div>
-                    </div>
-                    <div class="sizePicker">
-                        <label class="control-label options-title">Chất liệu:</label>
-                        <div class='options-selection'>
-                            <select class="form-control input-sm material"></select>
+
+            <div class="product-page product modal-padding clearfix">
+                <div class="col-md-6 nobottommargin">
+                    <div class="product-image">
+                        <div class="product-main-image">
+                            <div class="pd_slide_qv">
+                                <img data-lazy="@item.HinhMinhHoa">
+                            </div>
+                            <div class='pd_slide_thumb_qv'>
+                                <img data-lazy="@item.HinhMinhHoa">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- end variant -->
-                <!-- Product Single - Quantity & Cart Button
+                <div class="col-md-6 nobottommargin product-desc">
+                    <div class="product-price">  @item.DonGia đ</div>
+                    <div class="clear"></div>
+                    <div class="line"></div>
+                    <!-- variants -->
+                    <div class="product-page-options ">
+                        <div class="sizePicker">
+                            <label class="control-label options-title">Khu vực:</label>
+                            <div class='options-selection'>
+                                <select class="form-control input-sm size" @item.MaKhuVuc>
+                                </select>
+                            </div>
+                        </div>
+                  
+                    </div>
+                    <!-- end variant -->
+                    <!-- Product Single - Quantity & Cart Button
                 ============================================= -->
-                <form id='ProductDetailsFormQV' class="nobottommargin clearfix">
-                    <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
-                        <input type="button" value="-" class="minus">
-                        <input type="text" class='qty' id='product_quantity' readonly step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
-                        <input type="button" value="+" class="plus">
-                    </div>
-                    <script></script>
-                    <div class="hidden" style="">
-                        <select id="product-select-qw" name="id">
-                        </select>
+                    <form id='ProductDetailsFormQV' class="nobottommargin clearfix">
+                        <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
+                            <input type="button" value="-" class="minus">
+                            <input type="text" class='qty' id='product_quantity' readonly step="1" min="1" name="quantity" value="1" title="Qty" size="4" />
+                            <input type="button" value="+" class="plus">
+                        </div>
+                        <script></script>
+                        <div class="hidden" style="">
+                            <select id="product-select-qw" name="id">
+                            </select>
 
-                        <input type="hidden" class="unit_price_not_formated" value="">
-                        <input type="hidden" class="product_url" value="">
-                        <input type="hidden" class="product_title_hd" value="">
-                        <input type="hidden" class="product_img_small" value="">
-                    </div>
-                    <button type="submit" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
-                    <button class='buy_btn buynow buynow_qv button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
-                </form><!-- Product Single - Quantity & Cart Button End -->
+                            <input type="hidden" class="unit_price_not_formated" value="">
+                            <input type="hidden" class="product_url" value="">
+                            <input type="hidden" class="product_title_hd" value="">
+                            <input type="hidden" class="product_img_small" value="">
+                        </div>
+                        <button type="submit" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
+                        <button class='buy_btn buynow buynow_qv button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
+                    </form><!-- Product Single - Quantity & Cart Button End -->
 
-                <div class="clear"></div>
-                <div class="line"></div>
-                <p class="description">Libero velit id eaque ex quae laboriosam nulla optio doloribus! Perspiciatis, libero, neque, perferendis at nisi optio dolor!</p>
+                    <div class="clear"></div>
+                    <div class="line"></div>
+                    <p class="description">@item.MoTa</p>
+                </div>
             </div>
-        </div>
+        }
+
     </div>
     <script>
-var callBackQV = function(variant, selector) {
-	//console.log('callBackQV  is functioning...');
-	var $tagPrice = '#product-pop-up .product-price ins';
+     var callBackQV = function(variant, selector) {
+    //console.log('callBackQV  is functioning...');
+            var $tagPrice = '#product-pop-up .product-price ins';
 	var $tagPriceCompare = '#product-pop-up .product-price del';
 	var $tagProductSection = '#ProductDetailsFormQV';
 	update_variant(variant, $tagPrice, $tagPriceCompare, '#addtocartQV', $tagProductSection);
 
-	Aecomapp.tranBox("0");
+            Aecomapp.tranBox("0");
 	var path = selector.product.url;
-	var title = $(this).text();
+            var title = $(this).text();
 	var url = window.location.protocol + "//" + window.location.host + path + "?title=" + title;
 	$.ajax({
-		url: url,
+            url: url,
 		success: function(response) {
-			var desText = $(response).find(".page_title h1").text().trim();
-			var descriptionText = $(response).find(".aetabs-tabs").text().trim();
+                    var desText = $(response).find(".page_title h1").text().trim();
+                    var descriptionText = $(response).find(".aetabs-tabs").text().trim();
 
 			$(".ajax-modal-title h2").text(desText);
-			// $("#product-pop-up .description").html(descriptionText);
-		}
-	});
+                    // $("#product-pop-up .description").html(descriptionText);
+                }
+            });
 }
 
-/*
-   *  strip_html_js
-   *
-   * ref: http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
-   * author phong.nguyen 20150806
-   */
-function strip_html_js(html)
-{
-	var tmp = document.createElement("DIV");
-	tmp.innerHTML = html;
-	return tmp.textContent || tmp.innerText || "";
-}
+        /*
+           *  strip_html_js
+           *
+           * ref: http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
+           * author phong.nguyen 20150806
+           */
+        function strip_html_js(html)
+        {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || "";
+        }
 
-var quickViewProduct = function (purl) {
+        var quickViewProduct = function (purl) {
 
 	// if ($(window).width() < 680) { window.location = purl; return false; }
 	// modal = $('#quick-view-modal'); modal.modal('show');
 	$.ajax({
-		url: purl + '.js',
+        url: purl + '.js',
 		async: false,
 		success: function (product) {
 
-			//console.log('quick view...asd01');
-			//make-up "product-pop-up"
+                //console.log('quick view...asd01');
+                //make-up "product-pop-up"
 
-			//
-			var $slide_qv = $('#product-pop-up .product-main-image .pd_slide_qv');
-			var $slide_thumb_qv = $('#product-pop-up .product-main-image .pd_slide_thumb_qv');
-			if (product.images.length == 0) {
+                //
+                var $slide_qv = $('#product-pop-up .product-main-image .pd_slide_qv');
+                var $slide_thumb_qv = $('#product-pop-up .product-main-image .pd_slide_thumb_qv');
+                if (product.images.length == 0) {
 				$slide_thumb_qv.remove();
 				$('#product-pop-up .product-main-image .pd_slide_qv img').attr('src', '~/Content/Clone_leaforganic/Leaforganic/hstatic.net/0/0/global/noDefaultImage6_large.gif');
-			}
-			else{
-				var html = '';
-				var html_thumb = '';
+                }
+                else{
+                    var html = '';
+                    var html_thumb = '';
 				$slide_qv.remove();
 				$slide_thumb_qv.remove();
-				html = '<div class="pd_slide_qv">';
-				html_thumb = '<div class="pd_slide_thumb_qv slick_thumb">';
+                    html = '<div class="pd_slide_qv">';
+                    html_thumb = '<div class="pd_slide_thumb_qv slick_thumb">';
 				$.each(product.images, function (i, v) {
-					html += '<div class="slick-slide" ><div class="img"><img data-lazy="'+ v +'"></div></div>';
-					html_thumb += '<div class="slick-slide" ><div class="img"><img data-lazy="'+ v +'"></div></div>';
-				});
-				html += '</div>';
-				html_thumb += '</div>';
-				html += html_thumb;
+                        html += '<div class="slick-slide" ><div class="img"><img data-lazy="'+ v +'"></div></div>';
+                        html_thumb += '<div class="slick-slide" ><div class="img"><img data-lazy="'+ v +'"></div></div>';
+                    });
+                    html += '</div>';
+                    html_thumb += '</div>';
+                    html += html_thumb;
 				$('#product-pop-up .product-main-image').html(html);
 				$('.pd_slide_qv').slick({
-					slidesToShow: 1,
+                    slidesToShow: 1,
 					slidesToScroll: 1,
 					prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
 					nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
 					lazyLoad: 'progressive',
 					asNavFor: '.pd_slide_thumb_qv'
-				});
+
+                });
 				$('.pd_slide_thumb_qv').slick({
-					slidesToShow: 3,
+                    slidesToShow: 3,
 					slidesToScroll: 1,
 					arrows:false,
 					lazyLoad: 'progressive',
@@ -3325,47 +2444,47 @@ var quickViewProduct = function (purl) {
 					focusOnSelect: true,
 					centerMode: true,
 				});
-			}//end images length
-			// render basic info. main img, desc, qty, ...
-			var $strDesc = strip_html_js(product.description);
-			var $strPrice = Haravan.formatMoney(product.price, "{{amount}} VND") + 'đ';
-			var $strComparePrice = Haravan.formatMoney(product.compare_at_price, "{{amount}} VND") + 'đ';
+                }//end images length
+                 // render basic info. main img, desc, qty, ...
+                var $strDesc = strip_html_js(product.description);
+                var $strPrice = Haravan.formatMoney(product.price, "{{amount}} VND") + 'đ';
+                var $strComparePrice = Haravan.formatMoney(product.compare_at_price, "{{amount}} VND") + 'đ';
 			$('#product-pop-up .description').html($strDesc.split(" ").splice(0,50).join(" ")+' ...');   // truncate 250 words
 			$('#product-pop-up .ajax-modal-title h2').html(product.title);
 			$('#product-pop-up .ajax-modal-title a').attr('href',purl);
 			$('#product-pop-up .product-price ins').html($strPrice);
-			if (product.price < product.compare_at_price) {
+                if (product.price < product.compare_at_price) {
 				$('#product-pop-up .product-price del').html($strComparePrice);
-			}
-			else {
+                }
+                else {
 				$('#product-pop-up .product-price del').html('');
 				$('#product-pop-up .sale-flash').hide();
-			}
+                }
 			$('#product-pop-up .qty').val(1);
-			var quantity = parseInt($('#ProductDetailsFormQV .product-quantity input.qty').val());
+                var quantity = parseInt($('#ProductDetailsFormQV .product-quantity input.qty').val());
 			$('#ProductDetailsFormQV .minus').click(function() {
-				if (quantity > 0) {
-					if (quantity == 1) {
+                    if (quantity > 0) {
+                        if (quantity == 1) {
 						$('#addtocartQV').attr('disabled','disabled');
-					}
-					quantity -= 1;
+                        }
+                        quantity -= 1;
 
-				}
-				else {
-					quantity = 0;
-				}
+                    }
+                    else {
+                        quantity = 0;
+                    }
 				$('#ProductDetailsFormQV .product-quantity input.qty').val(quantity);
-			});
+                });
 			$('#ProductDetailsFormQV .plus').click(function() {
 				$('#addtocartQV').removeAttr('disabled');
-				if (quantity < 100) {
-					quantity += 1;
-				}
-				else {
-					quantity = 100;
-				}
+                    if (quantity < 100) {
+                        quantity += 1;
+                    }
+                    else {
+                        quantity = 100;
+                    }
 				$('#ProductDetailsFormQV .product-quantity input.qty').val(quantity);
-			});
+                });
 			$('#product-pop-up .more_details').attr('href', product.url);
 			// assign hidden values
 			$('#product-pop-up .unit_price_not_formated').val(product.price);
@@ -3382,119 +2501,119 @@ var quickViewProduct = function (purl) {
 			$('.product-page-options select.color').html('');
 			$('.product-page-options select.material').html('');
 			$('.selector-wrapper').remove(); // remove all selectors by  Haravan.OptionSelectors
-			var $arrSize = [];
-			var $arrColor = [];
-			var $arrMaterial = [];
+                var $arrSize = [];
+                var $arrColor = [];
+                var $arrMaterial = [];
 			$.each(product.variants, function (i, v) {
 				$('select#product-select-qw').append("<option value='" + v.id + "'>" + v.title + ' - ' + v.price + "</option>");
-				if($arrSize.indexOf(v.option1) <= -1 )
+                    if($arrSize.indexOf(v.option1) <= -1 )
 				{
 					$('#product-pop-up select.size').append("<option >" + v.option1 + "</option>");
 					$arrSize.push(v.option1);
-				}
+                    }
 
-				if($arrColor.indexOf(v.option2) <= -1 )
+                    if($arrColor.indexOf(v.option2) <= -1 )
 				{
 					$('#product-pop-up select.color').append("<option >" + v.option2 + "</option>");
 					$arrColor.push(v.option2);
-				}
+                    }
 
-				if($arrMaterial.indexOf(v.option3) <= -1 )
+                    if($arrMaterial.indexOf(v.option3) <= -1 )
 				{
 					$('#product-pop-up select.material').append("<option >" + v.option3 + "</option>");
 					$arrMaterial.push(v.option3);
-				}
-			});
+                    }
+                });
 
 			//phong.nguyen 20150806: show label options 1,2,...
 			$($('#product-pop-up .product-page-options label')[0]).html(product.options[0].name);
 
-			var $option1_label = $('#product-pop-up .product-page-options label')[1];
-			var $option1_item = $('#product-pop-up .product-page-options .sizePicker')[1];
-			var $option2_label = $('#product-pop-up .product-page-options label')[2];
-			var $option2_item = $('#product-pop-up .product-page-options .sizePicker')[2];
-			if(product.options.length >= 2)
-			{
+                var $option1_label = $('#product-pop-up .product-page-options label')[1];
+                var $option1_item = $('#product-pop-up .product-page-options .sizePicker')[1];
+                var $option2_label = $('#product-pop-up .product-page-options label')[2];
+                var $option2_item = $('#product-pop-up .product-page-options .sizePicker')[2];
+                if(product.options.length >= 2)
+                {
 				$($option1_label).html(product.options[1].name);
 				$($option1_item).removeClass('hidden');
-				if (product.options.length >= 3)  {
+                    if (product.options.length >= 3)  {
 					$($option2_label).html(product.options[2].name);
 					$($option2_item).removeClass('hidden');
-				}
-				else {
+                    }
+                    else {
 					$($option2_item).addClass('hidden');
-				}
-			}
-			else {
+                    }
+                }
+                else {
 				$($option1_item).addClass('hidden');
 				$($option2_item).addClass('hidden');
-			}
+                }
 
 
-			//show/hide for any/1 variant
-			if (product.variants.length <= 1 ) {
+                //show/hide for any/1 variant
+                if (product.variants.length <= 1 ) {
 				// callBackQV(product.variants[0], null);
 				$('#product-pop-up .product-page-options').addClass('hidden');
-			}
-			else {
+                }
+                else {
 				// // debugger...
 				$('#product-pop-up .product-page-options').removeClass('hidden');
 
-			}
+                }
 
-			//call back function for variants
-			new Haravan.OptionSelectors("product-select-qw", { product: product, onVariantSelected: callBackQV });
+                //call back function for variants
+                new Haravan.OptionSelectors("product-select-qw", { product: product, onVariantSelected: callBackQV });
 
 
 			// function: choose size
 			$('#product-pop-up select.size').change(function(){
-				var $size = $(this).val();
-				var $color = $('#product-pop-up select.color').val();
-				var $material = $('#product-pop-up select.material').val();
-				var $tagSelectOption0 = '#product-select-qw-option-0';
-				var $tagSelectOption1 = '#product-select-qw-option-1';
-				var $tagSelectOption2 = '#product-select-qw-option-2';
+                    var $size = $(this).val();
+                    var $color = $('#product-pop-up select.color').val();
+                    var $material = $('#product-pop-up select.material').val();
+                    var $tagSelectOption0 = '#product-select-qw-option-0';
+                    var $tagSelectOption1 = '#product-select-qw-option-1';
+                    var $tagSelectOption2 = '#product-select-qw-option-2';
 
-				refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
-			});
+                    refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
+                });
 
 			// function: choose color
 			$('#product-pop-up select.color').change(function(){
-				var $size = $('#product-pop-up select.size').val();
-				var $color = $(this).val();
-				var $material = $('#product-pop-up select.material').val();
-				var $tagSelectOption0 = '#product-select-qw-option-0';
-				var $tagSelectOption1 = '#product-select-qw-option-1';
-				var $tagSelectOption2 = '#product-select-qw-option-2';
+                    var $size = $('#product-pop-up select.size').val();
+                    var $color = $(this).val();
+                    var $material = $('#product-pop-up select.material').val();
+                    var $tagSelectOption0 = '#product-select-qw-option-0';
+                    var $tagSelectOption1 = '#product-select-qw-option-1';
+                    var $tagSelectOption2 = '#product-select-qw-option-2';
 
-				refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
-			});
+                    refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
+                });
 
 			// function: choose material
 			$('#product-pop-up select.material').change(function(){
-				var $size = $('#product-pop-up select.size').val();
-				var $color = $('#product-pop-up select.color').val();
-				var $material = $(this).val();
-				var $tagSelectOption0 = '#product-select-qw-option-0';
-				var $tagSelectOption1 = '#product-select-qw-option-1';
-				var $tagSelectOption2 = '#product-select-qw-option-2';
+                    var $size = $('#product-pop-up select.size').val();
+                    var $color = $('#product-pop-up select.color').val();
+                    var $material = $(this).val();
+                    var $tagSelectOption0 = '#product-select-qw-option-0';
+                    var $tagSelectOption1 = '#product-select-qw-option-1';
+                    var $tagSelectOption2 = '#product-select-qw-option-2';
 
-				refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
-			});
+                    refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
+                });
 
 
 			//second item: $($("#colorPicker option").get(1))...
 			$("#product-pop-up select.size option:first").attr('selected', 'selected');
 			$("#product-pop-up select.color option:first").attr('selected', 'selected');
 			$("#product-pop-up select.material option:first").attr('selected', 'selected');
-			var $size = $("#product-pop-up select.size option:first").val();
-			var $color = $("#product-pop-up select.color option:first").val();
-			var $material = $("#product-pop-up select.material option:first").val();
-			var $tagSelectOption0 = '#product-select-qw-option-0';
-			var $tagSelectOption1 = '#product-select-qw-option-1';
-			var $tagSelectOption2 = '#product-select-qw-option-2';
+                var $size = $("#product-pop-up select.size option:first").val();
+                var $color = $("#product-pop-up select.color option:first").val();
+                var $material = $("#product-pop-up select.material option:first").val();
+                var $tagSelectOption0 = '#product-select-qw-option-0';
+                var $tagSelectOption1 = '#product-select-qw-option-1';
+                var $tagSelectOption2 = '#product-select-qw-option-2';
 
-			refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color, $tagSelectOption2 , $material);
+                refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color, $tagSelectOption2 , $material);
 
 
 		}//end: success
@@ -3622,11 +2741,6 @@ jQuery(document).ready(function() {
     <script src='~/Content/js/jquery.fancybox.pack9a76.js?v=3659' type='text/javascript'></script>
     <script src='~/Content/js/functions9a76.js?v=3659' type='text/javascript'></script>
     <script src='~/Content/js/additional_scripts9a76.js?v=3659' type='text/javascript'></script>
-
-
-
-
-
 
     <style>
         .content-wrap, #wrapper {

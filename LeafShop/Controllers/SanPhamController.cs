@@ -19,29 +19,19 @@ namespace LeafShop.Controllers
             return View();
         }
         LeafShopDb db = new LeafShopDb();
-        //public ActionResult Products(string SearchString, string currentFilter, int? page)
-        //{
-        //    if (SearchString != null)
-        //    {
-        //        page = 1;
-        //    }
-        //    else
-        //    {
-        //        SearchString = currentFilter;
-        //    }
-        //    ViewBag.CurrentFilter = SearchString;
-        //    var danhmucs = db.DanhMucs.Select(d => d);
-        //    if (!String.IsNullOrEmpty(SearchString))
-        //    {
-        //        danhmucs = danhmucs.Where(p => p.TenDanhMuc.Contains(SearchString));
-        //    }
-        //    int pageSize = 10;
-
-        //    int pageNumber = (page ?? 1);
-        //    return View(danhmucs.ToPagedList(pageNumber, pageSize));
-        //}
-        public ActionResult Category(int? id,int? page)
+        
+        public ActionResult Category(int? id,int? page, string SearchString, string currentFilter)
         {
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = SearchString;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,6 +41,15 @@ namespace LeafShop.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(product.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult CategoryDetails(int id)
+        {
+            SanPham sp = db.SanPhams.Include("DanhMuc").Where(s => s.MaSanPham.Equals(id)).FirstOrDefault();
+            List<SanPham> list = db.SanPhams.Where(s => s.MaSanPham.Equals(id)).ToList();
+            ViewBag.ChiTietSanPham = list;
+            ViewBag.Exitst = list[0];
+            return View(sp);
         }
     }
 }

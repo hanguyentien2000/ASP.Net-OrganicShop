@@ -43,9 +43,9 @@ namespace LeafShop.Controllers
                 db.SaveChanges();
                 Session[LeafShop.Session.ConstaintUser.USER_SESSION] = res;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("ErrorUpdate", "Cập nhật thông tin không thành công ! Thử lại sau !");
+                ModelState.AddModelError("ErrorUpdate", "Cập nhật thông tin không thành công ! Thử lại sau !" + ex.Message);
             }
             return View(res);
         }

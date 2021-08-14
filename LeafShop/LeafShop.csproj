@@ -227,6 +227,8 @@
     <Compile Include="Areas\Administrator\Controllers\SanPhamController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TaikhoanController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ThuongHieuController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\UserDetailtsController.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="Models\Taikhoan.cs" />
     <Compile Include="Models\ThuongHieu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Session\ConstaintCart.cs" />
     <Compile Include="Session\ConstaintUser.cs" />
     <Compile Include="Session\LoginUser.cs" />
   </ItemGroup>
@@ -4864,6 +4867,8 @@
     <Folder Include="Areas\UploadFile\Blog\" />
     <Folder Include="Areas\UploadFile\NhanVien\" />
     <Folder Include="Areas\UploadFile\SanPham\" />
+    <Folder Include="Views\Bill\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -11,10 +11,13 @@ namespace LeafShop.Controllers
     public class HomeController : Controller
     {
         private LeafShopDb db = new LeafShopDb();
-        public ActionResult Index()
+        public ActionResult Index(string parentId)
         {
-            ViewBag.SanPhamMoiNhat = db.SanPhams.Select(p => p).OrderByDescending(x => x.NgayKhoiTao).Take(10);
-            ViewBag.SanPhamNoiBat = db.SanPhams.Select(p => p).OrderBy(x => x.SoLuongBan).Take(10);
+            ViewBag.SanPham = db.SanPhams.Select(p => p);
+            ViewBag.SanPhamMoiNhat = db.SanPhams.Select(p => p).OrderByDescending(x => x.NgayKhoiTao).Take(6);
+            ViewBag.SanPhamNoiBat = db.SanPhams.Select(p => p).OrderByDescending(x => x.SoLuongBan).Take(6);
+            ViewBag.TinTuc = db.Blogs.Select(p => p).OrderBy(x => x.MaBaiViet).Take(3);
+            ViewBag.DanhMuc = db.DanhMucs.Select(p => p).OrderBy(x => x.MaDanhMuc).Where(s => s.ParentId == parentId).Take(8);
             return View();
         }
 
@@ -23,35 +26,6 @@ namespace LeafShop.Controllers
         {
             IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Select(p => p);
             return PartialView(danhmucs);
-        }
-
-
-        public ActionResult TestLayOut()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult TestDetailProducts()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult TrangChu()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult DangNhap_DangKy()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
         [HttpGet]
