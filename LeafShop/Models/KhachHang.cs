@@ -42,12 +42,12 @@ namespace LeafShop.Models
         ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
-        public bool GioiTinh { get; set; }
+        public bool? GioiTinh { get; set; }
 
         [StringLength(50)]
         public string Email { get; set; }
 
-        public bool TrangThai { get; set; }
+        public bool? TrangThai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DatHang> DatHangs { get; set; }

@@ -111,10 +111,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/Blog/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Blog blog = db.Blogs.Find(id);
             if (blog == null)
             {
@@ -132,11 +128,10 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult Edit(Blog blog, HttpPostedFileBase uploadhinh)
         {
             Blog bls = db.Blogs.FirstOrDefault(x => x.MaBaiViet == blog.MaBaiViet);
-            bls.MaNhanVien = blog.MaNhanVien;
             bls.Noidung = blog.Noidung;
             bls.TieuDe = blog.TieuDe;
             bls.Tomtat = blog.Tomtat;
-  
+            bls.NgayKhoiTao = blog.NgayKhoiTao;
             uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
@@ -155,10 +150,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/Blog/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Blog blog = db.Blogs.Find(id);
             if (blog == null)
             {

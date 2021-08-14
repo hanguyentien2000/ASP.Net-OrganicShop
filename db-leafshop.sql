@@ -10,9 +10,11 @@ CREATE TABLE DanhMuc
 (
 	MaDanhMuc INT IDENTITY NOT NULL PRIMARY KEY,
 	TenDanhMuc NVARCHAR(100) NOT NULL,
-	ParentId VARCHAR(10) NOT NULL
+	ParentId int NULL 
 )
-
+GO
+ALTER TABLE DanhMuc add foreign key (ParentId) references DanhMuc(MaDanhMuc)
+GO
 --Tạo bảng Nhà sản xuất--
 GO
 CREATE TABLE ThuongHieu
@@ -20,7 +22,9 @@ CREATE TABLE ThuongHieu
 	MaThuongHieu INT IDENTITY NOT NULL  PRIMARY KEY,
 	TenThuongHieu NVARCHAR(100) NOT NULL,
 	DiaChiThuongHieu NVARCHAR(100) NULL,
-	DienThoaiThuongHieu VARCHAR(20) NULL
+	DienThoaiThuongHieu VARCHAR(20) NULL,
+	MoTaThuongHieu nvarchar(2000) NULL,
+	AnhThuongHieu VARCHAR(1000) NULL
 )
 
 --Tạo bảng Nhân viên--
@@ -37,13 +41,6 @@ CREATE TABLE NhanVien
 	DiaChi NVARCHAR(500) NULL
 )
 
---Tạo bảng Khu vực--
-GO
-CREATE TABLE KhuVuc
-(
-	MaKhuVuc INT IDENTITY NOT NULL PRIMARY KEY,
-	TenKhuVuc NVARCHAR(100) NOT NULL UNIQUE
-)
 
 --Tạo bảng Sản phẩm--
 GO
@@ -53,7 +50,6 @@ CREATE TABLE SanPham
 	TenSanPham NVARCHAR(500),
 	MaDanhMuc INT ,
 	MaThuongHieu INT ,
-	MaKhuVuc INT ,
 	DonViTinh NVARCHAR(50) NULL,
 	SoLuong INT NULL,
 	SoLuongBan INT NULL,
@@ -62,9 +58,9 @@ CREATE TABLE SanPham
 	NgayKhoiTao Date NULL,
 	NgayCapNhat Date NULL,
 	HinhMinhHoa VARCHAR(1000) NULL,
+	TrangThai BIT NULL,
 	constraint PK_sanpham primary key (MaSanPham),
 	constraint PK_sanpham1 foreign key (MaDanhMuc) REFERENCES DanhMuc(MaDanhMuc),
-	constraint PK_sanpham2 foreign key (MaKhuVuc) REFERENCES KhuVuc(MaKhuVuc),
 	constraint PK_sanpham3 foreign key (MaThuongHieu) REFERENCES ThuongHieu(MaThuongHieu)
 )
 
@@ -83,17 +79,27 @@ CREATE TABLE KhachHang
 	TrangThai bit DEFAULT 1
 )
 
+GO
+CREATE TABLE DanhMucBlog
+(
+  MaDanhMucBlog INT IDENTITY NOT NULL PRIMARY KEY,
+  TenDanhMucBlog NVARCHAR(100) NOT NULL,
+)
+
 --Tạo bảng Bài Viết
 GO
 CREATE TABLE Blog(
 	MaBaiViet INT IDENTITY NOT NULL,
 	MaNhanVien Int,
+	MaDanhMucBlog int,
 	TieuDe nvarchar(500) NULL,
 	Anh VARCHAR(1000) NULL,
 	Tomtat nvarchar(500) null,
 	Noidung nvarchar(2000) null,
+	NgayKhoiTao Date null,
 	constraint PK_Blog primary key (MaBaiViet),
-	constraint PK_Blog1 foreign key (MaNhanVien) REFERENCES NhanVien(MaNhanVien)
+	constraint PK_Blog1 foreign key (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
+	constraint PK_Blog2 foreign key (MaDanhMucBlog) REFERENCES DanhMucBlog(MaDanhMucBlog)
 )
 
 --Tạo bảng Tài khoản
@@ -136,28 +142,23 @@ CREATE TABLE ChiTietDatHang
 	constraint PK_CTDH2 foreign key (MaSanPham) references SanPham(MaSanPham)
 )
 
---Thêm dữ liệu vào bảng Khu vực--
-GO
-INSERT INTO KhuVuc VALUES(N'Hà Nội')
-INSERT INTO KhuVuc VALUES(N'Hồ Chí Minh')
-INSERT INTO KhuVuc VALUES(N'Nha Trang')
 
 --Thêm dữ liệu vào bảng danh mục--
 GO
-INSERT INTO DanhMuc VALUES(N'Thực phẩm tươi sống','PID1')
-INSERT INTO DanhMuc VALUES(N'Thực phẩm khô','PID2')
-INSERT INTO DanhMuc VALUES(N'Làm đẹp','PID3')
-INSERT INTO DanhMuc VALUES(N'Chăm sóc cơ thể','PID4')
-INSERT INTO DanhMuc VALUES(N'Mẹ & bé','PID5')
-INSERT INTO DanhMuc VALUES(N'Chăm sóc nhà cửa','PID6')
+INSERT INTO DanhMuc VALUES(N'Thực phẩm tươi sống','1')
+INSERT INTO DanhMuc VALUES(N'Thực phẩm khô','2')
+INSERT INTO DanhMuc VALUES(N'Làm đẹp','3')
+INSERT INTO DanhMuc VALUES(N'Chăm sóc cơ thể','4')
+INSERT INTO DanhMuc VALUES(N'Mẹ & bé','5')
+INSERT INTO DanhMuc VALUES(N'Chăm sóc nhà cửa','6')
 
 
 --Thêm dữ liệu vào bảng ThuongHieu--
 GO
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu A',N'Hà Nội','0123456789')
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu B',N'Lạng Sơn','0123456789')
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu C',N'Đà Nẵng','0123456789')
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu D',N'Hồ Chí Minh','0123456789')
+INSERT INTO ThuongHieu VALUES(N'Thương Hiệu A',N'Hà Nội','0123456789', N'Test', NULL)
+INSERT INTO ThuongHieu VALUES(N'Thương Hiệu B',N'Lạng Sơn','0123456789', N'Test', NULL)
+INSERT INTO ThuongHieu VALUES(N'Thương Hiệu C',N'Đà Nẵng','0123456789',N'Test', NULL)
+INSERT INTO ThuongHieu VALUES(N'Thương Hiệu D',N'Hồ Chí Minh','0123456789',N'Test', NULL)
 
 --Thêm dữ liệu vào bảng Khách hàng--
 GO
@@ -195,6 +196,6 @@ INSERT INTO Taikhoan VALUES('admin','admin',1, 1)
 INSERT INTO Taikhoan VALUES('quach','quach',0, 2)
 
 --Thêm dữ liệu vào bảng blog
-GO
-INSERT INTO Blog VALUES('1',N'Thực phẩm đời sống', 'MSP001.jpg',N'Thực phẩm',N'Yếu tó quan trọng của thực phẩm')
-INSERT INTO Blog VALUES('2',N'Mẹ & Bé', 'MSP001.jpg',N'Dầu nhờn',N'Yếu tó quan trọng của dầu nhờn')
+--GO
+--INSERT INTO Blog VALUES('1',N'Thực phẩm đời sống', 'MSP001.jpg',N'Thực phẩm',N'Yếu tó quan trọng của thực phẩm','01/02/2021')
+--INSERT INTO Blog VALUES('2',N'Mẹ & Bé', 'MSP001.jpg',N'Dầu nhờn',N'Yếu tó quan trọng của dầu nhờn','01/06/2021')

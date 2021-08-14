@@ -8,16 +8,16 @@ namespace LeafShop.Models
     public partial class LeafShopDb : DbContext
     {
         public LeafShopDb()
-            : base("name=LeafShopDbContext")
+            : base("name=LeafShopDb2")
         {
         }
 
         public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<ChiTietDatHang> ChiTietDatHangs { get; set; }
         public virtual DbSet<DanhMuc> DanhMucs { get; set; }
+        public virtual DbSet<DanhMucBlog> DanhMucBlogs { get; set; }
         public virtual DbSet<DatHang> DatHangs { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<KhuVuc> KhuVucs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Taikhoan> Taikhoans { get; set; }
@@ -30,8 +30,9 @@ namespace LeafShop.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<DanhMuc>()
-                .Property(e => e.ParentId)
-                .IsUnicode(false);
+                .HasMany(e => e.DanhMuc1)
+                .WithOptional(e => e.DanhMuc2)
+                .HasForeignKey(e => e.ParentId);
 
             modelBuilder.Entity<DatHang>()
                 .HasMany(e => e.ChiTietDatHangs)
@@ -69,6 +70,10 @@ namespace LeafShop.Models
 
             modelBuilder.Entity<ThuongHieu>()
                 .Property(e => e.DienThoaiThuongHieu)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ThuongHieu>()
+                .Property(e => e.AnhThuongHieu)
                 .IsUnicode(false);
         }
     }

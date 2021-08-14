@@ -24,7 +24,7 @@ namespace LeafShop.Models
         [StringLength(100)]
         public string TenNhanVien { get; set; }
 
-        public bool GioiTinh { get; set; }
+        public bool? GioiTinh { get; set; }
 
         [StringLength(1000)]
         public string Avatar { get; set; }
@@ -32,7 +32,10 @@ namespace LeafShop.Models
         [StringLength(50)]
         public string Email { get; set; }
 
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
         [StringLength(20)]

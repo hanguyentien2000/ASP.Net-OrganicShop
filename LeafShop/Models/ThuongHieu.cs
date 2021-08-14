@@ -28,6 +28,12 @@ namespace LeafShop.Models
         [StringLength(20)]
         public string DienThoaiThuongHieu { get; set; }
 
+        [StringLength(2000)]
+        public string MoTaThuongHieu { get; set; }
+
+        [StringLength(1000)]
+        public string AnhThuongHieu { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }

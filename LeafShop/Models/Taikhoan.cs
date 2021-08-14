@@ -16,7 +16,7 @@ namespace LeafShop.Models
         [StringLength(50)]
         public string PASSWORD { get; set; }
 
-        public bool Quantri { get; set; }
+        public bool? Quantri { get; set; }
 
         public int? MaNhanVien { get; set; }
 
