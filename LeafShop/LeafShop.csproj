@@ -218,6 +218,7 @@
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
     <Compile Include="Areas\Administrator\Controllers\BlogController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ChiTietDatHangController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\DanhMucBlogsController.cs" />
     <Compile Include="Areas\Administrator\Controllers\DanhMucController.cs" />
     <Compile Include="Areas\Administrator\Controllers\DatHangController.cs" />
     <Compile Include="Areas\Administrator\Controllers\HomeController.cs" />
@@ -4812,6 +4813,11 @@
     <Content Include="LeafShopDataSet.xsc">
       <DependentUpon>LeafShopDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Areas\Administrator\Views\DanhMucBlogs\Create.cshtml" />
+    <Content Include="Areas\Administrator\Views\DanhMucBlogs\Delete.cshtml" />
+    <Content Include="Areas\Administrator\Views\DanhMucBlogs\Details.cshtml" />
+    <Content Include="Areas\Administrator\Views\DanhMucBlogs\Edit.cshtml" />
+    <Content Include="Areas\Administrator\Views\DanhMucBlogs\Index.cshtml" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>
