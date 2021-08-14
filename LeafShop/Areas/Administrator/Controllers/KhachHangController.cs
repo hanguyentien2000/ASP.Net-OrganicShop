@@ -44,10 +44,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/KhachHang/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {

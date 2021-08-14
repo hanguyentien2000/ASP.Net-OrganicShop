@@ -17,8 +17,15 @@ namespace LeafShop.Controllers
             ViewBag.SanPhamMoiNhat = db.SanPhams.Select(p => p).OrderByDescending(x => x.NgayKhoiTao).Take(6);
             ViewBag.SanPhamNoiBat = db.SanPhams.Select(p => p).OrderByDescending(x => x.SoLuongBan).Take(6);
             ViewBag.TinTuc = db.Blogs.Select(p => p).OrderBy(x => x.MaBaiViet).Take(3);
-            ViewBag.DanhMuc = db.DanhMucs.Select(p => p).OrderBy(x => x.MaDanhMuc).Where(s => s.ParentId == parentId).Take(8);
+
             return View();
+        }
+
+        public ActionResult CategoryTree()
+        {
+            IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p);
+            
+            return PartialView(danhmucs);
         }
 
         [ChildActionOnly]

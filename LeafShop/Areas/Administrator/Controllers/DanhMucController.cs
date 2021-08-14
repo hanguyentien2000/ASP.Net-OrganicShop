@@ -44,10 +44,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DanhMuc/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             DanhMuc danhMuc = db.DanhMucs.Find(id);
             if (danhMuc == null)
             {
@@ -98,10 +94,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DanhMuc/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            
             DanhMuc danhMuc = db.DanhMucs.Find(id);
             if (danhMuc == null)
             {
@@ -129,10 +122,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DanhMuc/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             DanhMuc danhMuc = db.DanhMucs.Find(id);
             if (danhMuc == null)
             {

@@ -12,6 +12,7 @@ namespace LeafShop.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DanhMuc()
         {
+            DanhMuc1 = new HashSet<DanhMuc>();
             SanPhams = new HashSet<SanPham>();
         }
 
@@ -22,9 +23,12 @@ namespace LeafShop.Models
         [StringLength(100)]
         public string TenDanhMuc { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string ParentId { get; set; }
+        public int? ParentId { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhMuc> DanhMuc1 { get; set; }
+
+        public virtual DanhMuc DanhMuc2 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPhams { get; set; }

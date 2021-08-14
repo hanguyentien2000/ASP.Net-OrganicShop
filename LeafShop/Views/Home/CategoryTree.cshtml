@@ -1,0 +1,28 @@
+﻿@model IEnumerable<LeafShop.Models.DanhMuc>
+
+<ul class="menu_nav_li">
+    @foreach (var item in Model)
+    {
+        <li class="line-text ">
+            <a href="collections/thuc-pham-tuoi-song-che-bien.html" class="link_menu_haut">@item.TenDanhMuc</a>
+            <ul class="sub-menu-ol">
+                @foreach (var subitem in item.DanhMuc1)
+                {
+                    <li>
+                        <a href="collections/thit-thuy-hai-san.html">@subitem.TenDanhMuc</a>
+                      
+                        <ul class="sub-menu-ol-2">
+                            @foreach (var subitem1 in subitem.DanhMuc1)
+                            {
+                                <li><a href="collections/thit-xuong-noi-tang-san-pham-tu-lon.html">@subitem1.TenDanhMuc</a></li>
+                            }
+                        </ul>
+
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+
+
+</ul>

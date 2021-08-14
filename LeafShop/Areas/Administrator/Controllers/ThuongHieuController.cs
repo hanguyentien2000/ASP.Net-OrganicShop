@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -29,7 +30,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             ViewBag.CurrentFilter = SearchString;
             //var thuonghieus = db.ThuongHieux.Select(d => d);
             IQueryable<ThuongHieu> thuonghieus = (from th in db.ThuongHieux
-                                                   select th)
+                                                  select th)
                     .OrderBy(x => x.TenThuongHieu);
             if (!String.IsNullOrEmpty(SearchString))
             {
@@ -67,41 +68,48 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaThuongHieu,TenThuongHieu,DiaChiThuongHieu,DienThoaiThuongHieu")] ThuongHieu thuongHieu)
+        public ActionResult Create(ThuongHieu th, HttpPostedFileBase uploadhinh)
         {
             try
             {
-                ThuongHieu existData = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == thuongHieu.MaThuongHieu);
+                ThuongHieu existData = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == th.MaThuongHieu);
                 if (existData != null)
                 {
                     ViewBag.Error = "Đã tồn tại mã thương hiệu này";
-                    return View(thuongHieu);
+                    return View(th);
                 }
                 else
                 {
-                    if (ModelState.IsValid)
+                    db.ThuongHieux.Add(th);
+                    db.SaveChanges();
+                    uploadhinh = Request.Files["ImageFile"];
+                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
                     {
-                        db.ThuongHieux.Add(thuongHieu);
+                        int id = int.Parse(db.ThuongHieux.ToList().Last().MaThuongHieu.ToString());
+
+                        string _FileName = "";
+                        int index = uploadhinh.FileName.IndexOf('.');
+                        _FileName = "thuonghieu" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/ThuongHieu/"), _FileName);
+                        uploadhinh.SaveAs(_path);
+
+                        ThuongHieu item = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == id);
+                        item.AnhThuongHieu = ("/Areas/UploadFile/ThuongHieu/" + _FileName);
                         db.SaveChanges();
                     }
-                    return RedirectToAction("Index");
                 }
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(thuongHieu);
+                return View(th);
             }
-            
         }
 
         // GET: Administrator/ThuongHieu/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
             if (thuongHieu == null)
             {
@@ -115,24 +123,32 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaThuongHieu,TenThuongHieu,DiaChiThuongHieu,DienThoaiThuongHieu")] ThuongHieu thuongHieu)
+        public ActionResult Edit(ThuongHieu th, HttpPostedFileBase uploadhinh)
         {
-            if (ModelState.IsValid)
+            ThuongHieu ths = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == th.MaThuongHieu);
+            ths.TenThuongHieu = th.TenThuongHieu;
+            ths.DiaChiThuongHieu = th.DiaChiThuongHieu;
+            ths.DienThoaiThuongHieu = th.DienThoaiThuongHieu;
+            ths.MoTaThuongHieu = th.MoTaThuongHieu;
+
+            uploadhinh = Request.Files["ImageFile"];
+            if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {
-                db.Entry(thuongHieu).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                int id = th.MaThuongHieu;
+                string _FileName = "";
+                int index = uploadhinh.FileName.IndexOf('.');
+                _FileName = "thuonghieu" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/ThuongHieu"), _FileName);
+                uploadhinh.SaveAs(_path);
+                ths.AnhThuongHieu = ("/Areas/UploadFile/ThuongHieu/" + _FileName);
             }
-            return View(thuongHieu);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Administrator/ThuongHieu/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
             if (thuongHieu == null)
             {

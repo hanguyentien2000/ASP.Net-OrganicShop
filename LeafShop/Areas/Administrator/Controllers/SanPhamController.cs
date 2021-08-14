@@ -51,10 +51,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/SanPham/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             SanPham sanPham = db.SanPhams.Find(id);
             if (sanPham == null)
             {
@@ -67,7 +63,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult Create()
         {
             ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
-            ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc");
             ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
             return View();
         }
@@ -99,7 +94,6 @@ namespace LeafShop.Areas.Administrator.Controllers
             try
             {
                 ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
-                ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc");
                 ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
                 var existData = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
                 if(existData != null)
@@ -146,7 +140,6 @@ namespace LeafShop.Areas.Administrator.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
-            ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
             ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
             return View(sanPham);
         }
@@ -178,7 +171,6 @@ namespace LeafShop.Areas.Administrator.Controllers
             sps.NgayCapNhat = sp.NgayCapNhat;
             sps.SoLuong = sp.SoLuong;
             sps.SoLuongBan = sp.SoLuongBan;
-            sps.MaKhuVuc = sp.MaKhuVuc;
             sps.MaDanhMuc = sp.MaDanhMuc;
             sps.MaThuongHieu = sp.MaThuongHieu;
             sps.DonViTinh = sp.DonViTinh;

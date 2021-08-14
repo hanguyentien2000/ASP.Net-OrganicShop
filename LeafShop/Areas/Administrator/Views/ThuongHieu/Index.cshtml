@@ -46,6 +46,12 @@
                         <th>
                             Điện thoại
                         </th>
+                        <th>
+                            Mô tả
+                        </th>
+                        <th>
+                            Ảnh 
+                        </th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -57,6 +63,10 @@
                             <td>@Html.DisplayFor(modelItem => item.TenThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DiaChiThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DienThoaiThuongHieu)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MoTaThuongHieu)</td>
+                            <td>
+                                <img style="width:100px; height: 100px" src="@item.AnhThuongHieu" class="img-thumbnail" />
+                            </td>
                             <td>
                                 @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaThuongHieu }) |
                                 @Html.ActionLink("Chi tiết", "Details", new { id = item.MaThuongHieu }) |

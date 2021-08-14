@@ -14,7 +14,7 @@
         <div class="pt-4 pb-3">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    
+
                     <br />
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tên sản phẩm</label>
@@ -33,13 +33,6 @@
                         <label for="form15">Mã thương hiệu</label>
                         @Html.DropDownList("MaThuongHieu", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.MaThuongHieu, "", new { @class = "text-danger" })
-                    </div>
-
-                    <br />
-                    <div class="md-form md-outline mt-0">
-                        <label for="form15">Mã khu vực</label>
-                        @Html.DropDownList("MaKhuVuc", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MaKhuVuc, "", new { @class = "text-danger" })
                     </div>
 
                     <br />
@@ -92,7 +85,7 @@
 
                         <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
                     </div>
-                    
+
                     <br />
                     <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-default" />

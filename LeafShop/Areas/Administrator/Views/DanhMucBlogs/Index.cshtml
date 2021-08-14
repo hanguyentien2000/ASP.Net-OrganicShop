@@ -1,6 +1,7 @@
-﻿@model PagedList.IPagedList<LeafShop.Models.DanhMuc>
+﻿@model PagedList.IPagedList<LeafShop.Models.DanhMucBlog>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +10,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
         <div class="title_left">
-            <h3>Quản lý danh mục</h3>
+            <h3>Quản lý tài khoản</h3>
         </div>
     </div>
     <div class="x_panel">
@@ -35,13 +36,16 @@
                 <thead>
                     <tr>
                         <th>
-                            Mã danh mục
+                            Tên nhân viên
                         </th>
                         <th>
-                            Tên danh mục
+                            Username
                         </th>
                         <th>
-                            ParentId
+                            Password
+                        </th>
+                        <th>
+                            Quản trị
                         </th>
                         <th>Thao tác</th>
                     </tr>
@@ -50,13 +54,14 @@
                 {
                     <tbody>
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.MaDanhMuc)</td>
-                            <td>@Html.DisplayFor(modelItem => item.TenDanhMuc)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ParentId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
+                            <td>@Html.DisplayFor(modelItem => item.USERNAME)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PASSWORD)</td>
+                            <td> @(item.Quantri?"Quản trị viên":"Nhân viên")</td>
                             <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDanhMuc }) |
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDanhMuc }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaDanhMuc })
+                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.USERNAME }) |
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.USERNAME }) |
+                                @Html.ActionLink("Xoá", "Delete", new { id = item.USERNAME })
                             </td>
                         </tr>
                     </tbody>
@@ -72,4 +77,3 @@
         </div>
     </div>
 </div>
-

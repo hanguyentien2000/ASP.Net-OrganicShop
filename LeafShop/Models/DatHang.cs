@@ -24,12 +24,14 @@ namespace LeafShop.Models
 
         public int? TongTien { get; set; }
 
+        [StringLength(1000)]
+        public string GhiChu { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString =
         "{0:yyyy-MM-dd}",
         ApplyFormatInEditMode = true)]
         public DateTime? NgayKhoiTao { get; set; }
-        public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDatHang> ChiTietDatHangs { get; set; }

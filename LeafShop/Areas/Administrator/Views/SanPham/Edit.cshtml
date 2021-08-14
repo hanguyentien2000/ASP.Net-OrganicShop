@@ -43,13 +43,6 @@
 
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <label for="form15">Mã khu vực</label>
-                        @Html.DropDownList("MaKhuVuc", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MaKhuVuc, "", new { @class = "text-danger" })
-                    </div>
-
-                    <br />
-                    <div class="md-form md-outline mt-0">
                         <label for="form15">Đơn vị tính</label>
                         @Html.EditorFor(model => model.DonViTinh, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.DonViTinh, "", new { @class = "text-danger" })

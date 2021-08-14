@@ -6,23 +6,23 @@ namespace LeafShop.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("KhuVuc")]
-    public partial class KhuVuc
+    [Table("DanhMucBlog")]
+    public partial class DanhMucBlog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KhuVuc()
+        public DanhMucBlog()
         {
-            SanPhams = new HashSet<SanPham>();
+            Blogs = new HashSet<Blog>();
         }
 
         [Key]
-        public int MaKhuVuc { get; set; }
+        public int MaDanhMucBlog { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string TenKhuVuc { get; set; }
+        public string TenDanhMucBlog { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPham> SanPhams { get; set; }
+        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }

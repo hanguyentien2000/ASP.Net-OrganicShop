@@ -14,6 +14,8 @@ namespace LeafShop.Models
 
         public int? MaNhanVien { get; set; }
 
+        public int? MaDanhMucBlog { get; set; }
+
         [StringLength(500)]
         public string TieuDe { get; set; }
 
@@ -26,6 +28,14 @@ namespace LeafShop.Models
         [StringLength(2000)]
         public string Noidung { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
+        public DateTime? NgayKhoiTao { get; set; }
+
         public virtual NhanVien NhanVien { get; set; }
+
+        public virtual DanhMucBlog DanhMucBlog { get; set; }
     }
 }

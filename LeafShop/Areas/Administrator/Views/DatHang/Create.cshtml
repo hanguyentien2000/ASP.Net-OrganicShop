@@ -43,6 +43,12 @@
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
+                        <label for="form15">Ghi chú</label>
+                        @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "datepicker" })
+                    </div>
+                    <br />
+                    <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-default" />
                         @Html.ActionLink("Quay trở lại", "Index")
                     </div>

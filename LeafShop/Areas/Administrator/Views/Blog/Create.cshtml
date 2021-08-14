@@ -14,7 +14,7 @@
         <div class="pt-4 pb-3">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    
+
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tên nhân viên</label>
                         @Html.DropDownList("MaNhanVien", null, htmlAttributes: new { @class = "form-control" })
@@ -33,7 +33,7 @@
                         <br />
                         <img id="output" class="img-rounded" alt="Ảnh" width="200" height="200" />
 
-                         <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
+                        <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
 
                     </div>
 
@@ -41,6 +41,13 @@
                     <div class="md-form md-outline mt-0">
                         <label for="form15">Tóm tắt</label>
                         @Html.EditorFor(model => model.Tomtat, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Tomtat, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <div class="md-form md-outline mt-0">
+                        <label for="form15">Ngày khởi tạo</label>
+                        @Html.EditorFor(model => model.NgayKhoiTao, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Tomtat, "", new { @class = "text-danger" })
                     </div>
 
