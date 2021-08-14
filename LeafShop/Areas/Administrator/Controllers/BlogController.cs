@@ -45,10 +45,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/Blog/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Blog blog = db.Blogs.Find(id);
             if (blog == null)
             {
@@ -61,6 +57,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult Create()
         {
             ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien");
+            ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
             return View();
         }
 
@@ -74,6 +71,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             try
             {
                 ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
+                ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
                 Blog existData = db.Blogs.FirstOrDefault(x => x.MaBaiViet == blog.MaBaiViet);
                 if (existData != null)
                 {
@@ -117,6 +115,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
+            ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
             return View(blog);
         }
 
@@ -132,6 +131,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             bls.TieuDe = blog.TieuDe;
             bls.Tomtat = blog.Tomtat;
             bls.NgayKhoiTao = blog.NgayKhoiTao;
+            bls.MaDanhMucBlog = blog.MaDanhMucBlog;
             uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)
             {

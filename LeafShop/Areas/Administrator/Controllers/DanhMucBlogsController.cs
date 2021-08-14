@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LeafShop.Models;
+using PagedList;
 
 namespace LeafShop.Areas.Administrator.Controllers
 {
@@ -15,9 +16,29 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         // GET: Administrator/DanhMucBlogs
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, string currentFilter, int? page)
         {
-            return View(db.DanhMucBlogs.ToList());
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = SearchString;
+            //var thuonghieus = db.ThuongHieux.Select(d => d);
+            IQueryable<DanhMucBlog> taikhoans = (from dm in db.DanhMucBlogs
+                                              select dm)
+                    .OrderBy(x => x.MaDanhMucBlog);
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                taikhoans = taikhoans.Where(p => p.TenDanhMucBlog.Contains(SearchString));
+            }
+            int pageSize = 5;
+
+            int pageNumber = (page ?? 1);
+            return View(taikhoans.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Administrator/DanhMucBlogs/Details/5

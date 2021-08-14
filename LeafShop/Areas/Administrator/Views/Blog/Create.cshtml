@@ -22,6 +22,14 @@
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
+                        <label for="form14">Tên danh mục blog</label>
+
+                        @Html.DropDownList("MaDanhMucBlog", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaDanhMucBlog, "", new { @class = "text-danger" })
+
+                    </div>
+                    <br />
+                    <div class="md-form md-outline mt-0">
                         <label for="form15">Tiêu đề</label>
                         @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })

@@ -10,7 +10,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
         <div class="title_left">
-            <h3>Quản lý tài khoản</h3>
+            <h3>Quản lý danh mục bài viết</h3>
         </div>
     </div>
     <div class="x_panel">
@@ -36,16 +36,10 @@
                 <thead>
                     <tr>
                         <th>
-                            Tên nhân viên
+                            Mã danh mục blog
                         </th>
                         <th>
-                            Username
-                        </th>
-                        <th>
-                            Password
-                        </th>
-                        <th>
-                            Quản trị
+                            Tên danh mục blog
                         </th>
                         <th>Thao tác</th>
                     </tr>
@@ -54,14 +48,12 @@
                 {
                     <tbody>
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
-                            <td>@Html.DisplayFor(modelItem => item.USERNAME)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PASSWORD)</td>
-                            <td> @(item.Quantri?"Quản trị viên":"Nhân viên")</td>
+                            <td>@Html.DisplayFor(modelItem => item.MaDanhMucBlog)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TenDanhMucBlog)</td>
                             <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.USERNAME }) |
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.USERNAME }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.USERNAME })
+                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDanhMucBlog }) |
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDanhMucBlog }) |
+                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaDanhMucBlog })
                             </td>
                         </tr>
                     </tbody>

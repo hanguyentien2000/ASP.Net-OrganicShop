@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<LeafShop.Models.Blog>
+﻿@model PagedList.IPagedList<LeafShop.Models.DanhMuc>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -9,7 +9,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
         <div class="title_left">
-            <h3>Quản lý bài viết</h3>
+            <h3>Quản lý danh mục</h3>
         </div>
     </div>
     <div class="x_panel">
@@ -35,25 +35,13 @@
                 <thead>
                     <tr>
                         <th>
-                            Tên danh mục blog
+                            Mã danh mục
                         </th>
                         <th>
-                            Tên nhân viên
+                            Tên danh mục
                         </th>
                         <th>
-                            Tiêu đề
-                        </th>
-                        <th>
-                            Ảnh
-                        </th>
-                        <th>
-                            Tóm tắt
-                        </th>
-                        <th>
-                            Ngày khởi tạo
-                        </th>
-                        <th>
-                            Nội dung
+                            Danh mục cha
                         </th>
                         <th>Thao tác</th>
                     </tr>
@@ -62,20 +50,13 @@
                 {
                     <tbody>
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.DanhMucBlog.TenDanhMucBlog)</td>
-                            <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
-                            <td>@Html.DisplayFor(modelItem => item.TieuDe)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MaDanhMuc)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TenDanhMuc)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DanhMuc2.TenDanhMuc)</td>
                             <td>
-                                <img style="width:100px; height: 100px" src="@item.Anh" class="img-thumbnail" />
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.Tomtat)</td>
-                            <td>@Html.DisplayFor(modelItem => item.NgayKhoiTao)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Noidung)</td>
-
-                            <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaBaiViet }) |
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaBaiViet }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaBaiViet })
+                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDanhMuc }) |
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDanhMuc }) |
+                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaDanhMuc })
                             </td>
                         </tr>
                     </tbody>
@@ -91,3 +72,4 @@
         </div>
     </div>
 </div>
+
