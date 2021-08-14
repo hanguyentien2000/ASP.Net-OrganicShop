@@ -11,15 +11,18 @@ namespace LeafShop.Controllers
 {
     public class SanPhamController : Controller
     {
-        // GET: SanPham
-        public ActionResult Index()
-        {
-            var dbContext = new LeafShopDb();
-            List<SanPham> listall = dbContext.SanPhams.ToList();
-            return View();
-        }
         LeafShopDb db = new LeafShopDb();
-        
+        // GET: SanPham
+        public ActionResult Index(int? page)
+        {
+            
+            var listall = db.SanPhams.ToList();
+            ViewBag.totalSP = listall.Count;
+
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+            return View(listall.ToPagedList(pageNumber,pageSize));
+        }
         public ActionResult Category(int? id,int? page, string SearchString, string currentFilter)
         {
             if (SearchString != null)
@@ -38,17 +41,18 @@ namespace LeafShop.Controllers
             }
             
             var product = db.SanPhams.Where(s => s.MaDanhMuc == id).ToList();
-            int pageSize = 3;
+            ViewBag.totalSP = product.Count;    
+            int pageSize = 12;
             int pageNumber = (page ?? 1);
             return View(product.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult CategoryDetails(int id)
+        public ActionResult Detail(int id)
         {
-            SanPham sp = db.SanPhams.Include("DanhMuc").Where(s => s.MaSanPham.Equals(id)).FirstOrDefault();
-            List<SanPham> list = db.SanPhams.Where(s => s.MaSanPham.Equals(id)).ToList();
-            ViewBag.ChiTietSanPham = list;
-            ViewBag.Exitst = list[0];
+            SanPham sp = db.SanPhams.Find(id);
+            //List<SanPham> list = db.SanPhams.Where(s => s.MaSanPham.Equals(id)).ToList();
+            //ViewBag.ChiTietSanPham = list;
+            //ViewBag.Exitst = list[0];
             return View(sp);
         }
     }

@@ -1,10 +1,10 @@
-﻿@model PagedList.IPagedList<LeafShop.Models.SanPham>
+﻿
+@model PagedList.IPagedList<LeafShop.Models.SanPham>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Category";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <script src="https://kit.fontawesome.com/e38e0bb8bb.js" crossorigin="anonymous"></script>
 <section id="page-title">
     <div class="container clearfix">
@@ -12,7 +12,7 @@
         <ol class="breadcrumb col-md-6 col-sm-6">
             <li><a href="/">Trang chủ</a></li>
 
-            <li class='active'>Danh mục</li>
+            <li class='active'>Tất cả sản phẩm</li>
 
         </ol>
     </div>
@@ -20,6 +20,9 @@
 <section id="content">
     <div class="content-wrap">
         <div class="container clearfix">
+
+
+
             <div class='collection_banner'>
 
             </div>
@@ -28,7 +31,7 @@
                 </div>
                 <div class="post_content pull-right col-sm-12 col-xs-12 col-md-9"
                      style="margin-bottom: 15px !important;">
-                        Category name
+                    Tất cả sản phẩm
                     <div id="shop" class="product-3 clearfix">
                         <div class="dess">
                         </div>
@@ -135,7 +138,7 @@
                             <div class='pagination_wrapper'>
 
                                 Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-                                @Html.PagedListPager(Model, page => Url.Action("Category", new
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new
                                 {
                                     page
                                 }))
