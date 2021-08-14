@@ -217,7 +217,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
     <Compile Include="Areas\Administrator\Controllers\BlogController.cs" />
-    <Compile Include="Areas\Administrator\Controllers\BlogTestController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ChiTietDatHangController.cs" />
     <Compile Include="Areas\Administrator\Controllers\DanhMucBlogsController.cs" />
     <Compile Include="Areas\Administrator\Controllers\DanhMucController.cs" />
@@ -4825,11 +4824,6 @@
     <Content Include="Areas\Administrator\Views\DanhMuc\Details.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Index.cshtml" />
-    <Content Include="Areas\Administrator\Views\BlogTest\Create.cshtml" />
-    <Content Include="Areas\Administrator\Views\BlogTest\Delete.cshtml" />
-    <Content Include="Areas\Administrator\Views\BlogTest\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\BlogTest\Edit.cshtml" />
-    <Content Include="Areas\Administrator\Views\BlogTest\Index.cshtml" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>
@@ -4871,6 +4865,7 @@
     <Content Include="Views\SanPham\Index.cshtml" />
     <Content Include="Views\SanPham\Detail.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Home\CategoryTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
