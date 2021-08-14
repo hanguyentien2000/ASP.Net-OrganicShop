@@ -1,0 +1,633 @@
+﻿@model LeafShop.Models.Blog
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="page-title">
+    <div class="container clearfix">
+
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="../../index.html">Trang chủ</a></li>
+
+            <li>@Model.DanhMucBlog.TenDanhMucBlog</li>
+            <li class='active'>@Model.TieuDe</li>
+
+        </ol>
+    </div>
+</section>
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+            <!-- Post Content
+            ============================================= -->
+            <div class="postcontent nobottommargin clearfix col-sm-9">
+
+                <div class="single-post nobottommargin">
+
+                    <!-- Single Post
+                    ============================================= -->
+                    <div class="entry clearfix">
+
+                        <!-- Entry Title
+                        ============================================= -->
+                        <div class="entry-title">
+                            <h2>@Model.TieuDe</h2>
+                        </div><!-- .entry-title end -->
+
+                        <div class="si-share noborder clearfix">
+                            <div class='socical-wrapper'>
+                                <ul class="social-icons-top-art">
+                                    <!-- check null: == nill -->
+
+                                    <li class="item">
+                                        <div id="fb-share-button">
+                                            <svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
+                                                <path class="svg-icon-path" d="M9.1,0.1V2H8C7.6,2,7.3,2.1,7.1,2.3C7,2.4,6.9,2.7,6.9,3v1.4H9L8.8,6.5H6.9V12H4.7V6.5H2.9V4.4h1.8V2.8 c0-0.9,0.3-1.6,0.7-2.1C6,0.2,6.6,0,7.5,0C8.2,0,8.7,0,9.1,0.1z"></path>
+                                            </svg>
+                                        </div>
+                                    </li>
+
+
+
+                                    <li class="item ">
+                                        <a class="twitter" href="http://twitter.com/share" class="twitter-share-button" data-url="" data-count="none" data-via="">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <script src="../../../platform.twitter.com/widgets.js"></script>
+                                    </li>
+
+
+                                    <!-- old style: <li><a class="facebook" data-original-title="facebook" href="#"></a></li>   ...twitter,googleplus,evernote,tumblr -->
+
+                                   
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Entry Meta
+                        ============================================= -->
+                        <ul class="entry-meta clearfix">
+                            <li><i class="fa fa-calendar"></i> @Model.NgayKhoiTao</li>
+                            <li><i class="fa fa-user"></i> @Model.NhanVien.TenNhanVien</li>
+
+                            <li><i class="fa fa-folder-open"></i> <a href="/Blog/Category/@Model.DanhMucBlog.TenDanhMucBlog">@Model.DanhMucBlog.TenDanhMucBlog</a></li>
+
+                            @*<li><a href="#comments"><i class="fa fa-comments"></i> 0 Bình luận</a></li>*@
+                            <!--<li><a href="#"><i class="fa fa-camera-retro"></i></a></li>-->
+                        </ul><!-- .entry-meta end -->
+                        <!-- Entry Content
+                        ============================================= -->
+                        <div class="entry-content notopmargin">
+
+                            <p style="margin:10px 0px;"><strong><em>@Model.Tomtat</em></strong></p>
+                            <img style="width:100%;" class="" src="@Model.Anh"/>
+                            <p>@Model.Noidung</p>
+
+                            <!-- Post Single - Content End -->
+                            <!-- Tag Cloud
+                            ============================================= -->
+
+                            <div class="tagcloud clearfix bottommargin">
+
+                                <a href="alphanova.html">alphanova</a>
+
+                                <a href="kem-chong-nang.html">kem chống nắng</a>
+
+
+                            </div><!-- .tagcloud end -->
+
+
+                            <div class="clear"></div>
+
+                            <!-- Post Single - Share
+                            ============================================= -->
+                            <div class="si-share noborder clearfix">
+                                <span>Chia sẻ:</span>
+                                <div class='socical-wrapper'>
+                                    <ul class="social-icons">
+                                        <!-- check null: == nill -->
+
+                                        <div class="item">
+                                            <div class="fb-like fix_top" data-href="" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+                                        </div>
+
+
+
+                                        <div class="item ">
+                                            <g:plusone size="medium" annotation="none"></g:plusone>
+                                        </div>
+
+
+
+                                        <div class="item ">
+                                            <a href="http://twitter.com/share" class="twitter-share-button" data-url="" data-count="none" data-via="">Tweet it!</a>
+                                            <script src="../../../platform.twitter.com/widgets.js"></script>
+                                        </div>
+
+
+
+                                        <div class="item ">
+                                            <a href="../../../pinterest.com/pin/create/button/indexf50c.html?url=&amp;media=//hstatic.net/0/0/global/noDefaultImage6_large.gif" class="pin-it-button" count-layout="horizontal">Pin it!</a>
+                                            <script src="../../../assets.pinterest.com/js/pinit.js"></script>
+                                        </div>
+
+
+
+                                        <div class="item ">
+                                            <a class="evernote fix_top" target="_blank" href="http://www.evernote.com/clip.action?url=https://leaforganic.vn&amp;title" count-layout="horizontal">Note it!</a>
+                                        </div>
+
+
+
+                                        <div class="item ">
+                                            <a class="tumblr-share-button" href="https://www.tumblr.com/share"></a>
+                                            <script id="tumblr-js" async src="../../../assets.tumblr.com/share-button.js"></script>
+                                        </div>
+
+
+                                        <!-- old style: <li><a class="facebook" data-original-title="facebook" href="#"></a></li>   ...twitter,googleplus,evernote,tumblr -->
+
+                                        <script>
+										(function() {
+											var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+											po.src = '../../../apis.google.com/js/plusone.js';
+											var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+										})();
+                                        </script>
+                                    </ul>
+                                </div>
+                            </div><!-- Post Single - Share End -->
+
+                        </div>
+                        <!-- related post -->
+
+                        <div class="widget clearfix">
+
+                            <div class="related-product clearfix">
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- end related post -->
+
+                    </div><!-- .entry end -->
+                    <!-- Comments
+                    ============================================= -->
+
+                    <div id="comments" class="clearfix">
+                        <div class="tabs clearfix" id="tab-1">
+                            <ul class="tab-nav clearfix">
+                                <li><a href="#tabs-1"><span style='color: #fff'>0</span> Bình luận</a></li>
+                                <li><a href="#tabs-2">Facebook</a></li>
+                            </ul>
+                            <!-- Comments List
+                            ============================================= -->
+                            <div class="tab-container">
+                                <div class="tab-content clearfix" id="tabs-1">
+
+                                    <div class="clear"></div>
+
+
+                                    <!-- Comment Form
+                                    ============================================= -->
+                                    <div id="respond" class="clearfix">
+
+                                        <h3>Viết <span>Bình luận</span></h3>
+
+                                        <form accept-charset='UTF-8' action='https://leaforganic.vn/blogs/kien-thuc-chung/quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho/comments' class='comment-form' id='article--comment-form' method='post'>
+                                            <input name='form_type' type='hidden' value='new_comment'>
+                                            <input name='utf8' type='hidden' value='✓'>
+
+                                            <!--<form class="clearfix" action="#" method="post" id="commentform">-->
+
+
+
+
+                                            <div class="col_one_half">
+                                                <label for="author">Tên của bạn</label>
+                                                <input type="text" name="comment[author]" id="author" value="" size="22" tabindex="1" class="sm-form-control" />
+                                            </div>
+
+                                            <div class="col_one_half">
+                                                <label for="email">Email</label>
+                                                <input type="text" name="comment[email]" id="email" value="" size="22" tabindex="2" class="sm-form-control" />
+                                            </div>
+
+                                            <div class="clear"></div>
+
+                                            <div class="col_full">
+                                                <label for="comment">Viết bình luận</label>
+
+                                                <textarea name="comment[body]" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
+                                            </div>
+
+                                            <div class="col_full nobottommargin">
+                                                <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Gửi bình luận</button>
+                                            </div>
+
+                                            <!--</form>-->
+
+                                            <input id='03305cf1d4f24b308c9ca38e13675adb' name='g-recaptcha-response' type='hidden'>
+                                            <script src='../../../www.google.com/recaptcha/api4d7a.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-'></script>
+                                            <script>grecaptcha.ready(function() {grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', {action: 'submit'}).then(function(token) {document.getElementById('03305cf1d4f24b308c9ca38e13675adb').value = token;});});</script>
+                                        </form>
+
+                                    </div><!-- #respond end -->
+                                </div>
+                                <div class="tab-content clearfix" id="tabs-2">
+                                    <div class="fb-comments" data-href="https://leaforganic.vn/blogs/kien-thuc-chung/quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho" data-numposts="5" width="100%" data-colorscheme="light">
+                                    </div>
+                                    <!-- script comment fb -->
+                                    <script type="text/javascript">
+										// fb SDK v2.0
+										(function(d, s, id) {
+										var js, fjs = d.getElementsByTagName(s)[0];
+										if (d.getElementById(id)) return;
+										js = d.createElement(s); js.id = id;
+										js.src = "../../../connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.0";
+										fjs.parentNode.insertBefore(js, fjs);
+										}(document, 'script', 'facebook-jssdk'));
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .commentlist end -->
+                    </div>
+
+                    <!-- #comments end -->
+                </div>
+            </div><!-- .postcontent end -->
+            <!-- Sidebar
+            ============================================= -->
+            <div class="sidebar nobottommargin col_last clearfix hidden-xs col-sm-3">
+                <div class="sidebar-widgets-wrap">
+                    <div class='widget widget_links clearfix'>
+                        <h4>
+                            Tìm kiếm bài viết
+                        </h4>
+                        <div class='input--search sidebar_menu'>
+                            <form action="https://leaforganic.vn/search" style='margin-bottom: 0px'>
+                                <input type="hidden" name="type" value="article">
+                                <input required id="searchtext" name="q" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Từ khóa tìm kiếm...">
+                                <input type="hidden" name="view" value="blog">
+                                <button class="gid-btn" type='submit'>Tìm</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- categories -->
+
+                    <div class="widget widget_links clearfix">
+                        <h4>Danh mục</h4>
+                        <ul class='sidebar_menu'>
+
+                            <li><a href="../kien-thuc-chung.html">Kiến thức chung</a></li>
+
+                            <li><a href="../lam-dep.html">Làm đẹp</a></li>
+
+                            <li><a href="../suc-khoe.html">Sức khoẻ</a></li>
+
+                            <li><a href="../tri-lieu-huong-thom.html">Trị liệu hương thơm</a></li>
+
+                            <li><a href="../cham-soc-be.html">Chăm sóc bé</a></li>
+
+                            <li><a href="../thuc-pham.html">Thực phẩm</a></li>
+
+                            <li><a href="../kinh-nghiem-hay.html">Kinh nghiệm hay</a></li>
+
+                        </ul>
+                    </div>
+
+                    <!-- end categories -->
+                    <!-- recent article -->
+
+                    <div class="widget clearfix">
+                        <h4 style=''><a href='#'>Bài viết mới nhất</a></h4>
+
+                        <div class="tab-container sidebar_menu">
+
+                            <!--<div class="tab-content clearfix" id="tabs-1">-->
+
+                            <div class="spost clearfix">
+                                <div class="entry-image">
+
+
+
+
+
+
+
+
+
+
+
+                                    <a href="quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho.html" class="nobg a-circle"><img class="img-circle-custom" src="../../../file.hstatic.net/1000104489/article/dao_paula_5607ab7b47f34e23a3a733146254c93b_d1b82ac0e57348489fe821f8de30a34d.jpg" alt="Quốc gia đầu tiên cấm kem chống nắng để bảo vệ san hô"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho.html">Quốc gia đầu tiên cấm kem chống nắng để bảo vệ san hô</a></h4>
+                                    </div>
+                                    <ul class="entry-meta">
+                                        <li><a href='quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho.html#comments'><i class="fa fa-comments"></i> 0 bình luận</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="spost clearfix">
+                                <div class="entry-image">
+
+
+
+
+
+
+
+
+
+
+
+                                    <a href="kem-chong-nang-da-huy-hoai-cac-ran-san-ho-nhu-the-nao.html" class="nobg a-circle"><img class="img-circle-custom" src="../../../file.hstatic.net/1000104489/article/30-the-coral-bleaching-in-new-caledonia-1024x678_c9a6c0f77684403a8bb78654167473fd.jpg" alt="Kem chống nắng đã hủy hoại các rạn san hô như thế nào?"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="kem-chong-nang-da-huy-hoai-cac-ran-san-ho-nhu-the-nao.html">Kem chống nắng đã hủy hoại các rạn san hô như thế nào?</a></h4>
+                                    </div>
+                                    <ul class="entry-meta">
+                                        <li><a href='kem-chong-nang-da-huy-hoai-cac-ran-san-ho-nhu-the-nao.html#comments'><i class="fa fa-comments"></i> 0 bình luận</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="spost clearfix">
+                                <div class="entry-image">
+
+
+
+
+
+
+
+
+
+
+
+                                    <a href="kem-chong-nang-co-hai-nhu-the-nao-den-moi-truong-bien.html" class="nobg a-circle"><img class="img-circle-custom" src="../../../file.hstatic.net/1000104489/article/kem-chong-nang-tot-cho-da-kho_96a881e8792645a3bb71809f27c5910d.jpg" alt="Kem chống nắng có hại như thế nào đến môi trường biển?"></a>
+                                </div>
+                                <div class="entry-c">
+                                    <div class="entry-title">
+                                        <h4><a href="kem-chong-nang-co-hai-nhu-the-nao-den-moi-truong-bien.html">Kem chống nắng có hại như thế nào đến môi trường biển?</a></h4>
+                                    </div>
+                                    <ul class="entry-meta">
+                                        <li><a href='kem-chong-nang-co-hai-nhu-the-nao-den-moi-truong-bien.html#comments'><i class="fa fa-comments"></i> 0 bình luận</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="widget clearfix" style='overflow:hidden;'>
+
+
+
+                        <div style="width: 100%;">
+                            <!-- Page plugin's width will be 180px -->
+                            <div class="fb-page" data-href="https://www.facebook.com/leafshop.vn/" data-width="320"></div>
+                        </div>
+
+
+
+                        <script>
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "../../../connect.facebook.net/en_US/sdk.js#xfbml=1&appId=263266547210244&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+                        </script>
+                    </div>
+
+
+
+                    <div class="widget clearfix">
+
+                        <h4>Tags</h4>
+                        <div class="tagcloud sidebar_menu" style='border: none; padding: 10px 0;'>
+
+
+
+                            <a href="kem-chong-nang.html">kem chống nắng</a>
+
+
+
+                            <a href="xa-phong-diet-khuan.html">xà phòng diệt khuẩn</a>
+
+
+
+                            <a href="triclosan.html">Triclosan</a>
+
+
+
+                            <a href="alphanova.html">alphanova</a>
+
+
+
+                            <a href="thuc-pham-huu-co.html">thực phẩm hữu cơ</a>
+
+
+
+                            <a href="ban-do-huu-co.html">bán đồ hữu cơ</a>
+
+
+
+                            <a href="ecocert.html">ecocert</a>
+
+
+
+                            <a href="thanh-phan-diet-khuan.html">thành phần diệt khuẩn</a>
+
+
+
+                            <a href="coc-nguyet-san.html">cốc nguyệt san</a>
+
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="widget clearfix">
+                        <h4>Bài viết cùng danh mục:</h4>
+                        <div class="related-posts clearfix">
+                            <div class=" nobottommargin">
+
+
+
+
+
+
+
+
+                                <div class="mpost clearfix">
+                                    <div class="entry-image related-posts-img">
+
+
+
+
+
+
+
+
+
+
+                                        <a href="cac-chung-nhan-huu-co-usda-certified-biobased-cua-my-1.html"><img src="../../../sw001.hstatic.net/5/01f2bb38ac0cd3/usda-biobased.jpg" alt="Chứng nhận hữu cơ USDA Certified Biobased của Mỹ"></a>
+                                    </div>
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="cac-chung-nhan-huu-co-usda-certified-biobased-cua-my-1.html">Chứng nhận hữu cơ USDA Certified Biobased của Mỹ</a></h4>
+                                        </div>
+                                        <ul class="entry-meta clearfix">
+                                            <li><i class="fa fa-calendar"></i> 20 Tháng 6 2020</li>
+                                            <li><a href="cac-chung-nhan-huu-co-usda-certified-biobased-cua-my-1.html#comments"><i class="fa fa-comments"></i> 0</a></li>
+                                        </ul>
+                                        <div class="entry-content">Có rất nhiều lý do tại sao USDA đang quảng bá sản phẩm biobased. Các...</div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                                <div class="mpost clearfix">
+                                    <div class="entry-image related-posts-img">
+
+
+
+
+
+
+
+
+
+
+                                        <a href="my-pham-thien-nhien-my-pham-huu-co-hay-my-pham-cong-nghiep-1.html"><img src="../../../sw001.hstatic.net/2/01f29cd910e5a7/my_pham_tu_nhien.png" alt="Mỹ phẩm thiên nhiên, mỹ phẩm hữu cơ hay mỹ phẩm công nghiệp?"></a>
+                                    </div>
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="my-pham-thien-nhien-my-pham-huu-co-hay-my-pham-cong-nghiep-1.html">Mỹ phẩm thiên nhiên, mỹ phẩm hữu cơ hay mỹ phẩm công nghiệp?</a></h4>
+                                        </div>
+                                        <ul class="entry-meta clearfix">
+                                            <li><i class="fa fa-calendar"></i> 20 Tháng 6 2020</li>
+                                            <li><a href="my-pham-thien-nhien-my-pham-huu-co-hay-my-pham-cong-nghiep-1.html#comments"><i class="fa fa-comments"></i> 0</a></li>
+                                        </ul>
+                                        <div class="entry-content">Phần lớn các loại mỹ phẩm công nghiệp chứa rất ít nguyên liệu tự nhiên...</div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                            </div>
+                            <div class=" nobottommargin col_last">
+
+                                <div class="mpost clearfix">
+                                    <div class="entry-image related-posts-img">
+
+
+
+
+
+
+
+
+
+
+                                        <a href="qui-dinh-ve-viec-ghi-han-su-dung-tren-bao-bi-my-pham-tai-my-va-chau-au-1.html"><img src="../../../sw001.hstatic.net/6/01f36ee7185909/expiration_date.jpg" alt="Qui định về việc ghi hạn sử dụng trên bao bì mỹ phẩm tại Mỹ và Châu Âu"></a>
+                                    </div>
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="qui-dinh-ve-viec-ghi-han-su-dung-tren-bao-bi-my-pham-tai-my-va-chau-au-1.html">Qui định về việc ghi hạn sử dụng trên bao bì mỹ phẩm tại Mỹ và Châu Âu</a></h4>
+                                        </div>
+                                        <ul class="entry-meta clearfix">
+                                            <li><i class="fa fa-calendar"></i> 20 Tháng 6 2020</li>
+                                            <li><a href="qui-dinh-ve-viec-ghi-han-su-dung-tren-bao-bi-my-pham-tai-my-va-chau-au-1.html#comments"><i class="fa fa-comments"></i> 1</a></li>
+                                        </ul>
+                                        <div class="entry-content">Trên thị trường mỹ phẩm tại Châu Âu, chúng ta có thể thấy trên bao...</div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                                <div class="mpost clearfix">
+                                    <div class="entry-image related-posts-img">
+
+
+
+
+
+
+
+
+
+
+                                        <a href="chat-bao-quan-tong-hop-cho-phep-boi-cac-to-chuc-chung-nhan-huu-co-chau-au.html"><img src="../../../sw001.hstatic.net/5/01f3084f8b1e06/uploded_e3f320c8801b0cc0fc5d2ba6adad77fa_sipa_00619711_000003.jpg" alt="Chất bảo quản tổng hợp cho phép bởi các tổ chức chứng nhận hữu cơ Châu Âu"></a>
+                                    </div>
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="chat-bao-quan-tong-hop-cho-phep-boi-cac-to-chuc-chung-nhan-huu-co-chau-au.html">Chất bảo quản tổng hợp cho phép bởi các tổ chức chứng nhận hữu cơ Châu Âu</a></h4>
+                                        </div>
+                                        <ul class="entry-meta clearfix">
+                                            <li><i class="fa fa-calendar"></i> 20 Tháng 6 2020</li>
+                                            <li><a href="chat-bao-quan-tong-hop-cho-phep-boi-cac-to-chuc-chung-nhan-huu-co-chau-au.html#comments"><i class="fa fa-comments"></i> 0</a></li>
+                                        </ul>
+                                        <div class="entry-content">Có những chất bảo quản được cho phép bởi tổ chức chứng nhận hữu cơ...</div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <style>
+                    .gid-btn {
+                        background: none;
+                        border: solid 1px #eee;
+                        margin-top: 10px;
+                        padding: 8px 15px;
+                        background-color: #499644;
+                        color: #fff;
+                    }
+                </style>
+            </div>
+            <!-- .sidebar end -->
+
+        </div>
+
+    </div>
+
+</section>
