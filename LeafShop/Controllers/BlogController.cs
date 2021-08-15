@@ -14,9 +14,20 @@ namespace LeafShop.Controllers
         // GET: Blog
         public ActionResult Index(int? page)
         {
+            //var blogs = from s in db.Blogs
+            //            join sa in db.NhanViens on s.MaNhanVien equals sa.MaNhanVien
+            //            select new
+            //            {
+            //                MaBaiViet = s.MaBaiViet,
+            //                TieuDe = s.TieuDe,
+            //                Tomtat = s.Tomtat,
+            //                NgayKhoiTao = s.NgayKhoiTao,
+            //                TenNhanVien = sa.TenNhanVien,
+            //            };
             var blogs = db.Blogs.ToList();
             int pageSize = 12;
             int pageNumber = (page ?? 1);
+            ViewBag.listDM = db.DanhMucBlogs.ToList();
             return View(blogs.ToPagedList(pageNumber,pageSize));
         }
         public ActionResult Detail(int id)

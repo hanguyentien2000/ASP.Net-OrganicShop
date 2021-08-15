@@ -47,8 +47,8 @@
                                         <h2><a href="/Blog/Detail/@blog.MaBaiViet">@blog.TieuDe</a></h2>
                                     </div>
                                     <ul class="entry-meta clearfix">
-                                        <li><i class="fa fa-calendar"></i> 20 Tháng 6 2020</li>
-                                        <li><i class="fa fa-user"></i> Phạm Phương</li>
+                                        <li><i class="fa fa-calendar"></i> @blog.NgayKhoiTao</li>
+                                        <li><i class="fa fa-user"></i> @blog.NhanVien.TenNhanVien</li>
 
 
                                         <li><a href="kien-thuc-chung/quoc-gia-dau-tien-cam-kem-chong-nang-de-bao-ve-san-ho.html#comments"><i class="fa fa-comments"></i> 0 Bình luận</a></li>
@@ -101,19 +101,11 @@
                             <h4>Danh mục</h4>
                             <ul class='sidebar_menu'>
 
-                                <li><a href="kien-thuc-chung.html">Kiến thức chung</a></li>
+                                @foreach (var dm in @ViewBag.listDM)
+                                {
+                                    <li><a href="/Blog/DanhMuc/@dm.MaDanhMucBlog">@dm.TenDanhMucBlog</a></li>
+                                }
 
-                                <li><a href="lam-dep.html">Làm đẹp</a></li>
-
-                                <li><a href="suc-khoe.html">Sức khoẻ</a></li>
-
-                                <li><a href="tri-lieu-huong-thom.html">Trị liệu hương thơm</a></li>
-
-                                <li><a href="cham-soc-be.html">Chăm sóc bé</a></li>
-
-                                <li><a href="thuc-pham.html">Thực phẩm</a></li>
-
-                                <li><a href="kinh-nghiem-hay.html">Kinh nghiệm hay</a></li>
 
                             </ul>
                         </div>

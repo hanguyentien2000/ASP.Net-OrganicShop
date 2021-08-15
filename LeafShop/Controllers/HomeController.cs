@@ -17,18 +17,17 @@ namespace LeafShop.Controllers
             ViewBag.SanPhamMoiNhat = db.SanPhams.Select(p => p).OrderByDescending(x => x.NgayKhoiTao).Take(6);
             ViewBag.SanPhamNoiBat = db.SanPhams.Select(p => p).OrderByDescending(x => x.SoLuongBan).Take(6);
             ViewBag.TinTuc = db.Blogs.Select(p => p).OrderBy(x => x.MaBaiViet).Take(3);
-
+           
             return View();
         }
-
+        [ChildActionOnly]
         public ActionResult CategoryTree()
         {
-            IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p);
-            
-            return PartialView(danhmucs);
+            //IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p);
+            var danhmucs = db.DanhMucs.ToList();
+            return PartialView("CategoryTree",danhmucs);
         }
-
-        [ChildActionOnly]
+        
         public ActionResult SearchBox()
         {
             IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Select(p => p);
