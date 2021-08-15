@@ -10,6 +10,7 @@ namespace LeafShop.Models
         public LeafShopDb()
             : base("name=LeafShopDb2")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Blog> Blogs { get; set; }

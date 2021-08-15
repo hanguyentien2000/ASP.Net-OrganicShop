@@ -5,6 +5,7 @@ namespace LeafShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Script.Serialization;
 
     [Table("ThuongHieu")]
     public partial class ThuongHieu
@@ -35,6 +36,7 @@ namespace LeafShop.Models
         public string AnhThuongHieu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [ScriptIgnore]
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

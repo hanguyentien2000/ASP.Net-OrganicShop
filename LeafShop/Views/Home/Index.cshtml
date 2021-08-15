@@ -392,7 +392,7 @@
                             </form>
 
 
-                            <script>
+                            @*<script>
                                 $('.ultimate-search').submit(function (e) {
 
                                     e.preventDefault();
@@ -618,7 +618,7 @@
 
 
 
-                                jQuery('.ultimate-search input[name=q]').smartSearch({ searchdelay: 400, wrapper: 'search-wrapper', collection: '.collection_id' });</script>
+                                jQuery('.ultimate-search input[name=q]').smartSearch({ searchdelay: 400, wrapper: 'search-wrapper', collection: '.collection_id' });</script>*@
 
 
                             <style>
@@ -736,15 +736,13 @@
 
 
                             <div id="top-cart" class='top-cart-block col-md-1 nopadding'>
-                                <a href="cart.html" id="top-cart-trigger">
-                                    <img src='~/Content/image/cart-x9a76.png?v=3659'><span class='top_cart_qty'>0</span>
+                                <a href="#" id="top-cart-trigger">
+                                    <img src='~/Content/image/cart-x9a76.png?v=3659'>
+                                    <span class='top_cart_qty'>0</span>
                                 </a>
                                 <div class="top-cart-content">
                                     <div class="top-cart-title">
                                         <h4>Giỏ hàng</h4>
-                                    </div>
-                                    <div class="top-cart-items">
-
                                     </div>
                                     <div class="top-cart-action clearfix">
                                         <span class="fleft top-checkout-price">0₫</span>
@@ -1104,7 +1102,7 @@
                                                         @if (item.SoLuong > 0)
                                                         {
                                                             <div class="buy_all">
-                                                                <a class="product_quick_add" data-toggle='tooltip' href="#">Mua Ngay</a>
+                                                                <a class="product_quick_add" data-toggle='tooltip'  href="#" onclick="AddToCart(@item.MaSanPham)">Mua Ngay</a>
                                                             </div>
                                                         }
                                                     </div>
@@ -1163,7 +1161,7 @@
                                                         @if (item.SoLuong > 0)
                                                         {
                                                             <div class="buy_all">
-                                                                <a class="product_quick_add" data-toggle='tooltip' href="#">Mua Ngay</a>
+                                                                <a class="product_quick_add" data-toggle='tooltip' href="#"  onclick="AddToCart(@item.MaSanPham)">Mua Ngay</a>
                                                             </div>
                                                         }
                                                     </div>
@@ -1174,7 +1172,87 @@
                                 </div>
                             </div>
                         </div>
+<script>
 
+    function getCart() {
+        $(".top-cart-content").empty();
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/Cart/getCart",
+            success: function (response) {
+                if (response.length == 0) {
+                    $(".top-cart-content").append('<div class="top-cart-items">Không có sản phẩm nào trong giỏ hàng</div>');
+                    return;
+                }
+                $(".top-cart-content").append('<div class="top-cart-items"></div>');
+                let total = 0;
+                $.each(response, function (index) {
+                    total += response[index].SoLuong;
+                    $(".top-cart-items").append('<div class="top-cart-item clearfix">'
+                        + '<input type="hidden" class="item_id" value="1008322895">'
+                        + '<input type="hidden" class="item_qty" value="' + response[index].SoLuong + ' ">'
+                        + '<input type="hidden" class="item_unit_price_not_formated" value="' + response[index].DonGia + '">'
+                        + ' <div class="top-cart-item-image">'
+
+                        + ' <a href="#"><img src="' + response[index].SanPham.HinhMinhHoa + '" alt=""></a>'
+                        + '</div>'
+                        + '     <div class="top-cart-item-desc">'
+                        + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
+                        + '    <span class="top-cart-item-price">' + response[index].DonGia + '</span>'
+                        + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
+                        + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
+                        + '<i class="fa fa-times-circle"></i>'
+                        + '  </a ></div ></div >'
+                    )
+                })
+                $(".top_cart_qty").html(total);
+                $(".top-cart-content").append('<div class="top-cart-action clearfix">'
+                    + ' <button onclick="#" class="button button-small nomargin fright">Xem giỏ hàng</button>'
+                    + ' </div >')
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    function AddToCart(id)
+    {
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify({ "MaSanPham": id, "SoLuong": 1 }),
+            url: "/Cart/AddToCart",
+            success: function (response) {
+                if (response.status) {
+                    getCart();
+                }
+            },
+            error: function (response) {
+
+            },
+
+        });
+    }
+
+    function deleteFromCart(id) {
+        $.ajax({
+            type: "POST",
+            data: {id : id},
+            url: "/Cart/DeleteFromCart",
+            success: function (response) {
+                if (response.status) {
+                    getCart();
+                }
+            },
+            error: function (response) {
+
+            },
+
+        });
+    }
+</script>
 
                         <div class="container">
                             <div class="row separateur_nouveautess blog_index">
@@ -1387,9 +1465,6 @@
 
                                     <a target="_blank" href="http://www.instagram.com/leafshop.vn/"><i class="fa fa-instagram icon-instagram"></i></a>
 
-
-
-
                                 </div>
                                 <br>
 
@@ -1525,8 +1600,8 @@
 
         var quickViewProduct = function (purl) {
 
-	// if ($(window).width() < 680) { window.location = purl; return false; }
-	// modal = $('#quick-view-modal'); modal.modal('show');
+	 if ($(window).width() < 680) { window.location = purl; return false; }
+	 modal = $('#quick-view-modal'); modal.modal('show');
 	$.ajax({
         url: purl + '.js',
 		async: false,
@@ -1750,7 +1825,7 @@
 		}//end: success
 	});
 
-	//$('.modal-backdrop').css('opacity', '0');
+	$('.modal-backdrop').css('opacity', '0');
 	return false;
 }
 

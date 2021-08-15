@@ -46,9 +46,10 @@ namespace LeafShop.Controllers
                 list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
                 foreach (ChiTietDatHang item in list)
                 {
-                    if (item.MaDatHang == chiTiet.MaDatHang)
+                    if (item.MaSanPham == chiTiet.MaSanPham)
                     {
                         item.SoLuong += chiTiet.SoLuong;
+                        isExists = true;
                     }
                 }
                 if (!isExists)
@@ -65,18 +66,35 @@ namespace LeafShop.Controllers
             foreach (ChiTietDatHang item in list)
             {
                 item.DonGia = db.SanPhams.Where(s => s.MaSanPham == item.MaSanPham).FirstOrDefault().DonGia;
+                SanPham sp = db.SanPhams.Where(x => x.MaSanPham == item.MaSanPham).FirstOrDefault();
+                item.SanPham = sp;
             }
             Session[LeafShop.Session.ConstaintCart.CART] = list;
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult getCart()
+        {
+            List<ChiTietDatHang> list = new List<ChiTietDatHang>();
+            if (Session[LeafShop.Session.ConstaintCart.CART] != null)
+            {
+                list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+            }
+            foreach (ChiTietDatHang item in list)
+            {
+                SanPham sp = db.SanPhams.Where(x => x.MaSanPham == item.MaSanPham).FirstOrDefault();
+                item.SanPham = sp;
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public JsonResult DeleteFromCart(int id)
         {
             List<ChiTietDatHang> list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
-            list.RemoveAll((x) => x.MaDatHang == id);
+            list.RemoveAll((x) => x.MaSanPham == id);
             Session[LeafShop.Session.ConstaintCart.CART] = list;
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(new {status = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

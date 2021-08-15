@@ -3788,6 +3788,8 @@
     <Content Include="Content\css\slick.scss9a76.css" />
     <Content Include="Content\css\sprite.png" />
     <Content Include="Content\css\style9a76.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\image\BG-fruit9a76.jpg" />
     <Content Include="Content\image\cart-x9a76.png" />
     <Content Include="Content\image\favicon9a76.png" />
@@ -3870,6 +3872,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -4824,6 +4827,11 @@
     <Content Include="Areas\Administrator\Views\DanhMuc\Details.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Index.cshtml" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>
@@ -4865,6 +4873,7 @@
     <Content Include="Views\SanPham\Index.cshtml" />
     <Content Include="Views\SanPham\Detail.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Home\CategoryTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
