@@ -1,52 +1,28 @@
-﻿@model List<LeafShop.Models.DanhMuc>
+﻿@model IEnumerable<LeafShop.Models.DanhMuc>
 
-@{
-    Layout = null;
-}
-<link href='~/Content/css/custom_style9a76.css' rel='stylesheet' type='text/css' media='all' />
-<div class="zom_grr">
-    <div class='container slide_wrapper'>
-        <!-- left menu -->
-        <!-- end left menu -->
-        <div class='slider_wrap'>
-            <div id="conteneur">
-                <div class="header">
-                    <div class="menu_nav">
-                        <div id="onglet_gauche" class="gauche">
-                        </div>
-                        <ul class="menu_nav_li">
-                            @foreach(var dm in Model)
+<ul class="menu_nav_li">
+    @foreach (var item in Model)
+    {
+        <li class="line-text ">
+            <a href="collections/thuc-pham-tuoi-song-che-bien.html" class="link_menu_haut">@item.TenDanhMuc</a>
+            <ul class="sub-menu-ol">
+                @foreach (var subitem in item.DanhMuc1)
+                {
+                    <li>
+                        <a href="collections/thit-thuy-hai-san.html">@subitem.TenDanhMuc</a>
+
+                        <ul class="sub-menu-ol-2">
+                            @foreach (var subitem1 in subitem.DanhMuc1)
                             {
-                                //Đây là chỗ chạy vòng for lấy thông tin
-                            @*<li class="line-text ">
-                                <a href="thuc-pham-tuoi-song-che-bien.html" class="link_menu_haut">@dm.TenDanhMuc 222</a>
-                                <ul class="sub-menu-ol">
-
-                                    @if (dm.DanhMuc1 != null)
-                                    {
-                                        foreach (var dm2 in dm.DanhMuc1)
-                                        {
-                                            <li>
-                                                <a href="thit-thuy-hai-san.html">@dm2.TenDanhMuc</a>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
-                            </li>*@
-                                }
-                                
+                                <li><a href="collections/thit-xuong-noi-tang-san-pham-tu-lon.html">@subitem1.TenDanhMuc</a></li>
+                            }
                         </ul>
-                        <div id="onglet_droit" class="droit"></div>
-                    </div>
-                </div>
 
-            </div>
-
-            <style>
-                .line-text {
-                    line-height: 23px !important;
+                    </li>
                 }
             </ul>
         </li>
     }
+
+
 </ul>
