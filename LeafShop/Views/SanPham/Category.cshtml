@@ -6,6 +6,352 @@
 }
 
 <script src="https://kit.fontawesome.com/e38e0bb8bb.js" crossorigin="anonymous"></script>
+<div id='product-pop-up' style="display:none;" class="single-product shop-quick-view-ajax clearfix">
+
+    <div class="ajax-modal-title">
+        <a href='#'><h2>Pink Printed Dress</h2></a>
+    </div>
+
+    <div class="product-page product modal-padding clearfix">
+        <div class="col-md-6 nobottommargin">
+            <div class="product-image">
+                <div class="product-main-image">
+                    <div class="pd_slide_qv">
+                        <img data-lazy="">
+                    </div>
+                    <div class='pd_slide_thumb_qv'>
+
+                    </div>
+                </div>
+                <div class="sale-flash">Sale!</div>
+            </div>
+        </div>
+        <div class="col-md-6 nobottommargin product-desc">
+            <div class="product-price"> <ins style='margin-right: 5px;'>$24.99</div>
+            <div class="clear"></div>
+            <div class="line"></div>
+            <!-- variants -->
+            <div class="product-page-options ">
+                <div class="sizePicker">
+                    <label class="control-label options-title">Kích thước:</label>
+                    <div class='options-selection'>
+                        <select class="form-control input-sm size"></select>
+                    </div>
+                </div>
+                <div class="sizePicker">
+                    <label class="control-label options-title">Màu sắc:</label>
+                    <div class='options-selection'>
+                        <select class="form-control input-sm color" style='color:#555!important;'></select>
+                    </div>
+                </div>
+                <div class="sizePicker">
+                    <label class="control-label options-title">Chất liệu:</label>
+                    <div class='options-selection'>
+                        <select class="form-control input-sm material"></select>
+                    </div>
+                </div>
+            </div>
+            <!-- end variant -->
+            <!-- Product Single - Quantity & Cart Button
+            ============================================= -->
+            <form id='ProductDetailsFormQV' class="nobottommargin clearfix">
+                <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
+                    <input type="button" value="-" class="minus">
+                    <input type="text" class='qty' id='product_quantity' readonly step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
+                    <input type="button" value="+" class="plus">
+                </div>
+                <script></script>
+                <div class="hidden" style="">
+                    <select id="product-select-qw" name="id">
+                    </select>
+
+                    <input type="hidden" class="unit_price_not_formated" value="">
+                    <input type="hidden" class="product_url" value="">
+                    <input type="hidden" class="product_title_hd" value="">
+                    <input type="hidden" class="product_img_small" value="">
+                </div>
+                <button type="submit" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
+                <button class='buy_btn buynow buynow_qv button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
+            </form><!-- Product Single - Quantity & Cart Button End -->
+
+            <div class="clear"></div>
+            <div class="line"></div>
+            <p class="description">Libero velit id eaque ex quae laboriosam nulla optio doloribus! Perspiciatis, libero, neque, perferendis at nisi optio dolor!</p>
+        </div>
+    </div>
+</div>
+<script>
+var callBackQV = function(variant, selector) {
+	//console.log('callBackQV  is functioning...');
+	var $tagPrice = '#product-pop-up .product-price ins';
+	var $tagPriceCompare = '#product-pop-up .product-price del';
+	var $tagProductSection = '#ProductDetailsFormQV';
+	update_variant(variant, $tagPrice, $tagPriceCompare, '#addtocartQV', $tagProductSection);
+
+	Aecomapp.tranBox("0");
+	var path = selector.product.url;
+	var title = $(this).text();
+	var url = window.location.protocol + "//" + window.location.host + path + "?title=" + title;
+	$.ajax({
+		url: url,
+		success: function(response) {
+			var desText = $(response).find(".page_title h1").text().trim();
+			var descriptionText = $(response).find(".aetabs-tabs").text().trim();
+
+			$(".ajax-modal-title h2").text(desText);
+			// $("#product-pop-up .description").html(descriptionText);
+		}
+	});
+}
+
+/*
+   *  strip_html_js
+   *
+   * ref: http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
+   * author phong.nguyen 20150806
+   */
+function strip_html_js(html)
+{
+	var tmp = document.createElement("DIV");
+	tmp.innerHTML = html;
+	return tmp.textContent || tmp.innerText || "";
+}
+
+var quickViewProduct = function (purl) {
+
+	// if ($(window).width() < 680) { window.location = purl; return false; }
+	// modal = $('#quick-view-modal'); modal.modal('show');
+	$.ajax({
+		url: purl + '.js',
+		async: false,
+		success: function (product) {
+
+			//console.log('quick view...asd01');
+			//make-up "product-pop-up"
+
+			//
+			var $slide_qv = $('#product-pop-up .product-main-image .pd_slide_qv');
+			var $slide_thumb_qv = $('#product-pop-up .product-main-image .pd_slide_thumb_qv');
+			if (product.images.length == 0) {
+				$slide_thumb_qv.remove();
+				$('#product-pop-up .product-main-image .pd_slide_qv img').attr('src', '~/Content/Clone_leaforganic/Leaforganic/hstatic.net/0/0/global/noDefaultImage6_large.gif');
+			}
+			else{
+				var html = '';
+				var html_thumb = '';
+				$slide_qv.remove();
+				$slide_thumb_qv.remove();
+				html = '<div class="pd_slide_qv">';
+				html_thumb = '<div class="pd_slide_thumb_qv slick_thumb">';
+				$.each(product.images, function (i, v) {
+					html += '<div class="slick-slide" ><div class="img"><img data-lazy="'+ v +'"></div></div>';
+					html_thumb += '<div class="slick-slide" ><div class="img"><img data-lazy="'+ v +'"></div></div>';
+				});
+				html += '</div>';
+				html_thumb += '</div>';
+				html += html_thumb;
+				$('#product-pop-up .product-main-image').html(html);
+				$('.pd_slide_qv').slick({
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
+					nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+					lazyLoad: 'progressive',
+					asNavFor: '.pd_slide_thumb_qv'
+				});
+				$('.pd_slide_thumb_qv').slick({
+					slidesToShow: 3,
+					slidesToScroll: 1,
+					arrows:false,
+					lazyLoad: 'progressive',
+					asNavFor: '.pd_slide_qv',
+					focusOnSelect: true,
+					centerMode: true,
+				});
+			}//end images length
+			// render basic info. main img, desc, qty, ...
+			var $strDesc = strip_html_js(product.description);
+			var $strPrice = Haravan.formatMoney(product.price, "{{amount}} VND") + 'đ';
+			var $strComparePrice = Haravan.formatMoney(product.compare_at_price, "{{amount}} VND") + 'đ';
+			$('#product-pop-up .description').html($strDesc.split(" ").splice(0,50).join(" ")+' ...');   // truncate 250 words
+			$('#product-pop-up .ajax-modal-title h2').html(product.title);
+			$('#product-pop-up .ajax-modal-title a').attr('href',purl);
+			$('#product-pop-up .product-price ins').html($strPrice);
+			if (product.price < product.compare_at_price) {
+				$('#product-pop-up .product-price del').html($strComparePrice);
+			}
+			else {
+				$('#product-pop-up .product-price del').html('');
+				$('#product-pop-up .sale-flash').hide();
+			}
+			$('#product-pop-up .qty').val(1);
+			var quantity = parseInt($('#ProductDetailsFormQV .product-quantity input.qty').val());
+			$('#ProductDetailsFormQV .minus').click(function() {
+				if (quantity > 0) {
+					if (quantity == 1) {
+						$('#addtocartQV').attr('disabled','disabled');
+					}
+					quantity -= 1;
+
+				}
+				else {
+					quantity = 0;
+				}
+				$('#ProductDetailsFormQV .product-quantity input.qty').val(quantity);
+			});
+			$('#ProductDetailsFormQV .plus').click(function() {
+				$('#addtocartQV').removeAttr('disabled');
+				if (quantity < 100) {
+					quantity += 1;
+				}
+				else {
+					quantity = 100;
+				}
+				$('#ProductDetailsFormQV .product-quantity input.qty').val(quantity);
+			});
+			$('#product-pop-up .more_details').attr('href', product.url);
+			// assign hidden values
+			$('#product-pop-up .unit_price_not_formated').val(product.price);
+			$('#product-pop-up .product_title_hd').val(product.title);
+			$('#product-pop-up .product_url').val(product.url);
+			$('#product-pop-up .product_img_small').val(product.featured_image);  // AAA!!!
+
+			//render variant size/color
+			// $('#product-pop-up .price strong').html(product.title);
+
+			//render selections (NOT formatted yet)
+			$('select#product-select-qw').html('');
+			$('.product-page-options select.size').html('');
+			$('.product-page-options select.color').html('');
+			$('.product-page-options select.material').html('');
+			$('.selector-wrapper').remove(); // remove all selectors by  Haravan.OptionSelectors
+			var $arrSize = [];
+			var $arrColor = [];
+			var $arrMaterial = [];
+			$.each(product.variants, function (i, v) {
+				$('select#product-select-qw').append("<option value='" + v.id + "'>" + v.title + ' - ' + v.price + "</option>");
+				if($arrSize.indexOf(v.option1) <= -1 )
+				{
+					$('#product-pop-up select.size').append("<option >" + v.option1 + "</option>");
+					$arrSize.push(v.option1);
+				}
+
+				if($arrColor.indexOf(v.option2) <= -1 )
+				{
+					$('#product-pop-up select.color').append("<option >" + v.option2 + "</option>");
+					$arrColor.push(v.option2);
+				}
+
+				if($arrMaterial.indexOf(v.option3) <= -1 )
+				{
+					$('#product-pop-up select.material').append("<option >" + v.option3 + "</option>");
+					$arrMaterial.push(v.option3);
+				}
+			});
+
+			//phong.nguyen 20150806: show label options 1,2,...
+			$($('#product-pop-up .product-page-options label')[0]).html(product.options[0].name);
+
+			var $option1_label = $('#product-pop-up .product-page-options label')[1];
+			var $option1_item = $('#product-pop-up .product-page-options .sizePicker')[1];
+			var $option2_label = $('#product-pop-up .product-page-options label')[2];
+			var $option2_item = $('#product-pop-up .product-page-options .sizePicker')[2];
+			if(product.options.length >= 2)
+			{
+				$($option1_label).html(product.options[1].name);
+				$($option1_item).removeClass('hidden');
+				if (product.options.length >= 3)  {
+					$($option2_label).html(product.options[2].name);
+					$($option2_item).removeClass('hidden');
+				}
+				else {
+					$($option2_item).addClass('hidden');
+				}
+			}
+			else {
+				$($option1_item).addClass('hidden');
+				$($option2_item).addClass('hidden');
+			}
+
+
+			//show/hide for any/1 variant
+			if (product.variants.length <= 1 ) {
+				// callBackQV(product.variants[0], null);
+				$('#product-pop-up .product-page-options').addClass('hidden');
+			}
+			else {
+				// // debugger...
+				$('#product-pop-up .product-page-options').removeClass('hidden');
+
+			}
+
+			//call back function for variants
+			new Haravan.OptionSelectors("product-select-qw", { product: product, onVariantSelected: callBackQV });
+
+
+			// function: choose size
+			$('#product-pop-up select.size').change(function(){
+				var $size = $(this).val();
+				var $color = $('#product-pop-up select.color').val();
+				var $material = $('#product-pop-up select.material').val();
+				var $tagSelectOption0 = '#product-select-qw-option-0';
+				var $tagSelectOption1 = '#product-select-qw-option-1';
+				var $tagSelectOption2 = '#product-select-qw-option-2';
+
+				refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
+			});
+
+			// function: choose color
+			$('#product-pop-up select.color').change(function(){
+				var $size = $('#product-pop-up select.size').val();
+				var $color = $(this).val();
+				var $material = $('#product-pop-up select.material').val();
+				var $tagSelectOption0 = '#product-select-qw-option-0';
+				var $tagSelectOption1 = '#product-select-qw-option-1';
+				var $tagSelectOption2 = '#product-select-qw-option-2';
+
+				refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
+			});
+
+			// function: choose material
+			$('#product-pop-up select.material').change(function(){
+				var $size = $('#product-pop-up select.size').val();
+				var $color = $('#product-pop-up select.color').val();
+				var $material = $(this).val();
+				var $tagSelectOption0 = '#product-select-qw-option-0';
+				var $tagSelectOption1 = '#product-select-qw-option-1';
+				var $tagSelectOption2 = '#product-select-qw-option-2';
+
+				refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color,$tagSelectOption2, $material);
+			});
+
+
+			//second item: $($("#colorPicker option").get(1))...
+			$("#product-pop-up select.size option:first").attr('selected', 'selected');
+			$("#product-pop-up select.color option:first").attr('selected', 'selected');
+			$("#product-pop-up select.material option:first").attr('selected', 'selected');
+			var $size = $("#product-pop-up select.size option:first").val();
+			var $color = $("#product-pop-up select.color option:first").val();
+			var $material = $("#product-pop-up select.material option:first").val();
+			var $tagSelectOption0 = '#product-select-qw-option-0';
+			var $tagSelectOption1 = '#product-select-qw-option-1';
+			var $tagSelectOption2 = '#product-select-qw-option-2';
+
+			refreshProductSelections($tagSelectOption0, $size, $tagSelectOption1 , $color, $tagSelectOption2 , $material);
+
+
+		}//end: success
+	});
+
+	//$('.modal-backdrop').css('opacity', '0');
+	return false;
+}
+
+jQuery(document).ready(function() {
+	ega.init();
+})
+
+</script>
 <section id="page-title">
     <div class="container clearfix">
 
@@ -28,7 +374,7 @@
                 </div>
                 <div class="post_content pull-right col-sm-12 col-xs-12 col-md-9"
                      style="margin-bottom: 15px !important;">
-                        Category name
+                    Category name
                     <div id="shop" class="product-3 clearfix">
                         <div class="dess">
                         </div>
@@ -43,6 +389,7 @@
                                 <div class='col-sm-6 col-md-4 noleftpadding text-right norightpadding'>
                                     <span class='col-sm-5 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
                                     <span class="custom-dropdown custom-dropdown--white pull-right col-sm-7 col-xs-8 norightpadding">
+
                                         <select id='sortControl'
                                                 class="sort-by custom-dropdown__select custom-dropdown__select--white form-control input-sm">
                                             <option sort_by="manual" value='manual'>
@@ -155,913 +502,52 @@
                             </div>
 
                             <ul class="lv1">
-                                <li>
-                                    <a class="one1" data-href="/collections/thuc-pham-tuoi-song-che-bien"
-                                       href="javacript:0">
-                                        Thực phẩm tươi sống <i class="fa fa-angle-right right-icon "
-                                                               aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Thịt & thủy hải sản <i class="fa fa-angle-right right-icon"
-                                                                       aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-                                                <li>
-                                                    <a href="thit-xuong-noi-tang-san-pham-tu-lon.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Thịt, xương, nội tạng &
-                                                        sản phẩm từ lợn
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="gia-cam-trung.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Gia cầm & trứng
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="thuy-hai-san.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Thủy hải sản
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Rau, củ quả tươi <i class="fa fa-angle-right right-icon"
-                                                                    aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="rau-an-la-than.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Rau ăn lá, thân
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="rau-an-cu-qua.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Rau ăn củ, quả
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="nam-tuoi.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Nấm tươi
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Trái cây tươi <i class="fa fa-angle-right right-icon"
-                                                                 aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="trai-cay-trong-nuoc.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Trái cây trong nước
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="trai-cay-nhap-khau.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Trái cây nhập khẩu
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Thực phẩm chế biến sẵn <i class="fa fa-angle-right right-icon"
-                                                                          aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="cac-loai-banh.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Các loại bánh
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="bun-pho-banh-trang.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Bún, phở, bánh tráng
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="dau-phu-thach-tuoi.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Đậu phụ, thạch tươi
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-
-                                    </ul>
-
-
-
-                                <li>
-                                    <a class="one1" data-href="/collections/thuc-pham"
-                                       href="javacript:0">
-                                        Thực phẩm khô <i class="fa fa-angle-right right-icon "
-                                                         aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-
-
-
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Đồ uống <i class="fa fa-angle-right right-icon"
-                                                           aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="sua-thuc-vat.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Sữa thực vật
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="sua-tuoi.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Sữa tươi
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="cafe-cacao.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Cafe & cacao
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="tra.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Trà
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="nuoc-trai-cay.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Nước trái cây
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="ruou.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Rượu
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="gao.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Gạo hữu cơ
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="pho-bun-mien-banh-trang.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Phở, bún, miến, bánh tráng
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="mi-nui-spaghetti.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Mì, Nui, Spaghetti
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="dau-hat.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Đậu, Đỗ, Hạt
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="trai-cay-kho.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Trái cây khô
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="banh-keo-snack.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Bánh kẹo, snack
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="ngu-coc-an-sang.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Ngũ cốc, Muesli
-                                            </a>
-                                        </li>
-
-
-
-
-
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Gia vị & Nguyên liệu nấu ăn <i class="fa fa-angle-right right-icon"
-                                                                               aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="dau-giam.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dầu & giấm
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="gia-vi.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Muối, gia vị, hạt
-                                                        nêm
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="nuoc-sot-nuoc-cham.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Nước chấm & nước sốt
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="duong-chat-tao-ngot.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Đường, chất tạo ngọt
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="bot-banh-mi.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Nguyên liệu làm bánh, đồ tráng
-                                                miệng
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="do-hop-do-lo.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Đồ hộp, đồ lọ
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="thuc-pham-che-bien-chay.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Thực phẩm chế biến chay
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="superfoods.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Superfood/TPCN
-                                            </a>
-                                        </li>
-
-
-
-
-                                        <li>
-                                            <a href="thuc-pham-khac-1.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Thực phẩm khác
-                                            </a>
-                                        </li>
-
-
-
-
-
-                                    </ul>
-
-
-
-                                <li>
-                                    <a class="one1" data-href="/collections/lam-dep" href="javacript:0">
-                                        Làm
-                                        đẹp <i class="fa fa-angle-right right-icon "
+                                @foreach (var dm in @ViewBag.dmSP)
+                                {
+                                    <li>
+                                        <a class="one1" data-href="/SanPham/Category/@dm.MaDanhMuc"
+                                           href="javacript:0">
+                                            @dm.TenDanhMuc
+                                            <i class="fa fa-angle-right right-icon "
                                                aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
+                                        </a>
+                                        @if (dm.DanhMuc1.Count > 0)
+                                        {
+                                            <ul class="lv2">
+                                                @foreach (var dmCon in dm.DanhMuc1)
+                                                {
+                                                    <li>
+                                                        <a href="/SanPham/Category/@dmCon.MaDanhMuc" class="one2">
+                                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                            @dmCon.TenDanhMuc <i class="fa fa-angle-right right-icon"
+                                                                                 aria-hidden="true"></i>
+                                                        </a>
+                                                        @if (dmCon.DanhMuc1.Count > 0)
+                                                        {
+                                                            <ul class="lv3">
+                                                                @foreach (var dmChau in dmCon.DanhMuc1)
+                                                                {
+                                                                    <li>
+                                                                        <a href="/SanPham/Category/@dmChau.MaDanhMuc">
+                                                                            <i class="fa fa-angle-double-right"
+                                                                               aria-hidden="true"></i> @dmChau.TenDanhMuc
+                                                                        </a>
+                                                                    </li>
+                                                                }
 
 
+                                                            </ul>
+                                                        }
 
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Trang điểm <i class="fa fa-angle-right right-icon"
-                                                              aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="mat.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Mặt
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="mat-1.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Mắt
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="moi.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Môi
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="mong.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Móng
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="phu-kien-trang-diem.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Phụ kiện trang điểm
-                                                    </a>
-                                                </li>
+                                                    </li>
+                                                }
 
                                             </ul>
+                                        }
+                                    </li>
 
-                                        </li>
 
-
-
-
-
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Chăm sóc da mặt <i class="fa fa-angle-right right-icon"
-                                                                   aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="sua-rua-mat.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Sữa rửa mặt
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="lotion-toner-xit-khoang.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Lotion/Toner/Xịt
-                                                        khoáng
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="tay-trang.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Tẩy trang
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="duong-am-ngay-dem.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Kem/ Serum
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="dau-duong.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dầu dưỡng
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="mat-na.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Mặt nạ/ Tẩy da chết
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="duong-mat-moi.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dưỡng mắt & môi
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="kem-chong-nang.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Kem chống nắng
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-
-
-
-
-
-                                    </ul>
-
-
-
-                                <li>
-                                    <a class="one1" data-href="/collections/cham-soc-co-the"
-                                       href="javacript:0">
-                                        Chăm sóc cơ thể <i class="fa fa-angle-right right-icon "
-                                                           aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-
-
-                                        <li>
-                                            <a href="cham-soc-rang-mieng-1.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Chăm sóc răng miệng
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Vệ sinh cơ thể <i class="fa fa-angle-right right-icon"
-                                                                  aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="sua-tam.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Sữa tắm
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="dau-goi-xa.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dầu gội, xả, dưỡng
-                                                        tóc
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="xa-phong.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Xà phòng
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="nuoc-rua-tay.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Nước rửa tay
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Dưỡng thể <i class="fa fa-angle-right right-icon"
-                                                             aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="duong-body.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dưỡng body
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="duong-tay.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dưỡng tay chân
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="tay-da-chet-toan-than.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Tẩy da chết
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                        <li>
-                                            <a href="khu-mui-co-the.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Khử mùi cơ thể
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Chăm sóc vùng kín <i class="fa fa-angle-right right-icon"
-                                                                     aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="bang-ve-sinh.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Băng vệ sinh
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="tampon.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Tampon
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="coc-nguyet-san.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Cốc nguyệt san
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="dung-dich-ve-sinh.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Dung dịch vệ sinh
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                        <li>
-                                            <a href="cham-soc-ca-nhan.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Chăm sóc cá nhân
-                                            </a>
-                                        </li>
-                                    </ul>
-                                <li>
-                                    <a class="one1" data-href="/collections/cham-soc-me-be"
-                                       href="javacript:0">
-                                        Mẹ & bé <i class="fa fa-angle-right right-icon "
-                                                   aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Sơ sinh & Trẻ nhỏ <i class="fa fa-angle-right right-icon"
-                                                                     aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="ve-sinh-co-the.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Vệ sinh cơ thể bé
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="cham-soc-bao-ve-da.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Chăm sóc bảo vệ da
-                                                        bé
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="cham-soc-rang-mieng.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Chăm sóc răng miệng cho
-                                                        bé
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="nuoc-hoa-cho-be.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Nước hoa cho bé
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="giat-xa-quan-ao.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Giặt/ xả quần áo cho
-                                                        bé
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Sữa & Thực phẩm cho bé <i class="fa fa-angle-right right-icon"
-                                                                          aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="sua-cho-be.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Sữa cho bé
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="an-dam.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Ăn dặm
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="superfoods-tpcn-cho-be.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Superfood/ TPCN cho
-                                                        bé
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="thuc-pham-khac-cho-be.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Thực phẩm khác cho
-                                                        bé
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                        <li>
-                                            <a href="javacript:0" class="one2">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Mẹ bầu & Sau sinh <i class="fa fa-angle-right right-icon"
-                                                                     aria-hidden="true"></i>
-                                            </a>
-                                            <ul class="lv3">
-
-                                                <li>
-                                                    <a href="sua-cho-me.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Sữa cho mẹ
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="cham-soc-da-cho-me.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Chăm sóc da cho mẹ
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="superfoods-tpcn-cho-me.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Superfood/ TPCN cho
-                                                        mẹ
-                                                    </a>
-                                                </li>
-
-                                                <li>
-                                                    <a href="cham-soc-ca-nhan-cho-me.html">
-                                                        <i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i> Chăm sóc cá nhân cho
-                                                        mẹ
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-
-                                        </li>
-                                    </ul>
-                                <li>
-                                    <a class="one1" data-href="/collections/cham-soc-nha-cua"
-                                       href="javacript:0">
-                                        Chăm sóc nhà cửa <i class="fa fa-angle-right right-icon "
-                                                            aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-                                        <li>
-                                            <a href="nuoc-rua-chen-bat.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Nước rửa chén bát
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="san-pham-giat-xa-quan-ao.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Giặt/ xả quần áo
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="ve-sinh-nha-cua.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Tẩy rửa, làm sạch
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="khu-mui-thanh-loc-khong-gian.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Khử mùi, thanh lọc không gian
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="giay-ve-sinh-khan-giay.html">
-                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                Giấy vệ sinh, khăn giấy
-                                            </a>
-                                        </li>
-                                    </ul>
-                                <li>
-                                    <a class="one1" data-href="/collections/doi-song-tinh-than"
-                                       href="javacript:0">
-                                        Đời sống & Tinh thần <i class="fa fa-angle-right right-icon "
-                                                                aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-                                        <li>
-                                            <a href="tinh-dau.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Tinh dầu
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="huong-nhang.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Hương nhang
-                                            </a>
-                                        </li>
-                                    </ul>
-                                <li>
-                                    <a data-href="/collections/zero-waste" href="zero-waste.html">
-                                        Zero
-                                        Waste
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="one1" data-href="/collections/sale" href="javacript:0">
-                                        Sale <i class="fa fa-angle-right right-icon " aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="lv2">
-
-
-                                        <li>
-                                            <a href="soft-5.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> soft 5%
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="soft-10.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Sale off 10%
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="soft-15.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Sale off 15%
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="soft-20.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Sale off 20%
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="sale-50.html">
-                                                <i class="fa fa-angle-double-right"
-                                                   aria-hidden="true"></i> Sale off 50%
-                                            </a>
-                                        </li>
-                                    </ul>
+                                }
                             </ul>
                         </div>
                         <style>
@@ -1178,7 +664,6 @@
                                     </a>
                                 </div>
                                 <div id="filter_group" class="panel-collapse collapse in">
-                                    BEGIN: Vendor filter
 
 
                                     <div class="widget_links clearfix">
@@ -1609,3 +1094,12 @@
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        $("#sortControl").change(function () {
+            var empid = @ViewBag.idCategory;
+            var sort = $("#sortControl").val();
+            location.href = '@Url.Action("Category", "SanPham")' + '?currentSort=' + sort;
+        });
+    })
+</script>

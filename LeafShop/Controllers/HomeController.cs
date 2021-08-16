@@ -23,8 +23,8 @@ namespace LeafShop.Controllers
         [ChildActionOnly]
         public ActionResult CategoryTree()
         {
-            //IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p);
-            var danhmucs = db.DanhMucs.ToList();
+            IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p);
+
             return PartialView("CategoryTree",danhmucs);
         }
         

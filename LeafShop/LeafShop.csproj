@@ -4867,8 +4867,6 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SearchBox.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout_Product.cshtml" />
-    <Content Include="Views\Shared\_LayoutNoLeftSideBar.cshtml" />
     <Content Include="Views\SanPham\Category.cshtml" />
     <Content Include="Views\SanPham\Index.cshtml" />
     <Content Include="Views\SanPham\Detail.cshtml" />
