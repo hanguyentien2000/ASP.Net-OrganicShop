@@ -747,7 +747,7 @@
                                     <div class="top-cart-action clearfix">
                                         <span class="fleft top-checkout-price">0₫</span>
                                         <input type="hidden" class="top_cart_total_price_not_format" value="0" />
-                                        <button onclick='window.location.href="cart.html"' class="button button-small nomargin fright">Xem giỏ hàng</button>
+                                        <a href="@Url.Action("Orders","Cart")" class="button button-small nomargin fright">Xem giỏ hàng</a>
                                     </div>
 
                                 </div>
@@ -1208,13 +1208,18 @@
                 })
                 $(".top_cart_qty").html(total);
                 $(".top-cart-content").append('<div class="top-cart-action clearfix">'
-                    + ' <button onclick="#" class="button button-small nomargin fright">Xem giỏ hàng</button>'
+                    + ' <button onclick="redirect()" class="button button-small nomargin fright">Xem giỏ hàng</button>'
                     + ' </div >')
             },
             error: function (response) {
 
             }
         });
+    }
+
+
+    function redirect() {
+        window.location.href = "../Cart/Orders";
     }
 
     function AddToCart(id)
@@ -1252,6 +1257,8 @@
 
         });
     }
+
+   
 </script>
 
                         <div class="container">
@@ -1598,7 +1605,7 @@
             return tmp.textContent || tmp.innerText || "";
         }
 
-        var quickViewProduct = function (purl) {
+      var quickViewProduct = function (purl) {
 
 	 if ($(window).width() < 680) { window.location = purl; return false; }
 	 modal = $('#quick-view-modal'); modal.modal('show');
@@ -1925,6 +1932,7 @@ jQuery(document).ready(function() {
 
         jQuery(document).ready(function ($) {
             //add to cart for QuickView
+            getCart();
             $("#addtocartQA").on('click', function (e) {  //.click(function(e){ //
                 e.preventDefault();
                 addItem('ProductDetailsForm_QuickAdd');
@@ -2011,6 +2019,7 @@ jQuery(document).ready(function() {
                 appId: "4337ebf8-0b69-4e0c-abad-b59d1a265d44",
             });
         });</script>
+
 </body>
 
 <!-- Mirrored from leaforganic.vn/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Aug 2021 09:21:20 GMT -->

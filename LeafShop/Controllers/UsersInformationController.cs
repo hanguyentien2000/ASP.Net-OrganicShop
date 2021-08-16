@@ -1,5 +1,5 @@
-﻿using LeafShop.Models;
-using System;
+﻿using System;
+using LeafShop.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,17 +7,17 @@ using System.Web.Mvc;
 
 namespace LeafShop.Controllers
 {
-    public class UserDetailtsController : Controller
+    public class UsersInformationController : Controller
     {
-        // GET: UserDetailts
         LeafShopDb db = new LeafShopDb();
+        // GET: UsersInformation
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult UserInfor(int id)
+        public ActionResult UsersInf(int id)
         {
             KhachHang session = (KhachHang)Session[LeafShop.Session.ConstaintUser.USER_SESSION];
             if (session == null)
@@ -32,7 +32,7 @@ namespace LeafShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserInfor([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,SoDienThoai")] KhachHang kh)
+        public ActionResult UsersUpdate([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,SoDienThoai")] KhachHang kh)
         {
             KhachHang res = db.KhachHangs.Where(a => a.MaKhachHang.Equals(kh.MaKhachHang)).FirstOrDefault();
             try

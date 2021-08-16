@@ -232,7 +232,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
-    <Compile Include="Controllers\UserDetailtsController.cs" />
+    <Compile Include="Controllers\UsersInformationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4874,6 +4874,10 @@
     <Content Include="Views\SanPham\Detail.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Home\CategoryTree.cshtml" />
+    <Content Include="Views\Cart\CheckOut.cshtml" />
+    <Content Include="Views\Cart\Orders.cshtml" />
+    <Content Include="Views\UsersInformation\UsersInf.cshtml" />
+    <Content Include="Views\UsersInformation\UsersUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

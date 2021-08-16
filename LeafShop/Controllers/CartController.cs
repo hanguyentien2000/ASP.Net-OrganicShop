@@ -20,21 +20,33 @@ namespace LeafShop.Controllers
         [HttpGet]
         public ActionResult Orders()
         {
-            List<SanPham> list = new List<SanPham>();
+            List<ChiTietDatHang> list = new List<ChiTietDatHang>();
+ 
             if (Session[LeafShop.Session.ConstaintCart.CART] != null)
             {
-                List<ChiTietDatHang> res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
-                foreach (ChiTietDatHang item in res)
+                list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+                foreach (ChiTietDatHang item in list)
                 {
-                    list.Add(db.SanPhams.Where(s => s.MaSanPham == item.MaSanPham).FirstOrDefault());
-                }
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].ChiTietDatHangs.Add(res[i]);
+                    item.SanPham = db.SanPhams.Where(x => x.MaSanPham == item.MaSanPham).FirstOrDefault();
                 }
             }
             return View(list);
         }
+
+        [HttpPost]
+        public ActionResult Orders(List<ChiTietDatHang> list)
+        {
+            Session.Remove(LeafShop.Session.ConstaintCart.CART);
+            foreach(ChiTietDatHang item in list)
+            {
+                item.DonGia = db.SanPhams.Where(s => s.MaSanPham == item.MaSanPham).FirstOrDefault().DonGia;
+                SanPham sp = db.SanPhams.Where(x => x.MaSanPham == item.MaSanPham).FirstOrDefault();
+                item.SanPham = sp;
+            }
+            Session[LeafShop.Session.ConstaintCart.CART] = list;
+            return View(list);
+        }
+
 
         [HttpPost]
         public JsonResult AddToCart(ChiTietDatHang chiTiet)

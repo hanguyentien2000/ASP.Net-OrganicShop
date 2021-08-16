@@ -291,25 +291,17 @@
                     <div class="col_half col_last fright nobottommargin top_link_wrapper">
                         <div class="top-links">
                             <ul>
-
-
                                 <li><a href="../pages/gioi-thieu-ve-leaf-shop.html">Về Leaf Organic</a></li>
-
-
 
                                 <li><a href="../index.html">Khuyến mãi</a></li>
 
-
-
                                 <li><a href="http://leafshop.vn/blogs/all">Blog</a></li>
-
 
                                 <li><a href='../account/login.html'>Tài khoản</a></li>
 
                                 <li><a href="Home/Login">Đăng nhập - Đăng ký</a></li>
 
                                 <li></li>
-
                             </ul>
                         </div><!-- .top-links end -->
 
@@ -730,7 +722,7 @@
                                     <div class="top-cart-action clearfix">
                                         <span class="fleft top-checkout-price">0₫</span>
                                         <input type="hidden" class="top_cart_total_price_not_format" value="0" />
-                                        <button onclick='window.location.href="../cart.html"' class="button button-small nomargin fright">Xem giỏ hàng</button>
+                                        <a href="@Url.Action("Oders","Cart")" class="button button-small nomargin fright">Xem giỏ hàng</a>
                                     </div>
 
                                 </div>
@@ -760,6 +752,190 @@
             <!-- /#page-content-wrapper -->
         </div>
         <!-- #header end -->
+        <div class="zom_grr">
+            <div class='container slide_wrapper'>
+                <!-- left menu -->
+                <!-- end left menu -->
+                <div class='slider_wrap'>
+                    <div id="conteneur">
+                        <div class="header">
+                            <div class="menu_nav">
+                                <div id="onglet_gauche" class="gauche">
+                                </div>
+                                @{ Html.RenderAction("CategoryTree", "Home");}
+                                <div id="onglet_droit" class="droit"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <style>
+                        .line-text {
+                            line-height: 23px !important;
+                        }
+                    </style>
+
+
+                    <!-- Slider -->
+
+                    <script type="text/javascript">
+                        var category_selected = 0;
+
+
+                        $(document).ready(function () {
+                            $('#ulSlideHeader').gwSliderHeader();
+
+                            $('.version_mobile').attr('style', 'display:none;');
+                            $('#ulSlideCarousel').gwSlider();
+
+                        });</script>
+
+                    <div id="visio">
+                        <div class="prev"></div>
+                        <div id="slideCarousel">
+                            <ul id="ulSlideCarousel" style="width:100%;">
+                                <li class="liSlideCarousel" style="background:url('../../Content/image/slideshow_29a76.jpg?v=3659') no-repeat;background-size:100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/bio-planet" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/bio-planet" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_39a76.jpg?v=3659') no-repeat; background-size: 100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/sobo" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/sobo" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_49a76.jpg?v=3659') no-repeat; background-size: 100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/biovegan" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/biovegan" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_59a76.jpg?v=3659') no-repeat; background-size: 100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/markal" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/markal" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_69a76.jpg?v=3659') no-repeat; background-size: 100%; ">
+                                    <div class="slider_link"><a href="https://leafshop.vn/search?type=product&amp;q=sunny%20fruit" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/search?type=product&amp;q=sunny%20fruit" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_89a76.jpg?v=3659') no-repeat; background-size: 100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/bartolini" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/bartolini" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_119a76.jpg?v=3659') no-repeat; background-size: 100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/amavie-foods" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/amavie-foods" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+
+                                <li class="liSlideCarousel" style="background: url('../../Content/image/slideshow_139a76.jpg?v=3659') no-repeat; background-size: 100%;">
+                                    <div class="slider_link"><a href="https://leafshop.vn/collections/yumearth" rel="greenlac.jpg" class="link_slider_hp"><img src="~/Content/Clone_leaforganic/Leaforganic/theme.hstatic.net/1000104489/1000257823/14/spacer9a76.gif?v=3659" width="100%" height="100%" border="0" alt="" /></a></div>
+                                    <div class="offre"><span></span></div>
+                                    @*<div class="slider_conteneur">
+                                        <div class="ctn">
+                                            <div class="btn view-poi"><a href="https://leafshop.vn/collections/yumearth" rel="greenlac.jpg" class="link_slider_hp"><span>Xem Chi Tiết </span> <i class="fa fa-caret-right" aria-hidden="true"></i> </a></div>
+                                        </div>
+                                    </div>*@
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="next"></div>
+                    </div>
+                    <section id="slider" class="slider_des nopadding ohidden clearfix  slide_80 ">
+                        <a href='https://leafshop.vn/collections/bio-planet'>
+                            <img data-lazy="~/Content/image/slideshow_29a76.jpg?v=3659">
+                        </a>
+                        <a href='https://leafshop.vn/collections/sobo'>
+                            <img data-lazy="~/Content/image/slideshow_39a76.jpg?v=3659">
+                        </a>
+                        <a href='https://leafshop.vn/collections/biovegan'>
+                            <img data-lazy="~/Content/image/slideshow_49a76.jpg?v=3659">
+                        </a>
+                        <a href='https://leafshop.vn/collections/markal'>
+                            <img data-lazy="~/Content/image/slideshow_59a76.jpg?v=3659">
+                        </a>
+                        <a href='https://leafshop.vn/search?type=product&amp;q=sunny%20fruit'>
+                            <img data-lazy="~/Content/image/slideshow_69a76.jpg?v=3659">
+                        </a>
+
+                        <a href='https://leafshop.vn/collections/bartolini'>
+                            <img data-lazy="~/Content/image/slideshow_89a76.jpg?v=3659">
+                        </a>
+
+                        <a href='https://leafshop.vn/collections/amavie-foods'>
+                            <img data-lazy="~/Content/image/slideshow_119a76.jpg?v=3659">
+                        </a>
+
+                        <a href='https://leafshop.vn/collections/yumearth'>
+                            <img data-lazy="~/Content/image/slideshow_139a76.jpg?v=3659">
+                        </a>
+                    </section>
+                    <script>
+                        $(document).ready(function () {
+                            $('#slider').slick({
+                                prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
+                                nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+                                lazyLoad: 'progressive',
+                                asNavFor: '.slider_thumb',
+                            });
+                        })</script>
+
+                    <style>
+                        #slider:hover > .slick-arrow {
+                            display: block !important;
+                        }
+
+                        #slider > .slick-arrow {
+                            display: none !important;
+                        }
+                    </style>
+
+                    <!-- end slider -->
+
+
+                </div>
+                <div class='clear'></div>
+            </div>
+        </div>
         <!-- Content
     ============================================= -->
         @RenderBody()
@@ -770,9 +946,6 @@
         <div class="zom_grr">
             <div class="spriteHerbe container">&nbsp;</div>
             <footer id="footer" class='dark'>
-
-
-
                 <div class="container">
 
                     <!-- Footer Widgets
@@ -784,9 +957,6 @@
 
                                 <h4>Cửa hàng</h4>
                                 <div class="info_more">
-
-
-
                                     <p class="diachi_hot" style="padding-left: 15px;">
                                         <strong style="color:#555">Tên công ty</strong>: Công Ty TNHH Leaf Organic Việt Nam<br />Số 2 ngõ 70/58 đường Văn Trì, P. Minh Khai, Q.Bắc Từ Liêm, Hà Nội, Việt Nam<br />
 
@@ -998,7 +1168,7 @@
                 <form id='ProductDetailsFormQV' class="nobottommargin clearfix">
                     <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
                         <input type="button" value="-" class="minus">
-                        <input type="text" class='qty' id='product_quantity' readonly step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
+                        <input type="text" class='qty' id='product_quantity' readonly step="1" min="1" name="quantity" value="1" title="Qty"  size="4" />
                         <input type="button" value="+" class="plus">
                     </div>
                     <script></script>
@@ -1429,6 +1599,88 @@ jQuery(document).ready(function() {
 
 
     <script>
+        function getCart() {
+            $(".top-cart-content").empty();
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: "/Cart/getCart",
+                success: function (response) {
+                    if (response.length == 0) {
+                        $(".top-cart-content").append('<div class="top-cart-items">Không có sản phẩm nào trong giỏ hàng</div>');
+                        return;
+                    }
+                    $(".top-cart-content").append('<div class="top-cart-items"></div>');
+                    let total = 0;
+                    $.each(response, function (index) {
+                        total += response[index].SoLuong;
+                        $(".top-cart-items").append('<div class="top-cart-item clearfix">'
+                            + '<input type="hidden" class="item_id" value="1008322895">'
+                            + '<input type="hidden" class="item_qty" value="' + response[index].SoLuong + ' ">'
+                            + '<input type="hidden" class="item_unit_price_not_formated" value="' + response[index].DonGia + '">'
+                            + ' <div class="top-cart-item-image">'
+
+                            + ' <a href="#"><img src="' + response[index].SanPham.HinhMinhHoa + '" alt=""></a>'
+                            + '</div>'
+                            + '     <div class="top-cart-item-desc">'
+                            + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
+                            + '    <span class="top-cart-item-price">' + response[index].DonGia + '</span>'
+                            + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
+                            + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
+                            + '<i class="fa fa-times-circle"></i>'
+                            + '  </a ></div ></div >'
+                        )
+                    })
+                    $(".top_cart_qty").html(total);
+                    $(".top-cart-content").append('<div class="top-cart-action clearfix">'
+                        + ' <button onclick="redirect()" class="button button-small nomargin fright">Xem giỏ hàng</button>'
+                        + ' </div >')
+                },
+                error: function (response) {
+
+                }
+            });
+        }
+        function redirect() {
+            window.location.href = "../Cart/Orders";
+        }
+
+        function AddToCart(id) {
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify({ "MaSanPham": id, "SoLuong": 1 }),
+                url: "/Cart/AddToCart",
+                success: function (response) {
+                    if (response.status) {
+                        getCart();
+                    }
+                },
+                error: function (response) {
+
+                },
+
+            });
+        }
+
+        function deleteFromCart(id) {
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: "/Cart/DeleteFromCart",
+                success: function (response) {
+                    if (response.status) {
+                        getCart();
+                    }
+                },
+                error: function (response) {
+
+                },
+
+            });
+        }
+
+
         jQuery(document).ready(function () {
             jQuery('.related-product').slick({
                 dots: true,
@@ -1465,7 +1717,8 @@ jQuery(document).ready(function() {
                     // instead of a settings object
                 ]
             });
-        });</script>
+        });
+    </script>
 
     <script src="~/Content/js/OneSignalSDK.js" async=""></script>
     <script>
