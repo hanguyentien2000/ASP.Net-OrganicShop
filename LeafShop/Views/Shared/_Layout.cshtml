@@ -341,7 +341,7 @@
                         <div class='top_search col-md-9 col-xs-12'>
 
 
-                            <form id="searchauto" action="https://leaforganic.vn/search" class="searchform-categoris ultimate-search col-sm-8 form-inline nopadding nomargin">
+                            <form action="/SanPham/Index" class="searchform-categoris ultimate-search col-sm-8 form-inline nopadding nomargin">
 
                                 <div class="wpo-search">
 
@@ -349,9 +349,9 @@
 
                                         <div class="input-group" style="margin: 2px 0px 5px; width: 100%">
 
-                                            <input type="hidden" name="type" value="product" />
+                                            
 
-                                            <input id="searchtext" name="q" id="s" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm...">
+                                            <input id="searchtext" name="searchString" id="s" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm...">
 
                                             <span class="input-group-auto">
 
@@ -362,19 +362,12 @@
                                         </div>
 
                                     </div>
-
-                                    <input type="hidden" class="collection_id" value="(collectionid:product>0)" />
-
-                                    <input type="hidden" class="collection_handle" value="all" />
-
-                                    <input type="hidden" class="collection_name" value="all" />
-
                                 </div>
 
                             </form>
 
 
-                            <script>
+                            @*<script>
                                 $('.ultimate-search').submit(function (e) {
 
                                     e.preventDefault();
@@ -599,7 +592,7 @@
 
 
 
-                                jQuery('.ultimate-search input[name=q]').smartSearch({ searchdelay: 400, wrapper: 'search-wrapper', collection: '.collection_id' });</script>
+                                jQuery('.ultimate-search input[name=q]').smartSearch({ searchdelay: 400, wrapper: 'search-wrapper', collection: '.collection_id' });</script>*@
 
 
                             <style>
