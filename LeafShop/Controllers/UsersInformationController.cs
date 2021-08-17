@@ -26,8 +26,8 @@ namespace LeafShop.Controllers
             }
             else
             {
-                KhachHang tk = db.KhachHangs.Where(a => a.MaKhachHang.Equals(id)).FirstOrDefault();
-                return View(tk);
+                KhachHang kh = db.KhachHangs.Where(a => a.MaKhachHang.Equals(id)).FirstOrDefault();
+                return View(kh);
             }
         }
 

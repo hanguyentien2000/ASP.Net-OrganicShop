@@ -130,5 +130,14 @@ namespace LeafShop.Controllers
             }
             return View(list);
         }
+
+        [HttpGet]
+        public ActionResult DeleteFromCartByMaSP(int masp)
+        {
+            List<ChiTietDatHang> list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+            list.RemoveAll((x) => x.MaSanPham == masp);
+            Session[LeafShop.Session.ConstaintCart.CART] = list;
+            return RedirectToAction("Orders");
+        }
     }
 }

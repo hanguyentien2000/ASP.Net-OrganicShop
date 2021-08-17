@@ -312,11 +312,9 @@
                     <div class="col_half col_last fright nobottommargin top_link_wrapper">
                         <div class="top-links">
                             <ul>
-
-
                                 @if (db != null)
                                 {
-                                    <li><a>Xin chào, @db.TenKhachHang</a></li>
+                                    <li><a href="@Url.Action("UserInf", "UserInformation")">Xin chào, @db.TenKhachHang</a></li>
 
                                     <li><a href="@Url.Action("Logout", "Home")">Thoát</a></li>
                                 }

@@ -4876,6 +4876,7 @@
     <Content Include="Views\Cart\Orders.cshtml" />
     <Content Include="Views\UsersInformation\UsersInf.cshtml" />
     <Content Include="Views\UsersInformation\UsersUpdate.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoLeftSideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

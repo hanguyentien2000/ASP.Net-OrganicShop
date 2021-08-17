@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "UsersInf";
     Layout = "~/Views/Shared/_LayoutNoLeftSideBar.cshtml";
+    LeafShop.Models.KhachHang db = (LeafShop.Models.KhachHang)HttpContext.Current.Session[LeafShop.Session.ConstaintUser.USER_SESSION];
+
 }
 
 <section id="content">
@@ -18,22 +20,28 @@
             <div class="fancy-title title-bottom-border">
                 <h3>Thông tin tài khoản</h3>
             </div>
+           
             <div class='account-detail'>
+                @foreach (var item in Model)
+                {
 
-                <h4>Nguyễn Thịnh</h4>
+                    <h4>@item.TenKhachHang</h4>
 
 
-                <p>thinhphuongxa1@gmail.com</p>
+                    <p>@item.TenDangNhap</p>
 
-                <p></p>
+                    <p></p>
 
-                <p></p>
+                    <p></p>
 
-                <p> Vietnam</p>
-                <p></p>
+                    <p> @item.DiaChi</p>
+                    <p></p>
 
-                <p><a id='view_address' href='/account/addresses'>Xem địa chỉ</a></p>
-            </div>
+                    <p><a id='view_address' href='/account/addresses'>Xem địa chỉ</a></p>
+                }
+                </div>
+            
+
         </div>
     </div>
 </section>
