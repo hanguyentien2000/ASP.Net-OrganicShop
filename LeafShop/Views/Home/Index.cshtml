@@ -8,7 +8,7 @@
 <html dir="ltr" lang="en-US">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
-   
+
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
     <meta http-equiv="content-language" content="vi">
@@ -18,7 +18,7 @@
     </title>
 
 
-    
+
     <!-- Fonts START -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Lato+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
     <!-- Fonts END -->
@@ -105,7 +105,7 @@
 
 
 
- 
+
     <div id="bottom-left" class="hidden-xs">
         <a href="http://leafshop.vn/pages/phuong-thuc-van-chuyen">
             <div class="text">
@@ -314,13 +314,15 @@
                             <ul>
                                 @if (db != null)
                                 {
-                                    <li><a href="@Url.Action("UserInf", "UserInformation")">Xin chào, @db.TenKhachHang</a></li>
+                                    <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
+                                    <li><a href="@Url.Action("UsersInf", "UsersInformation")">Xin chào, @db.TenKhachHang</a></li>
 
                                     <li><a href="@Url.Action("Logout", "Home")">Thoát</a></li>
                                 }
 
                                 @if (db == null)
                                 {
+                                    <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
                                     <li><a href='@Url.Action("Login", "Home")'>Đăng nhập / Đăng ký</a></li>
                                 }
 
@@ -367,7 +369,7 @@
 
                                             <input type="hidden" name="type" value="product" />
 
-                                            <input id="searchtext" name="q" id="s" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm...">
+                                            <input id="searchtext" name="q" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm...">
 
                                             <span class="input-group-auto">
 
@@ -388,236 +390,6 @@
                                 </div>
 
                             </form>
-
-
-                            @*<script>
-                                $('.ultimate-search').submit(function (e) {
-
-                                    e.preventDefault();
-
-                                    var q = $(this).find('input[name=q]').val();
-
-                                    if (!q) {
-                                        window.location = 'searchefd0.html?type=product&amp;q=**';
-                                        return;
-                                    }
-                                    else {
-                                        window.location = '/search?type=product&q=' + q;
-                                        return;
-                                    }
-                                });
-
-                                function selectSuggest(act) {
-
-                                    cur = $('.smart-search-wrapper > .select').index();
-
-                                    length = $('.smart-search-wrapper > a').length;
-
-                                    if (act == 38) {
-
-                                        if (cur == -1 || cur == 0)
-
-                                            cur = length - 1;
-
-                                        else
-
-                                            cur = cur - 1;
-
-                                    }
-
-
-                                    if (act == 40) {
-
-                                        if (cur == -1 || cur == length - 1)
-
-                                            cur = 0;
-
-                                        else
-
-                                            cur = cur + 1;
-                                    }
-
-                                    $('.smart-search-wrapper>a').removeClass('select');
-
-                                    $('.smart-search-wrapper>a:nth-child(' + (cur + 1) + ')').addClass('select');
-
-
-                                    $('.ultimate-search input[name=q]').val($('.smart-search-wrapper>.select').attr('data-title'));
-                                    return false;
-                                }
-
-
-                                (function ($) {
-                                    $.fn.smartSearch = function (_option) {
-                                        var o, issending = false,
-
-                                            timeout = null;
-
-                                        var option = {
-                                            smartoffset: true, //auto calc offset
-
-                                            searchoperator: '**', //** contain, *= begin with, =* end with
-
-                                            searchfield: "title",
-
-                                            searchwhen: 'keyup', //0: after keydown, 1: after keypress, after space
-
-                                            searchdelay: 500, //delay time before load data
-
-                                        };
-
-                                        if (typeof (_option) !== 'undefined') {
-
-                                            $.each(_option, function (i, v) {
-
-                                                if (typeof (_option[i]) !== 'undefined') option[i] = _option[i];
-
-                                            })
-                                        }
-
-                                        o = $(this);
-
-                                        o.attr('autocomplete', 'off');
-
-                                        this.bind(option.searchwhen, function (event) {
-
-                                            if (event.keyCode == 38 || event.keyCode == 40) {
-
-                                                return selectSuggest(event.keyCode);
-
-                                            } else {
-
-                                                $(".smart-search-wrapper." + option.wrapper).remove();
-
-                                                clearTimeout(timeout);
-
-                                                timeout = setTimeout(l, option.searchdelay, $(this).val());
-
-                                            }
-
-                                        });
-
-                                        var l = function (t) {
-
-                                            if (issending) return this;
-
-                                            issending = true;
-
-                                            coll = ''
-
-                                            if (option.collection != null)
-
-                                                coll = $(option.collection).val() + "&&";
-
-
-                                            $.ajax({
-
-                                                url: "/search?q=filter=" + "(" + coll + "(" + option.searchfield + ":product" + option.searchoperator + t + "))" + "&view=ultimate-search",
-
-                                                dataType: "JSON",
-
-                                                async: false,
-
-                                                success: function (data) {
-
-                                                    if ($('.smart-search-wrapper.' + option.wrapper).length == 0) {
-
-                                                        $('body').append("<div class='smart-search-wrapper " + option.wrapper + "'></div>");
-
-                                                    }
-
-                                                    p();
-                                                    $.each(data, function (i, v) {
-                                                        console.log(v);
-                                                        $(".smart-search-wrapper." + option.wrapper).append("<a data-title='" + v.title + "'class='thumbs' href='" + v.url + "'> <img src='" + Haravan.resizeImage(v.featured_image, 'medium') + "'/></a><a data-title='" + v.title + "' href='" + v.url + "'>" + "<span class='title-search'>" + v.title + "</span>" + "<p class='desc-search'>" + v.description + "</p><span class='price-search'>" + Haravan.formatMoney(v.price, '') + "đ</span></a>");
-
-                                                    });
-
-                                                    issending = false;
-
-                                                },
-
-                                                error: function (xhr, ajaxOptions, thrownError) {
-
-                                                    alert(xhr.status);
-
-                                                    alert(thrownError);
-
-                                                }
-
-                                            });
-
-
-                                        }
-
-                                        $(window).resize(function () {
-
-                                            p();
-
-                                        });
-
-                                        $(window).scroll(function () {
-
-                                            p();
-
-                                        });
-
-                                        $(this).blur(function () {
-
-                                            $('.smart-search-wrapper.' + option.wrapper).slideUp();
-
-                                        });
-
-                                        var p = function () {
-
-                                            if (!o.offset()) {
-
-                                                return;
-
-                                            }
-
-
-                                            $(".smart-search-wrapper." + option.wrapper).css("width", o.outerWidth() + "px");
-
-                                            $(".smart-search-wrapper." + option.wrapper).css("left", o.offset().left + "px");
-
-                                            if (option.smartoffset) {
-
-
-                                                h = $(".smart-search-wrapper." + option.wrapper).height();
-
-                                                if (h + o.offset().top - $(window).scrollTop() + o.outerHeight() > $(window).height()) {
-
-                                                    $(".smart-search-wrapper." + option.wrapper).css('top', '');
-
-
-                                                    $(".smart-search-wrapper." + option.wrapper).css('bottom', ($(window).scrollTop() + $(window).height() - o.offset().top) + "px");
-
-                                                } else {
-
-                                                    $(".smart-search-wrapper." + option.wrapper).css('bottom', '');
-
-                                                    $(".smart-search-wrapper." + option.wrapper).css('top', (o.offset().top - $(window).scrollTop() + o.outerHeight()) + "px");
-
-                                                }
-
-                                            } else {
-
-                                                $(".smart-search-wrapper." + option.wrapper).css('top', (o.offset().top - $(window).scrollTop() + o.outerHeight()) + "px");
-
-                                            }
-
-                                        }
-
-                                        return this;
-
-                                    };
-                                }(jQuery));
-
-
-
-                                jQuery('.ultimate-search input[name=q]').smartSearch({ searchdelay: 400, wrapper: 'search-wrapper', collection: '.collection_id' });</script>*@
-
 
                             <style>
 
@@ -959,7 +731,6 @@
         ============================================= -->
         <div class="zom_grr">
             <section id="content">
-
                 <div class="content-wrap" style="">
                     <div class="container clearfix" style="">
                         <!-- popular brand -->
@@ -1080,7 +851,7 @@
                                                         <a href="#"><img src="@item.HinhMinhHoa" data-lazyload="@item.HinhMinhHoa" alt="@item.TenSanPham"></a>
                                                         <div class="product-overlay">
                                                             <a href='#' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
-                                                            <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
+                                                            <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" onclick="loadsp(@item.MaSanPham)" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
                                                         </div>
                                                     </div>
                                                     <div class="product-title">
@@ -1100,7 +871,7 @@
                                                         @if (item.SoLuong > 0)
                                                         {
                                                             <div class="buy_all">
-                                                                <a class="product_quick_add" data-toggle='tooltip'  href="#" onclick="AddToCart(@item.MaSanPham)">Mua Ngay</a>
+                                                                <a class="product_quick_add" data-toggle='tooltip' href="#" onclick="AddToCart(@item.MaSanPham,1)">Mua Ngay</a>
                                                             </div>
                                                         }
                                                     </div>
@@ -1137,7 +908,7 @@
                                                             <a href='#' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
 
 
-                                                            <a href="#" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
+                                                            <a href="#" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" product_url="#" onclick="loadsp(@item.MaSanPham)" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
                                                         </div>
                                                     </div>
 
@@ -1159,7 +930,7 @@
                                                         @if (item.SoLuong > 0)
                                                         {
                                                             <div class="buy_all">
-                                                                <a class="product_quick_add" data-toggle='tooltip' href="#"  onclick="AddToCart(@item.MaSanPham)">Mua Ngay</a>
+                                                                <a class="product_quick_add" data-toggle='tooltip' href="#" onclick="AddToCart(@item.MaSanPham,1)">Mua Ngay</a>
                                                             </div>
                                                         }
                                                     </div>
@@ -1170,94 +941,125 @@
                                 </div>
                             </div>
                         </div>
-<script>
+                        <script>
 
-    function getCart() {
-        $(".top-cart-content").empty();
-        $.ajax({
-            type: "POST",
-            contentType: 'application/json',
-            url: "/Cart/getCart",
-            success: function (response) {
-                if (response.length == 0) {
-                    $(".top-cart-content").append('<div class="top-cart-items">Không có sản phẩm nào trong giỏ hàng</div>');
-                    return;
-                }
-                $(".top-cart-content").append('<div class="top-cart-items"></div>');
-                let total = 0;
-                $.each(response, function (index) {
-                    total += response[index].SoLuong;
-                    $(".top-cart-items").append('<div class="top-cart-item clearfix">'
-                        + '<input type="hidden" class="item_id" value="1008322895">'
-                        + '<input type="hidden" class="item_qty" value="' + response[index].SoLuong + ' ">'
-                        + '<input type="hidden" class="item_unit_price_not_formated" value="' + response[index].DonGia + '">'
-                        + ' <div class="top-cart-item-image">'
+                            function loadsp(id) {
+                                $.ajax({
+                                    type: "POST",
+                                    data: { masp: id },
+                                    url: "/SanPham/getProductDetail",
+                                    success: function (response) {
+                                        $("#tensp").html(response.TenSanPham);
+                                        $("#anhmh").attr("src", response.HinhMinhHoa);
+                                        $("#giasp").html(response.DonGia);
+                                        $("#product_quantity").val(1);
+                                        if (response.SoLuong > 0) {
+                                            $("#addtocartQV").html("Thêm vào giỏ");
+                                            $("#addtocartQV").removeAttr("disabled");
+                                        } else {
+                                            $("#addtocartQV").html("Hết hàng");
+                                            $("#addtocartQV").attr("disabled", "disabled");
+                                        }
+                                        $("#motasp").html(response.MoTa);
+                                        $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
+                                    },
+                                    error: function (response) {
 
-                        + ' <a href="#"><img src="' + response[index].SanPham.HinhMinhHoa + '" alt=""></a>'
-                        + '</div>'
-                        + '     <div class="top-cart-item-desc">'
-                        + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
-                        + '    <span class="top-cart-item-price">' + response[index].DonGia + '</span>'
-                        + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
-                        + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
-                        + '<i class="fa fa-times-circle"></i>'
-                        + '  </a ></div ></div >'
-                    )
-                })
-                $(".top_cart_qty").html(total);
-                $(".top-cart-content").append('<div class="top-cart-action clearfix">'
-                    + ' <button onclick="redirect()" class="button button-small nomargin fright">Xem giỏ hàng</button>'
-                    + ' </div >')
-            },
-            error: function (response) {
+                                    }
+                                });
+                            }
 
-            }
-        });
-    }
+                            function AddToCart2(id) {
+                                var soluong = $("#product_quantity").val();
+                                AddToCart(id, soluong);
+                                $(".fancybox-close").click();
+                            }
+
+                            function getCart() {
+                                $(".top-cart-content").empty();
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: 'application/json',
+                                    url: "/Cart/getCart",
+                                    success: function (response) {
+                                        if (response.length == 0) {
+                                            $(".top-cart-content").append('<div class="top-cart-items">Không có sản phẩm nào trong giỏ hàng</div>');
+                                            return;
+                                        }
+                                        $(".top-cart-content").append('<div class="top-cart-items"></div>');
+                                        let total = 0;
+                                        $.each(response, function (index) {
+                                            total += response[index].SoLuong;
+                                            $(".top-cart-items").append('<div class="top-cart-item clearfix">'
+                                                + '<input type="hidden" class="item_id" value="1008322895">'
+                                                + '<input type="hidden" class="item_qty" value="' + response[index].SoLuong + ' ">'
+                                                + '<input type="hidden" class="item_unit_price_not_formated" value="' + response[index].DonGia + '">'
+                                                + ' <div class="top-cart-item-image">'
+
+                                                + ' <a href="#"><img src="' + response[index].SanPham.HinhMinhHoa + '" alt=""></a>'
+                                                + '</div>'
+                                                + '     <div class="top-cart-item-desc">'
+                                                + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
+                                                + '    <span class="top-cart-item-price">' + response[index].DonGia + '</span>'
+                                                + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
+                                                + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
+                                                + '<i class="fa fa-times-circle"></i>'
+                                                + '  </a ></div ></div >'
+                                            )
+                                        })
+                                        $(".top_cart_qty").html(total);
+                                        $(".top-cart-content").append('<div class="top-cart-action clearfix">'
+                                            + ' <button onclick="redirect()" class="button button-small nomargin fright">Xem giỏ hàng</button>'
+                                            + ' </div >')
+                                    },
+                                    error: function (response) {
+
+                                    }
+                                });
+                            }
 
 
-    function redirect() {
-        window.location.href = "../Cart/Orders";
-    }
+                            function redirect() {
+                                window.location.href = "../Cart/Orders";
+                            }
 
-    function AddToCart(id)
-    {
-        $.ajax({
-            type: "POST",
-            contentType: 'application/json',
-            data: JSON.stringify({ "MaSanPham": id, "SoLuong": 1 }),
-            url: "/Cart/AddToCart",
-            success: function (response) {
-                if (response.status) {
-                    getCart();
-                }
-            },
-            error: function (response) {
+                            function AddToCart(id,soluong) {
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({ "MaSanPham": id, "SoLuong": soluong }),
+                                    url: "/Cart/AddToCart",
+                                    success: function (response) {
+                                        if (response.status) {
+                                            getCart();
+                                        }
+                                    },
+                                    error: function (response) {
 
-            },
+                                    },
 
-        });
-    }
+                                });
+                            }
 
-    function deleteFromCart(id) {
-        $.ajax({
-            type: "POST",
-            data: {id : id},
-            url: "/Cart/DeleteFromCart",
-            success: function (response) {
-                if (response.status) {
-                    getCart();
-                }
-            },
-            error: function (response) {
+                            function deleteFromCart(id) {
+                                $.ajax({
+                                    type: "POST",
+                                    data: { id: id },
+                                    url: "/Cart/DeleteFromCart",
+                                    success: function (response) {
+                                        if (response.status) {
+                                            getCart();
+                                        }
+                                    },
+                                    error: function (response) {
 
-            },
+                                    },
 
-        });
-    }
+                                });
+                            }
 
-   
-</script>
+
+                        </script>
 
                         <div class="container">
                             <div class="row separateur_nouveautess blog_index">
@@ -1283,7 +1085,7 @@
                                 display: block;
                                 padding: 5px;
                                 height: 52px
-                                    }
+                            }
 
                             .blog_index {
                                 margin-bottom: 0;
@@ -1292,20 +1094,20 @@
                             .blogsss {
                                 background: #FF9900;
                                 margin-bottom: 20px;
-                                }
+                            }
 
                             .arc-item img {
                                 height: 250px;
-                                }
-
-                            .polis {
-                                    border-bottom: 1px solid #FF9900;
                             }
 
-                                p.des-blogs {
+                            .polis {
+                                border-bottom: 1px solid #FF9900;
+                            }
+
+                            p.des-blogs {
                                 margin: 0px 5px 10px;
-                                    min-height: 85px;
-                                }
+                                min-height: 85px;
+                            }
                         </style>
                         <!-- end collection group -->
                     </div>
@@ -1317,7 +1119,7 @@
                 }
 
                     .content-wrap > .container, .slide_wrapper {
-                                    background-color: #fff
+                        background-color: #fff
                     }
             </style>
         </div>
@@ -1501,10 +1303,8 @@
     <div id="gotoTop" class="fa fa-angle-up"></div>
     <!-- quick add cart -->
     <div id='product-pop-up' style="display:none;" class="single-product shop-quick-view-ajax clearfix">
-        @foreach (var item in ViewBag.SanPham)
-        {
             <div class="ajax-modal-title">
-                <a href='#'><h2>@item.TenSanPham</h2></a>
+                <a href='#'><h2 id="tensp"> </h2></a>
             </div>
 
             <div class="product-page product modal-padding clearfix">
@@ -1512,37 +1312,22 @@
                     <div class="product-image">
                         <div class="product-main-image">
                             <div class="pd_slide_qv">
-                                <img data-lazy="@item.HinhMinhHoa">
-                            </div>
-                            <div class='pd_slide_thumb_qv'>
-                                <img data-lazy="@item.HinhMinhHoa">
+                                <img id="anhmh" data-lazy="#">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 nobottommargin product-desc">
-                    <div class="product-price">  @item.DonGia đ</div>
+                    <div class="product-price" id="giasp"> </div>
                     <div class="clear"></div>
                     <div class="line"></div>
-                    <!-- variants -->
-                    <div class="product-page-options ">
-                        <div class="sizePicker">
-                            <label class="control-label options-title">Khu vực:</label>
-                            <div class='options-selection'>
-                                <select class="form-control input-sm size" >
-                                </select>
-                            </div>
-                        </div>
-                  
-                    </div>
-                    <!-- end variant -->
+
                     <!-- Product Single - Quantity & Cart Button
-                ============================================= -->
-                    <form id='ProductDetailsFormQV' class="nobottommargin clearfix">
+                    ============================================= -->
+                    <div id='ProductDetailsFormQV' class="nobottommargin clearfix">
                         <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
-                            <input type="button" value="-" class="minus">
-                            <input type="text" class='qty' id='product_quantity' readonly step="1" min="1" name="quantity" value="1" title="Qty" size="4" />
-                            <input type="button" value="+" class="plus">
+                            <input type="number" class='qty' id='product_quantity'  step="1" min="1" name="quantity" value="1" title="Qty" size="4" />
+   
                         </div>
                         <script></script>
                         <div class="hidden" style="">
@@ -1554,16 +1339,15 @@
                             <input type="hidden" class="product_title_hd" value="">
                             <input type="hidden" class="product_img_small" value="">
                         </div>
-                        <button type="submit" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
+                        <button type="button" id='addtocartQV' class="addtocartQV button nomargin col-xs-6" >Add to cart</button>
                         <button class='buy_btn buynow buynow_qv button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
-                    </form><!-- Product Single - Quantity & Cart Button End -->
+                    </div><!-- Product Single - Quantity & Cart Button End -->
 
                     <div class="clear"></div>
                     <div class="line"></div>
-                    <p class="description">@item.MoTa</p>
+                    <p class="description" id="motasp"></p>
                 </div>
             </div>
-        }
 
     </div>
     <script>
@@ -1834,7 +1618,7 @@
 	return false;
 }
 
-jQuery(document).ready(function() {
+      jQuery(document).ready(function() {
 	ega.init();
 })
 

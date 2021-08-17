@@ -55,6 +55,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DanhMuc/Create
         public ActionResult Create()
         {
+            ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
             return View();
         }
 
@@ -67,6 +68,8 @@ namespace LeafShop.Areas.Administrator.Controllers
         {
             try
             {
+                ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", danhMuc.ParentId);
+
                 DanhMuc existData = db.DanhMucs.FirstOrDefault(x => x.MaDanhMuc == danhMuc.MaDanhMuc);
                 if (existData != null)
                 {
@@ -85,7 +88,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!";
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
                 return View(danhMuc);
             }
             
@@ -100,6 +103,8 @@ namespace LeafShop.Areas.Administrator.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", danhMuc.ParentId);
+
             return View(danhMuc);
         }
 
@@ -127,6 +132,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", danhMuc.ParentId);
             return View(danhMuc);
         }
 

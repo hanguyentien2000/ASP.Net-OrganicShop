@@ -45,10 +45,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/NhanVien/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             NhanVien nhanVien = db.NhanViens.Find(id);
             if (nhanVien == null)
             {
@@ -102,7 +98,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!";
+                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
                 return View(nv);
             }
         }
@@ -110,10 +106,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/NhanVien/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             NhanVien nhanVien = db.NhanViens.Find(id);
             if (nhanVien == null)
             {
@@ -153,10 +145,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/NhanVien/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             NhanVien nhanVien = db.NhanViens.Find(id);
             if (nhanVien == null)
             {

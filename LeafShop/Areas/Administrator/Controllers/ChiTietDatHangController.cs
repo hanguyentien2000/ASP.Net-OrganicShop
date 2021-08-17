@@ -91,10 +91,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/ChiTietDatHang/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Find(id);
             if (chiTietDatHang == null)
             {
@@ -126,10 +122,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/ChiTietDatHang/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Find(id);
             if (chiTietDatHang == null)
             {

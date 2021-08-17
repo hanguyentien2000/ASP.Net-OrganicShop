@@ -99,7 +99,8 @@ namespace LeafShop.Controllers
                 var dsDMChau = db.DanhMucs.Where(x => x.ParentId == idCha).ToList();
                 if (dsDMChau.Count > 0)
                 {
-                    var sp2 = db.SanPhams.Where(s => s.MaDanhMuc == dsDMChau[0].MaDanhMuc).ToList();
+                    int idChau = dsDMChau.FirstOrDefault().MaDanhMuc;
+                    var sp2 = db.SanPhams.Where(s => s.MaDanhMuc == idChau).ToList();
                     product = product.Concat(sp2).ToList();
                 }    
             }
@@ -148,6 +149,13 @@ namespace LeafShop.Controllers
             //ViewBag.ChiTietSanPham = list;
             //ViewBag.Exitst = list[0];
             return View(sp);
+        }
+
+        [HttpPost]
+        public JsonResult getProductDetail(int masp)
+        {
+            SanPham sp = db.SanPhams.Where(x => x.MaSanPham == masp).FirstOrDefault();
+            return Json(sp, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -44,10 +44,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DatHang/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             DatHang datHang = db.DatHangs.Find(id);
             if (datHang == null)
             {

@@ -94,10 +94,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/KhachHang/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {
@@ -133,10 +129,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/KhachHang/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {
