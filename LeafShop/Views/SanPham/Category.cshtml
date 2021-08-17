@@ -6,6 +6,7 @@
 }
 
 <script src="https://kit.fontawesome.com/e38e0bb8bb.js" crossorigin="anonymous"></script>
+
 <div id='product-pop-up' style="display:none;" class="single-product shop-quick-view-ajax clearfix">
 
     <div class="ajax-modal-title">
@@ -72,7 +73,7 @@
                 </div>
                 <button type="submit" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
                 <button class='buy_btn buynow buynow_qv button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
-            </form><!-- Product Single - Quantity & Cart Button End -->
+            </form>
 
             <div class="clear"></div>
             <div class="line"></div>
@@ -374,53 +375,78 @@ jQuery(document).ready(function() {
                 </div>
                 <div class="post_content pull-right col-sm-12 col-xs-12 col-md-9"
                      style="margin-bottom: 15px !important;">
-                    Category name
+                    @ViewBag.nameCategory
                     <div id="shop" class="product-3 clearfix">
                         <div class="dess">
                         </div>
                         <div class='sort-wrapper'>
                             <div class="browse-tags"
-                                 style='margin-bottom:20px;line-height: 30px; overflow:hidden;'>
+                                 style='margin-bottom:20px;line-height: 30px; '>
                                 <div class="col-sm-6 col-md-8 noleftpadding">
                                     <p class="subtext nobottommargin">
                                         Có <span class='require_symbol'>@ViewBag.totalSP</span> sản phẩm.
                                     </p>
                                 </div>
-                                <div class='col-sm-6 col-md-4 noleftpadding text-right norightpadding'>
-                                    <span class='col-sm-5 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
-                                    <span class="custom-dropdown custom-dropdown--white pull-right col-sm-7 col-xs-8 norightpadding">
+                                <div class='col-sm-6 col-md-4 noleftpadding text-right norightpadding' style="margin-bottom:30px;">
+                                    <span class='col-sm-4 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
+                                    <div class="dropdown">
+                                        @if (ViewBag.CurrentSort == null)
+                                        {
+                                            <button class="dropbtn">Thứ tự</button>
+                                        }
+                                        else
+                                        {
+                                            if (ViewBag.CurrentSort == "ten_asc")
+                                            {
+                                                <button class="dropbtn">A → Z</button>
+                                            }
+                                            else if (ViewBag.CurrentSort == "ten_desc")
+                                            {
+                                                <button class="dropbtn">Z → A</button>
 
-                                        <select id='sortControl'
-                                                class="sort-by custom-dropdown__select custom-dropdown__select--white form-control input-sm">
-                                            <option sort_by="manual" value='manual'>
-                                                Sản phẩm nổi bật
-                                            </option>
-                                            <option sort_by="(price:product=asc)" value='price-ascending'>
-                                                Giá: Tăng dần
-                                            </option>
-                                            <option sort_by="(price:product=desc)" value='price-descending'>
-                                                Giá: Giảm dần
-                                            </option>
-                                            <option sort_by="(title:product=asc)" value='title-ascending'>
-                                                Tên: A-Z
-                                            </option>
-                                            <option sort_by="(title:product=desc)" value='title-descending'>
-                                                Tên: Z-A
-                                            </option>
-                                            <option sort_by="(updated_at:product=asc)"
-                                                    value='created-ascending'>
-                                                Cũ nhất
-                                            </option>
-                                            <option sort_by="(updated_at:product=desc)"
-                                                    value='created-descending'>
-                                                Mới nhất
-                                            </option>
-                                            <option sort_by="(sold_quantity:product=desc)"
-                                                    value='best-selling'>
-                                                Bán chạy nhất
-                                            </option>
-                                        </select>
-                                    </span>
+                                            }
+                                            else if (ViewBag.CurrentSort == "gia_asc")
+                                            {
+                                                <button class="dropbtn">Giá tăng dần</button>
+
+                                            }
+                                            else if (ViewBag.CurrentSort == "gia_desc")
+                                            {
+                                                <button class="dropbtn">Giá giảm dần</button>
+
+                                            }
+                                            else if (ViewBag.CurrentSort == "gia_desc")
+                                            {
+                                                <button class="dropbtn">Giá giảm dần</button>
+
+                                            }
+                                            else if (ViewBag.CurrentSort == "gia_desc")
+                                            {
+                                                <button class="dropbtn">Giá giảm dần</button>
+
+                                            }
+                                            else if (ViewBag.CurrentSort == "gia_desc")
+                                            {
+                                                <button class="dropbtn">Giá giảm dần</button>
+
+                                            }
+                                            else if (ViewBag.CurrentSort == "gia_desc")
+                                            {
+                                                <button class="dropbtn">Giá giảm dần</button>
+
+                                            }
+                                        }
+                                        <ul class="dropdown-content" style="z-index:1000;">
+                                            @Html.ActionLink("Sản phẩm nổi bật", "Category", new { sortOrder = ViewBag.NoiBat, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Giá: tăng dần", "Category", new { sortOrder = ViewBag.GiaTangDan, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Giá: giảm dần", "Category", new { sortOrder = ViewBag.GiaGiamDan, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Tên: A-Z", "Category", new { sortOrder = ViewBag.SapTheoTenAZ, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Tên: Z-A", "Category", new { sortOrder = ViewBag.SapTheoTenZA, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Cũ Nhất", "Category", new { sortOrder = ViewBag.SapTheoNgaycCuNhat, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Mới nhất", "Category", new { sortOrder = ViewBag.SapTheoNgaycMoiNhat, currentFilter = ViewBag.CurrentFilter })
+                                            @Html.ActionLink("Bán chạn nhất", "Category", new { sortOrder = ViewBag.SapTheoSoLuongBan, currentFilter = ViewBag.CurrentFilter })
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -674,15 +700,7 @@ jQuery(document).ready(function() {
                                             class='panel-collapse collapse in filter_list'>
 
                                             <li class='col-xs-12 col-sm-12 col-md-12'>
-                                                <label class='filter_checkbox'>
-                                                    <span>
-                                                        <i class='fa-check fa hidden'></i>
-                                                        <input class="vendor" type="checkbox"
-                                                               value="(vendor:product=Gravier)">
-                                                    </span>
-                                                    Gravier
-                                                </label>
-                                            </li>
+                                             
 
                                             <li class='col-xs-12 col-sm-12 col-md-12'>
                                                 <label class='filter_checkbox'>
@@ -1094,12 +1112,12 @@ jQuery(document).ready(function() {
         </div>
     </div>
 </section>
-<script>
-    $(document).ready(function () {
-        $("#sortControl").change(function () {
-            var empid = @ViewBag.idCategory;
-            var sort = $("#sortControl").val();
-            location.href = '@Url.Action("Category", "SanPham")' + '?currentSort=' + sort;
-        });
-    })
-</script>
+@*<script>
+        $(document).ready(function () {
+            $("#sortControl").change(function () {
+                var empid = @ViewBag.idCategory;
+                var sort = $("#sortControl").val();
+                location.href = '@Url.Action("Category", "SanPham")' + '?currentSort=' + sort;
+            });
+        })
+    </script>*@

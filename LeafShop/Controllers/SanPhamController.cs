@@ -13,69 +13,122 @@ namespace LeafShop.Controllers
     {
         LeafShopDb db = new LeafShopDb();
         // GET: SanPham
-        public ActionResult Index(int? page,string searchString)
+        public ActionResult Index(int? page,string searchString, string sortOrder, string currentFilter)
         {
-            
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.SapTheoTenAZ = "ten_asc";
+            ViewBag.SapTheoTenZA = "ten_desc";
+            ViewBag.GiaTangDan = "gia_asc";
+            ViewBag.GiaGiamDan = "gia_desc";
+            ViewBag.SapTheoNgaycCuNhat = "ngay_desc";
+            ViewBag.SapTheoNgaycMoiNhat = "ngay_asc";
+            ViewBag.SapTheoSoLuongBan = "slb_asc";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
             var listall = db.SanPhams.ToList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                listall = listall.Where(p => p.TenSanPham.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "ten_desc":
+                    listall = listall.OrderByDescending(s => s.TenSanPham).ToList();
+                    break;
+                case "gia_asc":
+                    listall = listall.OrderBy(s => s.DonGia).ToList();
+                    break;
+                case "gia_desc":
+                    listall = listall.OrderByDescending(s => s.DonGia).ToList();
+                    break;
+                case "ngay_desc":
+                    listall = listall.OrderByDescending(s => s.NgayKhoiTao).ToList();
+                    break;
+                case "ngay_asc":
+                    listall = listall.OrderBy(s => s.NgayKhoiTao).ToList();
+                    break;
+                case "slb_asc":
+                    listall = listall.OrderBy(s => s.SoLuongBan).ToList();
+                    break;
+                default:
+                    listall = listall.OrderBy(s => s.TenSanPham).ToList();
+                    break;
+            }
             ViewBag.totalSP = listall.Count;
 
             int pageSize = 12;
             int pageNumber = (page ?? 1);
             return View(listall.ToPagedList(pageNumber,pageSize));
         }
-        public ActionResult Category(int? id,int? page, string currentFilter,string currentSort)
+        public ActionResult Category(int? id,int? page, string sortOrder, string currentFilter)
         {
+            
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.SapTheoTenAZ = "ten_asc";
+            ViewBag.SapTheoTenZA = "ten_desc";
+            ViewBag.GiaTangDan = "gia_asc";
+            ViewBag.GiaGiamDan = "gia_desc";
+            ViewBag.SapTheoNgaycCuNhat = "ngay_desc";
+            ViewBag.SapTheoNgaycMoiNhat = "ngay_asc";
+            ViewBag.SapTheoSoLuongBan = "slb_asc";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.idCategory = id;
+            
+            DanhMuc getTen = db.DanhMucs.Where(x => x.MaDanhMuc == id).FirstOrDefault();
+            ViewBag.nameCategory = getTen.TenDanhMuc;
             var product = db.SanPhams.Where(s => s.MaDanhMuc == id).ToList();
-            DanhMuc dm = db.DanhMucs.Find(id);
-            if(dm.DanhMuc1 != null)
+
+            var dsDMCon = db.DanhMucs.Where(x => x.ParentId == id).ToList();
+            if(dsDMCon.Count > 0)
             {
-                foreach (var dmCon in dm.DanhMuc1)
+                foreach (DanhMuc dmCon in dsDMCon)
                 {
                     var sp1 = db.SanPhams.Where(s => s.MaDanhMuc == dmCon.MaDanhMuc).ToList();
                     product = product.Concat(sp1).ToList();
-                    if (dmCon.DanhMuc1 != null)
-                    {
-                        foreach(var dmCon2 in dmCon.DanhMuc1)
-                        {
-                            var sp2 = db.SanPhams.Where(s => s.MaDanhMuc == dmCon2.MaDanhMuc).ToList();
-                            product = product.Concat(sp2).ToList();
-                        }    
-                    }    
                 }
+                int idCha = dsDMCon.FirstOrDefault().MaDanhMuc;
+                var dsDMChau = db.DanhMucs.Where(x => x.ParentId == idCha).ToList();
+                if (dsDMChau.Count > 0)
+                {
+                    var sp2 = db.SanPhams.Where(s => s.MaDanhMuc == dsDMChau[0].MaDanhMuc).ToList();
+                    product = product.Concat(sp2).ToList();
+                }    
             }
             ViewBag.dmSP =  db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p).ToList();
-            switch (currentSort)
+            switch (sortOrder)
             {
-                case "price-ascending":
+                case "ten_desc":
+                    product = product.OrderByDescending(s => s.TenSanPham).ToList();
+                    break;
+                case "gia_asc":
+                    product = product.OrderBy(s => s.DonGia).ToList();
+                    break;
+                case "gia_desc":
                     product = product.OrderByDescending(s => s.DonGia).ToList();
                     break;
-                case "price-descending":
-                    product = product.OrderBy(s => s.TenSanPham).ToList();
+                case "ngay_desc":
+                    product = product.OrderByDescending(s => s.NgayKhoiTao).ToList();
                     break;
-                case "title-ascending":
-                    product = product.OrderBy(s => s.TenSanPham).ToList();
+                case "ngay_asc":
+                    product = product.OrderBy(s => s.NgayKhoiTao).ToList();
                     break;
-                case "title-descending":
-                    product = product.OrderBy(s => s.TenSanPham).ToList();
-                    break;
-                case "created-ascending":
-                    product = product.OrderBy(s => s.MaSanPham).ToList();
-                    break;
-                case "created-descending":
-                    product = product.OrderBy(s => s.MaSanPham).ToList();
-                    break;
-                case "best-selling":
+                case "slb_asc":
                     product = product.OrderBy(s => s.SoLuongBan).ToList();
                     break;
                 default:
-                    product = product.ToList();
+                    product = product.OrderBy(s => s.TenSanPham).ToList();
                     break;
             }
+          
             ViewBag.totalSP = product.Count;    
             int pageSize = 12;
             int pageNumber = (page ?? 1);

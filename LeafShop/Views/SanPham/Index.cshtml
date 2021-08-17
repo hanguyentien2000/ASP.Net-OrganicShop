@@ -37,51 +37,78 @@
                         </div>
                         <div class='sort-wrapper'>
                             <div class="browse-tags"
-                                 style='margin-bottom:20px;line-height: 30px; overflow:hidden;'>
+                                 style='margin-bottom:20px;line-height: 30px;'>
                                 <div class="col-sm-6 col-md-8 noleftpadding">
                                     <p class="subtext nobottommargin">
                                         Có <span class='require_symbol'>@ViewBag.totalSP</span> sản phẩm.
                                     </p>
                                 </div>
                                 <div class='col-sm-6 col-md-4 noleftpadding text-right norightpadding'>
-                                    <span class='col-sm-5 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
-                                    <span class="custom-dropdown custom-dropdown--white pull-right col-sm-7 col-xs-8 norightpadding">
-                                        <select id='sortControl'
-                                                class="sort-by custom-dropdown__select custom-dropdown__select--white form-control input-sm">
-                                            <option sort_by="manual" value='manual'>
-                                                Sản phẩm nổi bật
-                                            </option>
-                                            <option sort_by="(price:product=asc)" value='price-ascending'>
-                                                Giá: Tăng dần
-                                            </option>
-                                            <option sort_by="(price:product=desc)" value='price-descending'>
-                                                Giá: Giảm dần
-                                            </option>
-                                            <option sort_by="(title:product=asc)" value='title-ascending'>
-                                                Tên: A-Z
-                                            </option>
-                                            <option sort_by="(title:product=desc)" value='title-descending'>
-                                                Tên: Z-A
-                                            </option>
-                                            <option sort_by="(updated_at:product=asc)"
-                                                    value='created-ascending'>
-                                                Cũ nhất
-                                            </option>
-                                            <option sort_by="(updated_at:product=desc)"
-                                                    value='created-descending'>
-                                                Mới nhất
-                                            </option>
-                                            <option sort_by="(sold_quantity:product=desc)"
-                                                    value='best-selling'>
-                                                Bán chạy nhất
-                                            </option>
-                                        </select>
+                                    <span class='col-sm-4 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
+                                    <span class="custom-dropdown custom-dropdown--white pull-right col-sm-8 col-xs-8 norightpadding" style="margin-bottom:30px;">
+                                        <div class="dropdown">
+                                            @if (ViewBag.CurrentSort == null)
+                                            {
+                                                <button class="dropbtn">Thứ tự</button>
+                                            }
+                                            else
+                                            {
+                                                if (ViewBag.CurrentSort == "ten_asc")
+                                                {
+                                                    <button class="dropbtn">A → Z</button>
+                                                }
+                                                else if (ViewBag.CurrentSort == "ten_desc")
+                                                {
+                                                    <button class="dropbtn">Z → A</button>
+
+                                                }
+                                                else if (ViewBag.CurrentSort == "gia_asc")
+                                                {
+                                                    <button class="dropbtn">Giá tăng dần</button>
+
+                                                }
+                                                else if (ViewBag.CurrentSort == "gia_desc")
+                                                {
+                                                    <button class="dropbtn">Giá giảm dần</button>
+
+                                                }
+                                                else if (ViewBag.CurrentSort == "gia_desc")
+                                                {
+                                                    <button class="dropbtn">Giá giảm dần</button>
+
+                                                }
+                                                else if (ViewBag.CurrentSort == "gia_desc")
+                                                {
+                                                    <button class="dropbtn">Giá giảm dần</button>
+
+                                                }
+                                                else if (ViewBag.CurrentSort == "gia_desc")
+                                                {
+                                                    <button class="dropbtn">Giá giảm dần</button>
+
+                                                }
+                                                else if (ViewBag.CurrentSort == "gia_desc")
+                                                {
+                                                    <button class="dropbtn">Giá giảm dần</button>
+                                                }
+                                            }
+                                            <ul class="dropdown-content" style="z-index:1000;">
+                                                @Html.ActionLink("Sản phẩm nổi bật", "Index", new { sortOrder = ViewBag.NoiBat, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Giá: tăng dần", "Index", new { sortOrder = ViewBag.GiaTangDan, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Giá: giảm dần", "Index", new { sortOrder = ViewBag.GiaGiamDan, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Tên: A-Z", "Index", new { sortOrder = ViewBag.SapTheoTenAZ, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Tên: Z-A", "Index", new { sortOrder = ViewBag.SapTheoTenZA, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Cũ Nhất", "Index", new { sortOrder = ViewBag.SapTheoNgaycCuNhat, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Mới nhất", "Index", new { sortOrder = ViewBag.SapTheoNgaycMoiNhat, currentFilter = ViewBag.CurrentFilter })
+                                                @Html.ActionLink("Bán chạn nhất", "Index", new { sortOrder = ViewBag.SapTheoSoLuongBan, currentFilter = ViewBag.CurrentFilter })
+                                            </ul>
+                                        </div>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div id='grid_pagination'>
-                            <div class='grid'>
+                            <div style="display:flex;flex-wrap:wrap">
                                 @foreach (var product in Model)
                                 {
                                     <div class='col-sm-4 col-xs-12 noleftpadding norightpadding product_single'>
