@@ -1,0 +1,37 @@
+﻿@model LeafShop.Models.DanhMucBlog
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Thêm mới danh mục blog</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="pt-4 pb-3">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="md-form md-outline mt-0">
+                        <br />
+                        <label for="form14">Tên danh mục blog</label>
+                        @Html.EditorFor(model => model.TenDanhMucBlog, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenDanhMucBlog, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <div class="md-form md-outline mt-0">
+                        <input type="submit" value="Lưu" class="btn btn-default" style="height: 37px; width: 100px" />
+                        @Html.ActionLink("Quay trở lại", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}

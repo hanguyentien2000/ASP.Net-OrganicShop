@@ -1,0 +1,32 @@
+﻿@model LeafShop.Models.DanhMucBlog
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h3>Bạn có chắc muốn xoá danh mục blog</h3>
+<div>
+    <h4>DanhMucBlog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenDanhMucBlog)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenDanhMucBlog)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xoá" class="btn btn-default" /> |
+            @Html.ActionLink("Quay trở lại", "Index")
+        </div>
+    }
+</div>

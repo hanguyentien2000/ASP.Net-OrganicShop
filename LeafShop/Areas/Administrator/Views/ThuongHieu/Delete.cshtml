@@ -1,0 +1,60 @@
+﻿@model LeafShop.Models.ThuongHieu
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenThuongHieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenThuongHieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChiThuongHieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChiThuongHieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DienThoaiThuongHieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoaiThuongHieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTaThuongHieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTaThuongHieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnhThuongHieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnhThuongHieu)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xoá" class="btn btn-default" /> |
+            @Html.ActionLink("Quay trở lại", "Index")
+        </div>
+    }
+</div>

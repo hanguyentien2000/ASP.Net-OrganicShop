@@ -1,0 +1,72 @@
+﻿@model LeafShop.Models.DatHang
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="font-size: 30px">Cập nhật đặt hàng</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div class="pt-4 pb-3">
+        <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h5 class="mb-4 pb-1">Mã đặt hàng</h5>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="md-form md-outline mt-0">
+                            @Html.EditorFor(model => model.MaDatHang, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaDatHang, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="md-form md-outline my-0">
+                    <label for="form13">Mã khách hàng </label>
+                    <div class="select-outline position-relative w-100">
+                        @Html.DropDownList("MaKhachHang", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaKhachHang, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="md-form md-outline my-0">
+                    <label for="form13">Mã nhân viên </label>
+                    <div class="select-outline position-relative w-100">
+                        @Html.DropDownList("MaNhanVien", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaNhanVien, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+                <div class="md-form md-outline mt-0">
+                    <label for="form14">Tổng tiền</label>
+                    @Html.EditorFor(model => model.TongTien, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TongTien, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="md-form md-outline mt-0">
+                    <label for="form15">Ngày khởi tạo</label>
+                    @Html.EditorFor(model => model.NgayKhoiTao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NgayKhoiTao, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="md-form md-outline mt-0">
+                    <label for="form15">Ghi chú</label>
+                    @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="md-form md-outline mt-0">
+
+                    <input type="submit" value="Lưu" class="btn btn-default" />
+                    @Html.ActionLink("Quay trở lại", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
