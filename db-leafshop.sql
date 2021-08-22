@@ -116,9 +116,10 @@ GO
 CREATE TABLE DatHang(
 	MaDatHang INT NOT NULL IDENTITY,
 	MaKhachHang INT, 
-	MaNhanVien INT,
+	MaNhanVien INT null,
 	TongTien Int,
 	NgayKhoiTao Date not null,
+	NgayGiaoHang Date NULL,
 	GhiChu nvarchar(1000) null,
 	TrangThai BIT not null,
 	constraint PK_DH primary key (MaDatHang),
@@ -134,8 +135,6 @@ CREATE TABLE ChiTietDatHang
 	MaSanPham INT not null,
 	SoLuong INT NULL,
 	DonGia INT NULL,
-	NgayDatHang Date NULL,
-	NgayGiaoHang Date NULL,
 	constraint PK_CTDH primary key (MaDatHang, MaSanPham),
 	constraint PK_CTDH1 foreign key (MaDatHang) references DatHang(MaDatHang),
 	constraint PK_CTDH2 foreign key (MaSanPham) references SanPham(MaSanPham)
