@@ -183,7 +183,7 @@
 
                                                 <div class="product-price">
 
-                                                    <ins> @product.DonGia ₫ </ins>
+                                                    <ins> @String.Format("{0:0,0đ}", product.DonGia)</ins>
                                                 </div>
                                                 <div class="buy_all">
                                                     @if (product.SoLuong == 0)
@@ -495,10 +495,9 @@
                                                 </div>
                                                 <ul class="entry-meta">
                                                     <li class="color">
-                                                        <ins>@spNoiBat.DonGia₫</ins>
+                                                        <ins>@String.Format("{0:0,0đ}", spNoiBat.DonGia)</ins>
 
                                                     </li>
-                                                    <li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>
                                                 </ul>
                                             </div>
                                         </div>

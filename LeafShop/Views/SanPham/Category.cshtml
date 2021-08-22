@@ -179,7 +179,7 @@ jQuery(document).ready(function() {
 
                                                 <div class="product-price">
 
-                                                    <ins> @product.DonGia ₫ </ins>
+                                                    <ins> @String.Format("{0:0,0đ}", product.DonGia) </ins>
                                                 </div>
                                                 <div class="buy_all">
                                                     @if (product.SoLuong == 0)
@@ -433,34 +433,7 @@ jQuery(document).ready(function() {
                             });
 
                         </script>
-                        <script>
-                            $(document).ready(function () {
-
-                                if ($('#filter_group_4').height() >= 232) {
-                                    $('#filter_group_4').css('height', '232px');
-                                    $('.view_smalls').hide();
-                                    $('.view_sss').click(function () {
-                                        $('#filter_group_4').css('height', 'auto');
-                                        $('.view_sss').hide();
-                                        $('.view_smalls').show();
-                                    });
-
-
-                                    $('.view_small').click(function () {
-                                        $('#filter_group_4').css('height', '232px');
-                                        $('.view_smalls').hide();
-                                        $('.view_sss').show();
-                                    });
-
-                                }
-                                else {
-                                    $('.view_smalls').hide();
-                                    $('.view_sss').hide();
-                                }
-
-                            });
-
-                        </script>
+                      
                         <div class='hidden-xs hidden-sm'>
 
                             @*<div class="widget clearfix">
@@ -491,10 +464,9 @@ jQuery(document).ready(function() {
                                                 </div>
                                                 <ul class="entry-meta">
                                                     <li class="color">
-                                                        <ins>@spNoiBat.DonGia₫</ins>
+                                                        <ins>@String.Format("{0:0,0đ}", spNoiBat.DonGia)</ins>
 
                                                     </li>
-                                                    <li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>
                                                 </ul>
                                             </div>
                                         </div>

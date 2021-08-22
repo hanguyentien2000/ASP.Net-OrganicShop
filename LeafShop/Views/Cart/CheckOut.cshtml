@@ -294,7 +294,7 @@
                                                     </td>
                                                     <td class="product-quantity visually-hidden">1</td>
                                                     <td class="product-price">
-                                                        <span class="order-summary-emphasis">@Model[i].DonGia₫</span>
+                                                        <span class="order-summary-emphasis">@String.Format("{0:0,0đ}", Model[i].DonGia)</span>
                                                     </td>
                                                 </tr>
                                             }
@@ -351,7 +351,7 @@
                                                 <td class="total-line-name">Tạm tính</td>
                                                 <td class="total-line-price">
                                                     <span class="order-summary-emphasis" data-checkout-subtotal-price-target="@tamtinh">
-                                                        @tamtinh₫
+                                                        @String.Format("{0:0,0đ}", tamtinh)
                                                     </span>
                                                 </td>
                                             </tr>
@@ -372,7 +372,7 @@
                                                 <td class="total-line-name payment-due">
                                                     <span class="payment-due-currency">VND</span>
                                                     <span class="payment-due-price" data-checkout-payment-due-target="@tongtien">
-                                                        @tongtien₫
+                                                        @String.Format("{0:0,0đ}", tongtien)
                                                     </span>
                                                 </td>
                                             </tr>

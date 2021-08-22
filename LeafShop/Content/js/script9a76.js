@@ -252,7 +252,7 @@ Haravan.onSuccess = function(data, form_id) {
 
 };
 
-var top_cart_empty = '<div> Chưa có sản phẩm trong giỏ!</div>';  
+
 var top_cart_no_item = ''; 
 function check_topcart_empty(){  
 
@@ -260,7 +260,7 @@ function check_topcart_empty(){
 	if($('.top-cart-block .top-cart-content .top-cart-item').size() <= 0) 
 	{		
 		top_cart_no_item = $('.top-cart-block .top-cart-content').html();   
-		$('.top-cart-block .top-cart-content').html(top_cart_empty); 
+		$('.top-cart-block .top-cart-content').html(); 
 	
 	}
 	else{

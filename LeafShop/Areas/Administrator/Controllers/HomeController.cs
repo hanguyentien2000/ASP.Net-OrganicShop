@@ -1,4 +1,5 @@
 ﻿using LeafShop.Models;
+using LeafShop.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace LeafShop.Areas.Administrator.Controllers
             if(user != null)
             {
                 Session["username"] = user.USERNAME;
-                Session["quantri"] = user.Quantri;
+                
+                Session.Add(ConstaintUser.ADMIN_SESSION, user);
                 return RedirectToAction("Index");
             }
             ViewBag.Error = "Sai tên đăng nhập hoặc mật khẩu!";
@@ -35,6 +37,7 @@ namespace LeafShop.Areas.Administrator.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.TaiKhoan = db.Taikhoans.Select(p => p);
             return View();
         }
     }
