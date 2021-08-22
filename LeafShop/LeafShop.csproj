@@ -246,7 +246,6 @@
     <Compile Include="Models\ChiTietDatHang.cs" />
     <Compile Include="Models\DanhMuc.cs" />
     <Compile Include="Models\DanhMucBlog.cs" />
-    <Compile Include="Models\DAO\SanPhamDAO.cs" />
     <Compile Include="Models\DatHang.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\LeafShopDb.cs" />

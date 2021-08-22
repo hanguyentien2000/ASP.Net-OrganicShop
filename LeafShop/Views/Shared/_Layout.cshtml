@@ -714,7 +714,7 @@
                 ============================================= -->
                 <div id='ProductDetailsFormQV' class="nobottommargin clearfix">
                     <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
-                        <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" size="4" />
+                        <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" size="3" />
                     </div>
                     <script></script>
                     <div class="hidden" style="">
@@ -865,7 +865,7 @@
                             + '</div>'
                             + '     <div class="top-cart-item-desc">'
                             + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
-                            + '    <span class="top-cart-item-price">' + response[index].DonGia + '</span>'
+                            + '    <span class="top-cart-item-price">' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response[index].DonGia) + '</span>'
                             + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
                             + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
                             + '<i class="fa fa-times-circle"></i>'
@@ -894,7 +894,7 @@
                 success: function (response) {
                     $("#tensp").html(response.TenSanPham);
                     $("#anhmh").attr("src", response.HinhMinhHoa);
-                    $("#giasp").html(response.DonGia);
+                    $("#giasp").html(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.DonGia));
                     $("#product_quantity").val(1);
                     if (response.SoLuong > 0) {
                         $("#addtocartQV").html("Thêm vào giỏ");
@@ -906,6 +906,7 @@
                     $("#motasp").html(response.MoTa);
                     $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
                     $("#buynow").attr("onclick", "AddToCheckOut(" + response.MaSanPham + ")");
+                    $("#product_quantity1").attr("max", response.SoLuong);
                 },
                 error: function (response) {
 

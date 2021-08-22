@@ -37,6 +37,8 @@ namespace LeafShop.Controllers
             {
                 listall = listall.Where(p => p.TenSanPham.Contains(searchString)).ToList();
             }
+            ViewBag.dmSP = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p).ToList();
+            ViewBag.spNoiBat = db.SanPhams.OrderByDescending(s => s.SoLuongBan).Take(3).ToList();
             switch (sortOrder)
             {
                 case "ten_desc":

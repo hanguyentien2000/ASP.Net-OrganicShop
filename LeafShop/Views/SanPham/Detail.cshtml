@@ -226,18 +226,6 @@
 
                                         <div class="line"></div>
 
-                                        <!-- Product Single - Quantity & Cart Button
-                                        ============================================= -->
-
-                                        <input type="hidden" class='unit_price_not_formated'
-                                               value="31500000" />
-                                        <input type="hidden" class="product_url"
-                                               value="/products/thit-ba-chi-lon-sach-nguyen-khoi-farm-1kg" />
-                                        <input type="hidden" class="product_title_hd"
-                                               value="Thịt ba chỉ lợn sạch Nguyên Khôi Farm 1kg" />
-                                        <input type="hidden" class="product_img_small"
-                                               value="../../product.hstatic.net/1000104489/product/ba_chi_fcf1bdea1ef844838508716d429b4f3d_master.jpg" />
-
                                         <div class="hidden" style="">
                                             <select id="product-select" name="id">
                                                 <option value="1069074621" class="">
@@ -253,7 +241,7 @@
                                         <!-- end variant -->
                                         <!-- <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>-->
                                         <div class="quantity product-quantity clearfix col-md-6 col-xs-12 noleftpadding">
-                                            <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" size="4" />
+                                            <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" max="@Model.SoLuong" />
                                         </div>
                                        
                                         @*<button type="submit" id=''
