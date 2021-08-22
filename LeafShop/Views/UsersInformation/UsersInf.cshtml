@@ -50,7 +50,7 @@
                             <tr>
                                 <td scope="row">@Model[i].MaDatHang</td>
                                 <td>@Model[i].TongTien</td>
-                                <td>@Model[i].NgayKhoiTao</td>
+                                <td>@{ var date2 = @Model[i].NgayKhoiTao.HasValue ? @Model[i].NgayKhoiTao.Value.ToString("dd-MM-yyyy") : String.Empty; } @date2</td>
                                 <td>@Model[i].GhiChu</td>
                                 <td>@(Model[i].TrangThai ? "Hoàn thành" : "Chưa hoàn thành")</td>
                                 <td>

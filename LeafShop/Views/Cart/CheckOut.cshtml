@@ -199,714 +199,27 @@
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no">
-    <script type="text/javascript">
-        var parseQueryString = function (url) {
+    
 
-            var str = url;
-            var objURL = {};
+    
 
-            str.replace(
-                new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-                function ($0, $1, $2, $3) {
+   
 
-                    if ($3 != undefined && $3 != null)
-                        objURL[$1] = decodeURIComponent($3);
-                    else
-                        objURL[$1] = $3;
-                });
 
-            return objURL;
-        };
-    </script>
+    
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            setTimeout(function () {
-                var stepCheckout = parseInt($('.step-sections').attr('step'));
-                if (stepCheckout === 1) {
-                    var flagVal = 0;
-                    $('body').on('change', '#stored_addresses', function () {
-                        flagVal = $(this).val();
-                    });
-                    $('body').on('click', '.step-footer-continue-btn', function () {
-                        $(document).ajaxComplete(function (event, xhr, settings) {
-                            if (settings.url.indexOf("form_next_step") > -1) {
-                                $('#stored_addresses').val(flagVal);
-                            }
-                        });
-                    })
-                    function check_required() {
-                        $('.field-required').each(function () {
-                            var self = $(this).find('input');
-                            var selfSelect = $(this).find('select');
-
-                            if (self.val() !== '') {
-                                self.parent().next().remove();
-                                self.parents('.field-error').removeClass('field-error')
-                            }
-
-                            if (selfSelect !== null || selfSelect !== 0) {
-                                selfSelect.parent().next().remove();
-                                selfSelect.parents('.field-error').removeClass('field-error')
-                            }
-                        });
-                    }
-                    $('body').on('change', '#stored_addresses', function () {
-                        check_required();
-                    });
-
-                }
-            }, 0)
-        })
-    </script>
-
-    <script type="text/javascript">
-        window.onpageshow = function (event) {
-            if (event.persisted) {
-                var currentUrl = '';
-
-                currentUrl = '/checkouts/6da2f92c144f4d38838476f5327e0f03?step=1';
-
-
-                if (currentUrl)
-                    window.location = currentUrl;
-            }
-        };
-
-
-        function funcChangeCustomerAddress() {
-            var selected = $(this).find(':selected');
-            if (selected && selected.length > 0) {
-                var data = $(selected).attr('data-properties');
-                if (data) {
-                    try {
-                        var obj = $.parseJSON(data);
-
-                        var elementFullName = $('body').find('input#billing_address_full_name');
-                        if (elementFullName && elementFullName.length > 0)
-                            $(elementFullName).val((obj.last_name ? (obj.last_name + (obj.first_name ? ' ' : '')) : '') + (obj.first_name ? obj.first_name : ''));
-
-                        var elementPhone = $('body').find('input#billing_address_phone');
-                        if (elementPhone && elementPhone.length > 0)
-                            $(elementPhone).val(obj.phone ? obj.phone : '');
-
-                        var elementAddress1 = $('body').find('input#billing_address_address1');
-                        if (elementAddress1 && elementAddress1.length > 0)
-                            $(elementAddress1).val(obj.address1 ? obj.address1 : '');
-
-                        var elementCity = $('body').find('input#billing_address_city');
-                        if (elementCity && elementCity.length > 0)
-                            $(elementCity).val(obj.city ? obj.city : '');
-
-                        var elementZip = $('body').find('input#billing_address_zip');
-                        if (elementZip && elementZip.length > 0)
-                            $(elementZip).val(obj.zip ? obj.zip : '');
-
-                        $('.section-customer-information .field input').blur();
-
-                        var elementCountry = $('body').find('select#customer_shipping_country');
-                        if (elementCountry && elementCountry.length > 0) {
-                            if (!obj.country_id)
-                                obj.country_id = null;
-
-                            var option = $(elementCountry).find('option[value=' + obj.country_id + ']');
-
-                            if (option && option.length > 0
-                                && $(elementCountry).val() != option.val()) {
-                                $(elementCountry).val(option.val());
-                                $(elementCountry).blur();
-                                $(elementCountry).change();
-                            }
-                        }
-                        var province_selected = $('body').find('input[name=selected_customer_shipping_province]');
-                        if (province_selected && province_selected.length > 0) {
-                            $(province_selected).val(obj.province_id ? obj.province_id : '');
-                        }
-
-                        var elementDistrict = $('body').find('input[name=customer_shipping_district]');
-                        if (elementDistrict && elementDistrict.length > 0) {
-                            $(elementDistrict).val(obj.district_id ? obj.district_id : '');
-                        }
-
-                        var district_selected = $('body').find('input[name=selected_customer_shipping_district]');
-                        if (district_selected && district_selected.length > 0) {
-                            $(district_selected).val(obj.district_id ? obj.district_id : '');
-                        }
-
-                        var elementWard = $('body').find('input[name=customer_shipping_ward]');
-                        if (elementWard && elementWard.length > 0) {
-                            $(elementWard).val(obj.wardid ? obj.wardid : '');
-
-                        }
-
-                        var ward_selected = $('body').find('input[name=selected_customer_shipping_ward]');
-                        if (ward_selected && ward_selected.length > 0) {
-                            $(ward_selected).val(obj.wardid ? obj.wardid : '');
-                        }
-
-                        var hasChangeProvince = false;
-                        var elementProvince = $('body').find('select#customer_shipping_province');
-                        if (elementProvince && elementProvince.length > 0) {
-                            if (!obj.province_id)
-                                obj.province_id = null;
-
-                            var option = $(elementProvince).find('option[value=' + obj.province_id + ']');
-
-                            if (option && option.length > 0
-                                && $(elementProvince).val() != option.val()) {
-                                $(elementProvince).val(option.val());
-                                $(elementProvince).blur();
-                                $(elementProvince).change();
-                                hasChangeProvince = true;
-                            }
-
-                            if (!hasChangeProvince) {
-                                var hasChangeDistrict = false;
-                                var elementDistrict = $('body').find('select#customer_shipping_district');
-                                if (elementDistrict && elementDistrict.length > 0) {
-                                    if (!obj.district_id)
-                                        obj.district_id = null;
-
-                                    var option = $(elementDistrict).find('option[value=' + obj.district_id + ']');
-
-                                    if (option && option.length > 0
-                                        && $(elementDistrict).val() != option.val()) {
-                                        $(elementDistrict).val(option.val());
-                                        $(elementDistrict).blur();
-                                        $(elementDistrict).change();
-                                        hasChangeDistrict = true;
-                                    }
-                                }
-
-                                if (!hasChangeDistrict) {
-                                    var elementWard = $('body').find('select#customer_shipping_ward');
-                                    if (elementWard && elementWard.length > 0) {
-                                        if (!obj.wardid)
-                                            obj.wardid = null;
-
-                                        var option = $(elementWard).find('option[value=' + obj.wardid + ']');
-
-                                        if (option && option.length > 0
-                                            && $(elementWard).val() != option.val()) {
-                                            $(elementWard).val(option.val());
-                                            $(elementWard).blur();
-                                            $(elementWard).change();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    } catch (e) { }
-                }
-            }
-        };
-
-
-
-        var isInit = false;
-
-
-        function funcFormOnSubmit(e) {
-            if (!isInit) {
-                isInit = true;
-
-                $.fn.tagName = function () {
-                    return this.prop("tagName").toLowerCase();
-                };
-            }
-
-            if (typeof (e) == 'string') {
-                var element = $(e);
-                var formData = e;
-            } else {
-                var element = this;
-                var formData = this;
-                e.preventDefault();
-            }
-
-            $(element).find('button:submit').addClass('btn-loading');
-
-            var formId = $(element).attr('id'), replaceElement = [], funcCallback;
-
-            if (formId == undefined || formId == null || formId == '')
-                return;
-            if (formId == 'form_update_location_customer_shipping' || formId == 'form_update_location' || formId == 'form_update_shipping_method') {
-                if ($('.order-checkout__loading--box').length > 0) {
-                    $('.order-checkout__loading--box').addClass('show');
-                }
-            }
-
-
-            if (formId == 'form_next_step') {
-                formData = '.step-sections';
-                replaceElement.push('.step-sections');
-            }
-            else if (
-                formId == 'form_redeem_add'
-                || formId == 'form_redeem_remove'
-                || formId == 'form_discount_add'
-                || formId == 'form_discount_remove'
-                || formId == 'form_update_location'
-
-
-                || formId == 'section-shipping-rate' || formId == 'section-payment-method'
-
-            ) {
-                replaceElement.push('#form_update_location');
-                replaceElement.push('#change_pick_location_or_shipping');
-                replaceElement.push('.inventory_location_data');
-                replaceElement.push('.order-summary-toggle-inner .order-summary-toggle-total-recap');
-                replaceElement.push('.order-summary-sections');
-                replaceElement.push('.order-summary-section.order-summary-section-total-lines.total-line-table.total-line-table-footer');
-                replaceElement.push('.order-summary-section.order-summary-section-total-lines.total-line-table.total-line.total-line-redeem');
-                replaceElement.push('.order-summary-section.order-summary-section-redeem.redeem-login-section');
-
-                replaceElement.push('#section-shipping-rate');
-
-            }
-
-
-
-
-
-            if (!$(formData) || $(formData).length == 0) {
-                window.location.reload();
-                return false;
-            }
-
-            var inputurl = '';
-
-            if (($(formData).tagName() != 'form' && $(formData).tagName() != 'input' && $(formData).tagName() != 'div')
-                || ($(formData).tagName() == 'input' || $(formData).tagName() == 'div')) {
-
-                formData += ' :input';
-            }
-            try {
-                var listparameters = new URLSearchParams($(formData).serialize());
-                var provincetmp = $('body').find('input[name$="selected_customer_shipping_province"]').val();
-                if (provincetmp != '') listparameters.set('customer_shipping_province', provincetmp);
-
-                var districttmp = $('body').find('input[name$="selected_customer_shipping_district"]').val();
-                if (districttmp != '') listparameters.set('customer_shipping_district', districttmp);
-
-                var wardtmp = $('body').find('input[name$="selected_customer_shipping_ward"]').val();
-                if (wardtmp != '') listparameters.set('customer_shipping_ward', wardtmp);
-
-
-                var address1tmp = $('body').find('input[name$="billing_address[address1]"]').val();
-                if (address1tmp != '') listparameters.set('billing_address[address1]', address1tmp);
-
-                listparameters.delete('selected_customer_shipping_province');
-                listparameters.delete('selected_customer_shipping_district');
-                listparameters.delete('selected_customer_shipping_ward');
-                inputurl = listparameters.toString();
-
-            } catch (err) {
-
-                // Older Browser URLSearchParams not support
-                var listparameters = parseQueryString($(formData).serialize());
-                var provincetmp = $('body').find('input[name$="selected_customer_shipping_province"]').val();
-                if (provincetmp != '' && listparameters.customer_shipping_province) listparameters.customer_shipping_province = provincetmp;
-
-                var districttmp = $('body').find('input[name$="selected_customer_shipping_district"]').val();
-                if (districttmp != '' && listparameters.customer_shipping_district) listparameters.customer_shipping_district = districttmp;
-
-                var wardtmp = $('body').find('input[name$="selected_customer_shipping_ward"]').val();
-                if (wardtmp != '' && listparameters.customer_shipping_ward) listparameters.customer_shipping_ward = wardtmp;
-
-                var address1tmp = $('body').find('input[name$="billing_address[address1]"]').val();
-                if (address1tmp != '' && listparameters.billing_address[address1]) listparameters.set('billing_address[address1]', address1tmp);
-
-
-                delete listparameters.selected_customer_shipping_province;
-                delete listparameters.selected_customer_shipping_district;
-                delete listparameters.selected_customer_shipping_ward;
-
-                var listObject = '';
-                for (var key in listparameters) {
-                    listObject += '&' + key + '=' + encodeURIComponent(listparameters[key]);
-                };
-                inputurl = listObject.substring(1);
-
-            }
-
-
-            $.ajax({
-                type: 'GET',
-                url: window.location.origin + window.location.pathname + '?' + inputurl + encodeURI('&form_name=' + formId),
-                success: function (html) {
-                    if ($(html).attr('id') == 'redirect-url') {
-                        window.location = $(html).val();
-                    } else {
-                        if (replaceElement.length > 0) {
-                            for (var i = 0; i < replaceElement.length; i++) {
-                                var tempElement = replaceElement[i];
-                                var newElement = $(html).find(tempElement);
-
-                                if (newElement.length > 0) {
-                                    if (tempElement == '.step-sections')
-                                        $(tempElement).attr('step', $(newElement).attr('step'));
-
-                                    var listTempElement = $(tempElement);
-
-                                    for (var j = 0; j < newElement.length; j++)
-                                        if (j < listTempElement.length)
-                                            $(listTempElement[j]).html($(newElement[j]).html());
-                                }
-                            }
-                        }
-
-
-                        $("#div_location_country_not_vietnam").hide();
-                        var is_vietnam = $("#is_vietnam").val();
-                        if (is_vietnam && is_vietnam == "true") {
-                            $("#div_country_not_vietnam").hide();
-                        }
-                        else {
-                            $("#div_country_not_vietnam").show();
-                        }
-
-
-
-                        $('body').attr('src', $(html).attr('src'));
-                        $(element).find('button:submit').removeClass('btn-loading');
-
-                        if (($('body').find('.field-error') && $('body').find('.field-error').length > 0)
-                            || ($('body').find('.has-error') && $('body').find('.has-error').length > 0)) {
-                            $("html, body").animate({ scrollTop: 0 }, "slow");
-                        }
-                        if (formId == 'form_update_location_customer_shipping' || formId == 'form_update_location' || formId == 'form_update_shipping_method') {
-                            if ($('.order-checkout__loading--box').length > 0) {
-                                $('.order-checkout__loading--box').removeClass('show');
-                            }
-                        }
-                        if (funcCallback)
-                            funcCallback();
-                    }
-                }
-            }).fail(function () {
-                $(element).find('button:submit').removeClass('btn-loading');
-                if (formId == 'form_update_location_customer_shipping' || formId == 'form_update_location' || formId == 'form_update_shipping_method') {
-                    if ($('.order-checkout__loading--box').length > 0) {
-                        $('.order-checkout__loading--box').removeClass('show');
-                    }
-                }
-            });
-
-            return false;
-        };
-        function funcSetEvent() {
-            var effectControlFieldClass = '.field input, .field select, .field textarea';
-
-            $('body')
-                .on('focus', effectControlFieldClass, function () {
-                    funcFieldFocus($(this), true);
-                })
-                .on('blur', effectControlFieldClass, function () {
-                    funcFieldFocus($(this), false);
-                    funcFieldHasValue($(this), true);
-                })
-                .on('keyup input paste', effectControlFieldClass, function () {
-                    funcFieldHasValue($(this), false);
-                })
-                .on('submit', 'form', funcFormOnSubmit);
-
-
-
-
-            $("#div_location_country_not_vietnam").hide();
-            $("#is_vietnam").val("true");
-            $("#div_country_not_vietnam").hide();
-
-
-
-
-
-            $('body')
-                .on('change', 'select#stored_addresses', funcChangeCustomerAddress);
-
-
-
-            $('body')
-                .on('change', '#form_update_location', function () {
-                    $(this).submit();
-                })
-                ;
-
-
-            $('body')
-
-                .on('change', '#form_update_location select[name=customer_shipping_country]', function () {
-                    var currentCountry = $(this).val();
-                    if (currentCountry && currentCountry != "null" && currentCountry != 241) {
-                        $("#is_vietnam").val("false");
-                        $("#div_country_not_vietnam").show();
-                    }
-                    else {
-                        $("#is_vietnam").val("true");
-                        $("#div_country_not_vietnam").hide();
-                    }
-                })
-
-                .on('change', '#form_update_location select[name=customer_shipping_district]', function () {
-                    $('.section-customer-information input:hidden[name=customer_shipping_district]').val($(this).val());
-                })
-                .on('change', '#form_update_location select[name=customer_shipping_ward]', function () {
-                    $('.section-customer-information input:hidden[name=customer_shipping_ward]').val($(this).val());
-                });
-
-
-
-            $('body')
-                .on('change', '#form_update_shipping_method input:radio', function () {
-                    $('#form_update_shipping_method .content-box-row.content-box-row-secondary').addClass('hidden');
-
-                    var id = $(this).attr('id');
-
-                    if (id) {
-                        var sub = $('body').find('.content-box-row.content-box-row-secondary[for=' + id + ']')
-
-                        if (sub && sub.length > 0) {
-                            $(sub).removeClass('hidden');
-                        }
-                    }
-                });
-
-
-
-            $('body')
-                .on('change', '#section-payment-method input:radio', function () {
-                    $('#section-payment-method .content-box-row.content-box-row-secondary').addClass('hidden');
-
-                    var id = $(this).attr('id');
-
-                    if (id) {
-                        var sub = $('body').find('.content-box-row.content-box-row-secondary[for=' + id + ']')
-
-                        if (sub && sub.length > 0) {
-                            $(sub).removeClass('hidden');
-                        }
-                    }
-                });
-
-
-
-            $('body')
-                .on('change', '#section-shipping-rate input:radio[name=shipping_rate_id]', function () {
-                    funcFormOnSubmit('#section-shipping-rate');
-                })
-                .on('change', '#section-payment-method  input:radio[name=payment_method_id]', function () {
-                    funcFormOnSubmit('#section-payment-method');
-                });
-
-
-
-
-
-
-        };
-        function funcFieldFocus(fieldInputElement, isFocus) {
-            if (fieldInputElement == undefined)
-                return;
-
-            var fieldElement = $(fieldInputElement).closest('.field');
-
-            if (fieldElement == undefined)
-                return;
-
-            if (isFocus)
-                $(fieldElement).addClass('field-active');
-            else
-                $(fieldElement).removeClass('field-active');
-        };
-        function funcFieldHasValue(fieldInputElement, isCheckRemove) {
-            if (fieldInputElement == undefined)
-                return;
-
-            var fieldElement = $(fieldInputElement).closest('.field');
-
-            if (fieldElement == undefined)
-                return;
-
-            if ($(fieldElement).find('.field-input-wrapper-select').length > 0) {
-                var value = $(fieldInputElement).find(':selected').val();
-
-                if (value == 'null')
-                    value = undefined;
-            } else {
-                var value = $(fieldInputElement).val();
-            }
-
-            if (!isCheckRemove) {
-                if (value != $(fieldInputElement).attr('value'))
-                    $(fieldElement).removeClass('field-error');
-            }
-
-            var fieldInputBtnWrapperElement = $(fieldInputElement).closest('.field-input-btn-wrapper');
-
-            if (value && value.trim() != '') {
-                $(fieldElement).addClass('field-show-floating-label');
-                $(fieldInputBtnWrapperElement).find('button:submit').removeClass('btn-disabled');
-            }
-            else if (isCheckRemove) {
-                $(fieldElement).removeClass('field-show-floating-label');
-                $(fieldInputBtnWrapperElement).find('button:submit').addClass('btn-disabled');
-            }
-            else {
-                $(fieldInputBtnWrapperElement).find('button:submit').addClass('btn-disabled');
-            }
-        };
-        function funcInit() {
-            funcSetEvent();
-
-
-
-            $('select#stored_addresses').change();
-
-
-        }
-
-        function funcReplaceMembershipInfo(html, replaceElement) {
-            var tempElement = $(replaceElement);
-            var newElement = $(html).find(replaceElement);
-            tempElement.html(newElement.html());
-        }
-
-        function funcMembershipInfo() {
-
-        }
-        $(document).ready(function () {
-
-            funcInit();
-            funcMembershipInfo();
-
-        });
-
-    </script>
-
-
-    <script type="text/javascript">
-        var toggleShowOrderSummary = false;
-        $(document).ready(function () {
-            var currentUrl = '';
-
-
-            currentUrl = '/checkouts/6da2f92c144f4d38838476f5327e0f03?step=1';
-
-
-            if ($('#reloadValue').val().length == 0) {
-                $('#reloadValue').val(currentUrl);
-                $('body').show();
-            }
-            else {
-                window.location = $('#reloadValue').val();
-                $('#reloadValue').val('');
-            }
-
-            $('body')
-                .on('click', '.order-summary-toggle', function () {
-                    toggleShowOrderSummary = !toggleShowOrderSummary;
-
-                    if (toggleShowOrderSummary) {
-                        $('.order-summary-toggle')
-                            .removeClass('order-summary-toggle-hide')
-                            .addClass('order-summary-toggle-show');
-
-                        $('.sidebar:not(".sidebar-second") .sidebar-content .order-summary')
-                            .removeClass('order-summary-is-collapsed')
-                            .addClass('order-summary-is-expanded');
-
-                        $('.sidebar.sidebar-second .sidebar-content .order-summary')
-                            .removeClass('order-summary-is-expanded')
-                            .addClass('order-summary-is-collapsed');
-                    } else {
-                        $('.order-summary-toggle')
-                            .removeClass('order-summary-toggle-show')
-                            .addClass('order-summary-toggle-hide');
-
-                        $('.sidebar:not(".sidebar-second") .sidebar-content .order-summary')
-                            .removeClass('order-summary-is-expanded')
-                            .addClass('order-summary-is-collapsed');
-
-                        $('.sidebar.sidebar-second .sidebar-content .order-summary')
-                            .removeClass('order-summary-is-collapsed')
-                            .addClass('order-summary-is-expanded');
-                    }
-                });
-        });
-    </script>
-
-    <script type='text/javascript'>
-        //<![CDATA[
-        if ((typeof Haravan) === 'undefined') {
-            Haravan = {};
-        }
-        Haravan.culture = 'vi-VN';
-        Haravan.shop = 'leafshop.myharavan.com';
-        Haravan.theme = { "name": "11/5/2021 Nhân 274401", "id": 1000257823, "role": "main" };
-        Haravan.domain = 'leaforganic.vn';
-        //]]>
-    </script>
     <!-- Global site tag (gtag.js) - Google Ads: 767364388 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-767364388"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'AW-767364388');
-    </script>
-    <meta name="google-site-verification" content="XW2b4mPOxp6F6qoGvz2yzH4SQzSwEp4GF9tXstwLpfo" />
-    <script type='text/javascript'>!function () { var hrv_analytics = window.hrv_analytics = window.hrv_analytics || []; if (!hrv_analytics.initialize) if (hrv_analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else { hrv_analytics.invoked = !0; hrv_analytics.methods = ["start", "trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"]; hrv_analytics.factory = function (t) { return function () { var e = Array.prototype.slice.call(arguments); e.unshift(t); hrv_analytics.push(e); return hrv_analytics } }; for (var t = 0; t < hrv_analytics.methods.length; t++) { var e = hrv_analytics.methods[t]; hrv_analytics[e] = hrv_analytics.factory(e) } hrv_analytics.load = function (t, e) { var n = document.createElement("script"); n.type = "text/javascript"; n.async = !0; n.src = "https://stats.hstatic.net/analytics.min.js?t=2"; var a = document.getElementsByTagName("script")[0]; a.parentNode.insertBefore(n, a); hrv_analytics._loadOptions = e }; hrv_analytics.SNIPPET_VERSION = "4.1.0"; hrv_analytics.start('pro:web:1000104489'); hrv_analytics.page(); hrv_analytics.load(); } }();</script>
     <style>
         .grecaptcha-badge {
             visibility: hidden;
         }
     </style>
-    <script type='text/javascript'>
-        window.HaravanAnalytics = window.HaravanAnalytics || {};
-        window.HaravanAnalytics.meta = window.HaravanAnalytics.meta || {};
-        window.HaravanAnalytics.meta.currency = 'VND';
-        var meta = {
-            "page": { "pageType": "checkout", "resourceType": "checkout", "resourceId": "6da2f92c144f4d38838476f5327e0f03", "customerId": 1050656170 },
-            //"cart": {
-            //    "products": [{ "variantId": 1077126004, "productId": 1035099823, "price": 6500000.0, "name": "Bánh bao bí đỏ Stephanie hộp 6 chiếc", "sku": "BBBĐ01", "vendor": "Stephanie Bakery", "type": "Thực phẩm chế biến sẵn", "quantity": 1 },
-            //    { "variantId": 1077125943, "productId": 1035099788, "price": 6500000.0, "name": "Bánh bao kẹp Stephanie hộp 200gr/4 chiếc", "sku": "BBK", "vendor": "Stephanie Bakery", "type": "Thực phẩm chế biến sẵn", "quantity": 1 }], "item_count": 2, "total_price": 13000000.0
-            //}
-        };
-        for (var attr in meta) {
-            window.HaravanAnalytics.meta[attr] = meta[attr];
-        }
-    </script>
-    <script>
-        window.HaravanAnalytics.fb = "1039978772693349";
-        //<![CDATA[
-        !function (f, b, e, v, n, t, s) {
-            if (f.fbq) return; n = f.fbq = function () {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            }; if (!f._fbq) f._fbq = n;
-            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
-            t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
-        }(window,
-            document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-        // Insert Your Facebook Pixel ID below.
-        fbq('init', window.HaravanAnalytics.fb, {}, { 'agent': 'plharavan' });
-        fbq('track', 'PageView');
-        //]]>
-    </script>
-    <noscript><img height='1' width='1' style='display:none' src='https://www.facebook.com/tr?id=1039978772693349&amp;ev=PageView&amp;noscript=1' /></noscript><!-- Event snippet for PAGE_VIEW-0-08/24/2020 04:42:17 conversion page -->
-    <script>
-        gtag('event', 'conversion', { 'send_to': 'AW-767364388/KrUSCIzmwNwBEKSa9O0C' });
-    </script>
-
+   
+ 
 </head>
 <body>
     @using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <input id="reloadValue" type="hidden" name="reloadValue" value="" />
-        <input id="is_vietnam" type="hidden" value="true" />
         <input id="is_vietnam_location" type="hidden" value="true" />
         <div class="banner">
             <div class="wrap">
@@ -930,7 +243,7 @@
                         <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-dropdown" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg>
                     </div>
                     <div class="order-summary-toggle-total-recap" data-checkout-payment-due-target="13000000">
-                        <span class="total-recap-final-price">130,000₫</span>
+                        <span class="total-recap-final-price">@tamtinh</span>
                     </div>
                 </div>
             </div>
@@ -941,26 +254,6 @@
                     <div class="sidebar-content">
                         <div class="order-summary">
                             <div class="order-summary-sections">
-
-
-                                @*<div class="order-summary-section order-summary-section-discount" data-order-summary-section="discount">
-                                        <form id="form_discount_add" accept-charset="UTF-8" method="post">
-                                            <input name="utf8" type="hidden" value="✓">
-                                            <div class="fieldset">
-                                                <div class="field  ">
-                                                    <div class="field-input-btn-wrapper">
-                                                        <button type="submit" class="field-input-btn btn btn-default btn-disabled">
-                                                            <span class="btn-content">Sử dụng</span>
-                                                            <i class="btn-spinner icon icon-button-spinner"></i>
-                                                        </button>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>*@
-
-
                             </div>
                         </div>
                     </div>
@@ -968,7 +261,6 @@
             </div>
         </div>
         <div class="content">
-
             <div class="wrap">
                 <div class="sidebar">
                     <div class="sidebar-content">
@@ -1006,8 +298,6 @@
                                                     </td>
                                                 </tr>
                                             }
-
-
                                             @*<tr class="product" data-product-id="1035099788" data-variant-id="1077125943">
                                                     <td class="product-image">
                                                         <div class="product-thumbnail">
@@ -1025,11 +315,9 @@
                                                         <span class="order-summary-emphasis">65,000₫</span>
                                                     </td>
                                                 </tr>*@
-
                                         </tbody>
                                     </table>
                                 </div>
-
                                 @*<div class="order-summary-section order-summary-section-discount" data-order-summary-section="discount">
                                         <form id="form_discount_add" accept-charset="UTF-8" method="post">
                                             <input name="utf8" type="hidden" value="✓">
@@ -1050,8 +338,6 @@
                                             </div>
                                         </form>
                                     </div>*@
-
-
                                 <div class="order-summary-section order-summary-section-total-lines payment-lines" data-order-summary-section="payment-lines">
                                     <table class="total-line-table">
                                         <thead>
@@ -1069,15 +355,11 @@
                                                     </span>
                                                 </td>
                                             </tr>
-
-
                                             <tr class="total-line total-line-shipping">
                                                 <td class="total-line-name">Phí vận chuyển</td>
                                                 <td class="total-line-price">
                                                     <span class="order-summary-emphasis" data-checkout-total-shipping-target="0">
-
                                                         35000₫
-
                                                     </span>
                                                 </td>
                                             </tr>
@@ -1106,33 +388,23 @@
                         <a href="/" class="logo">
                             <h1 class="logo-text">Leaf Organic - Natural & Organic Care</h1>
                         </a>
-
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="@Url.Action("Orders", "Cart")">Giỏ hàng</a>
                             </li>
-
                             <li class="breadcrumb-item breadcrumb-item-current">
                                 Thông tin giao hàng
                             </li>
-
                         </ul>
-
                     </div>
                     <div class="main-content">
-
                         <div class="step">
                             <div class="step-sections steps-onepage" step="1">
-
-
                                 <div class="section">
                                     <div class="section-header">
                                         <h2 class="section-title">Thông tin giao hàng</h2>
                                     </div>
                                     <div class="section-content section-customer-information no-mb">
-
-
-
                                         <input type="hidden" name="checkout_user[email]" value="thinhphuongxa1@gmail.com" />
                                         <div class="logged-in-customer-information">
                                             <div class="logged-in-customer-information-avatar-wrapper">
@@ -1144,104 +416,30 @@
                                                 <a href="@Url.Action("Logout", "Home")">Đăng xuất</a>
                                             </p>
                                         </div>
-
                                         <div class="fieldset">
-
-                                            @*<div class="field field-show-floating-label">
-                                                    <div class="field-input-wrapper field-input-wrapper-select">
-                                                        <label class="field-label" for="stored_addresses">Thêm địa chỉ mới...</label>
-                                                        <select class="field-input" id="stored_addresses">
-                                                            <option value="0" data-properties='{}'>Địa chỉ đã lưu trữ</option>
-
-
-                                                            <option value="1084309858" data-properties='{"id":1084309858,"last_name":"Thịnh","first_name":"Nguyễn","phone":null,"address1":null,"province":null,"country_id":"241","province_id":null,"district":null,"district_id":null,"wardid":null,"default":true}' selected>
-                                                                Thịnh Nguyễn,
-
-
-
-
-
-
-                                                                70000
-                                                                Vietnam
-                                                            </option>
-
-                                                            <option value="1084313470" data-properties='{"id":1084313470,"last_name":"Thịnh","first_name":"Nguyễn","phone":"84988888888","address1":"hà Nội","province":"Đắk Lắk","country_id":"241","province_id":"42","district":"Huyện Ea H' leo","district_id":"448","wardid":null,"default":false}'>
-                                                                Thịnh Nguyễn,
-                                                                84988888888,
-                                                                hà Nội,
-
-                                                                Huyện Ea H'leo,
-                                                                Đắk Lắk
-
-
-                                                                Vietnam
-                                                            </option>
-
-                                                        </select>
-                                                    </div>
-                                                </div>*@
-
-
                                             <div class="field   ">
                                                 <div class="field-input-wrapper">
                                                     <label class="field-label" for="billing_address_full_name">Họ và tên</label>
                                                     <input placeholder="Họ và tên" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_full_name" name="billing_address[full_name]" value="@ViewBag.KhachHang.TenKhachHang" />
                                                 </div>
-
                                             </div>
-
-
-
-
-
                                             <div class="field field-required   ">
                                                 <div class="field-input-wrapper">
                                                     <label class="field-label" for="billing_address_phone">Số điện thoại</label>
                                                     <input placeholder="Số điện thoại" autocapitalize="off" spellcheck="false" class="field-input" size="30" maxlength="15" type="tel" id="billing_address_phone" name="billing_address[phone]" value="@ViewBag.KhachHang.DienThoaiKhachHang" />
                                                 </div>
-
                                             </div>
-
-
                                             <div class="field   ">
                                                 <div class="field-input-wrapper">
                                                     <label class="field-label" for="billing_address_address1">Địa chỉ</label>
                                                     <input placeholder="Địa chỉ" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_address1" name="billing_address[address1]" value="@ViewBag.KhachHang.DiaChiKhachHang" />
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="section-content">
                                         <div class="fieldset">
-
-                                            <form id="form_update_location" class="clearfix order-checkout__loading" accept-charset="UTF-8" method="post">
-                                                <input name="selected_customer_shipping_province" type="hidden" value="">
-                                                <input name="selected_customer_shipping_district" type="hidden" value="">
-                                                <input name="selected_customer_shipping_ward" type="hidden" value="">
-                                                <input name="utf8" type="hidden" value="✓">
-                                                <div class="order-checkout__loading--box">
-                                                    <div class="order-checkout__loading--circle"></div>
-                                                </div>
-                                            </form>
-
                                         </div>
-                                        @*<div class="section-content section-customer-information fieldset" id="div_country_not_vietnam">
-                                                <div class="field field-two-thirds">
-                                                    <div class="field-input-wrapper">
-                                                        <label class="field-label" for="billing_address_city">Thành phố</label>
-                                                        <input placeholder="Thành phố" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_city" name="billing_address[city]" value="" />
-                                                    </div>
-                                                </div>
-                                                <div class="field field-third">
-                                                    <div class="field-input-wrapper">
-                                                        <label class="field-label" for="billing_address_zip">Mã bưu chính</label>
-                                                        <input placeholder="Mã bưu chính" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_zip" name="billing_address[zip]" value="" />
-                                                    </div>
-                                                </div>
-                                            </div>*@
                                     </div>
                                     <div id="change_pick_location_or_shipping">
 
@@ -1251,8 +449,6 @@
                                             </div>
                                             <div class="section-content">
                                                 <div class="content-box">
-
-
                                                     <div class="radio-wrapper content-box-row">
                                                         <label class="radio-label" for="payment_method_id_247150">
                                                             <div class="radio-input">
@@ -1263,36 +459,34 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                                <div class="section-header">
+                                                    <h2 class="section-title">Ghi chú</h2>
+                                                </div>
+                                                <div class="section-content field field-input fieldset">
+                                                    <div class="field   ">
+                                                        <div class="field-input-wrapper">
+                                                            <input type="text" style='height:85px' id="note" class='field-input' name="GhiChu" rows="8" cols="50" />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                             <div class="step-footer">
-
-                                <form id="form_next_step" accept-charset="UTF-8" method="post">
-                                    <input name="utf8" type="hidden" value="✓">
-                                    <button type="submit" class="step-footer-continue-btn btn">
-                                        <span class="btn-content">Hoàn tất đơn hàng</span>
-                                        <i class="btn-spinner icon icon-button-spinner"></i>
-                                    </button>
-                                </form>
+                                <input type="submit" class="btn btn-content" value="Hoàn tất đơn hàng"/>
                                 <a class="step-footer-previous-link" href="@Url.Action("Orders", "Cart")">
                                     <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3"><path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path></svg>
                                     Giỏ hàng
                                 </a>
-
                             </div>
                         </div>
-
                     </div>
                     <div class="main-footer footer-powered-by">
                         Powered by Haravan
                     </div>
                 </div>
             </div>
-
         </div>
     }
 </body>

@@ -12,7 +12,6 @@ namespace LeafShop.Controllers
         // GET: Cart
         LeafShopDb db = new LeafShopDb();
         int tongTien;
-        string ghiChu = "";
         public ActionResult Index()
         {
             return View();
@@ -22,7 +21,6 @@ namespace LeafShop.Controllers
         [HttpGet]
         public ActionResult Orders()
         {
-            ViewBag.GhiChu = "";
             List<ChiTietDatHang> list = new List<ChiTietDatHang>();
  
             if (Session[LeafShop.Session.ConstaintCart.CART] != null)
@@ -37,9 +35,8 @@ namespace LeafShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Orders(List<ChiTietDatHang> list, string ghichu = "")
+        public ActionResult Orders(List<ChiTietDatHang> list)
         {
-            ViewBag.GhiChu = ghichu;
             Session.Remove(LeafShop.Session.ConstaintCart.CART);
             foreach(ChiTietDatHang item in list)
             {
@@ -138,9 +135,10 @@ namespace LeafShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckOut(List<ChiTietDatHang> res)
+        public ActionResult CheckOut([Bind(Include = "GhiChu")] DatHang dh)
         {
-            res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+            string ghiChu = dh.GhiChu;
+            List<ChiTietDatHang> res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
             foreach (ChiTietDatHang item in res)
             {
                 if (item.DonGia != null)
