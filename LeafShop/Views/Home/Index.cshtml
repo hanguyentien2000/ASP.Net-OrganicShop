@@ -683,7 +683,6 @@
                 <div class='clear'></div>
             </div>
         </div>
-
         <!-- Content
         ============================================= -->
         <div class="zom_grr">
@@ -691,98 +690,39 @@
                 <div class="content-wrap" style="">
                     <div class="container clearfix" style="">
                         <!-- popular brand -->
-                        @*<div id="popular_brand" class="style_1">
+                        <div id="popular_brand" class="style_1">
+                            @foreach (var th in @ViewBag.thuongHieu)
+                            {
                                 <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/amavie-foods" class="img"><img data-lazy="~/Content/image/popular_brand_img_1.png?v=3659" alt=""></a>
+                                    <a href="/SanPham/ThuongHieu/@th.MaThuongHieu" class="img"><img data-lazy="@th.AnhThuongHieu" alt=""></a>
                                 </div>
-
-                                <div class="slick-slide">
-                                    <a href="collections/gravier.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_2.png?v=3659" alt=""></a>
-                                </div>
-
-                                <div class="slick-slide">
-                                    <a href="collections/yumearth.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_3.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="collections/markal.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_4.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="collections/avril.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_5.png?v=3659" alt=""></a>
-                                </div>
-
-                                <div class="slick-slide">
-                                    <a href="collections/alphanova.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_6.png?v=3659" alt=""></a>
-                                </div>
-
-                                <div class="slick-slide">
-                                    <a href="collections/harmonie-verte.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_7.png?v=3659" alt=""></a>
-                                </div>
-
-                                <div class="slick-slide">
-                                    <a href="collections/buccotherm.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_8.png?v=3659" alt=""></a>
-                                </div>
-
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/bartolini" class="img"><img data-lazy="~/Content/image/popular_brand_img_9.png?v=3659" alt=""></a>
-                                </div>
-
-                                <div class="slick-slide">
-                                    <a href="collections/la-mandorle.html" class="img"><img data-lazy="~/Content/image/popular_brand_img_10.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/artisan-savonnier" class="img"><img data-lazy="~/Content/image/popular_brand_img_11.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/sobo" class="img"><img data-lazy="~/Content/image/popular_brand_img_12.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/bio-planet" class="img"><img data-lazy="~/Content/image/popular_brand_img_13.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/bragg" class="img"><img data-lazy="~/Content/image/popular_brand_img_14.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/bio-junior" class="img"><img data-lazy="~/Content/image/popular_brand_img_15.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="http://leafshop.vn/collections/silvercare" class="img"><img data-lazy="~/Content/image/popular_brand_img_16.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="http://leafshop.vn/collections/purasana" class="img"><img data-lazy="~/Content/image/popular_brand_img_17.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="http://leafshop.vn/collections/4care-balance" class="img"><img data-lazy="~/Content/image/popular_brand_img_18.png?v=3659" alt=""></a>
-                                </div>
-                                <div class="slick-slide">
-                                    <a href="https://leafshop.vn/collections/alvins" class="img"><img data-lazy="~/Content/image/popular_brand_img_19.png?v=3659" alt=""></a>
-                                </div>
-                            </div>*@
-
+                            }
+                        </div>
                         <script>
                             $(document).ready(function () {
                                 $('#popular_brand').slick({
-                                prevArrow: '<button type="button" class="slick-prev small_nav"><i class="fa fa-chevron-circle-left"></i></button>',
+                                    prevArrow: '<button type="button" class="slick-prev small_nav"><i class="fa fa-chevron-circle-left"></i></button>',
                                     nextArrow: '<button type="button" class="slick-next small_nav"><i class="fa fa-chevron-circle-right"></i></button>',
                                     lazyLoad: 'progressive',
                                     slidesToShow: 8,
                                     slidesToScroll: 1,
                                     responsive: [
                                         {
-                                    breakpoint: 991,
+                                        breakpoint: 991,
                                             settings: {
-                                        arrows: false
+                                            arrows: false
                                             },
                                         },
                                         {
-                                    breakpoint: 767,
+                                        breakpoint: 767,
                                             settings: {
-                                        slidesToShow: 3,
+                                            slidesToShow: 3,
                                                 arrows: false
                                             }
-                                    }
+                                        }
                                     ]
                                 });
-                            });</script>
+                                });</script>
 
 
                         <!-- end popular brand -->
@@ -806,7 +746,6 @@
 
                                                         <a href="/SanPham/Detail/@item.MaSanPham"><img src="@item.HinhMinhHoa" data-lazyload="@item.HinhMinhHoa" alt="@item.TenSanPham"></a>
                                                         <div class="product-overlay">
-                                                            <a href='#' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
                                                             <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" onclick="loadsp(@item.MaSanPham)" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
                                                         </div>
                                                     </div>
@@ -816,7 +755,7 @@
                                                     </div>
                                                     <div class="product-desc">
                                                         <div class="product-price">
-                                                            <ins> @item.DonGia ₫ </ins>
+                                                            <ins> @String.Format("{0:0,0đ}", item.DonGia) </ins>
                                                         </div>
                                                         @if (item.SoLuong == 0)
                                                         {
@@ -858,7 +797,6 @@
 
                                                         <a href="#"><img src="@item.HinhMinhHoa" data-lazyload="@item.HinhMinhHoa" alt="@item.TenSanPham"></a>
                                                         <div class="product-overlay">
-                                                            <a href='#' class='add-to-cart' data-toggle='tooltip' title='Lựa chọn'><i class='fa fa-shopping-cart'></i><span class='hidden-md hidden-lg'> Lựa chọn</span></a>
                                                             <a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" onclick="loadsp(@item.MaSanPham)" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>
                                                         </div>
                                                     </div>
@@ -867,7 +805,11 @@
                                                     </div>
                                                     <div class="product-desc">
                                                         <div class="product-price">
-                                                            <ins> @item.DonGia ₫ </ins>
+                                                           
+                                                            <ins>
+                                                               
+                                                                @String.Format("{0:0,0đ}", item.DonGia)
+                                                            </ins>
                                                         </div>
                                                         @if (item.SoLuong == 0)
                                                         {
@@ -901,7 +843,7 @@
                                     success: function (response) {
                                         $("#tensp").html(response.TenSanPham);
                                         $("#anhmh").attr("src", response.HinhMinhHoa);
-                                        $("#giasp").html(response.DonGia);
+                                        $("#giasp").html(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.DonGia));
                                         $("#product_quantity1").val(1);
                                         if (response.SoLuong > 0) {
                                             $("#addtocartQV").html("Thêm vào giỏ");
@@ -913,6 +855,7 @@
                                         $("#motasp").html(response.MoTa);
                                         $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
                                         $("#buynow").attr("onclick", "AddToCheckOut(" + response.MaSanPham + ")");
+                                        $("#product_quantity1").attr("max", response.SoLuong);
                                     },
                                     error: function (response) {
 
@@ -951,7 +894,7 @@
                                                 + '</div>'
                                                 + '     <div class="top-cart-item-desc">'
                                                 + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
-                                                + '    <span class="top-cart-item-price">' + response[index].DonGia + '</span>'
+                                                + '    <span class="top-cart-item-price">' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response[index].DonGia) + '</span>'
                                                 + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
                                                 + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
                                                 + '<i class="fa fa-times-circle"></i>'
