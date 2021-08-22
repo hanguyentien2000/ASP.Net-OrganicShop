@@ -65,7 +65,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao,NgayGiaoHang, GhiChu,TrangThai")] DatHang datHang)
+        public ActionResult Create([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao,NgayGiaoHang,GhiChu,DiaChi,TrangThai")] DatHang datHang)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao,NgayGiaoHang,GhiChu,TrangThai")] DatHang datHang)
+        public ActionResult Edit([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao,NgayGiaoHang,GhiChu,DiaChi,TrangThai")] DatHang datHang)
         {
             if (ModelState.IsValid)
             {

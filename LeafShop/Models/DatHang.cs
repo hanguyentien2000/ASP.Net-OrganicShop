@@ -27,6 +27,9 @@ namespace LeafShop.Models
         [StringLength(1000)]
         public string GhiChu { get; set; }
 
+        [StringLength(500)]
+        public string DiaChi { get; set; }
+
         public bool TrangThai { get; set; }
 
         [DataType(DataType.Date)]

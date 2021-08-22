@@ -146,6 +146,7 @@ namespace LeafShop.Controllers
                     tongTien += (item.SoLuong.HasValue ? item.SoLuong.Value : 0) * (item.DonGia.HasValue ? item.DonGia.Value : 0);
                 }
             }
+            tongTien += 35000;
             return RedirectToAction("CreateBill", "Bill", new { tongTien = tongTien, ghiChu = ghiChu });
         }
 

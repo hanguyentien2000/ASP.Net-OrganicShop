@@ -53,6 +53,9 @@
                             Ghi chú
                         </th>
                         <th>
+                            Địa chỉ nhận hàng
+                        </th>
+                        <th>
                             Trạng thái
                         </th>
                         <th>Thao tác</th>
@@ -68,6 +71,7 @@
                             <td>@Html.DisplayFor(modelItem => item.NgayKhoiTao)</td>
                             <td>@Html.DisplayFor(modelItem => item.NgayGiaoHang)</td>
                             <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
                             <td>@(item.TrangThai?"Huỷ bỏ":"Đang vận chuyển")</td>
                             <td>
                                 @*@Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDatHang }) |*@

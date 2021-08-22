@@ -121,6 +121,7 @@ CREATE TABLE DatHang(
 	NgayKhoiTao Date not null,
 	NgayGiaoHang Date NULL,
 	GhiChu nvarchar(1000) null,
+	DiaChi nvarchar(500) null,
 	TrangThai BIT not null,
 	constraint PK_DH primary key (MaDatHang),
 	constraint PK_DH1 FOREIGN KEY (MaKhachHang)  REFERENCES KhachHang(MaKhachHang),

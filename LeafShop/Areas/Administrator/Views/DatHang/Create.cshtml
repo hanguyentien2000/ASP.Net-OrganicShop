@@ -54,7 +54,12 @@
                         @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "datepicker" })
                     </div>
                     <br />
-
+                    <div class="md-form md-outline mt-0">
+                        <label for="form15">Địa chỉ nhận hàng</label>
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "datepicker" })
+                    </div>
+                    <br />
                     <div class="md-form md-outline mt-0">
                         <label for="form15">Trạng thái</label>
                         <div class="form-group row">
