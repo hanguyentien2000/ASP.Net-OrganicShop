@@ -4892,8 +4892,6 @@
     <Folder Include="Areas\UploadFile\NhanVien\" />
     <Folder Include="Areas\UploadFile\SanPham\" />
     <Folder Include="Areas\UploadFile\ThuongHieu\" />
-    <Folder Include="Views\Bill\" />
-    <Folder Include="Views\ChinhSach\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
