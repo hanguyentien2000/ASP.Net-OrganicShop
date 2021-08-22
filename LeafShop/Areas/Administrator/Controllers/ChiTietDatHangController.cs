@@ -37,7 +37,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             ViewBag.CurrentFilter = SearchString;
             //var ctdh = db.ChiTietDatHangs.Select(d => d);
             IQueryable<ChiTietDatHang> ctdh = (from ct in db.ChiTietDatHangs
-                                               select ct)
+                                               select ct).Include("DatHang").Include("SanPham")
                     .OrderBy(x => x.MaDatHang);
             if (!String.IsNullOrEmpty(SearchString))
             {

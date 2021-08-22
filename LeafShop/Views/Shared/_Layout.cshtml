@@ -94,13 +94,6 @@
             </div>
         </a>
     </div>
-    <div id="bottom-right" class="hidden-xs">
-        <a href="http://leafshop.vn/pages/gioi-thieu-ve-leaf-shop">
-            <div class="text">
-                <i style="font-size:20px;" class="fa fa-caret-right" aria-hidden="true"></i> Tin tức Leaf Organic
-            </div>
-        </a>
-    </div>
     <style>
         @@media (max-width: 991px) {
             #menu-toggle {
@@ -343,8 +336,7 @@
                                         <div class="input-group" style="margin: 2px 0px 5px; width: 100%">
 
 
-
-                                            <input id="searchtext" name="searchString" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm...">
+                                            <input id="searchtext" name="searchString" maxlength="40" class="form-control input-search" type="text" size="20" placeholder="Tìm kiếm..." style="width: 500px;">
 
                                             <span class="input-group-auto">
 
@@ -914,6 +906,7 @@
                     }
                     $("#motasp").html(response.MoTa);
                     $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
+                    $("#buynow").attr("onclick", "AddToCheckOut(" + response.MaSanPham + ")");
                 },
                 error: function (response) {
 
@@ -944,7 +937,29 @@
 
             });
         }
-        
+
+        function AddToCheckOut(id) {
+            var soluong = $("#product_quantity1").val(); 
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                data: JSON.stringify({ "MaSanPham": id, "SoLuong": soluong }),
+                url: "/Cart/AddToCart",
+                success: function (response) {
+                    if (response.status) {
+                        getCart();
+                        window.location.href = "/Cart/CheckOut";
+
+                    }
+                },
+                error: function (response) {
+
+                },
+
+            });
+        }
+
+
         function deleteFromCart(id) {
             $.ajax({
                 type: "POST",

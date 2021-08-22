@@ -89,13 +89,6 @@
     </div>
 
 
-    <div id="bottom-right" class="hidden-xs">
-        <a href="http://leafshop.vn/pages/gioi-thieu-ve-leaf-shop">
-            <div class="text">
-                <i style="font-size:20px;" class="fa fa-caret-right" aria-hidden="true"></i> Tin tức Leaf Organic
-            </div>
-        </a>
-    </div>
     <style>
         @@media (max-width: 991px) {
             #menu-toggle {
@@ -896,6 +889,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                         <script>
 
                             function loadsp(id) {
@@ -917,6 +912,7 @@
                                         }
                                         $("#motasp").html(response.MoTa);
                                         $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
+                                        $("#buynow").attr("onclick", "AddToCheckOut(" + response.MaSanPham + ")");
                                     },
                                     error: function (response) {
 
@@ -974,7 +970,7 @@
                             }
 
                             function redirect() {
-                                window.location.href = "../Cart/Orders";
+                                window.location.href = "/Cart/Orders";
                             }
 
                             function AddToCart(id, soluong) {
@@ -986,6 +982,27 @@
                                     success: function (response) {
                                         if (response.status) {
                                             getCart();
+                                        }
+                                    },
+                                    error: function (response) {
+
+                                    },
+
+                                });
+                            }
+
+                            function AddToCheckOut(id) {
+                                var soluong = $("#product_quantity1").val();
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({ "MaSanPham": id, "SoLuong": soluong }),
+                                    url: "/Cart/AddToCart",
+                                    success: function (response) {
+                                        if (response.status) {
+                                            getCart();
+                                            window.location.href = "/Cart/CheckOut";
+
                                         }
                                     },
                                     error: function (response) {

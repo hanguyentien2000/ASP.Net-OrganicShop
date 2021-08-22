@@ -14,8 +14,8 @@ namespace LeafShop.Controllers
         public ActionResult Index()
         {
             ViewBag.SanPham = db.SanPhams.Select(p => p);
-            ViewBag.SanPhamMoiNhat = db.SanPhams.Select(p => p).OrderByDescending(x => x.NgayKhoiTao).Take(4);
-            ViewBag.SanPhamNoiBat = db.SanPhams.Select(p => p).OrderByDescending(x => x.SoLuongBan).Take(4);
+            ViewBag.SanPhamMoiNhat = db.SanPhams.Select(p => p).OrderByDescending(x => x.NgayKhoiTao).Take(8);
+            ViewBag.SanPhamNoiBat = db.SanPhams.Select(p => p).OrderByDescending(x => x.SoLuongBan).Take(8);
             ViewBag.TinTuc = db.Blogs.Select(p => p).OrderBy(x => x.MaBaiViet).Take(3);
             ViewBag.thuongHieu = db.ThuongHieux.Select(p => p).ToList();
             return View();
