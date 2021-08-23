@@ -70,8 +70,20 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Xoá" class="btn btn-default" /> |
+            <input type="submit" value="Xoá" class="btn btn-default" onclick="return confirmDelete()" /> |
             @Html.ActionLink("Quay trở lại", "Index")
         </div>
     }
 </div>
+<script>
+        function confirmDelete() {
+                var result = confirm('Bạn có chắc chắn muốn XÓA?')
+                if (result) {
+                    alert('XÓA THÀNH CÔNG!!!')
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+</script>
