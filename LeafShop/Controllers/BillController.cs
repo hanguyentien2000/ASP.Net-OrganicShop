@@ -44,7 +44,7 @@ namespace LeafShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateBill(int tongtien, string ghiChu)
+        public ActionResult CreateBill(int tongtien, string ghiChu, string diaChi)
         {
             try
             {
@@ -53,6 +53,7 @@ namespace LeafShop.Controllers
                 dh.MaKhachHang = kh.MaKhachHang;
                 dh.NgayKhoiTao = DateTime.Now;
                 dh.NgayGiaoHang = null;
+                dh.DiaChi = diaChi;
                 dh.TongTien = tongtien;
                 dh.TrangThai = false;
                 dh.MaNhanVien = null;

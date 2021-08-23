@@ -32,14 +32,14 @@
                         <tr>
                             <td>Phí ship</td>
                             <td>1</td>
-                            <td>35000 đ</td>
+                            <td>35,000đ</td>
                         </tr>
                         @foreach (var chitietdh in Model)
                         {
                             <tr>
                                 <td scope="row">@chitietdh.SanPham.TenSanPham</td>
                                 <td>@chitietdh.SoLuong</td>
-                                <td>@chitietdh.DonGia đ</td>
+                                <td data-checkout-subtotal-price-target="@chitietdh.DonGia">@String.Format("{0:0,0đ}", chitietdh.DonGia)</td>
                             </tr>
                         }
                     </tbody>

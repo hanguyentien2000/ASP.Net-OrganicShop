@@ -243,7 +243,7 @@
                         <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle-dropdown" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg>
                     </div>
                     <div class="order-summary-toggle-total-recap" data-checkout-payment-due-target="13000000">
-                        <span class="total-recap-final-price">@tamtinh</span>
+                        <span class="total-recap-final-price" data-checkout-subtotal-price-target="@tamtinh">@String.Format("{0:0,0đ}", tamtinh)</span>
                     </div>
                 </div>
             </div>
@@ -359,7 +359,7 @@
                                                 <td class="total-line-name">Phí vận chuyển</td>
                                                 <td class="total-line-price">
                                                     <span class="order-summary-emphasis" data-checkout-total-shipping-target="0">
-                                                        35000₫
+                                                        35,000₫
                                                     </span>
                                                 </td>
                                             </tr>
@@ -420,19 +420,19 @@
                                             <div class="field   ">
                                                 <div class="field-input-wrapper">
                                                     <label class="field-label" for="billing_address_full_name">Họ và tên</label>
-                                                    <input placeholder="Họ và tên" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_full_name" name="billing_address[full_name]" value="@ViewBag.KhachHang.TenKhachHang" />
+                                                    <input disabled placeholder="Họ và tên" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_full_name" name="billing_address[full_name]" value="@ViewBag.KhachHang.TenKhachHang" />
                                                 </div>
                                             </div>
                                             <div class="field field-required   ">
                                                 <div class="field-input-wrapper">
                                                     <label class="field-label" for="billing_address_phone">Số điện thoại</label>
-                                                    <input placeholder="Số điện thoại" autocapitalize="off" spellcheck="false" class="field-input" size="30" maxlength="15" type="tel" id="billing_address_phone" name="billing_address[phone]" value="@ViewBag.KhachHang.DienThoaiKhachHang" />
+                                                    <input disabled placeholder="Số điện thoại" autocapitalize="off" spellcheck="false" class="field-input" size="30" maxlength="15" type="tel" id="billing_address_phone" name="billing_address[phone]" value="@ViewBag.KhachHang.DienThoaiKhachHang" />
                                                 </div>
                                             </div>
                                             <div class="field   ">
                                                 <div class="field-input-wrapper">
                                                     <label class="field-label" for="billing_address_address1">Địa chỉ</label>
-                                                    <input placeholder="Địa chỉ" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="billing_address_address1" name="billing_address[address1]" value="@ViewBag.KhachHang.DiaChiKhachHang" />
+                                                    <input placeholder="Địa chỉ" autocapitalize="off" spellcheck="false" class="field-input" size="30" type="text" id="DiaChi" name="DiaChi" value="@ViewBag.KhachHang.DiaChiKhachHang" />
                                                 </div>
                                             </div>
                                         </div>
@@ -459,22 +459,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                                <div class="section-header">
-                                                    <h2 class="section-title">Ghi chú</h2>
-                                                </div>
-                                                <div class="section-content field field-input fieldset">
-                                                    <div class="field   ">
-                                                        <div class="field-input-wrapper">
-                                                            <input type="text" style='height:85px' id="note" class='field-input' name="GhiChu" rows="8" cols="50" />
-                                                        </div>
+                                            <div class="section-header">
+                                                <h2 class="section-title">Ghi chú</h2>
+                                            </div>
+                                            <div class="section-content field field-input fieldset">
+                                                <div class="field   ">
+                                                    <div class="field-input-wrapper">
+                                                        <input type="text" style='height:85px' id="note" class='field-input' name="GhiChu" rows="8" cols="50" />
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="step-footer">
-                                <input type="submit" class="btn btn-content" value="Hoàn tất đơn hàng"/>
+                                <input type="submit" class="btn btn-content" value="Hoàn tất đơn hàng" onclick="return ValidatInformation()" />
                                 <a class="step-footer-previous-link" href="@Url.Action("Orders", "Cart")">
                                     <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3"><path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path></svg>
                                     Giỏ hàng
@@ -489,6 +489,25 @@
             </div>
         </div>
     }
+    <script>
+        function ValidatInformation() {
+            var ghichu = document.getElementById('DiaChi');
+            if (ghichu.value == "") {
+                alert('Địa chỉ KHÔNG được để trống!!!');
+                ghichu.focus();
+                return false;
+            } else {
+                var result = confirm('Bạn có chắc chắn muốn đặt hàng?')
+                if (result) {
+                    alert('Đặt hàng THÀNH CÔNG!!!')
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
 
