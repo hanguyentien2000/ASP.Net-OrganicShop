@@ -144,20 +144,42 @@ CREATE TABLE ChiTietDatHang
 
 --Thêm dữ liệu vào bảng danh mục--
 GO
-INSERT INTO DanhMuc VALUES(N'Thực phẩm tươi sống','1')
-INSERT INTO DanhMuc VALUES(N'Thực phẩm khô','2')
-INSERT INTO DanhMuc VALUES(N'Làm đẹp','3')
-INSERT INTO DanhMuc VALUES(N'Chăm sóc cơ thể','4')
-INSERT INTO DanhMuc VALUES(N'Mẹ & bé','5')
-INSERT INTO DanhMuc VALUES(N'Chăm sóc nhà cửa','6')
+INSERT INTO DanhMuc VALUES(N'Thực phẩm tươi sống',null)
+INSERT INTO DanhMuc VALUES(N'Thực phẩm khô',null)
+INSERT INTO DanhMuc VALUES(N'Làm đẹp',null)
+INSERT INTO DanhMuc VALUES(N'Chăm sóc cơ thể',null)
+INSERT INTO DanhMuc VALUES(N'Mẹ & bé',null)
+INSERT INTO DanhMuc VALUES(N'Chăm sóc nhà cửa',null)
+INSERT INTO DanhMuc VALUES(N'Đời sống & tinh thần',null)
+INSERT INTO DanhMuc VALUES(N'Zero waste',null)
+INSERT INTO DanhMuc VALUES(N'Sale',null)
+INSERT INTO DanhMuc VALUES(N'Thịt và thủy hải sản',1)
+INSERT INTO DanhMuc VALUES(N'Rau, củ quả tươi',1)
+INSERT INTO DanhMuc VALUES(N'Trái cây tươi',1)
+INSERT INTO DanhMuc VALUES(N'Đồ uống',2)
+INSERT INTO DanhMuc VALUES(N'Gạo hữu cơ',2)
+INSERT INTO DanhMuc VALUES(N'Trang điểm',3)
+INSERT INTO DanhMuc VALUES(N'Chăm sóc da mặt',3)
+INSERT INTO DanhMuc VALUES(N'Thịt, xương và sản phẩm từ lợn',10)
+INSERT INTO DanhMuc VALUES(N'Gia cầm và trứng',10)
 
 
 --Thêm dữ liệu vào bảng ThuongHieu--
 GO
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu A',N'Hà Nội','0123456789', N'Test', NULL)
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu B',N'Lạng Sơn','0123456789', N'Test', NULL)
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu C',N'Đà Nẵng','0123456789',N'Test', NULL)
-INSERT INTO ThuongHieu VALUES(N'Thương Hiệu D',N'Hồ Chí Minh','0123456789',N'Test', NULL)
+INSERT INTO ThuongHieu VALUES(N'Nguyên Khôi Farm',N'Hà Nội','0123456789', N'Thịt lợn Nguyên Khôi Farm là sản phẩm của Công ty Cổ phần Nguyên Khôi Xanh, một đơn vị uy tín đạt rất nhiều giải thưởng về nông nghiệp (Tham khảo thông tin trong website: https://nguyenkhoifarm.com/). 
+Thịt lợn Nguyên Khôi Farm là sản phẩm chất lượng cao được sản xuất từ trang trại lợn tại Yên Lập, Phú Thọ. Đây là vùng thung lũng trong lành, rất xa các khu công nghiệp.', '/Areas/UploadFile/ThuongHieu/thuonghieu1.jpg')
+INSERT INTO ThuongHieu VALUES(N'Vườn Rau',N'Hà Nội','0123456789', N'Chưa có thông tin', '/Areas/UploadFile/ThuongHieu/thuonghieu2.jpg')
+INSERT INTO ThuongHieu VALUES(N'Daioni',N'Đà Nẵng','0123456789',N'Daioni, nhãn hiệu sữa đạt chứng nhận tiêu chuẩn Organic nổi tiếng của xứ Wales - Anh Quốc đang được phân phối chính thức tại Việt Nam! Tất cả các sản phẩm của Daioni đều được làm từ 100% sữa tươi hữu cơ và được chứng nhận chất lượng bởi một trong những Tổ chức chứng nhận hữu cơ có thẩm quyền lớn nhất của Liên minh châu Âu - The Soil Association.', '/Areas/UploadFile/ThuongHieu/thuonghieu3.jpg')
+INSERT INTO ThuongHieu VALUES(N'AVRIL',N'Hồ Chí Minh','0123456789',N'Avril là một thương hiệu tuy mới ra đời từ năm 2012 nhưng đến nay đã trở nên quen thuộc và được đông đảo người tiêu dùng mỹ phẩm trang điểm tự nhiên và hữu cơ tin tưởng sử dụng.
+
+Thành công của thương hiệu tập trung ở 3 thế mạnh: chất lượng, tôn trọng môi trường sinh thái và giá cả cạnh tranh.
+ - Chất lượng Avril : Tất cả sản phẩm hữu cơ của Avril đều được chứng nhận bởi tổ chức Ecocert và được sản xuất tại Châu Âu.
+- Tôn trọng môi trường sinh thái : bằng những hành động cụ thể như không làm thêm bao bì đóng gói bên ngoài sản phẩm, công thức sản xuất với các thành phần được chứng nhận hữu cơ bởi tổ chức Ecocert, công thức sản xuất sơn móng với các thành phần tự nhiên nhất có thể (sơn móng "7free")
+- Giá cả cạnh tranh và hợp lý nhất có thể :
+--> Avril là thương hiệu sở hữu các sản phẩm được chứng nhận hữu cơ cạnh tranh nhất nước Pháp
+--> Chiến lược phát triển chưa từng có tại Pháp : không quảng cáo rầm rộ qua các phương tiện truyền thông thông thường, không tốn chi phí marketing và kinh doanh, chi phí cố định rất hạn chế. Thương hiệu được biến đến thông qua truyền miệng, blog làm đẹp, mạng xã hội (facebook, twitter, Pinterest, Instagram..), quảng cáo qua kênh riêng trên Youtube...
+
+Đến nay Avril đã được phân phối trên hơn 20 nước trên thế giới, giúp người tiêu dùng mọi nơi có thêm một lựa chọn mới cho việc chăm sóc sắc đẹp của mình, an toàn hơn, thân thiện môi trường hơn và với giá thành hợp lý hơn.', '/Areas/UploadFile/ThuongHieu/thuonghieu4.jpg')
 
 --Thêm dữ liệu vào bảng Khách hàng--
 GO
