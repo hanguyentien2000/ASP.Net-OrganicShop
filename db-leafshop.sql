@@ -52,7 +52,7 @@ CREATE TABLE SanPham
 	MaThuongHieu INT ,
 	DonViTinh NVARCHAR(50) NULL,
 	SoLuong INT NULL,
-	SoLuongBan INT NULL,
+	SoLuongBan INT Default 0,
 	DonGia INT NULL ,
 	MoTa nvarchar(2000) NULL,
 	NgayKhoiTao Date NULL,
