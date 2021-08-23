@@ -96,10 +96,10 @@ namespace LeafShop.Areas.Administrator.Controllers
                 ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
                 ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
                 var existData = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
-                var check = sp.SoLuong - sp.SoLuongBan;
-                if(check < 0)
+           
+                if(sp.SoLuong < 0)
                 {
-                    ViewBag.Error = "Số lượng không được phép nhỏ hơn số lượng bán";
+                    ViewBag.Error = "Số lượng không được phép nhỏ hơn 0";
                     return View(sp);
                 }
                 if(existData != null)
@@ -107,7 +107,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                     ViewBag.Error = "Mã sản phẩm này đã tồn tại";
                     return View(sp);
                 }
-                else if(existData == null && check >= 0)
+                else if(existData == null && sp.SoLuong >= 0)
                 {
                     db.SanPhams.Add(sp);
                     db.SaveChanges();
