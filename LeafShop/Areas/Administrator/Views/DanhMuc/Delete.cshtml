@@ -1,49 +1,67 @@
 ﻿@model LeafShop.Models.DanhMuc
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa danh mục";
 }
-
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDanhMuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDanhMuc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ParentId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ParentId)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Xoá" class="btn btn-default" onclick="return confirmDelete()" /> |
-            @Html.ActionLink("Quay trở lại", "Index")
-        </div>
+<h2 style="font-size: 30px">Xóa danh mục</h2>
+<style>
+    td, th {
+        padding: 10px;
     }
+
+    button a {
+        color: white;
+    }
+
+        button a:hover {
+            color: white;
+        }
+
+    .w-50 {
+        width: 50%;
+    }
+</style>
+<hr />  
+<div style="display:flex;justify-content:center;width:100%;">
+    <div style="margin-top:30px;" class="w-50">
+
+        <table width="100%" border="1">
+            <tr>
+                <th>Tên danh mục</th>
+                <td>@Model.TenDanhMuc</td>
+            </tr>
+            <tr>
+                <th>
+                    Danh mục cha
+                </th>
+                <td>
+                    @if (ViewBag.tenDMCha != null)
+                    {
+                        @ViewBag.tenDMCha
+                    }
+                </td>
+            </tr>
+        </table>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color" style=";margin-top:10px;text-align:center;">
+                <input type="submit" value="Xoá" class="btn btn-danger" onclick="return confirmDelete()" />
+                <button class="btn btn-primary">@Html.ActionLink("Quay trở lại", "Index")</button>
+            </div>
+        }
+    </div>
 </div>
 <script>
-        function confirmDelete() {
-                var result = confirm('Bạn có chắc chắn muốn XÓA?')
-                if (result) {
-                    alert('XÓA THÀNH CÔNG!!!')
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
+    function confirmDelete() {
+        var result = confirm('Bạn có chắc chắn muốn XÓA?')
+        if (result) {
+            alert('XÓA THÀNH CÔNG!!!')
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 </script>

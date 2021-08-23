@@ -5,12 +5,26 @@
 @{
     ViewBag.Title = "Index";
 }
+<style>
+  
+    button a {
+        color: white;
+    }
 
-<h2>@Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })|
-@Html.ActionLink("Export to Pdf", "Reports", new { ReportType = "PDF" })|
-@Html.ActionLink("Export to Word", "Reports", new { ReportType = "Word" })|
-@Html.ActionLink("Export to Images", "Reports", new { ReportType = "Image" })
-</h2>
+        button a:hover {
+            color: white;
+        }
+
+    .w-50 {
+        width: 50%;
+    }
+</style>
+<div>
+    <button class="btn btn-success">@Html.ActionLink("Export to Excel", "Reports", new { ReportType = "Excel" })</button>
+    <button class="btn btn-danger">@Html.ActionLink("Export to Pdf", "Reports", new { ReportType = "PDF" })</button>
+    <button class="btn btn-primary">@Html.ActionLink("Export to Word", "Reports", new { ReportType = "Word" })</button>
+    <button class="btn btn-info">@Html.ActionLink("Export to Images", "Reports", new { ReportType = "Image" })</button>
+</div>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
         <div class="title_left">
@@ -29,7 +43,7 @@
                         {
                             //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
                             <p>
-                                <input type="submit" value="Tìm" />
+                                <input type="submit" value="Tìm" class="btn btn-primary"/>
                                 @Html.TextBox("SearchString")
                             </p>
                         }

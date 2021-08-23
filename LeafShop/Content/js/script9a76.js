@@ -260,8 +260,7 @@ function check_topcart_empty(){
 	if($('.top-cart-block .top-cart-content .top-cart-item').size() <= 0) 
 	{		
 		top_cart_no_item = $('.top-cart-block .top-cart-content').html();   
-		$('.top-cart-block .top-cart-content').html(); 
-	
+		$('.top-cart-block .top-cart-content').html();
 	}
 	else{
 		//remove width, okok!!! 

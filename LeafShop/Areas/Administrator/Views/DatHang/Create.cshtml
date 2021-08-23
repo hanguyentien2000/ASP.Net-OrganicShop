@@ -1,9 +1,17 @@
 ﻿@model LeafShop.Models.DatHang
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm mới đặt hàng";
 }
+<style>
+    btn a {
+        color: white;
+    }
 
+        btn a:hover {
+            color: white;
+        }
+</style>
 <h2 style="font-size: 30px">Thêm mới đặt hàng</h2>
 <hr />
 @using (Html.BeginForm())
@@ -72,8 +80,8 @@
 
                     </div>
                     <div class="md-form md-outline mt-0">
-                        <input type="submit" value="Lưu" class="btn btn-default" />
-                        @Html.ActionLink("Quay trở lại", "Index")
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                       @Html.ActionLink("Quay trở lại", "Index")
                     </div>
                 </div>
             </div>

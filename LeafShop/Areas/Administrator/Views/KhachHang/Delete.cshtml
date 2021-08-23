@@ -1,94 +1,115 @@
 ﻿@model LeafShop.Models.KhachHang
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa khách hàng";
 }
 
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenKhachHang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenKhachHang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChiKhachHang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChiKhachHang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DienThoaiKhachHang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DienThoaiKhachHang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDangNhap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDangNhap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @(Model.GioiTinh?"Nam":"Nữ")
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @(Model.TrangThai?"Đang hoạt động":"Không hoạt động")
-        </dd>
-    </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Xoá" class="btn btn-default" onclick="return confirmDelete()" /> |
-            @Html.ActionLink("Quay trở lại", "Index")
-        </div>
+<h2 style="font-size: 30px">Xóa khách hàng</h2>
+<style>
+    td, th {
+        padding: 10px;
     }
+
+    button a {
+        color: white;
+    }
+
+        button a:hover {
+            color: white;
+        }
+
+    .w-50 {
+        width: 50%;
+    }
+</style>
+<hr />
+<div style="display:flex;justify-content:center;">
+    <div class="w-50">
+        <table border="1" style="width:100%;">
+            <tr>
+                <th>
+                    Tên khách hàng
+                </th>
+                <td>
+                    @Model.TenKhachHang
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Địa chỉ
+                </th>
+                <td>
+                    @Model.DiaChiKhachHang
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Số điện thoại
+                </th>
+                <td>
+                    @Model.DienThoaiKhachHang
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Tên đăng nhập
+                </th>
+                <td>
+                    @Model.TenDangNhap
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Mật khẩu
+                </th>
+                <td>
+
+                    @Model.MatKhau
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Ngày sinh
+                </th>
+                <td>
+                    @{ var date = Model.NgaySinh.HasValue ? Model.NgaySinh.Value.ToString("dd-MM-yyyy") : String.Empty; } @date
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Giới tính
+                </th>
+                <td>
+                    @(Model.GioiTinh?"Nam":"Nữ")
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Email
+                </th>
+                <td>
+                    @Model.Email
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Trạng thái
+                </th>
+                <td>
+                    @(Model.TrangThai?"Đang hoạt động":"Không hoạt động")
+                </td>
+            </tr>
+        </table>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color" style=";margin-top:10px;text-align:center;">
+        <input type="submit" value="Xoá" class="btn btn-danger" onclick="return confirmDelete()" />
+        <button class="btn btn-primary">@Html.ActionLink("Quay trở lại", "Index")</button>
+    </div>
+        }
+    </div>
 </div>
 @if (ViewBag.Error != null)
 {

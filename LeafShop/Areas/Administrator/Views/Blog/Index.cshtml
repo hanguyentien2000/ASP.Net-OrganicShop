@@ -3,7 +3,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bài viết";
 }
 
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,7 +24,7 @@
                         {
                             //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
                             <p>
-                                <input type="submit" value="Tìm" />
+                                <input type="submit" value="Tìm" class="btn" />
                                 @Html.TextBox("SearchString")
                             </p>
                         }
@@ -52,10 +52,10 @@
                         <th>
                             Ngày khởi tạo
                         </th>
-                        <th>
+                        @*<th>
                             Nội dung
-                        </th>
-                        <th>Thao tác</th>
+                        </th>*@
+                        <th style="width:200px">Thao tác</th>
                     </tr>
                 </thead>
                 @foreach (var item in Model)
@@ -66,13 +66,17 @@
                             <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
                             <td>@Html.DisplayFor(modelItem => item.TieuDe)</td>
                             <td>
-                                <img style="width:100px; height: 100px" src="@item.Anh" class="img-thumbnail" />
+                                @{ 
+                                    var ImagePath = item.Anh != null ? item.Anh : "~/Content/image/h0.png";
+                                }
+                                <img style="width:100px; height: 100px" src="@Url.Content(ImagePath)" class="img-thumbnail" />
                             </td>
                             <td>@Html.DisplayFor(modelItem => item.Tomtat)</td>
                             <td>@Html.DisplayFor(modelItem => item.NgayKhoiTao)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Noidung)</td>
+                            @*<td></td>*@
 
                             <td>
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaBaiViet }) |
                                 @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaBaiViet }) |
                                 @Html.ActionLink("Xoá", "Delete", new { id = item.MaBaiViet })
                             </td>

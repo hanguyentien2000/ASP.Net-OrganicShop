@@ -1,10 +1,10 @@
 ﻿@model LeafShop.Models.Blog
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm mới bài viết";
 }
 
-<h2 style="font-size: 30px">Thêm mới Blog</h2>
+<h2 style="font-size: 30px">Thêm mới bài viết</h2>
 <hr />
 
 @using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -39,7 +39,7 @@
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Ảnh</label>
                         <br />
-                        <img id="output" class="img-rounded" alt="Ảnh" width="200" height="200" />
+                        <img id="output" class="img-rounded" alt="Ảnh" width="200" height="200" src="~/Content/image/h0.png" />
 
                         <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
 

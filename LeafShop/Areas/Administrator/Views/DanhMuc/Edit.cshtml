@@ -1,9 +1,17 @@
 ﻿@model LeafShop.Models.DanhMuc
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Cập nhật danh mục";
 }
+<style>
+    button a {
+        color: white;
+    }
 
+        button a:hover {
+            color: white;
+        }
+</style>
 <h2 style="font-size: 30px">Cập nhật danh mục</h2>
 <hr />
 @using (Html.BeginForm())
@@ -29,7 +37,7 @@
 
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <input type="submit" value="Lưu" class="btn btn-default" />
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
                         @Html.ActionLink("Quay trở lại", "Index")
                     </div>
                 </div>

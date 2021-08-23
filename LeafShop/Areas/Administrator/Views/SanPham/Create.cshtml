@@ -1,12 +1,20 @@
 ﻿@model LeafShop.Models.SanPham
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm mới sản phẩm";
 }
 
 <h2 style="font-size: 30px">Thêm mới sản phẩm</h2>
 <hr />
+<style>
+    button a {
+        color: white;
+    }
 
+        button a:hover {
+            color: white;
+        }
+</style>
 @using (Html.BeginForm("Create", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -81,14 +89,14 @@
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Hình minh hoạ</label>
                         <br />
-                        <img id="output" class="img-rounded" alt="Ảnh" width="200" height="200" />
+                        <img id="output" class="img-rounded" alt="Ảnh" width="200" height="200" src="~/Content/image/h0.png"/>
 
                         <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
                     </div>
 
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <input type="submit" value="Lưu" class="btn btn-default" />
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
                         @Html.ActionLink("Quay trở lại", "Index")
                     </div>
                 </div>

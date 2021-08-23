@@ -1,9 +1,18 @@
 ﻿@model LeafShop.Models.ThuongHieu
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Cập nhật thương hiệu";
     var ImagePath = Model.AnhThuongHieu != null ? Model.AnhThuongHieu : "~/Content/image/h0.png";
 }
+<style>
+    button a {
+        color: white;
+    }
+
+        button a:hover {
+            color: white;
+        }
+</style>
 <script>
     var loadFile = function (event) {
         var image = document.getElementById('output');
@@ -54,8 +63,8 @@
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <input type="submit" value="Lưu" class="btn btn-default" />
-                        @Html.ActionLink("Quay trở lại", "Index")
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                      @Html.ActionLink("Quay trở lại", "Index")
                     </div>
                 </div>
             </div>

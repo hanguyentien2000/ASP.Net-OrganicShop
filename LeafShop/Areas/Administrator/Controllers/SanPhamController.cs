@@ -201,7 +201,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/SanPham/Delete/5
         public ActionResult Delete(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
             if (sanPham == null)
             {
                 return HttpNotFound();

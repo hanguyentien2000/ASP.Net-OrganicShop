@@ -1,73 +1,75 @@
 ﻿@model LeafShop.Models.ThuongHieu
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa thương hiệu";
 }
-
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenThuongHieu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenThuongHieu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChiThuongHieu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChiThuongHieu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DienThoaiThuongHieu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DienThoaiThuongHieu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MoTaThuongHieu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MoTaThuongHieu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AnhThuongHieu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AnhThuongHieu)
-        </dd>
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Xoá" class="btn btn-default" onclick="return confirmDelete()" /> |
-            @Html.ActionLink("Quay trở lại", "Index")
-        </div>
+<style>
+    th, td {
+        padding: 10px;
     }
+
+    button a {
+        color: white;
+    }
+
+        button a:hover {
+            color: white;
+        }
+
+    .w-50 {
+        width: 50%;
+    }
+</style>
+<h2 style="font-size: 30px">Xóa thương hiệu</h2>
+<hr />
+
+<div style="display:flex;justify-content:center">
+    <div class="w-50">
+        <table border="1" style="width:100%;">
+            <tr>
+                <th>Tên thương hiệu</th>
+                <td>@Model.TenThuongHieu</td>
+            </tr>
+            <tr>
+                <th>Địa chỉ</th>
+                <td>@Model.DiaChiThuongHieu</td>
+            </tr>
+            <tr>
+                <th>Số điện thoại</th>
+                <td>@Model.DienThoaiThuongHieu</td>
+            </tr>
+            <tr>
+                <th>Mô tả</th>
+                <td>@Model.MoTaThuongHieu</td>
+            </tr>
+            <tr>
+                <th>Ảnh thương hiệu</th>
+                <td>@{ var ImagePath = Model.AnhThuongHieu != null ? Model.AnhThuongHieu : "~/Content/image/h0.png"; } <img src="@Url.Content(ImagePath)" style="width: 150px; height: 150px;" /></td>
+            </tr>
+
+        </table>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color" style="margin-top:10px;text-align:center;">
+                <input type="submit" value="Xoá" class="btn btn-danger" onclick="return confirmDelete()" />
+                <button class="btn btn-primary">@Html.ActionLink("Quay trở lại", "Index")</button>
+            </div>
+        }
+    </div>
 </div>
 
 <script>
-        function confirmDelete() {
-                var result = confirm('Bạn có chắc chắn muốn XÓA?')
-                if (result) {
-                    alert('XÓA THÀNH CÔNG!!!')
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
+    function confirmDelete() {
+        var result = confirm('Bạn có chắc chắn muốn XÓA?')
+        if (result) {
+            alert('XÓA THÀNH CÔNG!!!')
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 </script>

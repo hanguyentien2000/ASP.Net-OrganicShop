@@ -45,7 +45,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/Blog/Details/5
         public ActionResult Details(int id)
         {
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = db.Blogs.Include("NhanVien").Include("DanhMucBlog").Where(x => x.MaBaiViet == id).FirstOrDefault();
             if (blog == null)
             {
                 return HttpNotFound();

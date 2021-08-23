@@ -3,7 +3,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh mục";
 }
 
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,7 +24,7 @@
                         {
                             //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
                             <p>
-                                <input type="submit" value="Tìm" />
+                                <input type="submit" value="Tìm" class="btn btn-primary"/>
                                 @Html.TextBox("SearchString")
                             </p>
                         }

@@ -4,7 +4,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Nhân viên";
 }
 
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -83,7 +83,10 @@
                                 @Html.DisplayFor(modelItem => item.DiaChi)
                             </td>
                             <td>
-                                <img style="width:100px; height: 100px" src="@item.Avatar" class="img-thumbnail" />
+                                @{ 
+                                    var ImagePath = item.Avatar != null ? item.Avatar : "~/Content/image/h0.png";
+                                }
+                                <img style="width:100px; height: 100px" src="@Url.Content(ImagePath)" class="img-thumbnail" />
                             </td>
                             <td>
                                 @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaNhanVien }) |

@@ -3,7 +3,7 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Thương hiệu";
 }
 
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -16,7 +16,7 @@
         <div class="x_content">
             <div class="row">
                 <div class="col-sm-6">
-                    <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")
+               <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")
                 </div>
                 <div class="col-sm-6">
                     <div id="datatable_filter" class="dataTables_filter">
@@ -24,7 +24,7 @@
                         {
                             //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
                             <p>
-                                <input type="submit" value="Tìm" />
+                                <input type="submit" value="Tìm" class="btn btn-primary"/>
                                 @Html.TextBox("SearchString")
                             </p>
                         }
@@ -65,7 +65,11 @@
                             <td>@Html.DisplayFor(modelItem => item.DienThoaiThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.MoTaThuongHieu)</td>
                             <td>
-                                <img style="width:100px; height: 100px" src="@item.AnhThuongHieu" class="img-thumbnail" />
+                                @{ 
+                                    var ImagePath = item.AnhThuongHieu != null ? item.AnhThuongHieu : "~/Content/image/h0.png";
+
+                                }
+                                <img style="width:100px; height: 100px" src="@Url.Content(ImagePath)" class="img-thumbnail" />
                             </td>
                             <td>
                                 @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaThuongHieu }) |

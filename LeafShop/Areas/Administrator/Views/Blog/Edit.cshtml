@@ -1,7 +1,7 @@
 ﻿@model LeafShop.Models.Blog
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Cập nhật bài viết";
     var ImagePath = Model.Anh != null ? Model.Anh : "~/Content/image/h0.png";
 }
 <script>
@@ -10,7 +10,7 @@
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 </script>
-<h2 style="font-size: 30px">Cập nhật Blog</h2>
+<h2 style="font-size: 30px">Cập nhật bài viết</h2>
 
 
 @using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))

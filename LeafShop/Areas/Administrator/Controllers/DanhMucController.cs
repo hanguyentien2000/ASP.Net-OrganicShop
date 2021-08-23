@@ -128,6 +128,11 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult Delete(int id)
         {
             DanhMuc danhMuc = db.DanhMucs.Find(id);
+            if(danhMuc.ParentId != null)
+            {
+                DanhMuc dmCha = db.DanhMucs.Where(s => s.MaDanhMuc == danhMuc.ParentId).FirstOrDefault();
+                ViewBag.tenDMCha = dmCha.TenDanhMuc;
+            }    
             if (danhMuc == null)
             {
                 return HttpNotFound();
