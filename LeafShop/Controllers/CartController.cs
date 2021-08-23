@@ -135,8 +135,9 @@ namespace LeafShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckOut([Bind(Include = "GhiChu")] DatHang dh)
+        public ActionResult CheckOut([Bind(Include = "GhiChu,DiaChi")] DatHang dh)
         {
+            string diaChi = dh.DiaChi;
             string ghiChu = dh.GhiChu;
             List<ChiTietDatHang> res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
             foreach (ChiTietDatHang item in res)
@@ -147,7 +148,7 @@ namespace LeafShop.Controllers
                 }
             }
             tongTien += 35000;
-            return RedirectToAction("CreateBill", "Bill", new { tongTien = tongTien, ghiChu = ghiChu });
+            return RedirectToAction("CreateBill", "Bill", new { tongTien = tongTien, ghiChu = ghiChu, diaChi = diaChi });
         }
 
         [HttpGet]
