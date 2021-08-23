@@ -284,6 +284,7 @@
 
                                 @if (db != null)
                                 {
+                                    <li><a href="/LeafShop/Index">Về LeafShop</a></li>
                                     <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
                                     <li><a href="/UsersInformation/UsersInf/@db.MaKhachHang">Xin chào, @db.TenKhachHang</a></li>
 
@@ -292,6 +293,7 @@
 
                                 @if (db == null)
                                 {
+                            <li><a href="/LeafShop/Index">Về LeafShop</a></li>
                                     <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
                                     <li><a href='@Url.Action("Login", "Home")'>Đăng nhập / Đăng ký</a></li>
                                 }
