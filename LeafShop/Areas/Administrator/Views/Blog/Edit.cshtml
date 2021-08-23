@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    var ImagePath = Model.Anh;
+    var ImagePath = Model.Anh != null ? Model.Anh : "~/Content/image/h0.png";
 }
 <script>
     var loadFile = function (event) {
