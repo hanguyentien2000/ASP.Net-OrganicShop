@@ -198,3 +198,9 @@ INSERT INTO Taikhoan VALUES('quach','quach',0, 2)
 --GO
 --INSERT INTO Blog VALUES('1',N'Thực phẩm đời sống', 'MSP001.jpg',N'Thực phẩm',N'Yếu tó quan trọng của thực phẩm','01/02/2021')
 --INSERT INTO Blog VALUES('2',N'Mẹ & Bé', 'MSP001.jpg',N'Dầu nhờn',N'Yếu tó quan trọng của dầu nhờn','01/06/2021')
+CREATE TRIGGER TG_MUAHANG ON dbo.ChiTietDatHang
+FOR INSERT
+AS 
+  begin
+    update SanPham set SoLuong = SanPham.SoLuong - inserted.SoLuong,SoLuongBan = SoLuongBan + inserted.SoLuong from SanPham inner join inserted on SanPham.MaSanPham = inserted.MaSanPham
+  end
