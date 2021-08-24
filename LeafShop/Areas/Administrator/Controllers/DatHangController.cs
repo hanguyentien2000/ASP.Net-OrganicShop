@@ -44,7 +44,8 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DatHang/Details/5
         public ActionResult Details(int id)
         {
-            DatHang datHang = db.DatHangs.Find(id);
+            DatHang datHang = db.DatHangs.Include("NhanVien").Include("KhachHang").Where(s => s.MaDatHang == id).FirstOrDefault();
+            ViewBag.listDH = db.ChiTietDatHangs.Include("SanPham").Where(s => s.MaDatHang == id).ToList();
             if (datHang == null)
             {
                 return HttpNotFound();
@@ -148,7 +149,8 @@ namespace LeafShop.Areas.Administrator.Controllers
             // GET: Administrator/DatHang/Delete/5
             public ActionResult Delete(int id)
         {
-            DatHang datHang = db.DatHangs.Find(id);
+            DatHang datHang = db.DatHangs.Include("NhanVien").Include("KhachHang").Where(s => s.MaDatHang == id).FirstOrDefault();
+            ViewBag.listDH = db.ChiTietDatHangs.Include("SanPham").Where(s => s.MaDatHang == id).ToList();
             if (datHang == null)
             {
                 return HttpNotFound();
@@ -161,16 +163,24 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+              
             DatHang datHang = db.DatHangs.Find(id);
             try
             {
+                List<ChiTietDatHang> dsDH = db.ChiTietDatHangs.Where(s => s.MaDatHang == id).ToList();
+                for (var i = 0; i < dsDH.Count; i++)
+                {
+                    ChiTietDatHang x = db.ChiTietDatHangs.Where(s => s.MaDatHang == id).FirstOrDefault();
+                    db.ChiTietDatHangs.Remove(x);
+                    db.SaveChanges();
+                }
                 db.DatHangs.Remove(datHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ViewBag.Error = "Không xoá được bản ghi này, yêu cầu xoá thông tin nhân viên và khách hàng trước khi xoá đặt hàng";
+                ViewBag.Error = "Không xoá được bản ghi này :" + ex.Message;
                 return View("Delete", datHang);
             }
         }
