@@ -66,7 +66,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao,NgayGiaoHang,GhiChu,DiaChi,TrangThai")] DatHang datHang)
+        public ActionResult Create(DatHang datHang)
         {
             try
             {
@@ -78,9 +78,20 @@ namespace LeafShop.Areas.Administrator.Controllers
                 {
                     ViewBag.Error = "Mã đặt hàng này đã tồn tại";
                 }
-                if (ModelState.IsValid)
+                else if (existData == null)
                 {
-                    db.DatHangs.Add(datHang);
+                    var data = new DatHang
+                    {
+                        MaKhachHang = datHang.MaKhachHang,
+                        MaNhanVien = datHang.MaNhanVien,
+                        DiaChi = datHang.DiaChi,
+                        GhiChu = datHang.GhiChu,
+                        NgayKhoiTao = DateTime.Now,
+                        NgayGiaoHang = null,
+                        TrangThai = datHang.TrangThai,
+                        TongTien = datHang.TongTien
+                    };
+                    db.DatHangs.Add(data);
                     db.SaveChanges();
                 }
                 return RedirectToAction("Index");
@@ -110,21 +121,31 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDatHang,MaKhachHang,MaNhanVien,TongTien,NgayKhoiTao,NgayGiaoHang,GhiChu,DiaChi,TrangThai")] DatHang datHang)
+        public ActionResult Edit(DatHang datHang)
         {
-            if (ModelState.IsValid)
+            DatHang dathangs = db.DatHangs.Where(s => s.MaDatHang == datHang.MaDatHang).FirstOrDefault();
+            dathangs.MaKhachHang = datHang.MaKhachHang;
+            dathangs.MaNhanVien = datHang.MaNhanVien;
+            dathangs.NgayKhoiTao = datHang.NgayKhoiTao;
+            dathangs.TongTien = datHang.TongTien;
+            dathangs.DiaChi = datHang.DiaChi;
+            dathangs.GhiChu = datHang.GhiChu;
+            dathangs.TrangThai = datHang.TrangThai;
+            if (dathangs.TrangThai == false)
             {
-                db.Entry(datHang).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                dathangs.NgayGiaoHang = DateTime.Now;
             }
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "TenKhachHang", datHang.MaKhachHang);
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", datHang.MaNhanVien);
-            return View(datHang);
+            else if(dathangs.TrangThai == true)
+            {
+                dathangs.NgayGiaoHang = null;
+            } 
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // GET: Administrator/DatHang/Delete/5
-        public ActionResult Delete(int id)
+            // GET: Administrator/DatHang/Delete/5
+            public ActionResult Delete(int id)
         {
             DatHang datHang = db.DatHangs.Include("NhanVien").Include("KhachHang").Where(s => s.MaDatHang == id).FirstOrDefault();
             ViewBag.listDH = db.ChiTietDatHangs.Include("SanPham").Where(s => s.MaDatHang == id).ToList();
