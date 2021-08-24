@@ -28,9 +28,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             ViewBag.CurrentFilter = SearchString;
             //var danhmucs = db.DanhMucs.Select(d => d);
-            IQueryable<DanhMuc> danhmucs = (from dm in db.DanhMucs
-                                            select dm)
-                    .OrderBy(x => x.MaDanhMuc);
+            IQueryable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc2").OrderBy(x => x.MaDanhMuc);
             if (!String.IsNullOrEmpty(SearchString))
             {
                 danhmucs = danhmucs.Where(p => p.TenDanhMuc.Contains(SearchString));

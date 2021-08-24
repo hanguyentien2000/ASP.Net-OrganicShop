@@ -216,6 +216,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\BaseController.cs" />
     <Compile Include="Areas\Administrator\Controllers\BlogController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ChiTietDatHangController.cs" />
     <Compile Include="Areas\Administrator\Controllers\DanhMucBlogsController.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Areas\Administrator\Controllers\DatHangController.cs" />
     <Compile Include="Areas\Administrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\Administrator\Controllers\KhachHangController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\LoginController.cs" />
     <Compile Include="Areas\Administrator\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\Administrator\Controllers\SanPhamController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TaikhoanController.cs" />
@@ -4772,7 +4774,7 @@
     <Content Include="Areas\Administrator\Content\vendors\validator\validator.jquery.json" />
     <Content Include="Areas\Administrator\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Administrator\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Administrator\Views\Login\Login.cshtml" />
     <Content Include="Areas\Administrator\Views\Home\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\DatHang\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\DatHang\Delete.cshtml" />
@@ -4887,6 +4889,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administrator\Views\Base\" />
     <Folder Include="Areas\UploadFile\Blog\" />
     <Folder Include="Areas\UploadFile\NhanVien\" />
     <Folder Include="Areas\UploadFile\SanPham\" />

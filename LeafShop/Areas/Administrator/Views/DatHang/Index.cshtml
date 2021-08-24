@@ -72,11 +72,11 @@
                             <td>@Html.DisplayFor(modelItem => item.NgayGiaoHang)</td>
                             <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
-                            <td>@(item.TrangThai?"Huỷ bỏ":"Đang vận chuyển")</td>
+                            <td>@(item.TrangThai?"Chưa hoàn thành":"Hoàn thành")</td>
                             <td>
-                                @*@Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDatHang }) |*@
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDatHang })
-                                @*@Html.ActionLink("Xoá", "Delete", new { id = item.MaDatHang })*@
+                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDatHang }) |
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaDatHang })|
+                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaDatHang })
                             </td>
                         </tr>
                     </tbody>
