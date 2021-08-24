@@ -10,7 +10,15 @@
         image.src = URL.createObjectURL(event.target.files[0]);
     };
 </script>
+<style>
+    div a {
+        color: white;
+    }
 
+        div a:hover {
+            color: white;
+        }
+</style>
 <h2 style="font-size: 30px">Cập nhật nhân viên</h2>
 <hr />
 
@@ -75,7 +83,7 @@
                     <br />
                     <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
-                        @Html.ActionLink("Quay trở lại", "Index")
+                        <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                     </div>
                 </div>
             </div>

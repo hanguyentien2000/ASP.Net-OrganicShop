@@ -150,7 +150,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/Blog/Delete/5
         public ActionResult Delete(int id)
         {
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = db.Blogs.Include("NhanVien").Include("DanhMucBlog").Where(s => s.MaBaiViet == id).FirstOrDefault();
             if (blog == null)
             {
                 return HttpNotFound();

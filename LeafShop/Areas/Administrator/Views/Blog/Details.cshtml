@@ -9,6 +9,13 @@
     td,th{
         padding: 10px;
     }
+    div a {
+        color: white;
+    }
+
+        div a:hover {
+            color: white;
+        }
 </style>
 <div>
     <hr />
@@ -46,6 +53,6 @@
     </table>
 </div>
 <div style="text-align:center;margin-top:10px;">
-    <button class="btn btn-success">@Html.ActionLink("Cập nhật", "Edit", new { id = Model.MaBaiViet })</button> 
-    <button class="btn">@Html.ActionLink("Quay trở lại", "Index")</button>
+    <button class="btn btn-primary">@Html.ActionLink("Cập nhật", "Edit", new { id = Model.MaBaiViet })</button> 
+    <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
 </div>

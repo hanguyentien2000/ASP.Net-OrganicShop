@@ -3,8 +3,16 @@
 @{
     ViewBag.Title = "Thêm mới danh mục bài viết";
 }
+<style>
+    div a {
+        color: white;
+    }
 
-<h2>Thêm mới danh mục bài viết</h2>
+        div a:hover {
+            color: white;
+        }
+</style>
+<h2 style="font-size:30px;">Thêm mới danh mục bài viết</h2>
 <hr />
 @using (Html.BeginForm())
 {
@@ -20,8 +28,8 @@
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <input type="submit" value="Lưu" class="btn btn-default" style="height: 37px; width: 100px" />
-                        @Html.ActionLink("Quay trở lại", "Index")
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                        <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                     </div>
                 </div>
             </div>

@@ -4,10 +4,10 @@
     ViewBag.Title = "Thêm danh mục";
 }
 <style>
-    button a{
+    div a{
         color:white;
     }
-        button a:hover {
+        div a:hover {
             color: white;
         }
 </style>
@@ -29,7 +29,7 @@
                     <br />
                     <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
-                       @Html.ActionLink("Quay trở lại", "Index")
+                        <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                     </div>
                 </div>
             </div>

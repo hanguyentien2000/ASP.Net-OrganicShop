@@ -145,7 +145,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Taikhoan taikhoan = db.Taikhoans.Find(id);
+            Taikhoan taikhoan = db.Taikhoans.Include("NhanVien").Where(s => s.USERNAME == id).FirstOrDefault();
             if (taikhoan == null)
             {
                 return HttpNotFound();

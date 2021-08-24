@@ -5,11 +5,11 @@
     var ImagePath = Model.HinhMinhHoa != null ? Model.HinhMinhHoa : "~/Content/image/h0.png";
 }
 <style>
-    button a {
+    div a {
         color: white;
     }
 
-        button a:hover {
+        div a:hover {
             color: white;
         }
 </style>
@@ -104,7 +104,7 @@
                    
                     <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
-                       @Html.ActionLink("Quay trở lại", "Index")
+                        <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                     </div>
                 </div>
             </div>

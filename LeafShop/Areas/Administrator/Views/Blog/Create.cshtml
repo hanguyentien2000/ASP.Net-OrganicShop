@@ -6,7 +6,15 @@
 
 <h2 style="font-size: 30px">Thêm mới bài viết</h2>
 <hr />
+<style>
+    div a {
+        color: white;
+    }
 
+        div a:hover {
+            color: white;
+        }
+</style>
 @using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -68,8 +76,8 @@
 
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <input type="submit" value="Lưu" class="btn btn-default" />
-                        @Html.ActionLink("Quay trở lại", "Index")
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                        <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                     </div>
                 </div>
             </div>

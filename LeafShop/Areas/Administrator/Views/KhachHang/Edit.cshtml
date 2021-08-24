@@ -3,11 +3,11 @@
     ViewBag.Title = "Cập nhật khách hàng";
 }
 <style>
-    button a {
+    div a {
         color: white;
     }
 
-        button a:hover {
+        div a:hover {
             color: white;
         }
 </style>
@@ -24,7 +24,6 @@
             <div class="row">
 
                 <div class="col-lg-6 mb-5 mb-lg-0">
-
                     <div class="md-form md-outline mt-0">
                         <label for="form14">Tên khách hàng</label>
                         @Html.EditorFor(model => model.TenKhachHang, new { htmlAttributes = new { @class = "form-control" } })
@@ -97,7 +96,7 @@
                     <br />
                     <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
-                       @Html.ActionLink("Quay trở lại", "Index")
+                        <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                     </div>
                 </div>
             </div>
