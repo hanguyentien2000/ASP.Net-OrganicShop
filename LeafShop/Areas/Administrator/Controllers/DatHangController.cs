@@ -130,15 +130,13 @@ namespace LeafShop.Areas.Administrator.Controllers
             dathangs.TongTien = datHang.TongTien;
             dathangs.DiaChi = datHang.DiaChi;
             dathangs.GhiChu = datHang.GhiChu;
-
-            if(dathangs.TrangThai == true)
+            dathangs.TrangThai = datHang.TrangThai;
+            if (dathangs.TrangThai == false)
             {
-                dathangs.TrangThai = datHang.TrangThai;
                 dathangs.NgayGiaoHang = DateTime.Now;
             }
-            else if(dathangs.TrangThai == false)
+            else if(dathangs.TrangThai == true)
             {
-                dathangs.TrangThai = datHang.TrangThai;
                 dathangs.NgayGiaoHang = null;
             } 
 
