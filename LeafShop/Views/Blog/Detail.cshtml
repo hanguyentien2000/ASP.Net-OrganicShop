@@ -87,9 +87,14 @@
                         <div class="entry-content notopmargin">
 
                             <p style="margin:10px 0px;"><strong><em>@Model.Tomtat</em></strong></p>
-                            <img style="width:100%;" class="" src="@Model.Anh"/>
+                            @*<img style="width:100%;" class="" src="@Model.Anh"/>*@
                             <br />
-                            <p>@Model.Noidung</p>
+                            <div>
+                                @{ 
+                                    HtmlString nd = new HtmlString(Model.Noidung);
+                                }
+                                @nd
+                            </div>
 
                             <!-- Post Single - Content End -->
                             <!-- Tag Cloud

@@ -3,7 +3,21 @@
 @{
     ViewBag.Title = "Cập nhật đặt hàng";
 }
+<style>
+    th, td {
+        padding: 10px;
+    }
 
+    div a {
+        color: white;
+    }
+
+        div a:hover {
+            color: white;
+        }
+
+    
+</style>
 <h2 style="font-size: 30px">Cập nhật đặt hàng</h2>
 <hr />
 @using (Html.BeginForm())
@@ -71,8 +85,8 @@
                 </div>
                 <div class="md-form md-outline mt-0">
 
-                    <input type="submit" value="Lưu" class="btn btn-default" />
-                    @Html.ActionLink("Quay trở lại", "Index")
+                    <input type="submit" value="Lưu" class="btn btn-primary" />
+                    <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
                 </div>
             </div>
         </div>

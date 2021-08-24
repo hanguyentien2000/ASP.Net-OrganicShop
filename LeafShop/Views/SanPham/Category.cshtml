@@ -226,47 +226,48 @@ jQuery(document).ready(function() {
                             <ul class="lv1">
                                 @foreach (var dm in @ViewBag.dmSP)
                                 {
-                                    <li>
-                                        <a class="one1" href="/SanPham/Category/@dm.MaDanhMuc"
-                                           >
-                                            @dm.TenDanhMuc
-                                            <i class="fa fa-angle-right right-icon "
-                                               aria-hidden="true"></i>
-                                        </a>
-                                        @if (dm.DanhMuc1.Count > 0)
-                                        {
-                                            <ul class="lv2">
-                                                @foreach (var dmCon in dm.DanhMuc1)
+                                <li style="position:relative">
+                                    <a  href="/SanPham/Category/@dm.MaDanhMuc">
+                                        @dm.TenDanhMuc
+
+                                    </a>
+                                    <i class="fa fa-angle-right right-icon one1" style="position:absolute;right:0;top:10px;"
+                                       aria-hidden="true"></i>
+                                    @if (dm.DanhMuc1.Count > 0)
+                                    {
+                                        <ul class="lv2">
+                                            @foreach (var dmCon in dm.DanhMuc1)
+                                            {
+                                            <li style="position:relative">
+                                                <a href="/SanPham/Category/@dmCon.MaDanhMuc">
+                                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                                    @dmCon.TenDanhMuc
+                                                </a>
+                                                <i class="fa fa-angle-right right-icon one2" style="position:absolute;right:0;top:5px;"
+                                                   aria-hidden="true"></i>
+                                                @if (dmCon.DanhMuc1.Count > 0)
                                                 {
-                                                    <li>
-                                                        <a href="/SanPham/Category/@dmCon.MaDanhMuc" class="one2">
-                                                            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                                                            @dmCon.TenDanhMuc <i class="fa fa-angle-right right-icon"
-                                                                                 aria-hidden="true"></i>
-                                                        </a>
-                                                        @if (dmCon.DanhMuc1.Count > 0)
+                                                    <ul class="lv3">
+                                                        @foreach (var dmChau in dmCon.DanhMuc1)
                                                         {
-                                                            <ul class="lv3">
-                                                                @foreach (var dmChau in dmCon.DanhMuc1)
-                                                                {
-                                                                    <li>
-                                                                        <a href="/SanPham/Category/@dmChau.MaDanhMuc">
-                                                                            <i class="fa fa-angle-double-right"
-                                                                               aria-hidden="true"></i> @dmChau.TenDanhMuc
-                                                                        </a>
-                                                                    </li>
-                                                                }
-
-
-                                                            </ul>
+                                                            <li>
+                                                                <a href="/SanPham/Category/@dmChau.MaDanhMuc">
+                                                                    <i class="fa fa-angle-double-right"
+                                                                       aria-hidden="true"></i> @dmChau.TenDanhMuc
+                                                                </a>
+                                                            </li>
                                                         }
 
-                                                    </li>
+
+                                                    </ul>
                                                 }
 
-                                            </ul>
-                                        }
-                                    </li>
+                                            </li>
+                                            }
+
+                                        </ul>
+                                    }
+                                </li>
 
 
                                 }
@@ -362,8 +363,7 @@ jQuery(document).ready(function() {
                             $(document).ready(function () {
                                 $("ul.lv2 > li a").each(function (item) {
                                     if (window.location.pathname === $(this).attr("href")) {
-                                        $(this).closest('ul.lv2 > li').addClass("active");
-                                        $(this).closest('lul.lv1').addClass("active");
+                                        
                                         $(this).closest('ul.lv2').show();
                                     }
                                 });

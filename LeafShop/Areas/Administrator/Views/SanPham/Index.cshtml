@@ -50,7 +50,7 @@
                         <th>
                             Đơn giá
                         </th>
-                        <th>
+                        <th style="width:300px;">
                             Mô tả
                         </th>
                         <th>
@@ -83,10 +83,13 @@
                         @Html.DisplayFor(modelItem => item.SoLuongBan)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DonGia)
+                        @String.Format("{0:0,0đ}", item.DonGia)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.MoTa)
+                        @{ 
+                            HtmlString msg = new HtmlString(item.MoTa);
+                        }
+                        @msg
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.NgayKhoiTao)

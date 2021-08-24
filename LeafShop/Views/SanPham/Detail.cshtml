@@ -71,7 +71,7 @@
                                             </div>
                                             <ul class="entry-meta">
                                                 <li class="color">
-                                                    <ins>@spNoiBat.DonGia₫</ins>
+                                                    <ins>@String.Format("{0:0,0đ}", spNoiBat.DonGia)</ins>
 
                                                 </li>
                                                 <!--<li><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>-->
@@ -109,7 +109,7 @@
                                             </div>
                                             <ul class="entry-meta">
                                                 <li class="color">
-                                                    <ins> @spLienquan.DonGia₫</ins>
+                                                    <ins> @String.Format("{0:0,0đ}", spLienquan.DonGia)</ins>
 
                                                 </li>
                                             </ul>
@@ -215,7 +215,7 @@
 
                                         <div class="product-price col-sm-12 col-md-12 noleftpadding">
 
-                                            <ins> @Model.DonGia ₫</ins>
+                                            <ins> @String.Format("{0:0,0đ}", Model.DonGia)</ins>
 
 
                                         </div><!-- Product Single - Price End -->
@@ -226,17 +226,7 @@
 
                                         <div class="line"></div>
 
-                                        <div class="hidden" style="">
-                                            <select id="product-select" name="id">
-                                                <option value="1069074621" class="">
-                                                    Hà Nội - @Model.DonGia
-                                                </option>
-
-                                                <option value="1074953680" class="">
-                                                    Hồ Chí Minh - @Model.DonGia
-                                                </option>
-                                            </select>
-                                        </div>
+                                       
                                         <!-- variants -->
                                         <!-- end variant -->
                                         <!-- <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>-->
@@ -316,7 +306,10 @@
                                             <li class=""><a href="#tab2">Thương hiệu</a></li>
                                         </ul>
                                         <div class="tabs-content active" id="tab1">
-                                            @Model.MoTa
+                                            @{ 
+                                                HtmlString mt = new HtmlString(Model.MoTa);
+                                            }
+                                            @mt
                                         </div>
 
 
