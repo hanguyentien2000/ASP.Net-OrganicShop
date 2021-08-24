@@ -19,16 +19,7 @@ namespace LeafShop.Controllers
                 page = 1;
             }
             ViewBag.CurrentFilter = searchString;
-            //var blogs = from s in db.Blogs
-            //            join sa in db.NhanViens on s.MaNhanVien equals sa.MaNhanVien
-            //            select new
-            //            {
-            //                MaBaiViet = s.MaBaiViet,
-            //                TieuDe = s.TieuDe,
-            //                Tomtat = s.Tomtat,
-            //                NgayKhoiTao = s.NgayKhoiTao,
-            //                TenNhanVien = sa.TenNhanVien,
-            //            };
+         
             var blogs = db.Blogs.Include("NhanVien").ToList();
             if (!String.IsNullOrEmpty(searchString))
             {

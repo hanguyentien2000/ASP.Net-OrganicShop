@@ -181,7 +181,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             sps.MaThuongHieu = sp.MaThuongHieu;
             sps.DonViTinh = sp.DonViTinh;
             sps.DonGia = sp.DonGia;
-     
+            sps.TenSanPham = sp.TenSanPham;
             sps.MoTa = sp.MoTa;
             uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)

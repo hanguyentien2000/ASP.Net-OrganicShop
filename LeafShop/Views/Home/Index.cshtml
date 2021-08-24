@@ -846,13 +846,17 @@
                                         $("#tensp").html(response.TenSanPham);
                                         $("#anhmh").attr("src", response.HinhMinhHoa);
                                         $("#giasp").html(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response.DonGia));
-                                        $("#product_quantity1").val(1);
+                                        $("#product_quantity").val(1);
                                         if (response.SoLuong > 0) {
                                             $("#addtocartQV").html("Thêm vào giỏ");
                                             $("#addtocartQV").removeAttr("disabled");
+                                            $("#buynow").html("MUA NGAY");
+                                            $("#buynow").removeAttr("disabled");
                                         } else {
                                             $("#addtocartQV").html("Hết hàng");
                                             $("#addtocartQV").attr("disabled", "disabled");
+                                            $("#buynow").html("SOLD OUT");
+                                            $("#buynow").attr("disabled", "disabled");
                                         }
                                         $("#motasp").html(response.MoTa);
                                         $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
@@ -864,6 +868,7 @@
                                     }
                                 });
                             }
+
 
                             function AddToCart2(id) {
                                 var soluong = $("#product_quantity1").val();
@@ -1220,7 +1225,7 @@
                         <input type="hidden" class="product_img_small" value="">
                     </div>
                     <button type="button" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
-                    <button class='buy_btn buynow buynow_qv button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
+                    <button class='buynow button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
                 </div><!-- Product Single - Quantity & Cart Button End -->
 
                 <div class="clear"></div>

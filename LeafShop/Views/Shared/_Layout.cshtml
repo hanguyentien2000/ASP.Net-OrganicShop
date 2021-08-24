@@ -901,9 +901,13 @@
                     if (response.SoLuong > 0) {
                         $("#addtocartQV").html("Thêm vào giỏ");
                         $("#addtocartQV").removeAttr("disabled");
+                        $("#buynow").html("MUA NGAY");
+                        $("#buynow").removeAttr("disabled");
                     } else {
                         $("#addtocartQV").html("Hết hàng");
                         $("#addtocartQV").attr("disabled", "disabled");
+                        $("#buynow").html("SOLD OUT");
+                        $("#buynow").attr("disabled", "disabled");
                     }
                     $("#motasp").html(response.MoTa);
                     $("#addtocartQV").attr("onclick", "AddToCart2(" + response.MaSanPham + ")");
