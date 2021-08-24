@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace LeafShop.Controllers
 {
@@ -23,7 +24,7 @@ namespace LeafShop.Controllers
         [ChildActionOnly]
         public ActionResult CategoryTree()
         {
-            IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Where(p => p.DanhMuc2 == null).Select(p => p);
+            IEnumerable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc1").Include(x => x.DanhMuc1.Select(a => a.DanhMuc1)).Where(p => p.DanhMuc2 == null);
             return PartialView("CategoryTree",danhmucs);
         }
         
