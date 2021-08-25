@@ -4827,13 +4827,13 @@
     <Content Include="Areas\Administrator\Views\DanhMuc\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Delete.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\DanhMuc\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Index.cshtml" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Areas\Administrator\Views\DanhMuc\Edit.cshtml" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>

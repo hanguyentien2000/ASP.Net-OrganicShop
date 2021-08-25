@@ -14,6 +14,8 @@
 </style>
 <h2 style="font-size: 30px">Thêm mới tài khoản</h2>
 <hr />
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -53,7 +55,7 @@
                             @Html.RadioButtonFor(model => model.Quantri, false)
                             <span>Nhân viên</span>
                         </div>
-                       
+
                     </div>
 
                     <br />
