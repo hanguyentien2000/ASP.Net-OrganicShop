@@ -21,7 +21,7 @@
         [Key]
         public int MaDanhMuc { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Tên danh mục không được để trống")]
         [StringLength(100)]
         [DisplayName("Tên danh mục")]
         public string TenDanhMuc { get; set; }

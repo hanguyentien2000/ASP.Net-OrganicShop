@@ -1,4 +1,4 @@
-namespace LeafShop.Models
+﻿namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace LeafShop.Models
         [Key]
         public int MaKhachHang { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên khách hàng không được để trống")]
         [StringLength(50)]
         public string TenKhachHang { get; set; }
 
@@ -28,11 +28,11 @@ namespace LeafShop.Models
         [StringLength(20)]
         public string DienThoaiKhachHang { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên đăng nhập không được để trống")]
         [StringLength(50)]
         public string TenDangNhap { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Mật khẩu không được để trống")]
         [StringLength(50)]
         public string MatKhau { get; set; }
 

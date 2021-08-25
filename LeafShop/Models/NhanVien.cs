@@ -1,4 +1,4 @@
-namespace LeafShop.Models
+﻿namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace LeafShop.Models
         [Key]
         public int MaNhanVien { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên nhân viên không được để trống")]
         [StringLength(100)]
         public string TenNhanVien { get; set; }
 
