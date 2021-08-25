@@ -236,7 +236,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             catch (Exception)
             {
-                ViewBag.Error = "Không xoá được bản ghi này, bạn cần phải xoá danh mục, khu vực và thương hiệu tương ứng trước khi xoá sản phẩm!";
+                ViewBag.Error = "Không xoá được bản ghi này hiện thông tin của bản ghi này đang ở một bảng khác!";
                 return View("Delete", sanPham);
             }
            
