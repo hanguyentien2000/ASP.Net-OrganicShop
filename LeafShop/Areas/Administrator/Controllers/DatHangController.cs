@@ -27,20 +27,20 @@ namespace LeafShop.Areas.Administrator.Controllers
                 SearchString = currentFilter;
             }
             ViewBag.CurrentFilter = SearchString;
-            //var datHangs = db.DatHangs.Select(d => d.KhachHang).Select(d => d.NhanVien);
             IQueryable<DatHang> datHangs = (from hang in db.DatHangs
                                             select hang).Include("NhanVien").Include("KhachHang")
                     .OrderBy(student => student.MaDatHang);
+         
+            
             if (!String.IsNullOrEmpty(SearchString))
             {
-                datHangs = datHangs.Where(p => p.NhanVien.TenNhanVien.Contains(SearchString));
+                datHangs = datHangs.Where(p => p.NhanVien.TenNhanVien.Contains(SearchString) || p.KhachHang.TenKhachHang.Contains(SearchString) || p.MaDatHang.ToString().Contains(SearchString));
             }
             int pageSize = 5;
 
             int pageNumber = (page ?? 1);
             return View(datHangs.ToPagedList(pageNumber, pageSize));
         }
-
         // GET: Administrator/DatHang/Details/5
         public ActionResult Details(int id)
         {
@@ -105,6 +105,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         // GET: Administrator/DatHang/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             DatHang datHang = db.DatHangs.Find(id);
@@ -135,7 +136,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             if (dathangs.TrangThai == false)
             {
                 dathangs.NgayGiaoHang = DateTime.Now;
-            }
+             }
             else if(dathangs.TrangThai == true)
             {
                 dathangs.NgayGiaoHang = null;
@@ -147,7 +148,7 @@ namespace LeafShop.Areas.Administrator.Controllers
 
             // GET: Administrator/DatHang/Delete/5
             public ActionResult Delete(int id)
-        {
+            {
             DatHang datHang = db.DatHangs.Include("NhanVien").Include("KhachHang").Where(s => s.MaDatHang == id).FirstOrDefault();
             ViewBag.listDH = db.ChiTietDatHangs.Include("SanPham").Where(s => s.MaDatHang == id).ToList();
             if (datHang == null)
@@ -155,7 +156,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                 return HttpNotFound();
             }
             return View(datHang);
-        }
+            }
 
         // POST: Administrator/DatHang/Delete/5
         [HttpPost, ActionName("Delete")]
