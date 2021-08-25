@@ -234,3 +234,11 @@ AS
   begin
     update SanPham set SoLuong = SanPham.SoLuong - inserted.SoLuong,SoLuongBan = SoLuongBan + inserted.SoLuong from SanPham inner join inserted on SanPham.MaSanPham = inserted.MaSanPham
   end
+
+GO
+CREATE TRIGGER XOADON ON dbo.ChiTietDatHang
+FOR DELETE
+AS 
+  begin
+    update SanPham set SoLuong = SanPham.SoLuong + deleted.SoLuong,SoLuongBan = SoLuongBan - deleted.SoLuong from SanPham inner join deleted on SanPham.MaSanPham = deleted.MaSanPham
+  end

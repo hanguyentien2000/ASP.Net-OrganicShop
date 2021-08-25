@@ -82,11 +82,11 @@
                 <div class="md-form md-outline mt-0">
                     <label for="form15">Trạng thái</label>
                     <div class="form-group row">
-                        @Html.RadioButtonFor(model => model.TrangThai, true)
-                        <span>Chưa hoàn thành</span>
-
                         @Html.RadioButtonFor(model => model.TrangThai, false)
                         <span>Hoàn thành</span>
+
+                        @Html.RadioButtonFor(model => model.TrangThai, true)
+                        <span>Chưa hoàn thành</span>
                     </div>
 
                 </div>

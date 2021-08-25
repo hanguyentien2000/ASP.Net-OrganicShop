@@ -31,7 +31,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             //var thuonghieus = db.ThuongHieux.Select(d => d);
             IQueryable<ThuongHieu> thuonghieus = (from th in db.ThuongHieux
                                                   select th)
-                    .OrderBy(x => x.TenThuongHieu);
+                    .OrderBy(x => x.MaThuongHieu);
             if (!String.IsNullOrEmpty(SearchString))
             {
                 thuonghieus = thuonghieus.Where(p => p.TenThuongHieu.Contains(SearchString));
