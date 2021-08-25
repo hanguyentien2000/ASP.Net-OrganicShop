@@ -70,6 +70,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         {
             try
             {
+                
                 ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "TenKhachHang", datHang.MaKhachHang);
                 ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", datHang.MaNhanVien);
 
