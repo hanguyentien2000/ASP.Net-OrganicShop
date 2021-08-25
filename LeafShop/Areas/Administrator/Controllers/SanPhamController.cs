@@ -36,8 +36,8 @@ namespace LeafShop.Areas.Administrator.Controllers
             ViewBag.CurrentFilter = SearchString;
             //var thuonghieus = db.ThuongHieux.Select(d => d);
             IQueryable<SanPham> sanphams = (from sp in db.SanPhams
-                                                  select sp)
-                    .OrderBy(x => x.MaSanPham);
+                                                  select sp).Include(s => s.DanhMuc).Include(s => s.ThuongHieu).OrderBy(x => x.MaSanPham);
+
             if (!String.IsNullOrEmpty(SearchString))
             {
                 sanphams = sanphams.Where(p => p.TenSanPham.Contains(SearchString));
@@ -51,7 +51,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/SanPham/Details/5
         public ActionResult Details(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -153,7 +153,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/SanPham/Edit/5
         public ActionResult Edit(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -185,7 +185,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         [HttpPost]
         public ActionResult Edit(SanPham sp, HttpPostedFileBase uploadhinh)
         {
-            SanPham sps = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
+            SanPham sps = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).Include("ThuongHieu").Include("DanhMuc").FirstOrDefault();
             sps.MoTa = sp.MoTa;
             sps.NgayCapNhat = DateTime.Now;
             sps.SoLuong = sp.SoLuong;
@@ -227,19 +227,19 @@ namespace LeafShop.Areas.Administrator.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);
+            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
             try
             {
                 db.SanPhams.Remove(sanPham);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ViewBag.Error = "Không xoá được bản ghi này hiện thông tin của bản ghi này đang ở một bảng khác!";
+                ViewBag.Error = "Không xoá được bản ghi này"+ ex.Message;
                 return View("Delete", sanPham);
             }
-           
+          
         }
 
         protected override void Dispose(bool disposing)
