@@ -131,9 +131,16 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             DanhMucBlog danhMucBlog = db.DanhMucBlogs.Find(id);
-            db.DanhMucBlogs.Remove(danhMucBlog);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.DanhMucBlogs.Remove(danhMucBlog);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }catch(Exception ex)
+            {
+                ViewBag.Error = "Không thể xóa bản ghi này " + ex.Message;
+                return View("Delete", danhMucBlog);
+            }
         }
 
         protected override void Dispose(bool disposing)

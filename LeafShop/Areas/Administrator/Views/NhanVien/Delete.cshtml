@@ -52,7 +52,8 @@
             </tr>
             <tr>
                 <th>
-Email                </th>
+                    Email
+                </th>
                 <td>
                     @Model.Email
                 </td>
@@ -82,7 +83,7 @@ Email                </th>
                     @Model.DiaChi
                 </td>
             </tr>
-            
+
         </table>
         @using (Html.BeginForm())
         {
@@ -99,7 +100,6 @@ Email                </th>
     function confirmDelete() {
         var result = confirm('Bạn có chắc chắn muốn XÓA?')
         if (result) {
-            alert('XÓA THÀNH CÔNG!!!')
             return true;
         }
         else {
@@ -107,3 +107,8 @@ Email                </th>
         }
     }
 </script>
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger col-lg-2" role="alert">@ViewBag.Error</div>
+}

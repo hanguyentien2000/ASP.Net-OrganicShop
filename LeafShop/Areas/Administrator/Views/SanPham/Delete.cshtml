@@ -27,11 +27,11 @@
         <table border="1" style="width:100%;">
             <tr>
                 <th>Tên danh mục</th>
-                <td>@Html.DisplayFor(model => model.DanhMuc.TenDanhMuc)</td>
+                <td>@ViewBag.TenDM</td>
             </tr>
             <tr>
                 <th>Tên thương hiệu</th>
-                <td>@Html.DisplayFor(model => model.ThuongHieu.TenThuongHieu)</td>
+                <td>@ViewBag.TenTH</td>
             </tr>
             <tr>
                 <th>Tên sản phẩm</th>
@@ -55,7 +55,12 @@
             </tr>
             <tr>
                 <th>Mô tả</th>
-                <td>@Model.MoTa</td>
+                <td>
+                    @{
+                        HtmlString msg = new HtmlString(Model.MoTa);
+                                }
+                                @msg
+                            </td>
             </tr>
             <tr>
                 <th>Ngày khởi tạo</th>

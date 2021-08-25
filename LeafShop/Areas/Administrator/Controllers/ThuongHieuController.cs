@@ -163,9 +163,16 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
-            db.ThuongHieux.Remove(thuongHieu);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.ThuongHieux.Remove(thuongHieu);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }catch(Exception ex)
+            {
+                ViewBag.Error = "Không thể xóa bản ghi này " + ex.Message;
+                return View("Delete", thuongHieu);
+            }
         }
 
         protected override void Dispose(bool disposing)

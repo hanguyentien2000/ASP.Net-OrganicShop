@@ -65,7 +65,6 @@
     function confirmDelete() {
         var result = confirm('Bạn có chắc chắn muốn XÓA?')
         if (result) {
-            alert('XÓA THÀNH CÔNG!!!')
             return true;
         }
         else {
@@ -73,3 +72,8 @@
         }
     }
 </script>
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}

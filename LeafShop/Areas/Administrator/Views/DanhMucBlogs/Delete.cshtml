@@ -36,24 +36,28 @@
         </tr>
     </table>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color" style="margin-top:10px;">
-            <input type="submit" value="Xoá" class="btn btn-danger" onclick="return confirmDelete()" /> 
+            <input type="submit" value="Xoá" class="btn btn-danger" onclick="return confirmDelete()" />
             <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
         </div>
     }
 </div>
 <script>
-        function confirmDelete() {
-                var result = confirm('Bạn có chắc chắn muốn XÓA?')
-                if (result) {
-                    alert('XÓA THÀNH CÔNG!!!')
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
+    function confirmDelete() {
+        var result = confirm('Bạn có chắc chắn muốn XÓA?')
+        if (result) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 </script>
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger col-lg-2" role="alert">@ViewBag.Error</div>
+}

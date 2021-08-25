@@ -94,7 +94,10 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/DanhMuc/Edit/5
         public ActionResult Edit(int id)
         {
-            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             DanhMuc danhMuc = db.DanhMucs.Find(id);
             if (danhMuc == null)
             {

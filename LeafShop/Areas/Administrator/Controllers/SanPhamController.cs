@@ -21,7 +21,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         //{
         //    var sanPhams = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.KhuVuc).Include(s => s.ThuongHieu);
         //    return View(sanPhams.ToList());
-        //}
+        //}m d
 
         public ActionResult Index(string SearchString, string currentFilter, int? page)
         {
@@ -215,6 +215,10 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult Delete(int id)
         {
             SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
+            DanhMuc dmSP = db.DanhMucs.Where(s => s.MaDanhMuc == sanPham.MaDanhMuc).FirstOrDefault();
+            ThuongHieu thSP = db.ThuongHieux.Where(s => s.MaThuongHieu == sanPham.MaThuongHieu).FirstOrDefault();
+            ViewBag.TenDM = dmSP.TenDanhMuc;
+            ViewBag.TenTH = thSP.TenThuongHieu;
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -228,6 +232,10 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
+            DanhMuc dmSP = db.DanhMucs.Where(s => s.MaDanhMuc == sanPham.MaDanhMuc).FirstOrDefault();
+            ThuongHieu thSP = db.ThuongHieux.Where(s => s.MaThuongHieu == sanPham.MaThuongHieu).FirstOrDefault();
+            ViewBag.TenDM = dmSP.TenDanhMuc;
+            ViewBag.TenTH = thSP.TenThuongHieu;
             try
             {
                 db.SanPhams.Remove(sanPham);
@@ -237,6 +245,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = "Không xoá được bản ghi này"+ ex.Message;
+
                 return View("Delete", sanPham);
             }
           
