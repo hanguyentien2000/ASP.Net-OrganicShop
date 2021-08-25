@@ -1,4 +1,5 @@
-﻿@model LeafShop.Models.KhachHang
+﻿
+@model LeafShop.Models.KhachHang
 @{
     ViewBag.Title = "Cập nhật khách hàng";
 }
@@ -13,6 +14,8 @@
 </style>
 <h2 style="font-size: 30px">Cập nhật khách hàng</h2>
 <hr />
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

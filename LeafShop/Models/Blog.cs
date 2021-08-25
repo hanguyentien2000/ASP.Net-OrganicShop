@@ -5,6 +5,7 @@ namespace LeafShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
     using System.Web.Script.Serialization;
 
     [Table("Blog")]
@@ -24,9 +25,11 @@ namespace LeafShop.Models
         public string Anh { get; set; }
 
         [StringLength(500)]
+        [AllowHtml]
         public string Tomtat { get; set; }
 
         [StringLength(2000)]
+        [AllowHtml]
         public string Noidung { get; set; }
 
         [DataType(DataType.Date)]

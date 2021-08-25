@@ -5,6 +5,7 @@ namespace LeafShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     [Table("DatHang")]
     public partial class DatHang
@@ -25,6 +26,7 @@ namespace LeafShop.Models
         public int? TongTien { get; set; }
 
         [StringLength(1000)]
+        [AllowHtml]
         public string GhiChu { get; set; }
 
         [StringLength(500)]

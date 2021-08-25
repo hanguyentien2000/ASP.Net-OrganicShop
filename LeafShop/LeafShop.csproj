@@ -4784,7 +4784,6 @@
     <Content Include="Areas\Administrator\Views\KhachHang\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\KhachHang\Delete.cshtml" />
     <Content Include="Areas\Administrator\Views\KhachHang\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\KhachHang\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\KhachHang\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\NhanVien\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\NhanVien\Delete.cshtml" />
@@ -4804,7 +4803,6 @@
     <Content Include="Areas\Administrator\Views\ThuongHieu\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\ThuongHieu\Delete.cshtml" />
     <Content Include="Areas\Administrator\Views\ThuongHieu\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\ThuongHieu\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\ThuongHieu\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Blog\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\Blog\Delete.cshtml" />
@@ -4834,6 +4832,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Areas\Administrator\Views\DanhMuc\Edit.cshtml" />
+    <Content Include="Areas\Administrator\Views\ThuongHieu\Edit.cshtml" />
+    <Content Include="Areas\Administrator\Views\KhachHang\Edit.cshtml" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>

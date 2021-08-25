@@ -5,6 +5,7 @@ namespace LeafShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
     using System.Web.Script.Serialization;
 
     [Table("SanPham")]
@@ -36,6 +37,7 @@ namespace LeafShop.Models
         public int? DonGia { get; set; }
 
         [StringLength(2000)]
+        [AllowHtml]
         public string MoTa { get; set; }
 
         [DataType(DataType.Date)]

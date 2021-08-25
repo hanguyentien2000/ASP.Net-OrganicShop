@@ -5,6 +5,7 @@ namespace LeafShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
     using System.Web.Script.Serialization;
 
     [Table("ThuongHieu")]
@@ -30,6 +31,7 @@ namespace LeafShop.Models
         public string DienThoaiThuongHieu { get; set; }
 
         [StringLength(2000)]
+        [AllowHtml]
         public string MoTaThuongHieu { get; set; }
 
         [StringLength(1000)]
