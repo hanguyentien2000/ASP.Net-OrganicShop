@@ -23,6 +23,7 @@ namespace LeafShop.Controllers
             ViewBag.SapTheoNgaycCuNhat = "ngay_desc";
             ViewBag.SapTheoNgaycMoiNhat = "ngay_asc";
             ViewBag.SapTheoSoLuongBan = "slb_asc";
+            ViewBag.SapTheoSoLuong = "sl_asc";
             if (searchString != null)
             {
                 page = 1;
@@ -58,6 +59,9 @@ namespace LeafShop.Controllers
                     break;
                 case "slb_asc":
                     listall = listall.OrderBy(s => s.SoLuongBan).ToList();
+                    break;
+                case "sl_asc":
+                    listall = listall.OrderBy(s => s.SoLuong).ToList();
                     break;
                 default:
                     listall = listall.OrderBy(s => s.TenSanPham).ToList();
