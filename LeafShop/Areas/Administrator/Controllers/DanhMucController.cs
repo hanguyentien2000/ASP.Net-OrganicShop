@@ -76,11 +76,10 @@ namespace LeafShop.Areas.Administrator.Controllers
                 }
                 else if (existData == null)
                 {
-                    if (ModelState.IsValid)
-                    {
+
                         db.DanhMucs.Add(danhMuc);
                         db.SaveChanges();
-                    }
+
                 }
                 return RedirectToAction("Index");
             }

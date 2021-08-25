@@ -67,19 +67,18 @@ namespace LeafShop.Areas.Administrator.Controllers
         {
             try
             {
-                var existData = db.KhachHangs.Where(x => x.MaKhachHang == khachHang.MaKhachHang).FirstOrDefault();
+                var existData = db.KhachHangs.Where(x => x.TenDangNhap == khachHang.TenDangNhap).FirstOrDefault();
                 if (existData != null)
                 {
-                    ViewBag.Error = "Khách hàng này đã tồn tại!";
+                    ViewBag.Error = "Tên đăng nhập này đã tồn tại!";
                     return View(khachHang);
                 }
                 else
                 {
-                    if (ModelState.IsValid)
-                    {
+
                         db.KhachHangs.Add(khachHang);
                         db.SaveChanges();
-                    }
+
                     return RedirectToAction("Index");
                 }
             }

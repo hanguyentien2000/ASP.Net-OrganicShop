@@ -14,7 +14,7 @@
 </style>
 <h2 style="font-size: 30px">Thêm mới khách hàng</h2>
 <hr />
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "KhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -96,4 +96,9 @@
             </div>
         </div>
     </div>
+}
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger col-lg-2" role="alert">@ViewBag.Error</div>
 }
