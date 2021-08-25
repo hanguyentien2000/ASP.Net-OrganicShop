@@ -56,7 +56,7 @@
                                 <td data-checkout-subtotal-price-target="@Model[i].TongTien">@String.Format("{0:0,0đ}", Model[i].TongTien)</td>
                                 <td>@{ var date2 = @Model[i].NgayKhoiTao.HasValue ? @Model[i].NgayKhoiTao.Value.ToString("dd-MM-yyyy") : String.Empty; } @date2</td>
                                 <td>@Model[i].GhiChu</td>
-                                <td>@(Model[i].TrangThai ? "Hoàn thành" : "Chưa hoàn thành")</td>
+                                <td>@(Model[i].TrangThai ? "Chưa hoàn thành" : "Chưa hoàn thành")</td>
                                 <td>
                                     @Html.ActionLink("Xem chi tiết", "Details", new { id = @Model[i].MaDatHang })
                                 </td>
