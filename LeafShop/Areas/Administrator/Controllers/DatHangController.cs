@@ -176,9 +176,9 @@ namespace LeafShop.Areas.Administrator.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = "Không xoá được bản ghi này :" + ex.Message;
+                ViewBag.Error = "Không xoá được đơn đặt hàng này!";
                 return View("Delete", datHang);
             }
         }

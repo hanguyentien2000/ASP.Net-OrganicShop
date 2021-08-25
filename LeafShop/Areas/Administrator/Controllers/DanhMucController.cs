@@ -145,9 +145,17 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             DanhMuc danhMuc = db.DanhMucs.Find(id);
-            db.DanhMucs.Remove(danhMuc);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.DanhMucs.Remove(danhMuc);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này: Bạn cần xoá sản phẩm trong danh mục trước khi xoá danh mục";
+                return View("Delete", danhMuc);
+            }
         }
 
         protected override void Dispose(bool disposing)
