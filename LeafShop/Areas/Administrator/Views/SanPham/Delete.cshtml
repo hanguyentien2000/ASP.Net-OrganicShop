@@ -27,11 +27,11 @@
         <table border="1" style="width:100%;">
             <tr>
                 <th>Tên danh mục</th>
-                <td>@Model.DanhMuc.TenDanhMuc</td>
+                <td>@Html.DisplayFor(model => model.DanhMuc.TenDanhMuc)</td>
             </tr>
             <tr>
                 <th>Tên thương hiệu</th>
-                <td>@Model.ThuongHieu.TenThuongHieu</td>
+                <td>@Html.DisplayFor(model => model.ThuongHieu.TenThuongHieu)</td>
             </tr>
             <tr>
                 <th>Tên sản phẩm</th>
@@ -100,8 +100,3 @@
         }
     }
 </script>
-@if (ViewBag.Error != null)
-{
-    <br />
-    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
-}
