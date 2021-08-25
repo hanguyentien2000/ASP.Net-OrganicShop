@@ -164,9 +164,17 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Blog blog = db.Blogs.Find(id);
-            db.Blogs.Remove(blog);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.Blogs.Remove(blog);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này: Bạn cần xoá sản phẩm danh mục blog trước khi xoá bài viết!";
+                return View("Delete", blog);
+            }
         }
 
         protected override void Dispose(bool disposing)

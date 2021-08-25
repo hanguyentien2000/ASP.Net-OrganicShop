@@ -66,6 +66,7 @@
                     @Html.ValidationMessageFor(model => model.NgayKhoiTao, "", new { @class = "text-danger" })
                 </div>
                 <br />
+
                 <div class="md-form md-outline mt-0">
                     <label for="form15">Ghi chú</label>
                     @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
@@ -73,13 +74,19 @@
                 </div>
                 <br />
                 <div class="md-form md-outline mt-0">
+                    <label for="form15">Địa chỉ nhận hàng</label>
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "datepicker" })
+                </div>
+                <br />
+                <div class="md-form md-outline mt-0">
                     <label for="form15">Trạng thái</label>
                     <div class="form-group row">
-                        @Html.RadioButtonFor(model => model.TrangThai, true)
-                        <span>Chưa hoàn thành</span>
-
                         @Html.RadioButtonFor(model => model.TrangThai, false)
                         <span>Hoàn thành</span>
+
+                        @Html.RadioButtonFor(model => model.TrangThai, true)
+                        <span>Chưa hoàn thành</span>
                     </div>
 
                 </div>

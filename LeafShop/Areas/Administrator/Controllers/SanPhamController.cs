@@ -109,7 +109,20 @@ namespace LeafShop.Areas.Administrator.Controllers
                 }
                 else if(existData == null && sp.SoLuong >= 0)
                 {
-                    db.SanPhams.Add(sp);
+                    var data = new SanPham
+                    {
+                        MaThuongHieu = sp.MaThuongHieu,
+                        MaDanhMuc = sp.MaDanhMuc,
+                        TenSanPham = sp.TenSanPham,
+                        MoTa = sp.MoTa,
+                        DonGia = sp.DonGia,
+                        DonViTinh = sp.DonViTinh,
+                        SoLuong = sp.SoLuong,
+                        SoLuongBan = sp.SoLuongBan,
+                        NgayKhoiTao = DateTime.Now,
+                        NgayCapNhat = null
+                    };
+                    db.SanPhams.Add(data);
                     db.SaveChanges();
                     uploadhinh = Request.Files["ImageFile"];
                     if (uploadhinh != null && uploadhinh.ContentLength > 0)
@@ -172,9 +185,9 @@ namespace LeafShop.Areas.Administrator.Controllers
         [HttpPost]
         public ActionResult Edit(SanPham sp, HttpPostedFileBase uploadhinh)
         {
-            SanPham sps = db.SanPhams.FirstOrDefault(x => x.MaSanPham == sp.MaSanPham);
+            SanPham sps = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
             sps.MoTa = sp.MoTa;
-            sps.NgayCapNhat = sp.NgayCapNhat;
+            sps.NgayCapNhat = DateTime.Now;
             sps.SoLuong = sp.SoLuong;
             sps.SoLuongBan = sp.SoLuongBan;
             sps.MaDanhMuc = sp.MaDanhMuc;

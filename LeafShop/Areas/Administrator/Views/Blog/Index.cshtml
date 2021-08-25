@@ -43,13 +43,13 @@
                         <th>
                             Tiêu đề
                         </th>
-                        <th>
+                        <th style="width:150px;">
                             Ảnh
                         </th>
                         <th>
                             Tóm tắt
                         </th>
-                        <th>
+                        <th style="width:100px;">
                             Ngày khởi tạo
                         </th>
                         @*<th>
@@ -65,7 +65,7 @@
                             <td>@Html.DisplayFor(modelItem => item.DanhMucBlog.TenDanhMucBlog)</td>
                             <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
                             <td>@Html.DisplayFor(modelItem => item.TieuDe)</td>
-                            <td>
+                            <td style="text-align:center;">
                                 @{ 
                                     var ImagePath = item.Anh != null ? item.Anh : "~/Content/image/h0.png";
                                 }
