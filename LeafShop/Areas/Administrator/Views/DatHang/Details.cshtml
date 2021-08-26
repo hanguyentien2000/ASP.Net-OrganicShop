@@ -71,16 +71,18 @@
             <th>Số lượng</th>
             <th>Đơn giá</th>
         </tr>
-        <tr>
-            @foreach (var sp in ViewBag.listDH)
-            {
-                <td>@sp.SanPham.MaSanPham</td>
-                <td>@sp.SanPham.TenSanPham</td>
-                <td>@sp.SoLuong</td>
-                <td>@sp.DonGia</td>
-            }
-        </tr>
-    </table>
+
+        @foreach (var sp in ViewBag.listDH)
+        {
+    <tr>
+        <td>@sp.SanPham.MaSanPham</td>
+        <td>@sp.SanPham.TenSanPham</td>
+        <td>@sp.SoLuong</td>
+        <td>@sp.DonGia</td>
+    </tr>
+                }
+            
+        </table>
 </div>
 <p>
     <div class="btn btn-primary">@Html.ActionLink("Cập nhật", "Edit", new { id = Model.MaDatHang }) </div>
