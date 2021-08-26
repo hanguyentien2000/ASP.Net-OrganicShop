@@ -54,7 +54,7 @@ CREATE TABLE SanPham
 	SoLuong INT NOT NULL,
 	SoLuongBan INT Default 0 NOT NULL,
 	DonGia INT NOT NULL ,
-	MoTa nvarchar(10000) NOT NULL,
+	MoTa nvarchar(4000) NOT NULL,
 	NgayKhoiTao Date NULL,
 	NgayCapNhat Date NULL,
 	HinhMinhHoa VARCHAR(1000) NULL,
