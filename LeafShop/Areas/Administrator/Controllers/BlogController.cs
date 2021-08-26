@@ -72,7 +72,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             {
                 ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
                 ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
-                Blog existData = db.Blogs.FirstOrDefault(x => x.MaBaiViet == blog.MaBaiViet);
+                Blog existData = db.Blogs.Where(x => x.MaBaiViet == blog.MaBaiViet).FirstOrDefault();
                 if (existData != null)
                 {
                     ViewBag.Error = "Mã bài viết này đã tồn tại!";
@@ -80,7 +80,16 @@ namespace LeafShop.Areas.Administrator.Controllers
                 }
                 else if (existData == null)
                 {
-                    db.Blogs.Add(blog);
+                    var data = new Blog
+                    {
+                        MaDanhMucBlog = blog.MaDanhMucBlog,
+                        MaNhanVien = blog.MaNhanVien,
+                        Noidung = blog.Noidung,
+                        TieuDe = blog.TieuDe,
+                        Tomtat = blog.Tomtat,
+                        NgayKhoiTao = DateTime.Now,
+                    };
+                    db.Blogs.Add(data);
                     db.SaveChanges();
                     uploadhinh = Request.Files["ImageFile"];
                     if (uploadhinh != null && uploadhinh.ContentLength > 0)
@@ -130,7 +139,6 @@ namespace LeafShop.Areas.Administrator.Controllers
             bls.Noidung = blog.Noidung;
             bls.TieuDe = blog.TieuDe;
             bls.Tomtat = blog.Tomtat;
-            bls.NgayKhoiTao = blog.NgayKhoiTao;
             bls.MaDanhMucBlog = blog.MaDanhMucBlog;
             uploadhinh = Request.Files["ImageFile"];
             if (uploadhinh != null && uploadhinh.ContentLength > 0)

@@ -20,8 +20,8 @@
         [Key]
         public int MaNhanVien { get; set; }
 
-        [Required(ErrorMessage = "Tên nhân viên không được để trống")]
         [StringLength(100)]
+        [Required(ErrorMessage = "Tên nhân viên không được để trống")]
         public string TenNhanVien { get; set; }
 
         public bool GioiTinh { get; set; }

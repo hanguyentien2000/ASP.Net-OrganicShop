@@ -62,13 +62,6 @@
 
                     <br />
                     <div class="md-form md-outline mt-0">
-                        <label for="form15">Ngày khởi tạo</label>
-                        @Html.EditorFor(model => model.NgayKhoiTao, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Tomtat, "", new { @class = "text-danger" })
-                    </div>
-
-                    <br />
-                    <div class="md-form md-outline mt-0">
                         <label for="form15">Nội dung</label>
                         @Html.EditorFor(model => model.Noidung, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Noidung, "", new { @class = "text-danger" })

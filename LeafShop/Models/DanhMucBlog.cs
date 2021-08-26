@@ -18,7 +18,7 @@
         [Key]
         public int MaDanhMucBlog { get; set; }
 
-        [Required(ErrorMessage = "Tên danh mục không được để trống")]
+        [Required(ErrorMessage = "Tên danh mục blog không được để trống")]
         [StringLength(100)]
         public string TenDanhMucBlog { get; set; }
 

@@ -32,6 +32,7 @@
 
         [StringLength(2000)]
         [AllowHtml]
+        [Required(ErrorMessage = "Mô tả không được để trống")]
         public string MoTaThuongHieu { get; set; }
 
         [StringLength(1000)]

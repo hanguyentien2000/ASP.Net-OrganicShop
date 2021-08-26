@@ -75,10 +75,8 @@ namespace LeafShop.Areas.Administrator.Controllers
                 }
                 else
                 {
-
-                        db.KhachHangs.Add(khachHang);
-                        db.SaveChanges();
-
+                    db.KhachHangs.Add(khachHang);
+                    db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
@@ -122,7 +120,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                 ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
                 return View(khachHang);
             }
-            
+
         }
 
         // GET: Administrator/KhachHang/Delete/5
@@ -153,7 +151,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                 ViewBag.Error = "Không được xoá bản ghi này!" + ex.Message;
                 return View(khachHang);
             }
-         
+
         }
 
         protected override void Dispose(bool disposing)

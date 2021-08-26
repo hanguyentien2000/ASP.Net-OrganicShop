@@ -1,4 +1,4 @@
-namespace LeafShop.Models
+﻿namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,10 @@ namespace LeafShop.Models
     {
         [Key]
         [StringLength(50)]
+        [Required(ErrorMessage = "Username không được để trống")]
         public string USERNAME { get; set; }
 
+        [Required(ErrorMessage = "Mật khẩu không được để trống")]
         [StringLength(50)]
         public string PASSWORD { get; set; }
 

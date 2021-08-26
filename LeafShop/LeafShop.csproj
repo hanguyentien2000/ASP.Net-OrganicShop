@@ -4792,7 +4792,6 @@
     <Content Include="Areas\Administrator\Views\SanPham\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\SanPham\Delete.cshtml" />
     <Content Include="Areas\Administrator\Views\SanPham\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\SanPham\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\SanPham\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Taikhoan\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\Taikhoan\Delete.cshtml" />
@@ -4805,7 +4804,6 @@
     <Content Include="Areas\Administrator\Views\Blog\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\Blog\Delete.cshtml" />
     <Content Include="Areas\Administrator\Views\Blog\Details.cshtml" />
-    <Content Include="Areas\Administrator\Views\Blog\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\Blog\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\ChiTietDatHang\Create.cshtml" />
     <Content Include="Areas\Administrator\Views\ChiTietDatHang\Delete.cshtml" />
@@ -4834,6 +4832,8 @@
     <Content Include="Areas\Administrator\Views\KhachHang\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\NhanVien\Edit.cshtml" />
     <Content Include="Areas\Administrator\Views\Taikhoan\Edit.cshtml" />
+    <Content Include="Areas\Administrator\Views\SanPham\Edit.cshtml" />
+    <Content Include="Areas\Administrator\Views\Blog\Edit.cshtml" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>

@@ -1,4 +1,7 @@
-﻿@model LeafShop.Models.SanPham
+﻿
+
+
+@model LeafShop.Models.SanPham
 
 @{
     ViewBag.Title = "Cập nhật sản phẩm";
@@ -21,7 +24,8 @@
 </script>
 <h2 style="font-size: 30px">Cập nhật sản phẩm</h2>
 <hr />
-
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("Edit", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -89,7 +93,7 @@
                         <input type="file" id="uploadhinh" name="ImageFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
                     </div>
                     <br />
-                   
+
                     <div class="md-form md-outline mt-0">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
                         <div class="btn btn-warning">@Html.ActionLink("Quay trở lại", "Index")</div>
@@ -100,3 +104,8 @@
     </div>
 }
 
+@if (ViewBag.Error != null)
+{
+    <br />
+    <div class="alert alert-danger" role="alert">@ViewBag.Error</div>
+}

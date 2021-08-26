@@ -1,4 +1,4 @@
-namespace LeafShop.Models
+﻿namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,6 +19,7 @@ namespace LeafShop.Models
         public int? MaDanhMucBlog { get; set; }
 
         [StringLength(500)]
+        [Required(ErrorMessage = "Tiêu đề không được để trống")]
         public string TieuDe { get; set; }
 
         [StringLength(1000)]
@@ -26,10 +27,12 @@ namespace LeafShop.Models
 
         [StringLength(500)]
         [AllowHtml]
+        [Required(ErrorMessage = "Tóm tắt không được trống")]
         public string Tomtat { get; set; }
 
         [StringLength(2000)]
         [AllowHtml]
+        [Required(ErrorMessage = "Nội dung không được để trống")]
         public string Noidung { get; set; }
 
         [DataType(DataType.Date)]

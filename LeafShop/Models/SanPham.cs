@@ -1,4 +1,4 @@
-namespace LeafShop.Models
+﻿namespace LeafShop.Models
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +21,7 @@ namespace LeafShop.Models
         public int MaSanPham { get; set; }
 
         [StringLength(500)]
+        [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
         public string TenSanPham { get; set; }
 
         public int? MaDanhMuc { get; set; }
@@ -30,14 +31,16 @@ namespace LeafShop.Models
         [StringLength(50)]
         public string DonViTinh { get; set; }
 
-        public int? SoLuong { get; set; }
-
-        public int? SoLuongBan { get; set; }
-
-        public int? DonGia { get; set; }
+        [Required(ErrorMessage = "Số lượng không được để trống")]
+        public int SoLuong { get; set; }
+        [Required(ErrorMessage = "Số lượng bán không được để trống")]
+        public int SoLuongBan { get; set; }
+        [Required(ErrorMessage = "Đơn giá không được để trống")]
+        public int DonGia { get; set; }
 
         [StringLength(2000)]
         [AllowHtml]
+        [Required(ErrorMessage = "Mô tả không được để trống")]
         public string MoTa { get; set; }
 
         [DataType(DataType.Date)]
@@ -54,7 +57,6 @@ namespace LeafShop.Models
 
         [StringLength(1000)]
         public string HinhMinhHoa { get; set; }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [ScriptIgnore]

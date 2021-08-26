@@ -36,7 +36,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             ViewBag.CurrentFilter = SearchString;
             //var thuonghieus = db.ThuongHieux.Select(d => d);
             IQueryable<SanPham> sanphams = (from sp in db.SanPhams
-                                                  select sp).Include(s => s.DanhMuc).Include(s => s.ThuongHieu).OrderBy(x => x.MaSanPham);
+                                            select sp).Include(s => s.DanhMuc).Include(s => s.ThuongHieu).OrderBy(x => x.MaSanPham);
 
             if (!String.IsNullOrEmpty(SearchString))
             {
@@ -96,18 +96,18 @@ namespace LeafShop.Areas.Administrator.Controllers
                 ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
                 ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
                 var existData = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
-           
-                if(sp.SoLuong < 0)
+
+                if (sp.SoLuong < 0)
                 {
                     ViewBag.Error = "Số lượng không được phép nhỏ hơn 0";
                     return View(sp);
                 }
-                if(existData != null)
+                if (existData != null)
                 {
                     ViewBag.Error = "Mã sản phẩm này đã tồn tại";
                     return View(sp);
                 }
-                else if(existData == null && sp.SoLuong >= 0)
+                else if (existData == null && sp.SoLuong >= 0)
                 {
                     var data = new SanPham
                     {
@@ -147,7 +147,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                 ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
                 return View(sp);
             }
-            
+
         }
 
         // GET: Administrator/SanPham/Edit/5
@@ -186,7 +186,6 @@ namespace LeafShop.Areas.Administrator.Controllers
         public ActionResult Edit(SanPham sp, HttpPostedFileBase uploadhinh)
         {
             SanPham sps = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).Include("ThuongHieu").Include("DanhMuc").FirstOrDefault();
-            sps.MoTa = sp.MoTa;
             sps.NgayCapNhat = DateTime.Now;
             sps.SoLuong = sp.SoLuong;
             sps.SoLuongBan = sp.SoLuongBan;
@@ -244,11 +243,11 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Không xoá được bản ghi này"+ ex.Message;
+                ViewBag.Error = "Không xoá được bản ghi này" + ex.Message;
 
                 return View("Delete", sanPham);
             }
-          
+
         }
 
         protected override void Dispose(bool disposing)
