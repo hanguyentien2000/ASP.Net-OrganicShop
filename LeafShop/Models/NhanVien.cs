@@ -30,18 +30,26 @@
         public string Avatar { get; set; }
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Email không được để trống")]
+
         public string Email { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString =
         "{0:yyyy-MM-dd}",
         ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Ngày sinh không được để trống")]
+
         public DateTime? NgaySinh { get; set; }
 
         [StringLength(20)]
+        [Required(ErrorMessage = "SĐT không được để trống")]
+
         public string DienThoai { get; set; }
 
         [StringLength(500)]
+        [Required(ErrorMessage = "Địa chỉ không được để trống")]
+
         public string DiaChi { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

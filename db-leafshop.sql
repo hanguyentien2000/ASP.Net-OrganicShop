@@ -35,10 +35,10 @@ CREATE TABLE NhanVien
 	TenNhanVien NVARCHAR(100) NOT NULL ,
 	GioiTinh BIT NULL,
 	Avatar NVARCHAR(1000) NULL,
-	Email NVARCHAR(50),
-	NgaySinh DATE NULL,
-	DienThoai VARCHAR(20) NULL,
-	DiaChi NVARCHAR(500) NULL
+	Email NVARCHAR(50) NOT NULL,
+	NgaySinh DATE NOT NULL,
+	DienThoai VARCHAR(20) not null,
+	DiaChi NVARCHAR(500) not null
 )
 
 
