@@ -44,11 +44,14 @@
                     <div class="md-form md-outline mt-0">
                         <br />
                         <label for="form15">Giới tính</label>
-                        @Html.RadioButtonFor(model => model.GioiTinh, true)
-                        <span>Nam</span>
+                        <div class="form-group row">
+                            @Html.RadioButtonFor(model => model.GioiTinh, true)
+                            <span>Nam</span>
 
-                        @Html.RadioButtonFor(model => model.GioiTinh, false)
-                        <span>Nữ</span>
+                            @Html.RadioButtonFor(model => model.GioiTinh, false)
+                            <span>Nữ</span>
+                        </div>
+
                     </div>
                     <br />
                     <div class="md-form md-outline mt-0">
