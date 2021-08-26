@@ -48,7 +48,12 @@
         </tr>
         <tr>
             <th>Nội dung:</th>
-            <td>@Model.Noidung</td>
+            <td>
+                @{
+                    HtmlString nd = new HtmlString(Model.Noidung);
+                        }
+                        @nd
+                    </td>
         </tr>
     </table>
 </div>
