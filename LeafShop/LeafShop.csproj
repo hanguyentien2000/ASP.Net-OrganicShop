@@ -234,6 +234,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeafShopController.cs" />
+    <Compile Include="Controllers\MomoController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\UsersInformationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -255,6 +256,8 @@
     <Compile Include="Models\SanPham.cs" />
     <Compile Include="Models\Taikhoan.cs" />
     <Compile Include="Models\ThuongHieu.cs" />
+    <Compile Include="Others\MoMoSecurity.cs" />
+    <Compile Include="Others\PaymentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\ConstaintCart.cs" />
     <Compile Include="Session\ConstaintUser.cs" />
@@ -5236,6 +5239,7 @@
     <Content Include="Views\LeafShop\ThanhToan.cshtml" />
     <Content Include="Views\LeafShop\DieuKhoanSuDung.cshtml" />
     <Content Include="Views\UsersInformation\Details.cshtml" />
+    <Content Include="Views\Momo\ConfirmPaymentClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
