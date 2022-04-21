@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using LeafShop.Models;
 using PagedList;
 
@@ -14,174 +15,105 @@ namespace LeafShop.Areas.Administrator.Controllers
 {
     public class ThuongHieuController : Controller
     {
-        private LeafShopDb db = new LeafShopDb();
+        LeafShopDb db = new LeafShopDb();
 
-        // GET: Administrator/ThuongHieu
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            var brands = db.ThuongHieux.Select(p => p);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                brands = brands.Where(x => x.TenThuongHieu.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var thuonghieus = db.ThuongHieux.Select(d => d);
-            IQueryable<ThuongHieu> thuonghieus = (from th in db.ThuongHieux
-                                                  select th)
-                    .OrderBy(x => x.MaThuongHieu);
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                thuonghieus = thuonghieus.Where(p => p.TenThuongHieu.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(thuonghieus.ToPagedList(pageNumber, pageSize));
+            return View(brands.OrderBy(x => x.MaThuongHieu).ToPagedList(page, pageSize));
         }
 
-        // GET: Administrator/ThuongHieu/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
-            if (thuongHieu == null)
-            {
-                return HttpNotFound();
-            }
-            return View(thuongHieu);
-        }
-
-        // GET: Administrator/ThuongHieu/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Administrator/ThuongHieu/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(ThuongHieu th, HttpPostedFileBase uploadhinh)
+        public JsonResult Create(string thuonghieu, HttpPostedFileBase uploadhinh)
         {
             try
             {
-                ThuongHieu existData = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == th.MaThuongHieu);
-                if (existData != null)
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                ThuongHieu th = convert.Deserialize<ThuongHieu>(thuonghieu);
+                var existData = db.ThuongHieux.Select(d => d).Where(x => x.MaThuongHieu == th.MaThuongHieu);
+
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
                 {
-                    ViewBag.Error = "Đã tồn tại mã thương hiệu này";
-                    return View(th);
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/ThuongHieu/" + fileName);
+                    f.SaveAs(uploadPath);
+                    th.AnhThuongHieu = "/Areas/UploadFile/ThuongHieu/" + fileName;
                 }
                 else
                 {
-                    db.ThuongHieux.Add(th);
-                    db.SaveChanges();
-                    uploadhinh = Request.Files["ImageFile"];
-                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
-                    {
-                        int id = int.Parse(db.ThuongHieux.ToList().Last().MaThuongHieu.ToString());
-
-                        string _FileName = "";
-                        int index = uploadhinh.FileName.IndexOf('.');
-                        _FileName = "thuonghieu" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/ThuongHieu/"), _FileName);
-                        uploadhinh.SaveAs(_path);
-
-                        ThuongHieu item = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == id);
-                        item.AnhThuongHieu = ("/Areas/UploadFile/ThuongHieu/" + _FileName);
-                        db.SaveChanges();
-                    }
+                    th.AnhThuongHieu = "";
                 }
-                return RedirectToAction("Index");
+                db.ThuongHieux.Add(th);
+                db.SaveChanges();
+
+                return Json(new { status = true, message = "Thêm thành công!" });
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(th);
+                return Json(new { status = false, message = "Thêm không thành công - Lỗi " + ex.Message });
             }
         }
 
-        // GET: Administrator/ThuongHieu/Edit/5
-        public ActionResult Edit(int id)
-        {
-            ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
-            if (thuongHieu == null)
-            {
-                return HttpNotFound();
-            }
-            return View(thuongHieu);
-        }
-
-        // POST: Administrator/ThuongHieu/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(ThuongHieu th, HttpPostedFileBase uploadhinh)
+        public JsonResult Update(string thuonghieu, HttpPostedFileBase uploadhinh)
         {
-            ThuongHieu ths = db.ThuongHieux.FirstOrDefault(x => x.MaThuongHieu == th.MaThuongHieu);
-            ths.TenThuongHieu = th.TenThuongHieu;
-            ths.DiaChiThuongHieu = th.DiaChiThuongHieu;
-            ths.DienThoaiThuongHieu = th.DienThoaiThuongHieu;
-            ths.MoTaThuongHieu = th.MoTaThuongHieu;
-
-            uploadhinh = Request.Files["ImageFile"];
-            if (uploadhinh != null && uploadhinh.ContentLength > 0)
-            {
-                int id = th.MaThuongHieu;
-                string _FileName = "";
-                int index = uploadhinh.FileName.IndexOf('.');
-                _FileName = "thuonghieu" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/ThuongHieu"), _FileName);
-                uploadhinh.SaveAs(_path);
-                ths.AnhThuongHieu = ("/Areas/UploadFile/ThuongHieu/" + _FileName);
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Administrator/ThuongHieu/Delete/5
-        public ActionResult Delete(int id)
-        {
-            ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
-            if (thuongHieu == null)
-            {
-                return HttpNotFound();
-            }
-            return View(thuongHieu);
-        }
-
-        // POST: Administrator/ThuongHieu/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
             try
             {
-                db.ThuongHieux.Remove(thuongHieu);
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                ThuongHieu th = convert.Deserialize<ThuongHieu>(thuonghieu);
+                ThuongHieu update = db.ThuongHieux.Where(s => s.MaThuongHieu.Equals(th.MaThuongHieu)).FirstOrDefault();
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
+                {
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/ThuongHieu/" + fileName);
+                    f.SaveAs(uploadPath);
+                    update.AnhThuongHieu = "/Areas/UploadFile/ThuongHieu/" + fileName;
+                }
+                update.TenThuongHieu = th.TenThuongHieu;
+                update.MoTaThuongHieu = th.MoTaThuongHieu;
+                update.DienThoaiThuongHieu = th.DienThoaiThuongHieu;
+                update.DiaChiThuongHieu = th.DiaChiThuongHieu;
+                db.Entry(update).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }catch(Exception ex)
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
+            }
+            catch (Exception ex)
             {
-                ViewBag.Error = "Không thể xóa bản ghi này " + ex.Message;
-                return View("Delete", thuongHieu);
+                return Json(new { status = false, message = "Sửa không thành công - Lỗi " + ex.Message });
             }
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            if (disposing)
+            try
             {
-                db.Dispose();
+                ThuongHieu th = db.ThuongHieux.Where(a => a.MaThuongHieu.Equals(id)).FirstOrDefault();
+                db.ThuongHieux.Remove(th);
+                db.SaveChanges();
+                return Json(new { status = true });
             }
-            base.Dispose(disposing);
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
+
+                return Json(new { status = false });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Index(int id)
+        {
+            ThuongHieu th = db.ThuongHieux.Where(s => s.MaThuongHieu.Equals(id)).FirstOrDefault();
+            return Json(th, JsonRequestBehavior.AllowGet);
         }
     }
 }

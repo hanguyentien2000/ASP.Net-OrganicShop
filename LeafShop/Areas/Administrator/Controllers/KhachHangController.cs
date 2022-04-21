@@ -16,142 +16,89 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         // GET: Administrator/KhachHang
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            var khachhangs = db.KhachHangs.Select(kh => kh);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                khachhangs = khachhangs.Where(dm => dm.TenKhachHang.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var khachhangs = db.KhachHangs.Select(d => d);
-            IQueryable<KhachHang> khachhangs = (from kh in db.KhachHangs
-                                                select kh)
-                    .OrderBy(student => student.MaKhachHang);
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                khachhangs = khachhangs.Where(p => p.TenKhachHang.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(khachhangs.ToPagedList(pageNumber, pageSize));
+            return View(khachhangs.OrderBy(dm => dm.MaKhachHang).ToPagedList(page, pageSize));
         }
 
         // GET: Administrator/KhachHang/Details/5
-        public ActionResult Details(int id)
+        [HttpPost]
+        public JsonResult Index(int id)
         {
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
+            KhachHang kh = db.KhachHangs.Where(a => a.MaKhachHang.Equals(id)).FirstOrDefault();
+            return Json(kh, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Administrator/KhachHang/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Administrator/KhachHang/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,DienThoaiKhachHang,TenDangNhap,MatKhau,NgaySinh,GioiTinh,Email,TrangThai")] KhachHang khachHang)
+        public JsonResult Create(KhachHang kh)
         {
             try
             {
-                var existData = db.KhachHangs.Where(x => x.TenDangNhap == khachHang.TenDangNhap).FirstOrDefault();
+                KhachHang existData = db.KhachHangs.FirstOrDefault(x => x.TenDangNhap == kh.TenDangNhap);
                 if (existData != null)
                 {
-                    ViewBag.Error = "Tên đăng nhập này đã tồn tại!";
-                    return View(khachHang);
+                    return Json(new { status = false, message = "Đã tồn tại tên đăng nhập này" });
                 }
                 else
                 {
-                    db.KhachHangs.Add(khachHang);
+                    db.KhachHangs.Add(kh);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return Json(new { status = true, message = "Thêm thành công" });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(khachHang);
+                return Json(new { status = false, message = "Đã có lỗi xảy ra" });
             }
-
         }
 
         // GET: Administrator/KhachHang/Edit/5
-        public ActionResult Edit(int id)
-        {
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
-
-        // POST: Administrator/KhachHang/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKhachHang,TenKhachHang,DiaChiKhachHang,DienThoaiKhachHang,TenDangNhap,MatKhau,NgaySinh,GioiTinh,Email,TrangThai")] KhachHang khachHang)
+        public JsonResult Update(KhachHang kh)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(khachHang).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Index");
+                KhachHang update = db.KhachHangs.Where(a => a.MaKhachHang.Equals(kh.MaKhachHang)).FirstOrDefault();
+                update.TenKhachHang = kh.TenKhachHang;
+                update.TenDangNhap = kh.TenDangNhap;
+                update.NgaySinh = kh.NgaySinh;
+                update.GioiTinh = kh.GioiTinh;
+                update.TrangThai = kh.TrangThai;
+                update.DiaChiKhachHang = kh.DiaChiKhachHang;
+                update.DienThoaiKhachHang = kh.DienThoaiKhachHang;
+                update.Email = kh.Email;
+                db.Entry(update).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(khachHang);
+                return Json(new { status = false, message = "Đã có lỗi xảy ra" });
             }
-
         }
 
         // GET: Administrator/KhachHang/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
-
-        // POST: Administrator/KhachHang/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            KhachHang khachHang = db.KhachHangs.Find(id);
             try
             {
-                db.KhachHangs.Remove(khachHang);
+                KhachHang kh = db.KhachHangs.Where(a => a.MaKhachHang.Equals(id)).FirstOrDefault();
+                db.KhachHangs.Remove(kh);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { status = true });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = "Không được xoá bản ghi này!" + ex.Message;
-                return View(khachHang);
+                return Json(new { status = false });
             }
-
         }
 
         protected override void Dispose(bool disposing)

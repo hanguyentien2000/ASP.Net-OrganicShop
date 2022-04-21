@@ -16,149 +16,95 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         // GET: Administrator/DanhMuc
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            if (SearchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var danhmucs = db.DanhMucs.Select(d => d);
-            IQueryable<DanhMuc> danhmucs = db.DanhMucs.Include("DanhMuc2").OrderBy(x => x.MaDanhMuc);
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                danhmucs = danhmucs.Where(p => p.TenDanhMuc.Contains(SearchString));
-            }
-            int pageSize = 10;
+            ViewBag.searchString = searchString;
+            ViewBag.parentId = db.DanhMucs.Select(d => d).Where(x => x.ParentId == null).Include("DanhMuc2").OrderBy(x => x.MaDanhMuc);
+            ViewBag.parentId2 = db.DanhMucs.Select(d => d).Include("DanhMuc2").OrderBy(x => x.MaDanhMuc).Distinct();
 
-            int pageNumber = (page ?? 1);
-            return View(danhmucs.ToPagedList(pageNumber, pageSize));
+            var categories = db.DanhMucs.Include("DanhMuc2").OrderBy(x => x.MaDanhMuc).Select(p => p);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                categories = categories.Where(x => x.TenDanhMuc.Contains(searchString));
+            }
+            return View(categories.OrderBy(x => x.MaDanhMuc).ToPagedList(page, pageSize));
         }
 
-        // GET: Administrator/DanhMuc/Details/5
-        public ActionResult Details(int id)
-        {
-            DanhMuc danhMuc = db.DanhMucs.Find(id);
-            if (danhMuc == null)
-            {
-                return HttpNotFound();
-            }
-            return View(danhMuc);
-        }
-
-        // GET: Administrator/DanhMuc/Create
-        public ActionResult Create()
-        {
-            ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
-            return View();
-        }
-
-        // POST: Administrator/DanhMuc/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDanhMuc,TenDanhMuc,ParentId")] DanhMuc danhMuc)
+        public JsonResult Index(int id)
+        {
+            DanhMuc dm = db.DanhMucs.Where(a => a.MaDanhMuc.Equals(id)).FirstOrDefault();
+            return Json(dm, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Create(DanhMuc dm)
         {
             try
             {
-                ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", danhMuc.ParentId);
-
-                DanhMuc existData = db.DanhMucs.FirstOrDefault(x => x.MaDanhMuc == danhMuc.MaDanhMuc);
-                if (existData != null)
-                {
-                    ViewBag.Error = "Mã danh mục đã tồn tại";
-                    return View(danhMuc);
-                }
-                else if (existData == null)
-                {
-
-                        db.DanhMucs.Add(danhMuc);
-                        db.SaveChanges();
-
-                }
-                return RedirectToAction("Index");
+                db.DanhMucs.Add(dm);
+                db.SaveChanges();
+                return Json(new { status = true, message = "Thêm thành công" });
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(danhMuc);
+                return Json(new { status = false, message = ex.Message  });
             }
-            
         }
 
         // GET: Administrator/DanhMuc/Edit/5
-        public ActionResult Edit(int id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DanhMuc danhMuc = db.DanhMucs.Find(id);
-            if (danhMuc == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", danhMuc.ParentId);
-
-            return View(danhMuc);
-        }
-
-        // POST: Administrator/DanhMuc/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDanhMuc,TenDanhMuc,ParentId")] DanhMuc danhMuc)
+        public JsonResult Update(DanhMuc dm)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(danhMuc).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(danhMuc);
-        }
-
-        // GET: Administrator/DanhMuc/Delete/5
-        public ActionResult Delete(int id)
-        {
-            DanhMuc danhMuc = db.DanhMucs.Find(id);
-            if(danhMuc.ParentId != null)
-            {
-                DanhMuc dmCha = db.DanhMucs.Where(s => s.MaDanhMuc == danhMuc.ParentId).FirstOrDefault();
-                ViewBag.tenDMCha = dmCha.TenDanhMuc;
-            }    
-            if (danhMuc == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ParentId = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", danhMuc.ParentId);
-            return View(danhMuc);
-        }
-
-        // POST: Administrator/DanhMuc/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DanhMuc danhMuc = db.DanhMucs.Find(id);
             try
             {
-                db.DanhMucs.Remove(danhMuc);
+                DanhMuc update = db.DanhMucs.Where(a => a.MaDanhMuc.Equals(dm.MaDanhMuc)).FirstOrDefault();
+                update.TenDanhMuc = dm.TenDanhMuc;
+                update.ParentId = dm.ParentId;
+                db.Entry(update).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                DanhMuc dm = db.DanhMucs.Where(a => a.MaDanhMuc == id).FirstOrDefault();
+                db.DanhMucs.Remove(dm);
+                db.SaveChanges();
+                return Json(new { status = true });
             }
             catch (Exception)
             {
-                ViewBag.Error = "Không xoá được bản ghi này: Bạn cần xoá sản phẩm trong danh mục trước khi xoá danh mục";
-                return View("Delete", danhMuc);
+                return Json(new { status = false });
             }
         }
+
+
+        [HttpGet]
+       
+        public ActionResult GetAllParentId()
+        {
+            try
+            {
+                var res = db.DanhMucs.Select(s => s.ParentId);
+                return View(res);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Đã có lỗi " + ex.Message;
+                return Json(new { status = false });
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {

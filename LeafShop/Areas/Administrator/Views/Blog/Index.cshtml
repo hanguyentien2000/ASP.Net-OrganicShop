@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Bài viết";
 }
+<script src="~/Areas/Administrator/ckeditor/ckeditor.js"></script>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
@@ -15,22 +16,22 @@
     <div class="x_panel">
         <div class="x_content">
             <div class="row">
-                <div class="col-sm-6">
-                    <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
+                        Thêm mới
+                    </button>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div id="datatable_filter" class="dataTables_filter">
-                        @using (Html.BeginForm())
-                        {
-                            //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
-                            <p>
-                                <input type="submit" value="Tìm" class="btn btn-primary" />
-                                @Html.TextBox("SearchString")
-                            </p>
-                        }
+                        <form>
+                            <button type="submit" hidden>My Button</button>
+                            <input type="text" class="form-control" name="searchString" value="@ViewBag.searchString" id="searchString" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2" />
+                        </form>
                     </div>
                 </div>
             </div>
+            <br />
+            <br />
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -66,7 +67,7 @@
                             <td>@Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)</td>
                             <td>@Html.DisplayFor(modelItem => item.TieuDe)</td>
                             <td style="text-align:center;">
-                                @{ 
+                                @{
                                     var ImagePath = item.Anh != null ? item.Anh : "~/Content/image/h0.png";
                                 }
                                 <img style="width:100px; height: 100px" src="@Url.Content(ImagePath)" class="img-thumbnail" />
@@ -81,9 +82,12 @@
                             </td>
 
                             <td>
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaBaiViet }) |
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaBaiViet }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaBaiViet })
+                                <button type="button" class="btn btn-primary" data-toggle="modal" onclick="loadData(@item.MaBaiViet)" data-target="#modalUpdate" style="background-color: forestgreen">
+                                    Cập nhật
+                                </button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete" onclick="deleteData(@item.MaBaiViet)" style="background-color: red">
+                                    Xoá
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -99,3 +103,174 @@
         </div>
     </div>
 </div>
+
+@section Popup{
+    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">THÊM MỚI BLOG</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="add-form" onsubmit="return themBlog()">
+                        <div class="form-group">
+                            <label for="MaNhanVien">Mã nhân viên</label>
+                            <br />
+                            <select class="form-select" id="manv" name="MaNhanVien"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.nhanViens)
+                                {
+                                    <option value="@item.MaNhanVien">@item.TenNhanVien</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="MaDanhMucBlog">Mã danh mục blog</label>
+                            <br />
+                            <select class="form-select" id="madmblog" name="MaDanhMucBlog"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.danhMucBlogs)
+                                {
+                                    <option value="@item.MaDanhMucBlog">@item.TenDanhMucBlog</option>
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="TieuDe">Tiêu đề</label>
+                            <input type="text" class="form-control" id="tieude" name="TieuDe" placeholder="Nhập tiêu đề">
+                        </div>
+                        <div class="form-group">
+                            <label for="Tomtat">Tóm tắt</label>
+                            <input type="text" class="form-control" id="tomtat" name="Tomtat" placeholder="Nhập tóm tắt">
+                        </div>
+                        <div class="form-group">
+                            <label for="Noidung">Nội dung</label>
+                            <input type="text" class="form-control" id="noidung" name="Noidung" placeholder="Nhập nội dung">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form14">Ảnh</label>
+                            <br />
+                            <img id="output" class="img-rounded" alt="Ảnh" width="130" height="130" src="~/Content/image/h0.png" />
+
+                            <input type="file" id="uploadhinh" name="ImagesFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
+                        </div>
+                        <p id="add-message"></p>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="themBlog()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section changePopup {
+    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT BLOG</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form">
+                        <input type="hidden" name="MaBaiViet" id="mabv1" />
+                        <div class="form-group">
+                            <label for="MaNhanVien">Mã nhân viên</label>
+                            <br />
+                            <select class="form-select mb-0" id="manv1" name="MaNhanVien"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.nhanViens)
+                                {
+                                    <option id="@item.MaNhanVien" value="@item.MaNhanVien">@item.TenNhanVien</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="MaDanhMucBlog">Mã danh mục blog</label>
+                            <br />
+                            <select class="form-select mb-0" id="madmblog1" name="MaDanhMucBlog"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.danhMucBlogs)
+                                {
+                                    <option id="@item.MaDanhMucBlog" value="@item.MaDanhMucBlog">@item.TenDanhMucBlog</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="TieuDe">Tiêu đề</label>
+                            <input type="text" class="form-control" id="tieude1" name="TieuDe" placeholder="Nhập tiêu đề">
+                        </div>
+                        <div class="form-group">
+                            <label for="TomTat">Tóm tắt</label>
+                            <input type="text" class="form-control" id="tomtat1" name="Tomtat" placeholder="Nhập tóm tắt">
+                        </div>
+                        <div class="form-group">
+                            <label for="NoiDung">Nội dung</label>
+                            <input type="text" class="form-control" id="noidung1" name="Noidung"  placeholder="Nhập nội dung">
+                            <script>
+                                CKEDITOR.replace("noidung1").getData(value);
+                            </script>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form14">Hình minh hoạ</label>
+                            <br />
+                            <img id="output2" class="img-rounded" alt="Ảnh" width="130" height="130" src="~/Content/image/h0.png" />
+
+                            <input type="file" id="uploadhinh1" name="ImagesFile" accept="image/*" onchange="loadFile2(event)" style="margin-top: 20px" />
+                        </div>
+                        <p id="update-message"></p>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="capNhatBlog()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section deletePopup {
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 500px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">XOÁ BLOG</h5>
+                </div>
+                <div class="modal-body">
+                    <h4 class="form-group mb-4 text-center fa-1x">
+                        Xoá blog sẽ phải xoá thông tin danh mục blog và nhân viên thực hiện blog đó, bạn đã chắc chắn chưa?
+                    </h4>
+                    <input type="hidden" value="" id="delete-mablog" />
+
+                    <button type="button" class="btn btn-block btn-danger" onclick="xoaBlog()">Xoá</button>
+
+                    <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Đóng</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    var loadFile2 = function (event) {
+        var image = document.getElementById('output2');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+
+<script src="~/Areas/Administrator/Assets/Blog.js"></script>
+

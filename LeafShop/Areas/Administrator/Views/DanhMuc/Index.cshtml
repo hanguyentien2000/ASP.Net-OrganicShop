@@ -15,60 +15,161 @@
     <div class="x_panel">
         <div class="x_content">
             <div class="row">
-                <div class="col-sm-6">
-                    <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
+                        Thêm mới
+                    </button>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div id="datatable_filter" class="dataTables_filter">
-                        @using (Html.BeginForm())
-                        {
-                            //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
-                            <p>
-                                <input type="submit" value="Tìm" class="btn btn-primary"/>
-                                @Html.TextBox("SearchString")
-                            </p>
-                        }
+                        <form>
+                            <button type="submit" hidden>My Button</button>
+                            <input type="text" class="form-control" name="searchString" value="@ViewBag.searchString" id="searchString" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2" />
+                        </form>
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>
-                            Mã danh mục
-                        </th>
-                        <th>
-                            Tên danh mục
-                        </th>
-                        <th>
-                            Danh mục cha
-                        </th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.MaDanhMuc)</td>
-                            <td>@Html.DisplayFor(modelItem => item.TenDanhMuc)</td>
-                            <td>@Html.DisplayFor(modelItem => item.DanhMuc2.TenDanhMuc)</td>
-                            <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaDanhMuc }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaDanhMuc })
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
-            <br />
-            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("Index", new
-            {
-                page,
-            currentFilter = ViewBag.CurrentFilter
-            }))
         </div>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Mã danh mục
+                    </th>
+                    <th>
+                        Tên danh mục
+                    </th>
+                    <th>
+                        Danh mục cha
+                    </th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.MaDanhMuc)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TenDanhMuc)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DanhMuc2.TenDanhMuc)</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" onclick="loadData(@item.MaDanhMuc)" data-target="#modalUpdate" style="background-color: forestgreen">
+                                Cập nhật
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete" onclick="deleteData(@item.MaDanhMuc)" style="background-color: red">
+                                Xoá
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+        <br />
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            page,
+        currentFilter = ViewBag.CurrentFilter
+        }))
     </div>
 </div>
 
+
+<!-- Modal -->
+@section Popup{
+    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">THÊM MỚI DANH MỤC</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="add-form" onsubmit="return themDanhMuc()">
+                        <div class="form-group">
+                            <label for="TenDanhMuc">Tên Danh Mục</label>
+                            <input type="text" class="form-control" id="tenDanhMuc" name="TenDanhMuc" placeholder="Nhập tên danh mục">
+                        </div>
+                        <div class="form-group">
+                            <label for="ParentId">Tên danh mục cha</label>
+                            <br />
+                            <select class="form-select" id="parentId" name="ParentId"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.parentId)
+                                {
+                                    <option value="@item.ParentId">@item.TenDanhMuc</option>
+                                }
+                            </select>
+                        </div>
+                        <p id="add-message"></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="themDanhMuc()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section changePopup {
+    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT DANH MỤC</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form" onsubmit="return capNhatDanhMuc()">
+                        <input type="hidden" name="MaDanhMuc" id="madm1" />
+                        <div class="form-group">
+                            <label for="TenDanhMuc">Tên Danh Mục</label>
+                            <input type="text" class="form-control" id="tendanhmuc1" name="TenDanhMuc" placeholder="Nhập tên danh mục">
+                        </div>
+                        <div class="form-group">
+                            <label for="ParentId">Tên danh mục cha</label>
+                            <br />
+                            <select class="form-select" id="parentId1" name="ParentId"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.parentId2)
+                                {
+                                    <option id="@item.ParentId" value="@item.MaDanhMuc">@item.TenDanhMuc</option>
+                                }
+                            </select>
+                        </div>
+                        <p id="update-message"></p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="capNhatDanhMuc()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section deletePopup {
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 500px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">XOÁ DANH MỤC</h5>
+                </div>
+                <div class="modal-body">
+                    <h4 class="form-group mb-4 text-center fa-1x">
+                        Bạn đã chắc chắn chưa ?
+                    </h4>
+                    <input type="hidden" value="" id="delete-madm" name="madm" />
+
+                    <button type="button" class="btn btn-block btn-danger" onclick="xoaDanhMuc()">Xoá</button>
+
+                    <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Đóng</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Areas/Administrator/Assets/DanhMuc.js"></script>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using LeafShop.Models;
 using PagedList;
 
@@ -17,171 +18,121 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         // GET: Administrator/Blog
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 5)
         {
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            ViewBag.nhanViens = db.NhanViens.Select(d => d);
+            ViewBag.danhMucBlogs = db.DanhMucBlogs.Select(d => d);
+            var staffs = db.Blogs.Select(p => p).Include(s => s.NhanVien).Include(s=> s.DanhMucBlog);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                staffs = staffs.Where(x => x.TieuDe.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var blogs = db.Blogs.Select(d => d);
-            IQueryable<Blog> blogs = (from bl in db.Blogs
-                                            select bl).Include("DanhMucBlog").Include("NhanVien")
-                    .OrderBy(x => x.MaBaiViet);
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                blogs = blogs.Where(p => p.TieuDe.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(blogs.ToPagedList(pageNumber, pageSize));
+            return View(staffs.OrderBy(x => x.MaBaiViet).ToPagedList(page, pageSize));
         }
 
         // GET: Administrator/Blog/Details/5
-        public ActionResult Details(int id)
+        [HttpPost]
+        public JsonResult Index(int id)
         {
-            Blog blog = db.Blogs.Include("NhanVien").Include("DanhMucBlog").Where(x => x.MaBaiViet == id).FirstOrDefault();
-            if (blog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(blog);
+            Blog blogs = db.Blogs.Where(s => s.MaBaiViet.Equals(id)).FirstOrDefault();
+            return Json(blogs, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Administrator/Blog/Create
-        public ActionResult Create()
-        {
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien");
-            ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
-            return View();
-        }
-
-        // POST: Administrator/Blog/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Blog blog, HttpPostedFileBase uploadhinh)
+        public JsonResult Create(string blog, HttpPostedFileBase uploadhinh)
         {
             try
             {
-                ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
-                ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
-                Blog existData = db.Blogs.Where(x => x.MaBaiViet == blog.MaBaiViet).FirstOrDefault();
-                if (existData != null)
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                Blog blogs = convert.Deserialize<Blog>(blog);
+                blogs.NgayKhoiTao = DateTime.Now;
+                
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
                 {
-                    ViewBag.Error = "Mã bài viết này đã tồn tại!";
-                    return View(blog);
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/Blog/" + fileName);
+                    f.SaveAs(uploadPath);
+                    blogs.Anh = "/Areas/UploadFile/Blog/" + fileName;
                 }
-                else if (existData == null)
+                else
                 {
-                    var data = new Blog
-                    {
-                        MaDanhMucBlog = blog.MaDanhMucBlog,
-                        MaNhanVien = blog.MaNhanVien,
-                        Noidung = blog.Noidung,
-                        TieuDe = blog.TieuDe,
-                        Tomtat = blog.Tomtat,
-                        NgayKhoiTao = DateTime.Now,
-                    };
-                    db.Blogs.Add(data);
-                    db.SaveChanges();
-                    uploadhinh = Request.Files["ImageFile"];
-                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
-                    {
-                        int id = int.Parse(db.Blogs.ToList().Last().MaBaiViet.ToString());
-                        string _FileName = "";
-                        int index = uploadhinh.FileName.IndexOf('.');
-                        _FileName = "blog" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/Blog/"), _FileName);
-                        uploadhinh.SaveAs(_path);
+                    blogs.Anh = "";
+                }
+                db.Blogs.Add(blogs);
+                db.SaveChanges();
 
-                        Blog blog1 = db.Blogs.FirstOrDefault(x => x.MaBaiViet == id);
-                        blog1.Anh = ("/Areas/UploadFile/Blog/" + _FileName);
-                        db.SaveChanges();
-                    }
-                }
-                return RedirectToAction("Index");
+                return Json(new { status = true, message = "Thêm thành công!" });
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(blog);
+                ViewBag.error = ex.Message;
+                return Json(new { status = false, message = "Đã có lỗi xảy ra!" });
             }
         }
 
         // GET: Administrator/Blog/Edit/5
-        public ActionResult Edit(int id)
-        {
-            Blog blog = db.Blogs.Find(id);
-            if (blog == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", blog.MaNhanVien);
-            ViewBag.MaDanhMucBlog = new SelectList(db.DanhMucBlogs, "MaDanhMucBlog", "TenDanhMucBlog");
-            return View(blog);
-        }
-
-        // POST: Administrator/Blog/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Blog blog, HttpPostedFileBase uploadhinh)
+        public JsonResult Update(string blog, HttpPostedFileBase uploadhinh)
         {
-            Blog bls = db.Blogs.FirstOrDefault(x => x.MaBaiViet == blog.MaBaiViet);
-            bls.Noidung = blog.Noidung;
-            bls.TieuDe = blog.TieuDe;
-            bls.Tomtat = blog.Tomtat;
-            bls.MaDanhMucBlog = blog.MaDanhMucBlog;
-            uploadhinh = Request.Files["ImageFile"];
-            if (uploadhinh != null && uploadhinh.ContentLength > 0)
-            {
-                int id = blog.MaBaiViet;
-                string _FileName = "";
-                int index = uploadhinh.FileName.IndexOf('.');
-                _FileName = "blog" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/Blog"), _FileName);
-                uploadhinh.SaveAs(_path);
-                bls.Anh = ("/Areas/UploadFile/Blog/" + _FileName);
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Administrator/Blog/Delete/5
-        public ActionResult Delete(int id)
-        {
-            Blog blog = db.Blogs.Include("NhanVien").Include("DanhMucBlog").Where(s => s.MaBaiViet == id).FirstOrDefault();
-            if (blog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(blog);
-        }
-
-        // POST: Administrator/Blog/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Blog blog = db.Blogs.Find(id);
             try
             {
-                db.Blogs.Remove(blog);
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                Blog sp = convert.Deserialize<Blog>(blog);
+                Blog update = db.Blogs.Where(s => s.MaBaiViet.Equals(sp.MaBaiViet)).FirstOrDefault();
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
+                {
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/Blog/" + fileName);
+                    f.SaveAs(uploadPath);
+                    update.Anh = "/Areas/UploadFile/Blog/" + fileName;
+                }
+                update.MaDanhMucBlog = sp.MaDanhMucBlog;
+                update.MaNhanVien = sp.MaNhanVien;
+                update.TieuDe = sp.TieuDe;
+                update.Tomtat = sp.Tomtat;
+                update.Noidung = sp.Noidung;
+                db.Entry(update).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
             }
             catch (Exception)
             {
-                ViewBag.Error = "Không xoá được bản ghi này: Bạn cần xoá sản phẩm danh mục blog trước khi xoá bài viết!";
-                return View("Delete", blog);
+                return Json(new { status = false, message = "Sửa thông tin không thành công" });
+            }
+        }
+
+        // GET: Administrator/Blog/Delete/5
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                Blog blog = db.Blogs.Where(a => a.MaBaiViet.Equals(id)).FirstOrDefault();
+                var blog1 = db.NhanViens.Select(d => d).Where(x => x.MaNhanVien == blog.MaNhanVien);
+                var blog2 = db.DanhMucBlogs.Select(d => d).Where(x => x.MaDanhMucBlog == blog.MaDanhMucBlog);
+                foreach (var item in blog1)
+                {
+                    db.NhanViens.Remove(item);
+                }
+                foreach (var item in blog2)
+                {
+                    db.DanhMucBlogs.Remove(item);
+                }
+                db.Blogs.Remove(blog);
+                db.SaveChanges();
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
+
+                return Json(new { status = false });
             }
         }
 

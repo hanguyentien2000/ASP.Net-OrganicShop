@@ -124,7 +124,7 @@
                         <div class="widget clearfix" style='overflow:hidden'>
                             <div style="width: 100%;">
                                 <!-- Page plugin's width will be 180px -->
-                                <div class="fb-page" data-href="https://www.facebook.com/leafshop.vn/"
+                                <div class="fb-page" data-href="#"
                                      data-width="320"></div>
                             </div>
 
@@ -197,8 +197,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Product Single - Price
-                                        ============================================= -->
 
                                         <div class='col-sm-12 col-md-12 product_info norightpadding'>
 
@@ -218,30 +216,27 @@
                                             <ins> @String.Format("{0:0,0đ}", Model.DonGia)</ins>
 
 
-                                        </div><!-- Product Single - Price End -->
-                                        <!-- Product Single - Rating
-                                        ============================================= -->
+                                        </div>
 
                                         <div class="clear"></div>
 
                                         <div class="line"></div>
 
-                                       
-                                        <!-- variants -->
-                                        <!-- end variant -->
-                                        <!-- <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>-->
                                         <div class="quantity product-quantity clearfix col-md-6 col-xs-12 noleftpadding">
-                                            <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" max="@Model.SoLuong" />
+                                            <span for="SoLuong">Số lượng</span>
+                                            <p>
+                                                <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" max="@Model.SoLuong" />
+                                            </p>
                                         </div>
-                                       
+
                                         @*<button type="submit" id=''
-                                                    class="add-to-cart button nomargin col-xs-12 col-md-6 nopadding"
-                                                    style="height: 40px !important; width: 50% !important; padding: 0 !Important">
-                                                Thêm
-                                                vào giỏ
-                                            </button>*@
+                class="add-to-cart button nomargin col-xs-12 col-md-6 nopadding"
+                style="height: 40px !important; width: 50% !important; padding: 0 !Important">
+            Thêm
+            vào giỏ
+        </button>*@
                                         <div class="nomargin col-xs-12 col-md-6 nopadding"
-                                             style="height: 40px !important; width: 50% !important; padding: 0 !Important">
+                                             style="height: 38px ; width: 30% ; ">
                                             @if (Model.SoLuong == 0)
                                             {
                                                 <div class="buy_alls">
@@ -255,12 +250,9 @@
                                                 </div>
                                             }
                                         </div>
+                                        <button class='buynow button col-xs-12 noleftmargin norightmargin' onclick="AddToCheckOut(@Model.MaSanPham)" id='buynow'>Mua ngay</button>
+                                        @*<a href="#product-pop-up" class="item-quick-view fancybox-fast-view hidden-sm hidden-xs" onclick="loadsp(@item.MaSanPham)" product_url="#" data-toggle='tooltip' title='Xem nhanh'><i class="fa fa-eye"></i><span class='hidden-md hidden-lg'> Xem nhanh</span></a>*@
 
-
-                                        <button type="submit" id=''
-                                                class="button col-xs-12 nopadding buynow">
-                                            Mua ngay
-                                        </button>
                                         <div class="clear"></div>
                                         <div class="line"></div>
 
@@ -306,7 +298,7 @@
                                             <li class=""><a href="#tab2">Thương hiệu</a></li>
                                         </ul>
                                         <div class="tabs-content active" id="tab1">
-                                            @{ 
+                                            @{
                                                 HtmlString mt = new HtmlString(Model.MoTa);
                                             }
                                             @mt
@@ -325,12 +317,12 @@
                                                     @ViewBag.thuongHieu.MoTaThuongHieu
                                                 </span>
                                             </div>
-                                            
+
                                         </div>
                                         @*<div class="tabs-content " id="tab3">
-                                            <div id="fb-root">&nbsp;</div>
-                                            <div class="fb-comments">&nbsp;</div>
-                                        </div>*@
+                                                <div id="fb-root">&nbsp;</div>
+                                                <div class="fb-comments">&nbsp;</div>
+                                            </div>*@
 
                                     </div>
 
@@ -371,6 +363,27 @@
         }
     });
 
+
+    function AddToCheckOut(id) {
+        var soluong = $("#product_quantity1").val();
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify({ "MaSanPham": id, "SoLuong": soluong }),
+            url: "/Cart/AddToCart",
+            success: function (response) {
+                if (response.status) {
+                    getCart();
+                    window.location.href = "/Cart/CheckOut";
+
+                }
+            },
+            error: function (response) {
+
+            },
+
+        });
+    }
 </script>
 
 <script>

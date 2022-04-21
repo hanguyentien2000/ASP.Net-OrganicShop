@@ -16,22 +16,28 @@
     <div class="x_panel">
         <div class="x_content">
             <div class="row">
-                <div class="col-sm-6">
-                    <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")
+                <div class="col-sm-8">
+                    @*<span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")*@
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
+                        Thêm mới
+                    </button>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div id="datatable_filter" class="dataTables_filter">
-                        @using (Html.BeginForm())
-                        {
-                            //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
-                            <p>
-                                <input type="submit" value="Tìm" class="btn btn-primary"/>
-                                @Html.TextBox("SearchString")
-                            </p>
-                        }
+                        @*@using (Html.BeginForm())
+                            {
+                                //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
+                                <p>
+                                    <input type="submit" value="Tìm" class="btn btn-primary" />
+                                    @Html.TextBox("searchString")
+                                </p>
+                            }*@
+                        <input type="text" class="form-control" name="searchString" value="@ViewBag.searchString" id="exampleInputIconLeft" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2" />
                     </div>
                 </div>
             </div>
+            <br />
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -59,8 +65,12 @@
                             <td>@Html.DisplayFor(modelItem => item.PASSWORD)</td>
                             <td> @(item.Quantri?"Quản trị viên":"Nhân viên")</td>
                             <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.USERNAME }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.USERNAME })
+                                <button type="button" class="btn btn-primary" data-toggle="modal" onclick="loadItem("@item.USERNAME")" data-target="#modalUpdate" style="background-color: forestgreen">
+                                    Cập nhật
+                                </button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete" onclick="deleteItem("@item.USERNAME")" style="background-color: red">
+                                    Xoá
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -76,3 +86,123 @@
         </div>
     </div>
 </div>
+
+@section Popup{
+    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">THÊM MỚI TÀI KHOẢN</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="add-form" onsubmit="return themTaiKhoan()">
+                        <div class="form-group">
+                            <label for="MaNhanVien">Tên nhân viên</label>
+                            <br />
+                            <select class="form-select" id="manv" name="MaNhanVien"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.nhanViens)
+                                {
+                                    <option value="@item.MaNhanVien">@item.TenNhanVien</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="USERNAME">Username</label>
+                            <input type="text" class="form-control" id="username" name="USERNAME" placeholder="Nhập username">
+                        </div>
+                        <div class="form-group">
+                            <label for="PASSWORD">Password</label>
+                            <input type="text" class="form-control" id="password" name="PASSWORD" placeholder="Nhập password">
+                        </div>
+                        <div class="form-group">
+                            <label for="GioiTinh">Quản trị</label>
+                            <br />
+                            <input class="form-check-input" type="radio" name="QuanTri" id="quanTri0" value="true">Quản trị viên
+                            &nbsp;
+                            &nbsp;
+                            <input class="form-check-input" type="radio" name="QuanTri" id="quanTri1" value="false">Nhân viên
+                        </div>
+
+                        <p id="add-message"></p>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="themTaiKhoan()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section changePopup {
+    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT TÀI KHOẢN</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form" onsubmit="return capNhatTaiKhoan()">
+                        <input type="hidden" name="USERNAME" id="username1" />
+                        <div class="form-group">
+                            <label for="MaNhanVien">Tên nhân viên</label>
+                            <br />
+                            <select class="form-select" id="manv1" name="MaNhanVien"
+                                    aria-label="category select example" required style="height: 30px; width: 440px;">
+                                @foreach (var item in ViewBag.nhanViens)
+                                {
+                                    <option value="@item.MaNhanVien">@item.TenNhanVien</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="PASSWORD">Password</label>
+                            <input type="text" class="form-control" id="password1" name="PASSWORD" placeholder="Nhập password">
+                        </div>
+                        <div class="form-group">
+                            <label for="GioiTinh">Quản trị</label>
+                            <br />
+                            <input class="form-check-input" type="radio" name="QuanTri" id="quanTri0" value="true">Quản trị viên
+                            &nbsp;
+                            <input class="form-check-input" type="radio" name="QuanTri" id="quanTri1" value="false">Nhân viên
+                        </div>
+                        <p id="update-message"></p>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="capNhatTaiKhoan()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section deletePopup {
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 500px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">XOÁ TÀI KHOẢN</h5>
+                </div>
+                <div class="modal-body">
+                    <h4 class="form-group mb-4 text-center fa-1x">
+                        Bạn đã chắc chắn chưa ?
+                    </h4>
+                    <input type="hidden" value="" id="delete-username" />
+
+                    <button type="button" class="btn btn-block btn-danger" onclick="xoaTaiKhoan()">Xoá</button>
+
+                    <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Đóng</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Areas/Administrator/Assets/TaiKhoan.js"></script>

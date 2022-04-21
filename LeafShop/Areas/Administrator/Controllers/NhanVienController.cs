@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using LeafShop.Models;
 using PagedList;
 
@@ -16,169 +17,111 @@ namespace LeafShop.Areas.Administrator.Controllers
     {
         private LeafShopDb db = new LeafShopDb();
 
-        // GET: Administrator/NhanVien
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 5)
         {
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            var staffs = db.NhanViens.Select(p => p);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                staffs = staffs.Where(x => x.TenNhanVien.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var thuonghieus = db.ThuongHieux.Select(d => d);
-            IQueryable<NhanVien> nhanviens = (from nv in db.NhanViens
-                                                  select nv)
-                    .OrderBy(x => x.MaNhanVien);
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                nhanviens = nhanviens.Where(p => p.TenNhanVien.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(nhanviens.ToPagedList(pageNumber, pageSize));
+            return View(staffs.OrderBy(x => x.MaNhanVien).ToPagedList(page, pageSize));
         }
 
-        // GET: Administrator/NhanVien/Details/5
-        public ActionResult Details(int id)
-        {
-            NhanVien nhanVien = db.NhanViens.Find(id);
-            if (nhanVien == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhanVien);
-        }
-
-        // GET: Administrator/NhanVien/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Administrator/NhanVien/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(NhanVien nv, HttpPostedFileBase uploadhinh)
+        public JsonResult Create(string nhanvien, HttpPostedFileBase uploadhinh)
         {
             try
             {
-                NhanVien existData = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == nv.MaNhanVien);
-                if (existData != null)
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                NhanVien nv = convert.Deserialize<NhanVien>(nhanvien);
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
                 {
-                    ViewBag.Error = "Đã tồn tại mã nhân viên này";
-                    return View(nv);
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/NhanVien/" + fileName);
+                    f.SaveAs(uploadPath);
+                    nv.Avatar = "/Areas/UploadFile/NhanVien/" + fileName;
                 }
                 else
                 {
-                    db.NhanViens.Add(nv);
-                    db.SaveChanges();
-                    uploadhinh = Request.Files["ImagesFile"];
-                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
-                    {
-                        int id = int.Parse(db.NhanViens.ToList().Last().MaNhanVien.ToString());
-
-                        string _FileName = "";
-                        int index = uploadhinh.FileName.IndexOf('.');
-                        _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/NhanVien/"), _FileName);
-                        uploadhinh.SaveAs(_path);
-
-                        NhanVien nguoi = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == id);
-                        nguoi.Avatar = ("/Areas/UploadFile/NhanVien/" + _FileName);
-                        db.SaveChanges();
-                    }
+                    nv.Avatar = "";
                 }
-                return RedirectToAction("Index");
+                db.NhanViens.Add(nv);
+                db.SaveChanges();
+
+                return Json(new { status = true, message = "Thêm thành công!" });
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(nv);
+                ViewBag.error = ex.Message;
+                return Json(new { status = false, message = "Đã có lỗi xảy ra!" });
             }
         }
 
-        // GET: Administrator/NhanVien/Edit/5
-        public ActionResult Edit(int id)
-        {
-            NhanVien nhanVien = db.NhanViens.Find(id);
-            if (nhanVien == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhanVien);
-        }
-
-        // POST: Administrator/NhanVien/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(NhanVien nv, HttpPostedFileBase uploadhinh)
+        public JsonResult Update(string nhanvien, HttpPostedFileBase uploadhinh)
         {
-            NhanVien nvs = db.NhanViens.FirstOrDefault(x => x.MaNhanVien == nv.MaNhanVien);
-            nvs.TenNhanVien = nv.TenNhanVien;
-            nvs.DienThoai = nv.DienThoai;
-            nvs.Email = nv.Email;
-            nvs.DiaChi = nv.DiaChi;
-            nvs.NgaySinh = nv.NgaySinh;
-            nvs.GioiTinh = nv.GioiTinh;
-            uploadhinh = Request.Files["ImagesFile"];
-            if (uploadhinh != null && uploadhinh.ContentLength > 0)
-            {
-                int id = nv.MaNhanVien;
-                string _FileName = "";
-                int index = uploadhinh.FileName.IndexOf('.');
-                _FileName = "nhanvien" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/NhanVien"), _FileName);
-                uploadhinh.SaveAs(_path);
-                nvs.Avatar = ("/Areas/UploadFile/NhanVien/" + _FileName);
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Administrator/NhanVien/Delete/5
-        public ActionResult Delete(int id)
-        {
-            NhanVien nhanVien = db.NhanViens.Find(id);
-            if (nhanVien == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhanVien);
-        }
-
-        // POST: Administrator/NhanVien/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NhanVien nhanVien = db.NhanViens.Find(id);
             try
             {
-                db.NhanViens.Remove(nhanVien);
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                NhanVien nv = convert.Deserialize<NhanVien>(nhanvien);
+                NhanVien update = db.NhanViens.Where(s => s.MaNhanVien.Equals(nv.MaNhanVien)).FirstOrDefault();
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
+                {
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/NhanVien/" + fileName);
+                    f.SaveAs(uploadPath);
+                    update.Avatar = "/Areas/UploadFile/NhanVien/" + fileName;
+                }
+                update.MaNhanVien = nv.MaNhanVien;
+                update.TenNhanVien = nv.TenNhanVien;
+                update.NgaySinh = nv.NgaySinh;
+                update.DiaChi = nv.DiaChi;
+                update.DienThoai = nv.DienThoai;
+                update.Email = nv.Email;
+                update.GioiTinh = nv.GioiTinh;
+                db.Entry(update).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
+            }
+            catch (Exception)
+            {
+                return Json(new { status = false, message = "Sửa thông tin không thành công" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                NhanVien nv = db.NhanViens.Where(a => a.MaNhanVien.Equals(id)).FirstOrDefault();
+                var data = db.Taikhoans.Where(x => x.MaNhanVien == id).ToList();
+                foreach (var item in data)
+                {
+                    db.Taikhoans.Remove(item);
+                }
+                db.NhanViens.Remove(nv);
+                db.SaveChanges();
+                return Json(new { status = true });
             }
             catch (Exception ex)
             {
                 ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
-                return View(nhanVien);
+
+                return Json(new { status = false });
             }
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public JsonResult Index(int id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            NhanVien sp = db.NhanViens.Where(s => s.MaNhanVien.Equals(id)).FirstOrDefault();
+            return Json(sp, JsonRequestBehavior.AllowGet);
         }
     }
 }
+

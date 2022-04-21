@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Đăng Nhập | </title>
+    <title>RND Login System </title>
 
     <!-- Bootstrap -->
     <link href="~/Areas/Administrator/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,14 @@
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                     <form action="/Administrator/Login/Login" method="post">
+
                         <h1>Đăng nhập hệ thống</h1>
                         <div>
                             <input type="text" name="username" class="form-control" placeholder="Username" required="" />
@@ -45,19 +52,19 @@
                             <input type="password" name="password" class="form-control" placeholder="Password" required="" />
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary" style="margin-left: 122px">Đăng nhập</button>
-                            <a class="reset_pass" href="#">Quên mật khẩu?</a>
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
                         </div>
 
-                        <div class="clearfix"></div>
+                        @*<div class="clearfix"></div>*@
 
                         <div class="separator">
                             <p class="change_link">
-                                Chưa có tài khoản? -
-                                <a href="#signup" class="to_register">Tạo tài khoản</a>
+                                Đăng nhập hệ thống quản trị người dùng RND Organic!
                             </p>
                         </div>
-                        <p>@ViewBag.Error</p>
+                        <br />
+                        <br />
+                        <p style="font-size: 20px; color: red">@ViewBag.Error</p>
                     </form>
                 </section>
             </div>

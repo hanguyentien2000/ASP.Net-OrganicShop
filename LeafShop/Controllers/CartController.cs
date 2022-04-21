@@ -119,7 +119,6 @@ namespace LeafShop.Controllers
                 return RedirectToAction("Login", "Home");
             }
             ViewBag.khachHang = (KhachHang)Session[LeafShop.Session.ConstaintUser.USER_SESSION];
-
             List<ChiTietDatHang> res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
             foreach (ChiTietDatHang item in res)
             {

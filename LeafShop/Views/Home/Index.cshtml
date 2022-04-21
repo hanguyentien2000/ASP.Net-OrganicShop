@@ -13,7 +13,7 @@
     <meta http-equiv="content-language" content="vi">
 
     <title>
-        Leaf Organic - Natural & Organic Care
+        Organic Shop
     </title>
 
 
@@ -81,11 +81,11 @@
 
 
     <div id="bottom-left" class="hidden-xs">
-        <a href="http://leafshop.vn/pages/phuong-thuc-van-chuyen">
+        @*<a href="http://leafshop.vn/pages/phuong-thuc-van-chuyen">
             <div class="text">
                 <i style="font-size:20px;" class="fa fa-caret-right" aria-hidden="true"></i> Chính sách vận chuyển
             </div>
-        </a>
+        </a>*@
     </div>
 
 
@@ -278,7 +278,7 @@
                             <ul>
                                 @if (db != null)
                                 {
-                                    <li><a href="/LeafShop/Index">Về LeafShop</a></li>
+                                    <li><a href="/LeafShop/Index">Về chúng tôi</a></li>
                                     <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
                                     <li><a href="/UsersInformation/UsersInf/@db.MaKhachHang">Xin chào, @db.TenKhachHang</a></li>
 
@@ -287,7 +287,7 @@
 
                                 @if (db == null)
                                 {
-                                    <li><a href="/LeafShop/Index">Về LeafShop</a></li>
+                                    <li><a href="/LeafShop/Index">Về chúng tôi</a></li>
                                     <li><a href="@Url.Action("Index", "Blog")">Blog</a></li>
                                     <li><a href='@Url.Action("Login", "Home")'>Đăng nhập / Đăng ký</a></li>
                                 }
@@ -315,8 +315,8 @@
                         ============================================= -->
 
                         <div id="logo" class='col-md-3 col-xs-6 col-xs-push-3 col-sm-push-0 nopadding'>
-                            <a href="~/Home/Index" class="standard-logo" data-dark-logo="~/Content/image/logo.png?v=3659"><img src="~/Content/image/logo9a76.png?v=3659" alt="Leaf Organic - Natural & Organic Care"></a>
-                            <a href="~/Home/Index" class="retina-logo" data-dark-logo="~/Content/image/logo.png?v=3659"><img src="~/Content/image/logo9a76.png?v=3659" alt="Leaf Organic - Natural & Organic Care"></a>
+                            <a href="~/Home/Index" class="standard-logo" data-dark-logo="~/Content/image/logo.png?v=3659"></a>
+                            <a href="~/Home/Index" class="retina-logo" data-dark-logo="~/Content/image/logo.png?v=3659"></a>
                         </div><!-- #logo end -->
                         <!-- Top Search
                         ============================================= -->
@@ -472,6 +472,7 @@
                                 <div class="top-cart-content">
                                     <div class="top-cart-title">
                                         <h4>Giỏ hàng</h4>
+                                        
                                     </div>
                                     <div class="top-cart-action clearfix">
                                         <span class="fleft top-checkout-price">0₫</span>
@@ -630,31 +631,31 @@
                         <div class="next"></div>
                     </div>
                     <section id="slider" class="slider_des nopadding ohidden clearfix  slide_80 ">
-                        <a href='https://leafshop.vn/collections/bio-planet'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_29a76.jpg?v=3659">
                         </a>
-                        <a href='https://leafshop.vn/collections/sobo'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_39a76.jpg?v=3659">
                         </a>
-                        <a href='https://leafshop.vn/collections/biovegan'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_49a76.jpg?v=3659">
                         </a>
-                        <a href='https://leafshop.vn/collections/markal'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_59a76.jpg?v=3659">
                         </a>
-                        <a href='https://leafshop.vn/search?type=product&amp;q=sunny%20fruit'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_69a76.jpg?v=3659">
                         </a>
 
-                        <a href='https://leafshop.vn/collections/bartolini'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_89a76.jpg?v=3659">
                         </a>
 
-                        <a href='https://leafshop.vn/collections/amavie-foods'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_119a76.jpg?v=3659">
                         </a>
 
-                        <a href='https://leafshop.vn/collections/yumearth'>
+                        <a href='#'>
                             <img data-lazy="~/Content/image/slideshow_139a76.jpg?v=3659">
                         </a>
                     </section>
@@ -896,11 +897,10 @@
                                                 + '<input type="hidden" class="item_qty" value="' + response[index].SoLuong + ' ">'
                                                 + '<input type="hidden" class="item_unit_price_not_formated" value="' + response[index].DonGia + '">'
                                                 + ' <div class="top-cart-item-image">'
-
                                                 + ' <a href="#"><img src="' + response[index].SanPham.HinhMinhHoa + '" alt=""></a>'
                                                 + '</div>'
                                                 + '     <div class="top-cart-item-desc">'
-                                                + '  <a href="/products/tinh-dau-tea-tree-huu-co-gravier-10ml">' + response[index].SanPham.TenSanPham + '</a>'
+                                                + '  <a href="/SanPham/Detail/' + response[index].SanPham.MaSanPham + '">' + response[index].SanPham.TenSanPham + '</a>'
                                                 + '    <span class="top-cart-item-price">' + new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(response[index].DonGia) + '</span>'
                                                 + '    <span class="top-cart-item-quantity">x ' + response[index].SoLuong + '</span>'
                                                 + '    <a class="top_cart_item_remove" onclick="deleteFromCart(' + response[index].SanPham.MaSanPham + ');"> '
@@ -918,7 +918,7 @@
                                     }
                                 });
                             }
-
+              
                             function redirect() {
                                 window.location.href = "/Cart/Orders";
                             }
@@ -1064,27 +1064,27 @@
                                 <h4>Cửa hàng</h4>
                                 <div class="info_more">
                                     <p class="diachi_hot" style="padding-left: 15px;">
-                                        <strong style="color:#555">Tên công ty</strong>: Công Ty TNHH Leaf Organic Việt Nam<br />Số 2 ngõ 70/58 đường Văn Trì, P. Minh Khai, Q.Bắc Từ Liêm, Hà Nội, Việt Nam<br />
+                                        @*<strong style="color:#555">Tên công ty</strong>: Công Ty TNHH Leaf Organic Việt Nam<br />Số 2 ngõ 70/58 đường Văn Trì, P. Minh Khai, Q.Bắc Từ Liêm, Hà Nội, Việt Nam<br />
 
                                         <strong style="color:#555">MST:</strong> 0107693727<br />
 
-                                        <strong style="color:#555">Hà nội: </strong>Số 29 Nguyễn Chí Thanh, Quận Ba Đình,Hà Nội
+                                        <strong style="color:#555">Hà nội: </strong>Số 29 Nguyễn Chí Thanh, Quận Ba Đình,Hà Nội*@
                                     </p>
                                     <p class="diachi_hot" style="padding-left: 15px;">
-                                        <strong style="color:#555">HCM: </strong>7B/8-Nguyễn Thị Minh Khai, P.Bến Nghé, Quận 1, HCM
+                                        @*<strong style="color:#555">HCM: </strong>7B/8-Nguyễn Thị Minh Khai, P.Bến Nghé, Quận 1, HCM*@
                                     </p>
 
 
                                     <div class="hotline-ss">
-                                        <strong style="color:#555" class="local_io">Hotline: </strong>
+                                        @*<strong style="color:#555" class="local_io">Hotline: </strong>
                                         <span>Hà Nội: 0975.380.816</span><br>
-                                        <span style="padding-left: 63.5px;">Hồ Chí Minh: 0901.469.786</span>
+                                        <span style="padding-left: 63.5px;">Hồ Chí Minh: 0901.469.786</span>*@
                                     </div>
                                 </div>
 
                                 <div class="email-xl">
-                                    <strong style="color:#555" class="local_io">Email: </strong>
-                                    <span>contact@leafshop.vn</span>
+                                    @*<strong style="color:#555" class="local_io">Email: </strong>
+                                    <span>contact@leafshop.vn</span>*@
                                 </div>
 
 
@@ -1099,7 +1099,7 @@
                                 <h4>Về chúng tôi</h4>
 
                                 <ul>
-                                    <li><a href="/LeafShop/Index">Giới thiệu về Leaf Organic</a></li>
+                                    <li><a href="/LeafShop/Index">Giới thiệu về RND Organic</a></li>
                                     <li><a href="/Blog/Index">Blog</a></li>
                                     <li><a href="/LeafShop/DieuKhoanSuDung">Điều khoản sử dụng</a></li>
                                 </ul>
@@ -1118,7 +1118,7 @@
 
                                 <ul>
 
-                                    <li><a href="/Orders/Cart">Giỏ hàng</a></li>
+                                    <li><a href="@Url.Action("Orders","Cart")">Giỏ hàng</a></li>
 
                                     <li><a href="/Home/Login">Đăng nhập - Đăng ký</a></li>
 
@@ -1149,21 +1149,21 @@
                                 <h4>Kết nối với chúng tôi</h4>
                                 <div class="social-link">
 
-                                    <a target="_blank" href="https://www.facebook.com/leafshop.vn/"><i class="fa fa-facebook icon-facebook"></i></a>
+                                    <a target="_blank" href="#"><i class="fa fa-facebook icon-facebook"></i></a>
 
 
-                                    <a target="_blank" href="http://www.youtube.com/channel/UC_6LnRIenOoPq1TvsTviGJQ"><i class="fa fa-youtube icon-youtube"></i></a>
+                                    <a target="_blank" href="#"><i class="fa fa-youtube icon-youtube"></i></a>
 
 
-                                    <a target="_blank" href="http://www.instagram.com/leafshop.vn/"><i class="fa fa-instagram icon-instagram"></i></a>
+                                    <a target="_blank" href="#"><i class="fa fa-instagram icon-instagram"></i></a>
 
                                 </div>
                                 <br>
 
                                 <div class="logo-footer">
-                                    <a href="http://online.gov.vn/CustomWebsiteDisplay.aspx?DocId=53001" target="_blank">
+                                    @*<a href="http://online.gov.vn/CustomWebsiteDisplay.aspx?DocId=53001" target="_blank">
                                         <img src="~/Content/image/logo-bct9a76.png?v=3659" alt="Bộ Công Thương">
-                                    </a>
+                                    </a>*@
                                 </div>
 
 
@@ -1172,12 +1172,9 @@
                     </div><!-- .footer-widgets-wrap end -->
 
                     <p class="copyright">
-                        Copyright 2017 Leaf Organic. All rights reserved
+                        Copyright by hanguyen
                     </p>
                 </div>
-
-
-
             </footer>
         </div>
         <!-- #footer end -->
@@ -1203,15 +1200,19 @@
                 </div>
             </div>
             <div class="col-md-6 nobottommargin product-desc">
-                <div class="product-price" id="giasp"> </div>
+                <h3 style="color: green">Đơn giá</h3>
+                <div class="product-price" id="giasp">
+
+                </div>
                 <div class="clear"></div>
                 <div class="line"></div>
 
                 <!-- Product Single - Quantity & Cart Button
-                ============================================= -->
+    ============================================= -->
                 <div id='ProductDetailsFormQV' class="nobottommargin clearfix">
                     <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
-                        <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" size="4" />
+                        <p>Số lượng</p>
+                        <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" size="4" style="margin-top: -28px" />
 
                     </div>
                     <script></script>

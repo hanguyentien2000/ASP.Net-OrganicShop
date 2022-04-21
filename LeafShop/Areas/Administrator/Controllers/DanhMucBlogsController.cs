@@ -16,130 +16,86 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         // GET: Administrator/DanhMucBlogs
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            var danhmucs = db.DanhMucBlogs.Select(dm => dm);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                danhmucs = danhmucs.Where(dm => dm.TenDanhMucBlog.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var thuonghieus = db.ThuongHieux.Select(d => d);
-            IQueryable<DanhMucBlog> taikhoans = (from dm in db.DanhMucBlogs
-                                              select dm)
-                    .OrderBy(x => x.MaDanhMucBlog);
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                taikhoans = taikhoans.Where(p => p.TenDanhMucBlog.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(taikhoans.ToPagedList(pageNumber, pageSize));
+            return View(danhmucs.OrderBy(dm => dm.MaDanhMucBlog).ToPagedList(page, pageSize));
         }
 
-        // GET: Administrator/DanhMucBlogs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DanhMucBlog danhMucBlog = db.DanhMucBlogs.Find(id);
-            if (danhMucBlog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(danhMucBlog);
-        }
-
-        // GET: Administrator/DanhMucBlogs/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Administrator/DanhMucBlogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDanhMucBlog,TenDanhMucBlog")] DanhMucBlog danhMucBlog)
+        public JsonResult Index(int id)
         {
-            if (ModelState.IsValid)
-            {
-                db.DanhMucBlogs.Add(danhMucBlog);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            DanhMucBlog dm = db.DanhMucBlogs.Where(a => a.MaDanhMucBlog.Equals(id)).FirstOrDefault();
+            return Json(dm, JsonRequestBehavior.AllowGet);
+        }
 
-            return View(danhMucBlog);
+        [HttpPost]
+        public JsonResult Create(DanhMucBlog dm)
+        {
+            try
+            {
+                var existData = db.DanhMucBlogs.Where(x => x.TenDanhMucBlog == dm.TenDanhMucBlog).FirstOrDefault();
+                if(existData == null)
+                {
+                    db.DanhMucBlogs.Add(dm);
+                    db.SaveChanges();
+                    return Json(new { status = true, message = "Thêm thành công" });
+                }
+                else
+                    return Json(new { status = false, message = "Tên danh mục blog đã tồn tại" });
+
+            }
+            catch (Exception)
+            {
+                return Json(new { status = false, message = "Đã có lỗi xảy ra" });
+            }
         }
 
         // GET: Administrator/DanhMucBlogs/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DanhMucBlog danhMucBlog = db.DanhMucBlogs.Find(id);
-            if (danhMucBlog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(danhMucBlog);
-        }
-
-        // POST: Administrator/DanhMucBlogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDanhMucBlog,TenDanhMucBlog")] DanhMucBlog danhMucBlog)
+        public JsonResult Update(DanhMucBlog dm)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(danhMucBlog).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(danhMucBlog);
-        }
-
-        // GET: Administrator/DanhMucBlogs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DanhMucBlog danhMucBlog = db.DanhMucBlogs.Find(id);
-            if (danhMucBlog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(danhMucBlog);
-        }
-
-        // POST: Administrator/DanhMucBlogs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DanhMucBlog danhMucBlog = db.DanhMucBlogs.Find(id);
             try
             {
-                db.DanhMucBlogs.Remove(danhMucBlog);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }catch(Exception ex)
+                var existData = db.DanhMucBlogs.Where(x => x.TenDanhMucBlog == dm.TenDanhMucBlog).FirstOrDefault();
+                if (existData == null)
+                {
+                    DanhMucBlog update = db.DanhMucBlogs.Where(a => a.MaDanhMucBlog.Equals(dm.MaDanhMucBlog)).FirstOrDefault();
+                    update.TenDanhMucBlog = dm.TenDanhMucBlog;
+                    update.MaDanhMucBlog = dm.MaDanhMucBlog;
+                    db.Entry(update).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(new { status = true, message = "Sửa thông tin thành công" });
+                }
+                else
+                    return Json(new { status = false, message = "Tên danh mục blog đã tồn tại" });
+            }
+            catch (Exception ex)
             {
-                ViewBag.Error = "Không thể xóa bản ghi này " + ex.Message;
-                return View("Delete", danhMucBlog);
+                ViewBag.Error = ex.Message;
+                return Json(new { status = false, message = "Đã có lỗi xảy ra" });
+            }
+        }
+        // GET: Administrator/DanhMucBlogs/Delete/5
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                DanhMucBlog dm = db.DanhMucBlogs.Where(a => a.MaDanhMucBlog.Equals(id)).FirstOrDefault();
+                db.DanhMucBlogs.Remove(dm);
+                db.SaveChanges();
+                return Json(new { status = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { status = false });
             }
         }
 

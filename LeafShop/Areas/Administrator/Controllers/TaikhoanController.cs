@@ -16,152 +16,87 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         // GET: Administrator/Taikhoan
-
-        //public ActionResult Index()
-        //{
-        //    var taikhoans = db.Taikhoans.Include(t => t.NhanVien);
-        //    return View(taikhoans.ToList());
-        //}
-
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            //var taikhoans = db.Taikhoans.Include(t => t.NhanVien);
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            ViewBag.nhanViens = db.NhanViens.Select(d => d);
+            var staffs = db.Taikhoans.Select(p => p).Include(s => s.NhanVien);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                staffs = staffs.Where(x => x.USERNAME.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var thuonghieus = db.ThuongHieux.Select(d => d);
-            IQueryable<Taikhoan> taikhoans = (from tk in db.Taikhoans select tk).Include(t => t.NhanVien).OrderBy(x => x.USERNAME);
-
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                taikhoans = taikhoans.Where(p => p.USERNAME.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(taikhoans.ToPagedList(pageNumber, pageSize));
+            return View(staffs.OrderBy(x => x.MaNhanVien).ToPagedList(page, pageSize));
         }
 
         // GET: Administrator/Taikhoan/Details/5
-        public ActionResult Details(string id)
+        [HttpPost]
+        public JsonResult Index(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Taikhoan taikhoan = db.Taikhoans.Find(id);
-            if (taikhoan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(taikhoan);
+            Taikhoan tk = db.Taikhoans.Where(a => a.USERNAME.Equals(id)).FirstOrDefault();
+            return Json(tk, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Administrator/Taikhoan/Create
-        public ActionResult Create()
-        {
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien");
-            return View();
-        }
-
-        // POST: Administrator/Taikhoan/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "USERNAME,PASSWORD,Quantri,MaNhanVien")] Taikhoan taikhoan)
+        public JsonResult Create(Taikhoan tk)
         {
             try
             {
-                ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", taikhoan.MaNhanVien);
-                Taikhoan existData = db.Taikhoans.FirstOrDefault(x => x.MaNhanVien == taikhoan.MaNhanVien);
-
-                if (existData != null)
+                var existData = db.Taikhoans.Where(x => x.MaNhanVien == tk.MaNhanVien).FirstOrDefault();
+                if (existData == null)
                 {
-                    ViewBag.Error = "Nhân viên này đã có tài khoản";
-                    return View(taikhoan);
+                    db.Taikhoans.Add(tk);
+                    db.SaveChanges();
+                    return Json(new { status = true, message = "Thêm thành công" });
                 }
-                else if (existData == null)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        db.Taikhoans.Add(taikhoan);
-                        db.SaveChanges();
-                    }
-                }
-                return RedirectToAction("Index");
+                else
+                    return Json(new { status = false, message = "Nhân viên này đã tồn tại tài khoản" });
+            }
+            catch (Exception)
+            {
+                return Json(new { status = false, message = "Đã có lỗi xảy ra" });
+            }
+        }
 
+
+        // GET: Administrator/Taikhoan/Edit/5
+        [HttpPost]
+        public JsonResult Update(Taikhoan tk)
+        {
+            try
+            {
+                Taikhoan update = db.Taikhoans.Where(a => a.USERNAME.Equals(tk.USERNAME)).FirstOrDefault();
+                update.USERNAME = tk.USERNAME;
+                update.PASSWORD = tk.PASSWORD;
+                update.Quantri = tk.Quantri;
+                update.MaNhanVien = tk.MaNhanVien;
+                db.Entry(update).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(taikhoan);
+                ViewBag.Error = ex.Message;
+                return Json(new { status = false, message = "Đã có lỗi xảy ra" });
             }
-        }
-
-        // GET: Administrator/Taikhoan/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Taikhoan taikhoan = db.Taikhoans.Find(id);
-            if (taikhoan == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", taikhoan.MaNhanVien);
-            return View(taikhoan);
-        }
-
-        // POST: Administrator/Taikhoan/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "USERNAME,PASSWORD,Quantri,MaNhanVien")] Taikhoan taikhoan)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(taikhoan).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "TenNhanVien", taikhoan.MaNhanVien);
-            return View(taikhoan);
         }
 
         // GET: Administrator/Taikhoan/Delete/5
-        public ActionResult Delete(string id)
+        [HttpPost]
+        public JsonResult Delete(string id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Taikhoan tk = db.Taikhoans.Where(a => a.USERNAME.Equals(id)).FirstOrDefault();
+                db.Taikhoans.Remove(tk);
+                db.SaveChanges();
+                return Json(new { status = true });
             }
-            Taikhoan taikhoan = db.Taikhoans.Include("NhanVien").Where(s => s.USERNAME == id).FirstOrDefault();
-            if (taikhoan == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                return Json(new { status = false });
             }
-            return View(taikhoan);
-        }
-
-        // POST: Administrator/Taikhoan/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Taikhoan taikhoan = db.Taikhoans.Find(id);
-            db.Taikhoans.Remove(taikhoan);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

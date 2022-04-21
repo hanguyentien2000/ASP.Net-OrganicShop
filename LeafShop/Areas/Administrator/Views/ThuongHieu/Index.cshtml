@@ -15,22 +15,23 @@
     <div class="x_panel">
         <div class="x_content">
             <div class="row">
-                <div class="col-sm-6">
-               <span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")
+                <div class="col-sm-8">
+                    @*<span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")*@
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
+                        Thêm mới
+                    </button>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div id="datatable_filter" class="dataTables_filter">
-                        @using (Html.BeginForm())
-                        {
-                            //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
-                            <p>
-                                <input type="submit" value="Tìm" class="btn btn-primary"/>
-                                @Html.TextBox("SearchString")
-                            </p>
-                        }
+                        <form>
+                            <button type="submit" hidden>My Button</button>
+                            <input type="text" class="form-control" name="searchString" value="@ViewBag.searchString" id="searchString" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2" />
+                        </form>
                     </div>
                 </div>
             </div>
+            <br />
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -50,7 +51,7 @@
                             Mô tả
                         </th>
                         <th>
-                            Ảnh 
+                            Ảnh
                         </th>
                         <th>Thao tác</th>
                     </tr>
@@ -65,15 +66,19 @@
                             <td>@Html.DisplayFor(modelItem => item.DienThoaiThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.MoTaThuongHieu)</td>
                             <td>
-                                @{ 
+                                @{
                                     var ImagePath = item.AnhThuongHieu != null ? item.AnhThuongHieu : "~/Content/image/h0.png";
 
                                 }
                                 <img style="width:100px; height: 100px" src="@Url.Content(ImagePath)" class="img-thumbnail" />
                             </td>
                             <td>
-                                @Html.ActionLink("Cập nhật", "Edit", new { id = item.MaThuongHieu }) |
-                                @Html.ActionLink("Xoá", "Delete", new { id = item.MaThuongHieu })
+                                <button type="button" class="btn btn-primary" data-toggle="modal" onclick="loadItem(@item.MaThuongHieu)" data-target="#modalUpdate" style="background-color: forestgreen">
+                                    Cập nhật
+                                </button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete" onclick="deleteItem(@item.MaThuongHieu)" style="background-color: red">
+                                    Xoá
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -89,3 +94,138 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+@section Popup{
+    <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">THÊM MỚI THƯƠNG HIỆU</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="add-form" onsubmit="return themThuongHieu()">
+                        @*<div class="form-group">
+                            <label for="MaThuongHieu">Mã thương hiệu</label>
+                            <input type="text" class="form-control" id="math" name="MaThuongHieu" placeholder="Nhập mã thương hiệu">
+                        </div>*@
+                        <div class="form-group">
+                            <label for="TenThuongHieu">Tên thương hiệu</label>
+                            <input type="text" class="form-control" id="tenThuongHieu" name="TenThuongHieu" placeholder="Nhập tên thương hiệu">
+                        </div>
+                        <div class="form-group">
+                            <label for="DiaChiThuongHieu">Địa chỉ</label>
+                            <input type="text" class="form-control" id="diaChiThuongHieu" name="DiaChiThuongHieu" placeholder="Nhập địa chỉ thương hiệu">
+                        </div>
+                        <div class="form-group">
+                            <label for="DienThoaiThuongHieu">Điện thoại</label>
+                            <input type="number" class="form-control" id="dienThoaiThuongHieu" name="DienThoaiThuongHieu" placeholder="Nhập số điện thoại thương hiệu">
+                        </div>
+                        <div class="form-group">
+                            <label for="MoTaThuongHieu">Mô tả</label>
+                            <input type="text" class="form-control" id="moTaThuongHieu" name="MoTaThuongHieu" placeholder="Nhập mô tả">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form14">Ảnh thương hiệu</label>
+                            <br />
+                            <img id="output" class="img-rounded" alt="Ảnh" width="130" height="130" src="~/Content/image/h0.png" />
+
+                            <input type="file" id="uploadhinh" name="ImagesFile" accept="image/*" onchange="loadFile(event)" style="margin-top: 20px" />
+                        </div>
+                        <p id="add-message"></p>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="themThuongHieu()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section changePopup {
+    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT THƯƠNG HIỆU</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form" onsubmit="return capNhatThuongHieu()">
+                        <input type="hidden" name="MaThuongHieu" id="math1" />
+                        <div class="form-group">
+                            <label for="TenThuongHieu">Tên thương hiệu</label>
+                            <input type="text" class="form-control" id="tenThuongHieu1" name="TenThuongHieu" placeholder="Nhập tên thương hiệu">
+                        </div>
+                        <div class="form-group">
+                            <label for="DiaChi">Địa chỉ</label>
+                            <input type="text" class="form-control" id="diaChiThuongHieu1" name="DiaChiThuongHieu" placeholder="Nhập địa chỉ thương hiệu">
+                        </div>
+                        <div class="form-group">
+                            <label for="DienThoai">Điện thoại</label>
+                            <input type="number" class="form-control" id="dienThoaiThuongHieu1" name="DienThoaiThuongHieu" placeholder="Nhập số điện thoại thương hiệu">
+                        </div>
+                        <div class="form-group">
+                            <label for="MoTaThuongHieu">Mô tả</label>
+                            <input type="text" class="form-control" id="moTaThuongHieu1" name="MoTaThuongHieu" placeholder="Nhập mô tả">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form14">Ảnh thương hiệu</label>
+                            <br />
+                            <img id="output2" class="img-rounded" alt="Ảnh" width="130" height="130" src="~/Content/image/h0.png" />
+
+                            <input type="file" id="uploadhinh1" name="ImagesFile" accept="image/*" onchange="loadFile2(event)" style="margin-top: 20px" />
+                        </div>
+                        <p id="update-message"></p>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="capNhatThuongHieu()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section deletePopup {
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 500px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">Xoá thương hiệu</h5>
+                </div>
+                <div class="modal-body">
+                    <h5 class="form-group mb-4 text-center fa-1x">
+                       Bạn có chắc chăn muốn xoá thương hiệu?
+                    </h5>
+                    <input type="hidden" value="" id="delete-math" />
+
+                    <button type="button" class="btn btn-block btn-danger" onclick="xoaThuongHieu()">Xoá</button>
+
+                    <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Đóng</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    var loadFile2 = function (event) {
+        var image = document.getElementById('output2');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+
+<script src="~/Areas/Administrator/Assets/ThuongHieu.js"></script>

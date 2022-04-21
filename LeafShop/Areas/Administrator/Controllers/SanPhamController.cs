@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using LeafShop.Models;
 using PagedList;
 
@@ -16,247 +17,113 @@ namespace LeafShop.Areas.Administrator.Controllers
     {
         private LeafShopDb db = new LeafShopDb();
 
-        // GET: Administrator/SanPham
-        //public ActionResult Index()
-        //{
-        //    var sanPhams = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.KhuVuc).Include(s => s.ThuongHieu);
-        //    return View(sanPhams.ToList());
-        //}m d
-
-        public ActionResult Index(string SearchString, string currentFilter, int? page)
+        [HttpGet]
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 5)
         {
-            if (SearchString != null)
+            ViewBag.searchString = searchString;
+            ViewBag.danhMucs = db.DanhMucs.Select(d => d);
+            ViewBag.thuongHieus = db.ThuongHieux.Select(d => d);
+            var products = db.SanPhams.Select(p => p).Include(s => s.ThuongHieu).Include(s => s.DanhMuc);
+            if (!String.IsNullOrEmpty(searchString))
             {
-                page = 1;
+                products = products.Where(x => x.TenSanPham.Contains(searchString));
             }
-            else
-            {
-                SearchString = currentFilter;
-            }
-            ViewBag.CurrentFilter = SearchString;
-            //var thuonghieus = db.ThuongHieux.Select(d => d);
-            IQueryable<SanPham> sanphams = (from sp in db.SanPhams
-                                            select sp).Include(s => s.DanhMuc).Include(s => s.ThuongHieu).OrderBy(x => x.MaSanPham);
-
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                sanphams = sanphams.Where(p => p.TenSanPham.Contains(SearchString));
-            }
-            int pageSize = 5;
-
-            int pageNumber = (page ?? 1);
-            return View(sanphams.ToPagedList(pageNumber, pageSize));
+            return View(products.OrderBy(x => x.MaSanPham).ToPagedList(page, pageSize));
         }
-
-        // GET: Administrator/SanPham/Details/5
-        public ActionResult Details(int id)
-        {
-            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
-            if (sanPham == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sanPham);
-        }
-
-        // GET: Administrator/SanPham/Create
-        public ActionResult Create()
-        {
-            ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
-            ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
-            return View();
-        }
-
-        // POST: Administrator/SanPham/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "MaSanPham,TenSanPham,MaDanhMuc,MaThuongHieu,MaKhuVuc,DonViTinh,SoLuong,SoLuongBan,DonGia,MoTa,NgayCapNhat,HinhMinhHoa,BinhLuan")] SanPham sanPham)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.SanPhams.Add(sanPham);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
-        //    ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
-        //    ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
-        //    return View(sanPham);
-        //}
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(SanPham sp, HttpPostedFileBase uploadhinh)
+        public JsonResult Create(string sanpham, HttpPostedFileBase uploadhinh)
         {
             try
             {
-                ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc");
-                ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu");
-                var existData = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).FirstOrDefault();
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                SanPham sp = convert.Deserialize<SanPham>(sanpham);
+                sp.NgayKhoiTao = DateTime.Now;
+                sp.NgayCapNhat = DateTime.Now;
 
-                if (sp.SoLuong < 0)
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
                 {
-                    ViewBag.Error = "Số lượng không được phép nhỏ hơn 0";
-                    return View(sp);
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/SanPham/" + fileName);
+                    f.SaveAs(uploadPath);
+                    sp.HinhMinhHoa = "/Areas/UploadFile/SanPham/" + fileName;
                 }
-                if (existData != null)
+                else
                 {
-                    ViewBag.Error = "Mã sản phẩm này đã tồn tại";
-                    return View(sp);
+                    sp.HinhMinhHoa = "";
                 }
-                else if (existData == null && sp.SoLuong >= 0)
-                {
-                    var data = new SanPham
-                    {
-                        MaThuongHieu = sp.MaThuongHieu,
-                        MaDanhMuc = sp.MaDanhMuc,
-                        TenSanPham = sp.TenSanPham,
-                        MoTa = sp.MoTa,
-                        DonGia = sp.DonGia,
-                        DonViTinh = sp.DonViTinh,
-                        SoLuong = sp.SoLuong,
-                        SoLuongBan = sp.SoLuongBan,
-                        NgayKhoiTao = DateTime.Now,
-                        NgayCapNhat = null
-                    };
-                    db.SanPhams.Add(data);
-                    db.SaveChanges();
-                    uploadhinh = Request.Files["ImageFile"];
-                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
-                    {
-                        int id = int.Parse(db.SanPhams.ToList().Last().MaSanPham.ToString());
-
-                        string _FileName = "";
-                        int index = uploadhinh.FileName.IndexOf('.');
-                        _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                        string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/SanPham/"), _FileName);
-                        uploadhinh.SaveAs(_path);
-
-                        SanPham item = db.SanPhams.FirstOrDefault(x => x.MaSanPham == id);
-                        item.HinhMinhHoa = ("/Areas/UploadFile/SanPham/" + _FileName);
-                        db.SaveChanges();
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Lỗi nhập dữ liệu!" + ex.Message;
-                return View(sp);
-            }
-
-        }
-
-        // GET: Administrator/SanPham/Edit/5
-        public ActionResult Edit(int id)
-        {
-            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
-            if (sanPham == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
-            ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
-            return View(sanPham);
-        }
-
-        // POST: Administrator/SanPham/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "MaSanPham,TenSanPham,MaDanhMuc,MaThuongHieu,MaKhuVuc,DonViTinh,SoLuong,SoLuongBan,DonGia,MoTa,NgayCapNhat,HinhMinhHoa,BinhLuan")] SanPham sanPham)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(sanPham).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.MaDanhMuc = new SelectList(db.DanhMucs, "MaDanhMuc", "TenDanhMuc", sanPham.MaDanhMuc);
-        //    ViewBag.MaKhuVuc = new SelectList(db.KhuVucs, "MaKhuVuc", "TenKhuVuc", sanPham.MaKhuVuc);
-        //    ViewBag.MaThuongHieu = new SelectList(db.ThuongHieux, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
-        //    return View(sanPham);
-        //}
-
-        [HttpPost]
-        public ActionResult Edit(SanPham sp, HttpPostedFileBase uploadhinh)
-        {
-            SanPham sps = db.SanPhams.Where(x => x.MaSanPham == sp.MaSanPham).Include("ThuongHieu").Include("DanhMuc").FirstOrDefault();
-            sps.NgayCapNhat = DateTime.Now;
-            sps.SoLuong = sp.SoLuong;
-            sps.SoLuongBan = sp.SoLuongBan;
-            sps.MaDanhMuc = sp.MaDanhMuc;
-            sps.MaThuongHieu = sp.MaThuongHieu;
-            sps.DonViTinh = sp.DonViTinh;
-            sps.DonGia = sp.DonGia;
-            sps.TenSanPham = sp.TenSanPham;
-            sps.MoTa = sp.MoTa;
-            uploadhinh = Request.Files["ImageFile"];
-            if (uploadhinh != null && uploadhinh.ContentLength > 0)
-            {
-                int id = sp.MaSanPham;
-                string _FileName = "";
-                int index = uploadhinh.FileName.IndexOf('.');
-                _FileName = "sanpham" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                string _path = Path.Combine(Server.MapPath("~/Areas/UploadFile/SanPham"), _FileName);
-                uploadhinh.SaveAs(_path);
-                sps.HinhMinhHoa = ("/Areas/UploadFile/SanPham/" + _FileName);
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Administrator/SanPham/Delete/5
-        public ActionResult Delete(int id)
-        {
-            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
-            DanhMuc dmSP = db.DanhMucs.Where(s => s.MaDanhMuc == sanPham.MaDanhMuc).FirstOrDefault();
-            ThuongHieu thSP = db.ThuongHieux.Where(s => s.MaThuongHieu == sanPham.MaThuongHieu).FirstOrDefault();
-            ViewBag.TenDM = dmSP.TenDanhMuc;
-            ViewBag.TenTH = thSP.TenThuongHieu;
-            if (sanPham == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sanPham);
-        }
-
-        // POST: Administrator/SanPham/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            SanPham sanPham = db.SanPhams.Include("DanhMuc").Include("ThuongHieu").Where(s => s.MaSanPham == id).FirstOrDefault();
-            DanhMuc dmSP = db.DanhMucs.Where(s => s.MaDanhMuc == sanPham.MaDanhMuc).FirstOrDefault();
-            ThuongHieu thSP = db.ThuongHieux.Where(s => s.MaThuongHieu == sanPham.MaThuongHieu).FirstOrDefault();
-            ViewBag.TenDM = dmSP.TenDanhMuc;
-            ViewBag.TenTH = thSP.TenThuongHieu;
-            try
-            {
-                db.SanPhams.Remove(sanPham);
+                db.SanPhams.Add(sp);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return Json(new { status = true, message = "Thêm thành công!" });
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Không xoá được bản ghi này" + ex.Message;
-
-                return View("Delete", sanPham);
+                ViewBag.error = ex.Message;
+                return Json(new { status = false, message = "Đã có lỗi xảy ra!" });
             }
-
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public JsonResult Update(string sanpham, HttpPostedFileBase uploadhinh)
         {
-            if (disposing)
+            try
             {
-                db.Dispose();
+                JavaScriptSerializer convert = new JavaScriptSerializer();
+                SanPham sp = convert.Deserialize<SanPham>(sanpham);
+                SanPham update = db.SanPhams.Where(s => s.MaSanPham.Equals(sp.MaSanPham)).FirstOrDefault();
+                var f = uploadhinh;
+                if (f != null && f.ContentLength > 0)
+                {
+                    string fileName = new Random().Next() + System.IO.Path.GetFileName(f.FileName);
+                    string uploadPath = Server.MapPath("~/Areas/UploadFile/SanPham/" + fileName);
+                    f.SaveAs(uploadPath);
+                    update.HinhMinhHoa = "/Areas/UploadFile/SanPham/" + fileName;
+                }
+                update.MaDanhMuc = sp.MaDanhMuc;
+                update.TenSanPham = sp.TenSanPham;
+                update.MaThuongHieu = sp.MaThuongHieu;
+                update.MoTa = sp.MoTa;
+                update.NgayCapNhat = DateTime.Now;
+                update.SoLuong = sp.SoLuong;
+                update.SoLuongBan = sp.SoLuongBan;
+                update.DonGia = sp.DonGia;
+                update.DonViTinh = sp.DonViTinh;
+                db.Entry(update).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { status = true, message = "Sửa thông tin thành công" });
             }
-            base.Dispose(disposing);
+            catch (Exception)
+            {
+                return Json(new { status = false, message = "Sửa thông tin không thành công" });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                SanPham sp = db.SanPhams.Where(a => a.MaSanPham.Equals(id)).FirstOrDefault();
+                db.SanPhams.Remove(sp);
+                db.SaveChanges();
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Không xoá được bản ghi này!" + " " + ex.Message;
+
+                return Json(new { status = false });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Index(int id)
+        {
+            SanPham sp = db.SanPhams.Where(s => s.MaSanPham.Equals(id)).FirstOrDefault();
+            return Json(sp, JsonRequestBehavior.AllowGet);
         }
     }
 }
