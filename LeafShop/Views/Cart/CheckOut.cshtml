@@ -199,14 +199,14 @@
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no">
-    
-
-    
-
-   
 
 
-    
+
+
+
+
+
+
 
     <!-- Global site tag (gtag.js) - Google Ads: 767364388 -->
     <style>
@@ -214,8 +214,8 @@
             visibility: hidden;
         }
     </style>
-   
- 
+
+
 </head>
 <body>
     @using (Html.BeginForm("CheckOut", "Cart", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -407,7 +407,7 @@
                                     <div class="section-content section-customer-information no-mb">
                                         <input type="hidden" name="checkout_user[email]" value="thinhphuongxa1@gmail.com" />
                                         <div class="logged-in-customer-information">
-                                            <div class="logged-in-customer-information-avatar-wrapper" >
+                                            <div class="logged-in-customer-information-avatar-wrapper">
                                                 <div class="logged-in-customer-information-avatar gravatar" style="background-image: url(//www.gravatar.com/avatar/cfad687ca5d09e818b7453c24150c026.jpg?s=100&d=blank);filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='//www.gravatar.com/avatar/cfad687ca5d09e818b7453c24150c026.jpg?s=100&d=blank', sizingMethod='scale')"></div>
                                             </div>
                                             <p class="logged-in-customer-information-paragraph">
@@ -455,6 +455,25 @@
                                                                 <input id="payment_method_id_247150" class="input-radio" name="payment_method_id" type="radio" value="247150" checked />
                                                             </div>
                                                             <span class="radio-label-primary">Thanh toán khi giao hàng (COD)</span>
+                                                        </label>
+                                                        @*<label class="radio-label" for="payment_method_id_24712">
+                                                                <div class="radio-input">
+                                                                    <a href="@Url.Action("Payment","Momo")"></a>
+                                                                </div>
+                                                                <span class="radio-label-primary">Thanh toán qua MoMo</span>
+                                                            </label>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="section-content">
+                                                <div class="content-box">
+                                                    <div class="radio-wrapper content-box-row">
+                                                        <label class="radio-label" for="payment_method_id_24712">
+                                                            <div class="radio-input">
+                                                                <input id="payment_method_id_247150" class="input-radio" name="payment_method_id" type="radio" value="247150" checked />
+                                                                <a href="@Url.Action("Payment","Momo")"></a>
+                                                            </div>
+                                                            <span class="radio-label-primary">Thanh toán qua MoMo</span>
                                                         </label>
                                                     </div>
                                                 </div>
