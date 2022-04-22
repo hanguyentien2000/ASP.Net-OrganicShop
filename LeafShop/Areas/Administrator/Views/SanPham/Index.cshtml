@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Sản phẩm";
 }
+<script src="~/Areas/Administrator/ckeditor/ckeditor.js"></script>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
@@ -16,8 +17,6 @@
         <div class="x_content">
             <div class="row">
                 <div class="col-sm-8">
-                    @*<span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")*@
-                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
                         Thêm mới
                     </button>
@@ -180,7 +179,7 @@
                         </div>
                         <div class="form-group">
                             <label for="SoLuong">Mô tả</label>
-                            <input type="text" class="form-control" id="moTa" name="MoTa" placeholder="Nhập mô tả">
+                            <textarea class="ckeditor" name="MoTa" id="moTa" placeholder="Nhập mô tả" ></textarea>
                         </div>
                         <div class="form-group">
                             <label for="DienThoai">Đơn giá</label>
@@ -215,7 +214,7 @@
                     <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT SẢN PHẨM</h5>
                 </div>
                 <div class="modal-body">
-                    <form id="update-form" onsubmit="return capNhatSanPham()">
+                    <form id="update-form"  runat="server">
                         <input type="hidden" name="MaSanPham" id="masp1" />
                         <div class="form-group">
                             <label for="TenSanPham">Tên sản phẩm</label>
@@ -253,7 +252,9 @@
                         </div>
                         <div class="form-group">
                             <label for="MoTa">Mô tả</label>
-                            <input type="text" class="form-control" id="moTa1" name="MoTa" placeholder="Nhập mô tả">
+                            @*<input type="text" class="form-control" id="moTa1" name="MoTa" placeholder="Nhập mô tả">*@
+                            <textarea class="ckeditor" name="MoTa" id="moTa1" placeholder="Nhập mô tả" runat="server"></textarea>
+
                         </div>
                         <div class="form-group">
                             <label for="DienThoai">Đơn giá</label>

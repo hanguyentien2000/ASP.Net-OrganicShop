@@ -224,7 +224,7 @@
         <div class="banner">
             <div class="wrap">
                 <a href="/" class="logo">
-                    <h1 class="logo-text">Leaf Organic - Natural & Organic Care</h1>
+                    <h1 class="logo-text">RND Organic - Natural & Organic Care</h1>
                 </a>
             </div>
         </div>
@@ -298,7 +298,7 @@
                                                     </td>
                                                 </tr>
                                             }
-                                           
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -350,7 +350,7 @@
                 <div class="main">
                     <div class="main-header">
                         <a href="/" class="logo">
-                            <h1 class="logo-text">Leaf Organic - Natural & Organic Care</h1>
+                            <h1 class="logo-text">RND Organic - Natural & Organic Care</h1>
                         </a>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
@@ -409,40 +409,6 @@
 
                                         <div id="section-payment-method" class="section">
                                             <div class="section-header">
-                                                <h2 class="section-title">Phương thức thanh toán</h2>
-                                            </div>
-                                            <div class="section-content">
-                                                <div class="content-box">
-                                                    <div class="radio-wrapper content-box-row">
-                                                        <label class="radio-label" for="payment_method_id_247150">
-                                                            <div class="radio-input">
-                                                                <input id="payment_method_id_247150" class="input-radio" name="payment_method_id" type="radio" value="247150" checked />
-                                                            </div>
-                                                            <span class="radio-label-primary">Thanh toán khi giao hàng (COD)</span>
-                                                        </label>
-                                                        @*<label class="radio-label" for="payment_method_id_24712">
-                                                                <div class="radio-input">
-                                                                    <a href="@Url.Action("Payment","Momo")"></a>
-                                                                </div>
-                                                                <span class="radio-label-primary">Thanh toán qua MoMo</span>
-                                                            </label>*@
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="section-content">
-                                                <div class="content-box">
-                                                    <div class="radio-wrapper content-box-row">
-                                                        <label class="radio-label" for="payment_method_id_24712">
-                                                            <div class="radio-input">
-                                                                <input id="payment_method_id_247150" class="input-radio" name="payment_method_id" type="radio" value="247150" checked />
-                                                                <a href="@Url.Action("Payment","Momo")"></a>
-                                                            </div>
-                                                            <span class="radio-label-primary">Thanh toán qua MoMo</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="section-header">
                                                 <h2 class="section-title">Ghi chú</h2>
                                             </div>
                                             <div class="section-content field field-input fieldset">
@@ -452,12 +418,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="section-header">
+                                                <h2 class="section-title">Phương thức thanh toán</h2>
+                                            </div>
+
+                                            <div class="section-content">
+                                                @*<input class="btn btn-danger" value="Thanh toán bằng momo"/>*@
+                                                <a href="@Url.Action("Payment", "Momo")" style="color: #ffffff; background-color: #286f94; padding: 21px; border-radius: 5px">
+                                                    Thanh toán bằng momo
+                                                </a>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="step-footer">
-                                <input type="submit" class="btn btn-content" value="Hoàn tất đơn hàng" onclick="return ValidatInformation()" />
+                                <input type="submit" class="btn btn-content" value="Thanh toán bằng COD" onclick="return ValidatInformation()" />
                                 <a class="step-footer-previous-link" href="@Url.Action("Orders", "Cart")">
                                     <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3"><path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path></svg>
                                     Giỏ hàng

@@ -3,7 +3,7 @@ function loadData(id) {
     $.ajax({
         type: 'POST',
         data: { "id": id },
-        url: 'SanPham/Index',
+        url: '/SanPham/Index',
         success: function (response) {
             $("#masp1").val(response.MaSanPham);
             $("#tenSanPham1").val(response.TenSanPham);
@@ -13,7 +13,8 @@ function loadData(id) {
             $("#soLuong1").val(response.SoLuong);
             $("#soLuongBan1").val(response.SoLuongBan);
             $("#donGia1").val(response.DonGia);
-            $("#moTa1").val(response.MoTa);
+            //$("#moTa1").val(response.MoTa);
+            CKEDITOR.instances.moTa1.setData(response.MoTa);
             $("#ngayKhoiTao1").val(response.NgayKhoiTao);
             $("#ngayCapNhat1").val(response.NgayCapNhat);
             $("#output2").attr("src", response.HinhMinhHoa);
@@ -37,11 +38,12 @@ function themSanPham() {
     $.each(formData, function (index, value) {
         sanpham["" + value.name + ""] = value.value;
     });
+    sanpham.MoTa = CKEDITOR.instances.moTa.getData();
     let image = $("#uploadhinh")[0].files[0];
     form.append("sanpham", JSON.stringify(sanpham));
     form.append("uploadhinh", image);
     $.ajax({
-        url: 'SanPham/Create',
+        url: '/SanPham/Create',
         type: 'POST',
         cache: false,
         processData: false,
@@ -77,12 +79,13 @@ function capNhatSanPham() {
     $.each(formData, function (index, value) {
         sanpham["" + value.name + ""] = value.value;
     });
+    sanpham.MoTa = CKEDITOR.instances.moTa1.getData();
     let image = $("#uploadhinh1")[0].files[0];
     console.log(image);
     form.append("sanpham", JSON.stringify(sanpham));
     form.append("uploadhinh", image);
     $.ajax({
-        url: 'SanPham/Update',
+        url: '/SanPham/Update',
         type: 'POST',
         cache: false,
         processData: false,
@@ -118,7 +121,7 @@ function xoaSanPham() {
     $.ajax({
         type: 'POST',
         data: { "id": id },
-        url: 'SanPham/Delete',
+        url: '/SanPham/Delete2',
         success: function (response) {
             if (response.status == true) {
                 $(".cancelPopup").click();

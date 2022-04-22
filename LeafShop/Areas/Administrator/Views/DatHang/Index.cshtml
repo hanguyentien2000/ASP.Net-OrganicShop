@@ -23,10 +23,10 @@
                         @using (Html.BeginForm())
                         {
                             //Tìm kiếm:  <label><input type="search" class="form-control input-sm" placeholder=""></label>
-                            <p>
-                                <input type="submit" value="Tìm" class="btn btn-primary" />
-                                @Html.TextBox("SearchString")
-                            </p>
+                        <p>
+                            <button type="submit" hidden>My Button</button>
+                            @Html.TextBox("SearchString")
+                        </p>
                         }
                     </div>
                 </div>
@@ -93,63 +93,5 @@
     </div>
 </div>
 
-@section changePopup {
-    <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width: 900px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT DANH MỤC BLOG</h5>
-                </div>
-                <div class="modal-body">
-                    <form id="update-form" onsubmit="return capNhatDanhMucBlog()">
-                        <input type="hidden" name="MaDanhMucBlog" id="madmblog1" />
-                        <div class="form-group">
-                            <label for="tenDanhMucBlog1">Tên danh mục blog</label>
-                            <input type="text" class="form-control" id="tenDanhMucBlog1" name="TenDanhMucBlog" placeholder="Nhập tên danh mục blog">
-                        </div>
-                        <p id="update-message"></p>
-                    </form>
-                </div>
-                <div class="form-group">
-                    <label for="MaThuongHieu">Mã thương hiệu</label>
-                    <br />
-                    <select class="form-select mb-0" id="math1" name="MaThuongHieu"
-                            aria-label="category select example" required style="height: 30px; width: 440px;">
-                        @foreach (var item in ViewBag.thuongHieus)
-                        {
-                            <option id="@item.MaDatHang" value="@item.MaDatHang">@item.MaDatHang</option>
-                        }
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="capNhatDatHang()">Lưu</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
-@section deletePopup {
-    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width: 500px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">XOÁ ĐƠN HÀNG</h5>
-                </div>
-                <div class="modal-body">
-                    <h5 class="form-group mb-4 text-center fa-1x">
-                        Bạn có chắc chắn muốn xóa danh mục blog này không ?
-                    </h5>
-                    <input type="hidden" value="" id="delete-madh" />
 
-                    <button type="submit" class="btn btn-block btn-danger" onclick="xoaDatHang()">Xoá</button>
-                    <button type="button" class="btn btn-block border-primary" data-dismiss="modal">Đóng</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-<script src="~/Areas/Administrator/Assets/DatHang.js"></script>
