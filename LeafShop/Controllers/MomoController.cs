@@ -1,4 +1,5 @@
-﻿using MoMo;
+﻿using LeafShop.Models;
+using MoMo;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace LeafShop.Controllers
         {
             return View();
         }
+        int tongTien;
 
         public ActionResult Payment()
         {
@@ -82,9 +84,20 @@ namespace LeafShop.Controllers
         }
 
         [HttpPost]
-        public void SavePayment()
+        public ActionResult SavePayment([Bind(Include = "GhiChu,DiaChi")] DatHang dh)
         {
-            //cập nhật dữ liệu vào db
+            string diaChi = dh.DiaChi;
+            string ghiChu = dh.GhiChu;
+            List<ChiTietDatHang> res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+            foreach (ChiTietDatHang item in res)
+            {
+                if (item.DonGia != null)
+                {
+                    tongTien += (item.SoLuong.HasValue ? item.SoLuong.Value : 0) * (item.DonGia.HasValue ? item.DonGia.Value : 0);
+                }
+            }
+            tongTien += 35000;
+            return RedirectToAction("CreateBill", "Bill", new { tongTien = tongTien, ghiChu = ghiChu, diaChi = diaChi });
         }
     }
 }

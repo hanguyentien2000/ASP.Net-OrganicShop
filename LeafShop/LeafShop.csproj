@@ -266,6 +266,7 @@
   <ItemGroup>
     <Content Include="Areas\Administrator\Assets\DanhMuc.js" />
     <Content Include="Areas\Administrator\Assets\Blog.js" />
+    <Content Include="Areas\Administrator\Assets\DatHang.js" />
     <Content Include="Areas\Administrator\Assets\ThuongHieu.js" />
     <Content Include="Areas\Administrator\Assets\TaiKhoan.js" />
     <Content Include="Areas\Administrator\Assets\DanhMucBlog.js" />

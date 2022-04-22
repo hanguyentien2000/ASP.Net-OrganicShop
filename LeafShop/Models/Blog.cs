@@ -30,7 +30,7 @@
         [Required(ErrorMessage = "Tóm tắt không được trống")]
         public string Tomtat { get; set; }
 
-        [StringLength(2000)]
+        [StringLength(100000)]
         [AllowHtml]
         [Required(ErrorMessage = "Nội dung không được để trống")]
         public string Noidung { get; set; }
