@@ -16,8 +16,8 @@ function loadData(id) {
             $("#output2").attr("src", response.Avatar);
             response.GioiTinh ? $("#gioiTinhb").prop("checked", true) : $("#gioiTinhg").prop("checked", true);
             response.TrangThai ? $("#trangThaib").prop("checked", true) : $("#trangThaig").prop("checked", true);
-
-            $("#ngaySinh1").val(new Date(parseFloat(response.NgaySinh.substring(response.NgaySinh.indexOf("(") + 1, response.NgaySinh.indexOf(")")))).toString("yyyy-MM-ddThh:mm"))
+            //    $("#ngaySinh1").val(new Date(x[0].start.match(/\d+/)[0] * 1));
+            $("#ngaySinh1").val(response.NgaySinh);
         },
         error: function (response) {
             //debugger;  

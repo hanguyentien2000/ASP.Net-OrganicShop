@@ -23,7 +23,6 @@ function loadData(id) {
         },
         error: function (response) {
             //debugger;  
-            console.log(xhr.responseText);
             alert("Error has occurred..");
         }
     });

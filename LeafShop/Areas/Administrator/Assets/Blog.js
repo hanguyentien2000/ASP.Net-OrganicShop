@@ -10,7 +10,8 @@ function loadData(id) {
             $("#madmblog1").val(response.MaDanhMucBlog);
             $("#tieude1").val(response.TieuDe);
             $("#tomtat1").val(response.Tomtat);
-            $("#noidung1").val(response.Noidung);
+            //$("#noidung1").val(response.Noidung);
+            CKEDITOR.instances.noidung1.setData(response.Noidung);
             $("#output2").attr("src", response.Anh);
         },
         error: function (response) {
@@ -28,6 +29,7 @@ function themBlog() {
     $.each(formData, function (index, value) {
         blog["" + value.name + ""] = value.value;
     });
+    blog.Noidung = CKEDITOR.instances.noidung.getData();
     let image = $("#uploadhinh")[0].files[0];
     form.append("blog", JSON.stringify(blog));
     form.append("uploadhinh", image);
@@ -67,12 +69,10 @@ function capNhatBlog() {
     $.each(formData, function (index, value) {
         blog["" + value.name + ""] = value.value;
     });
-   
-    var editorval = CKEDITOR.instances['Noidung'].getData();
+    blog.Noidung = CKEDITOR.instances.noidung1.getData();
     let image = $("#uploadhinh1")[0].files[0];
     form.append("blog", JSON.stringify(blog));
     form.append("uploadhinh1", image);
-    
     $.ajax({
         url: 'Update',
         type: 'POST',
@@ -94,7 +94,6 @@ function capNhatBlog() {
             }
         },
         error: function (response) {
-            console.log(xhr.responseText);
             alert("Error has occurred..");
         }
     });

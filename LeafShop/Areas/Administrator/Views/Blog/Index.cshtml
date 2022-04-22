@@ -145,8 +145,9 @@
                             <input type="text" class="form-control" id="tomtat" name="Tomtat" placeholder="Nhập tóm tắt">
                         </div>
                         <div class="form-group">
-                            <label for="Noidung">Nội dung</label>
-                            <input type="text" class="form-control" id="noidung" name="Noidung" placeholder="Nhập nội dung">
+                            <label for="NoiDung">Nội dung</label>
+                            @*<input type="text" class="form-control" id="noidung1" name="Noidung" placeholder="Nhập nội dung">*@
+                            <textarea class="ckeditor" name="Noidung" id="noidung" placeholder="Nhập nội dung" runat="server"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -177,7 +178,7 @@
                     <h5 class="modal-title" id="exampleModalLabel" style="font-size: 20px">CẬP NHẬT BLOG</h5>
                 </div>
                 <div class="modal-body">
-                    <form id="update-form">
+                    <form id="update-form" runat="server">
                         <input type="hidden" name="MaBaiViet" id="mabv1" />
                         <div class="form-group">
                             <label for="MaNhanVien">Mã nhân viên</label>
@@ -211,10 +212,8 @@
                         </div>
                         <div class="form-group">
                             <label for="NoiDung">Nội dung</label>
-                            <input type="text" class="form-control" id="noidung1" name="Noidung"  placeholder="Nhập nội dung">
-                            <script>
-                                CKEDITOR.replace("noidung1").getData(value);
-                            </script>
+                            @*<input type="text" class="form-control" id="noidung1" name="Noidung" placeholder="Nhập nội dung">*@
+                            <textarea class="ckeditor" name="Noidung" id="noidung1" placeholder="Nhập nội dung" runat="server"></textarea>
                         </div>
 
                         <div class="form-group">

@@ -42,6 +42,7 @@ namespace LeafShop.Areas.Administrator.Controllers
 
         // GET: Administrator/Blog/Create
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult Create(string blog, HttpPostedFileBase uploadhinh)
         {
             try
@@ -77,6 +78,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/Blog/Edit/5
         
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult Update(string blog, HttpPostedFileBase uploadhinh)
         {
             try
