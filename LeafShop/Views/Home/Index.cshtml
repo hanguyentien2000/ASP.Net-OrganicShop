@@ -760,7 +760,7 @@
                                                         <div class="product-price">
                                                             <ins> @String.Format("{0:0,0đ}", item.DonGia) </ins>
                                                         </div>
-                                                        @if (item.SoLuong == 0)
+                                                        @if (item.SoLuong <= 0)
                                                         {
                                                             <div class="buy_alls">
                                                                 <a href="javascript::0">Hết Hàng</a>
@@ -814,7 +814,7 @@
                                                                 @String.Format("{0:0,0đ}", item.DonGia)
                                                             </ins>
                                                         </div>
-                                                        @if (item.SoLuong == 0)
+                                                        @if (item.SoLuong <= 0)
                                                         {
                                                             <div class="buy_alls">
                                                                 <a href="javascript::0">Hết Hàng</a>

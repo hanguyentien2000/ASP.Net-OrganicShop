@@ -893,7 +893,7 @@
                         $("#addtocartQV").removeAttr("disabled");
                         $("#buynow").html("MUA NGAY");
                         $("#buynow").removeAttr("disabled");
-                    } else {
+                    } else if (response.SoLuong <=0) {
                         $("#addtocartQV").html("Hết hàng");
                         $("#addtocartQV").attr("disabled", "disabled");
                         $("#buynow").html("SOLD OUT");

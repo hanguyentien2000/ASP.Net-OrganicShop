@@ -419,11 +419,13 @@
                                                 </div>
                                             </div>
                                             <div class="section-header">
-                                                <h2 class="section-title">Phương thức thanh toán</h2>
+                                                <h2 class="section-title">Hoặc thanh toán bằng phương thức khác</h2>
                                             </div>
 
                                             <div class="section-content">
                                                 @*<input class="btn btn-danger" value="Thanh toán bằng momo"/>*@
+                                                <input type="submit"  value="" onclick="return ValidatInformation()" hidden />
+
                                                 <a href="@Url.Action("Payment", "Momo")" style="color: #ffffff; background-color: #286f94; padding: 21px; border-radius: 5px">
                                                     Thanh toán bằng momo
                                                 </a>
@@ -434,7 +436,7 @@
                                 </div>
                             </div>
                             <div class="step-footer">
-                                <input type="submit" class="btn btn-content" value="Thanh toán bằng COD" onclick="return ValidatInformation()" />
+                                <input type="submit" class="btn btn-content" value="Hoàn tất đơn đặt hàng" onclick="return ValidatInformation()" />
                                 <a class="step-footer-previous-link" href="@Url.Action("Orders", "Cart")">
                                     <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3"><path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path></svg>
                                     Giỏ hàng

@@ -46,7 +46,8 @@
                                     </div>
 
                                     <div class="td col-sm-2 cart-product-price">
-                                        <span class="amount">@Model[i].DonGia</span>
+                                        @*<span class="amount">@Model[i].DonGia</span>*@
+                                        <span> @String.Format("{0:0,0đ}", Model[i].DonGia) </span>
                                     </div>
 
                                     <div class="td col-sm-2 cart-product-quantity">
@@ -58,7 +59,7 @@
 
                                     <div class="td col-sm-2 cart-product-subtotal">
                                         <span class="amount">
-                                            @(Model[i].DonGia * Model[i].SoLuong)
+                                            @String.Format("{0:0,0đ}",  (Model[i].DonGia * Model[i].SoLuong))
                                         </span>
                                     </div>
 
@@ -71,7 +72,7 @@
 
                             <div class='row total_price'>
                                 <div class='col-sm-2 col-xs-6 td col-sm-push-7'><h4 class='nomargin'>Tổng tiền </h4></div>
-                                <div class='col-md-3 col-xs-6 td col-sm-push-7'><span class="amount color lead"><strong>@tongtien đ</strong></span></div>
+                                <div class='col-md-3 col-xs-6 td col-sm-push-7'><span class="amount color lead"><strong>@String.Format("{0:0,0đ}", tongtien)</strong></span></div>
                             </div>
 
                             <div class="row clearfix">

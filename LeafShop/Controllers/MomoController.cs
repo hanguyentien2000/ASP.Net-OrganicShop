@@ -11,25 +11,37 @@ namespace LeafShop.Controllers
 {
     public class MomoController : Controller
     {
+        LeafShopDb db = new LeafShopDb();
+
         // GET: Momo
         public ActionResult Index()
         {
             return View();
         }
         int tongTien;
-
-        public ActionResult Payment()
+        public ActionResult Payment([Bind(Include = "GhiChu,DiaChi")] DatHang dh)
         {
+            string diaChi = dh.DiaChi;
+            string ghiChu = dh.GhiChu;
+
             //request params need to request to MoMo system
             string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
             string partnerCode = "MOMOOJOI20210710";
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
-            string orderInfo = "test";
-            string returnUrl = "https://localhost:44394/Home/ConfirmPaymentClient";
+            string orderInfo = "Thanh toán đơn hàng RND";
+            string returnUrl = "https://localhost:44352/Home/Index";
             string notifyurl = "http://ba1adf48beba.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
-
-            string amount = "1000";
+            List<ChiTietDatHang> res = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+            foreach (ChiTietDatHang item in res)
+            {
+                if (item.DonGia != null)
+                {
+                    tongTien += (item.SoLuong.HasValue ? item.SoLuong.Value : 0) * (item.DonGia.HasValue ? item.DonGia.Value : 0);
+                }
+            }
+            tongTien += 35000;
+            string amount = tongTien.ToString();
             string orderid = DateTime.Now.Ticks.ToString();
             string requestId = DateTime.Now.Ticks.ToString();
             string extraData = "";
@@ -70,8 +82,36 @@ namespace LeafShop.Controllers
             string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
 
             JObject jmessage = JObject.Parse(responseFromMomo);
+            KhachHang kh = (KhachHang)Session[LeafShop.Session.ConstaintUser.USER_SESSION];
+
+            dh.MaKhachHang = kh.MaKhachHang;
+            dh.NgayKhoiTao = DateTime.Now;
+            dh.NgayGiaoHang = null;
+            dh.DiaChi = diaChi;
+            dh.TongTien = tongTien;
+            dh.TrangThai = true;
+            dh.MaNhanVien = null;
+            dh.GhiChu = ghiChu;
+            db.DatHangs.Add(dh);
+            db.SaveChanges();
+            List<ChiTietDatHang> list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
+            if(list != null)
+            {
+                foreach (ChiTietDatHang item in list)
+                {
+                    item.SanPham = null;
+                    item.MaDatHang = dh.MaDatHang;
+                    db.ChiTietDatHangs.Add(item);
+                    db.SaveChanges();
+                }
+                Session.Remove(LeafShop.Session.ConstaintCart.CART);
+            }
+            else
+                Session.Remove(LeafShop.Session.ConstaintCart.CART);
 
             return Redirect(jmessage.GetValue("payUrl").ToString());
+
+            //return RedirectToAction("CreateBill", "Bill", new { tongTien = tongTien, ghiChu = ghiChu, diaChi = diaChi });
         }
 
         //Khi thanh toán xong ở cổng thanh toán Momo, Momo sẽ trả về một số thông tin, trong đó có errorCode để check thông tin thanh toán
