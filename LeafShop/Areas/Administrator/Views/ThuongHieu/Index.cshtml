@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Thương hiệu";
 }
+<script src="~/Areas/Administrator/ckeditor/ckeditor.js"></script>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-title">
@@ -64,7 +65,12 @@
                             <td>@Html.DisplayFor(modelItem => item.TenThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DiaChiThuongHieu)</td>
                             <td>@Html.DisplayFor(modelItem => item.DienThoaiThuongHieu)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MoTaThuongHieu)</td>
+                            <td>
+                                @{
+                                    HtmlString msg = new HtmlString(item.MoTaThuongHieu);
+                                                        }
+                                                        @msg
+                                                    </td>
                             <td>
                                 @{
                                     var ImagePath = item.AnhThuongHieu != null ? item.AnhThuongHieu : "~/Content/image/h0.png";
@@ -106,9 +112,9 @@
                 <div class="modal-body">
                     <form id="add-form" onsubmit="return themThuongHieu()">
                         @*<div class="form-group">
-                            <label for="MaThuongHieu">Mã thương hiệu</label>
-                            <input type="text" class="form-control" id="math" name="MaThuongHieu" placeholder="Nhập mã thương hiệu">
-                        </div>*@
+                                <label for="MaThuongHieu">Mã thương hiệu</label>
+                                <input type="text" class="form-control" id="math" name="MaThuongHieu" placeholder="Nhập mã thương hiệu">
+                            </div>*@
                         <div class="form-group">
                             <label for="TenThuongHieu">Tên thương hiệu</label>
                             <input type="text" class="form-control" id="tenThuongHieu" name="TenThuongHieu" placeholder="Nhập tên thương hiệu">
@@ -123,7 +129,8 @@
                         </div>
                         <div class="form-group">
                             <label for="MoTaThuongHieu">Mô tả</label>
-                            <input type="text" class="form-control" id="moTaThuongHieu" name="MoTaThuongHieu" placeholder="Nhập mô tả">
+                            @*<input type="text" class="form-control" id="moTaThuongHieu" name="MoTaThuongHieu" placeholder="Nhập mô tả">*@
+                            <textarea class="ckeditor" name="MoTaThuongHieu" id="moTaThuongHieu" placeholder="Nhập mô tả" runat="server"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -170,7 +177,8 @@
                         </div>
                         <div class="form-group">
                             <label for="MoTaThuongHieu">Mô tả</label>
-                            <input type="text" class="form-control" id="moTaThuongHieu1" name="MoTaThuongHieu" placeholder="Nhập mô tả">
+                            @*<input type="text" class="form-control" id="moTaThuongHieu1" name="MoTaThuongHieu" placeholder="Nhập mô tả">*@
+                            <textarea class="ckeditor" name="MoTaThuongHieu" id="moTaThuongHieu1" placeholder="Nhập mô tả" runat="server"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -202,7 +210,7 @@
                 </div>
                 <div class="modal-body">
                     <h5 class="form-group mb-4 text-center fa-1x">
-                       Bạn có chắc chăn muốn xoá thương hiệu?
+                        Bạn có chắc chăn muốn xoá thương hiệu?
                     </h5>
                     <input type="hidden" value="" id="delete-math" />
 

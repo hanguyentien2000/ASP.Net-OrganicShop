@@ -30,6 +30,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult Create(string thuonghieu, HttpPostedFileBase uploadhinh)
         {
             try
@@ -62,6 +63,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult Update(string thuonghieu, HttpPostedFileBase uploadhinh)
         {
             try

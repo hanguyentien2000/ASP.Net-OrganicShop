@@ -9,7 +9,8 @@ function loadItem(id) {
             $("#tenThuongHieu1").val(response.TenThuongHieu);
             $("#diaChiThuongHieu1").val(response.DiaChiThuongHieu);
             $("#dienThoaiThuongHieu1").val(response.DienThoaiThuongHieu);
-            $("#moTaThuongHieu1").val(response.MoTaThuongHieu);
+            //$("#moTaThuongHieu1").val(response.MoTaThuongHieu);
+            CKEDITOR.instances.moTaThuongHieu1.setData(response.MoTaThuongHieu);
             $("#output2").attr("src", response.AnhThuongHieu);
         },
         error: function (response) {
@@ -28,6 +29,7 @@ function themThuongHieu() {
     $.each(formData, function (index, value) {
         thuonghieu["" + value.name + ""] = value.value;
     });
+    thuonghieu.MoTaThuongHieu = CKEDITOR.instances.moTaThuongHieu.getData();
     let image = $("#uploadhinh")[0].files[0];
     form.append("thuonghieu", JSON.stringify(thuonghieu));
     form.append("uploadhinh", image);
@@ -68,6 +70,7 @@ function capNhatThuongHieu() {
     $.each(formData, function (index, value) {
         thuonghieu["" + value.name + ""] = value.value;
     });
+    thuonghieu.MoTaThuongHieu = CKEDITOR.instances.moTaThuongHieu1.getData();
     let image = $("#uploadhinh1")[0].files[0];
     form.append("thuonghieu", JSON.stringify(thuonghieu));
     form.append("uploadhinh", image);

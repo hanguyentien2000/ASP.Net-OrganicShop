@@ -19,7 +19,7 @@ namespace LeafShop.Areas.Administrator.Controllers
 
         // GET: Administrator/Blog
         [HttpGet]
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 5)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.searchString = searchString;
             ViewBag.nhanViens = db.NhanViens.Select(d => d);

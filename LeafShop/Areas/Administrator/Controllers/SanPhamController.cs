@@ -18,7 +18,7 @@ namespace LeafShop.Areas.Administrator.Controllers
         private LeafShopDb db = new LeafShopDb();
 
         [HttpGet]
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 5)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.searchString = searchString;
             ViewBag.danhMucs = db.DanhMucs.Select(d => d);

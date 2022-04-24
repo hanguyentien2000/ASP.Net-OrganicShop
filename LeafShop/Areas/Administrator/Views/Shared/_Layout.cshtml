@@ -65,7 +65,8 @@
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <h3>Danh mục quản trị hệ thống</h3>
-                           
+                            @if (tk.Quantri == true)
+                            {
                                 <ul class="nav side-menu">
                                     <li><a href="/Administrator/DanhMuc/Index"><i class="fa fa-book"></i>Quản lý danh mục</a></li>
                                     <li><a href="/Administrator/ThuongHieu/Index"><i class="fa fa-clone"></i>Quản lý thương hiệu</a></li>
@@ -78,8 +79,21 @@
                                     <li><a href="/Administrator/Blog/Index"><i class="fa fa-users"></i>Quản lý bài viết</a></li>
                                     <li><a href="/Administrator/DanhMucBlogs/Index"><i class="fa fa-users"></i>Quản lý danh mục bài viết</a></li>
                                 </ul>
-                            
-                           
+                            }
+                            @if (tk.Quantri == false)
+                            {
+                                <ul class="nav side-menu">
+                                    <li><a href="/Administrator/DanhMuc/Index"><i class="fa fa-book"></i>Quản lý danh mục</a></li>
+                                    <li><a href="/Administrator/ThuongHieu/Index"><i class="fa fa-clone"></i>Quản lý thương hiệu</a></li>
+                                    <li><a href="/Administrator/KhachHang/Index"><i class="fa fa-bar-chart"></i>Quản lý khách hàng</a></li>
+                                    <li><a href="/Administrator/DatHang/Index"><i class="fa fa-book"></i>Quản lý đặt hàng</a></li>
+                                    <li><a href="/Administrator/ChiTietDatHang/Index"><i class="fa fa-edit"></i>Quản lý chi tiết đặt hàng</a></li>
+                                    <li><a href="/Administrator/SanPham/Index"><i class="fa fa-usb"></i>Quản lý sản phẩm</a></li>
+                                    <li><a href="/Administrator/Blog/Index"><i class="fa fa-users"></i>Quản lý bài viết</a></li>
+                                    <li><a href="/Administrator/DanhMucBlogs/Index"><i class="fa fa-users"></i>Quản lý danh mục bài viết</a></li>
+                                </ul>
+                            }
+
                         </div>
                     </div>
                     <!-- /sidebar menu -->
@@ -117,8 +131,8 @@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="/Administrator/Home/Index"><i class="glyphicon glyphicon-home"></i> Trang chủ</a></li>
-                                    <li><a href="/Administrator/Login/Login"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a></li>
+                                    <li><a href="/Administrator/Home/Index"><i class="fa fa-home pull-left"></i> Trang chủ</a></li>
+                                    <li><a href="/Administrator/Login/Login"><i class="fa fa-sign-out pull-left"></i> Đăng xuất</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -7,7 +7,7 @@ function loadItem(id) {
         success: function (response) {
             $("#username1").val(response.USERNAME);
             $("#password1").val(response.PASSWORD);
-            response.QuanTri ? $("#quanTri0").prop("checked", true) : $("#quanTri1").prop("checked", true);
+            response.Quantri ? $("#gioitinhb").prop("checked", true) : $("#gioitinhg").prop("checked", true);
             $("#manv1").val(response.MaNhanVien);
         },
         error: function (response) {
