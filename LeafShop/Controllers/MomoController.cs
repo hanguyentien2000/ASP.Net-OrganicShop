@@ -87,7 +87,7 @@ namespace LeafShop.Controllers
             dh.MaKhachHang = kh.MaKhachHang;
             dh.NgayKhoiTao = DateTime.Now;
             dh.NgayGiaoHang = null;
-            dh.DiaChi = diaChi;
+            dh.DiaChi = kh.DiaChiKhachHang;
             dh.TongTien = tongTien;
             dh.TrangThai = true;
             dh.MaNhanVien = null;
