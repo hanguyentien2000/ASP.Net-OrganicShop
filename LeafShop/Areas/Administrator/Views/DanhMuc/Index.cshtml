@@ -94,9 +94,9 @@
                             <br />
                             <select class="form-select" id="parentId" name="ParentId"
                                     aria-label="category select example" required style="height: 30px; width: 440px;">
-                                @foreach (var item in ViewBag.parentId)
+                                @foreach (var item in ViewBag.parentId2 )
                                 {
-                                    <option value="@item.ParentId">@item.TenDanhMuc</option>
+                                    <option value="@item.MaDanhMuc">@item.TenDanhMuc</option>
                                 }
                             </select>
                         </div>
