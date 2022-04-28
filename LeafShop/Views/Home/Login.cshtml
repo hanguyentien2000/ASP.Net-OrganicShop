@@ -4,7 +4,15 @@
     ViewBag.Title = "Login & Signup";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script>
+    function check() {
+        if (document.getElementById("pwd").value != document.getElementById("pwd-confirm").value) {
+            document.getElementById("error-message").innerHTML = "Mật khẩu không khớp";
+            return false;
+        }
+        return true;
+    }
+</script>
 <!-- #page-title end -->
 <section id="content">
 
@@ -66,8 +74,10 @@
                             </div>
 
                             <div class="col_full nobottommargin">
-                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" type='submit'>Đăng ký</button>
+                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" onsubmit="check()" type='submit'>Đăng ký</button>
                             </div>
+                            <p style="color:red; font-weight:bold; font-size: 18px" id="error-message"></p>
+
                         }
                     </div>
                 </div>
@@ -102,8 +112,10 @@
                             </div>
 
                             <div class="col_full nobottommargin">
-                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" type='submit'>Xác nhận</button>
+                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" onsubmit="check()" type='submit'>Xác nhận</button>
                             </div>
+                            <br />
+                            <p style="color:red; font-weight:bold; font-size: 18px" id="error-message"></p>
                         }
                     </div>
                 </div>
@@ -111,15 +123,7 @@
                 <!-- end forgot password -->
             </div>
 
-            <script>
-                function check() {
-                    if (document.getElementById("pwd").value != document.getElementById("pwd-confirm").value) {
-                        document.getElementById("error-message").innerHTML = "Mật khẩu không khớp";
-                        return false;
-                    }
-                    return true;
-                }
-            </script>
+
         </div>
 
     </div>

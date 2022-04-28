@@ -144,7 +144,7 @@ namespace LeafShop.Controllers
                     db.SaveChanges();
                     KhachHang session = db.KhachHangs.Where(a => a.TenDangNhap.Equals(kh.TenDangNhap)).FirstOrDefault();
                     Session[LeafShop.Session.ConstaintUser.USER_SESSION] = session;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Home");
                 }
                 catch (Exception ex)
                 {
