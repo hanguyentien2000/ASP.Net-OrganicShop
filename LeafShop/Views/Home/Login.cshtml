@@ -36,14 +36,13 @@
                     </div>
                 </div>
                 <!-- end login -->
-
-
                 <!-- register -->
                 <div id='register'>
                     <div class="acctitle"><i class="acc-closed fa fa-user"></i><i class="acc-open fa fa-check-circle"></i>Người dùng mới? Đăng ký tài khoản</div>
                     <div class="acc_content clearfix">
                         @using (Html.BeginForm("Signup", "Home", FormMethod.Post, new { onsubmit = " return check()" }))
                         {
+                            @Html.ValidationMessage("ErrorSignUp", new { @class = "text-danger" })
                             <div class="col_full">
                                 <label for="first_name">Tên:<span class="required require_symbol">*</span></label>
                                 @Html.TextBoxFor(model => model.TenKhachHang,
@@ -68,6 +67,42 @@
 
                             <div class="col_full nobottommargin">
                                 <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" type='submit'>Đăng ký</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div id='forgot-password'>
+                    <div class="acctitle"><i class="acc-closed fa fa-unlock"></i><i class="acc-open fa fa-check-circle"></i>Quên mật khẩu</div>
+                    <div class="acc_content clearfix">
+                        @using (Html.BeginForm("ForgotPassword", "Home", FormMethod.Post, new { onsubmit = " return check()" }))
+                        {
+                            @Html.ValidationMessage("ErrorForgot", new { @class = "text-danger" })
+
+                            <div class="col_full">
+                                <label for="first_name">Email:<span class="required require_symbol">*</span></label>
+                                @Html.TextBoxFor(model => model.Email,
+                                            new { @class = "form-control", @name = "email", @autoforcus = "autofocus", @required = "required", @placeholder = "Họ và tên" })
+                            </div>
+
+                            <div class="col_full">
+                                <label for="register-form-phone">Số điện thoại:<span class="required require_symbol">*</span></label>
+                                @Html.TextBoxFor(model => model.DienThoaiKhachHang,
+                                            new { @class = "form-control", @name = "dienthoaikhachhang", @autoforcus = "autofocus", @required = "required", @placeholder = "Số điện thoại" })
+                            </div>
+
+                            <div class="col_full">
+                                <label for="register-form-password">Mật khẩu:<span class="required require_symbol">*</span></label>
+                                <input type="password" class="form-control" id="pwd" name="matkhau" placeholder="Mật khẩu" required>
+                            </div>
+
+                            <div class="col_full">
+                                <label for="register-form-repassword">Nhập lại mật khẩu:<span class="required require_symbol">*</span></label>
+                                <input type="password" class="form-control" id="pwd-confirm" placeholder="Xác nhận mật khẩu" required>
+                            </div>
+
+                            <div class="col_full nobottommargin">
+                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" type='submit'>Xác nhận</button>
                             </div>
                         }
                     </div>

@@ -112,5 +112,48 @@ namespace LeafShop.Controllers
             Session.Remove(ConstaintUser.USER_SESSION);
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            KhachHang session = (KhachHang)Session[LeafShop.Session.ConstaintUser.USER_SESSION];
+            if (session != null)
+            {
+                return RedirectToAction("PageNotFound", "Error");
+            }
+            return View("Login");
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(KhachHang kh)
+        {
+            KhachHang check = db.KhachHangs.Where
+                (a => a.Email.Equals(kh.Email) && a.DienThoaiKhachHang.Equals(kh.DienThoaiKhachHang)).FirstOrDefault();
+            if (check == null)
+            {
+                ModelState.AddModelError("ErrorForgot", "Số điện thoại hoặc email không tồn tại, mời thử lại!");
+            }
+            else
+            {
+                try
+                {
+                    kh.TrangThai = true;
+                    KhachHang update = db.KhachHangs.Where(a => a.Email.Equals(kh.Email)).FirstOrDefault();
+                    update.MatKhau = kh.MatKhau;
+                    db.SaveChanges();
+                    KhachHang session = db.KhachHangs.Where(a => a.TenDangNhap.Equals(kh.TenDangNhap)).FirstOrDefault();
+                    Session[LeafShop.Session.ConstaintUser.USER_SESSION] = session;
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("ErrorForgot", "Lấy lại mật khẩu không thành công. Thử lại sau !" + ex.Message);
+                }
+            }
+
+            return View("Login", kh);
+
+        }
     }
 }
