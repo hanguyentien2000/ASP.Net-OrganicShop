@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="~/Scripts/Chart.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Areas/Administrator/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        #chart_Container {
+            width: 400px;
+            height: 400px;
+            border: 1px solid #ddd;
+            padding: 1px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Báo cáo thống kê</h3>
+            </div>
+        </div>
+        <div class="x_panel">
+            <br />
+            <div id="chart_Container">
+                <canvas id="bar_chart"></canvas>
+            </div>
+            <script>
+        var doanhThuArray = @Html.Raw(Json.Encode(ViewBag.DOANHTHU));
+                var doanhThuArray2 = @Html.Raw(Json.Encode(ViewBag.DATAS));
+                var tensp = @Html.Raw(Json.Encode(ViewBag.TENSP));
+        var ctx = $("#bar_chart");
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: doanhThuArray2,
+                datasets: [{
+                    label: tensp,
+                    data: doanhThuArray,
+                    backgroundColor: ["rgba(242,166,54,.5)", "rgba(145,65,72,.5)", "rgba(74,25,92,.5)"],
+                    borderColor: ["rgba(242,166,54)", "rgba(145,65,72)", "rgba(74,25,92)"],
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    xAses: [{
+                        ticks: { BeginAtZero: true }
+                    }
+                    ]
+                },
+                legend: { display: false }
+            }
+        });
+            </script>
+        </div>
+    </div>
+</body>
+</html>  
