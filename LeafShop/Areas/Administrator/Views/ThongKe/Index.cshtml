@@ -29,40 +29,87 @@
                 <h3>Báo cáo thống kê</h3>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-6">
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        Tháng: @*<input type="number" value="" name="Month" min="1" max="12" required />*@
+                        <select class="form-select" aria-label="Default select example" style="height: 27px">
+                            <option selected>-Chọn Tháng--</option>
+                            <option value="" name="Month">Tháng 1</option>
+                            <option value="" name="Month">Tháng 2</option>
+                            <option value="" name="Month">Tháng 3</option>
+                            <option value="" name="Month">Tháng 4</option>
+                            <option value="" name="Month">Tháng 5</option>
+                            <option value="" name="Month">Tháng 6</option>
+                            <option value="" name="Month">Tháng 7</option>
+                            <option value="" name="Month">Tháng 8</option>
+                            <option value="" name="Month">Tháng 9</option>
+                            <option value="" name="Month">Tháng 10</option>
+                            <option value="" name="Month">Tháng 11</option>
+                            <option value="" name="Month">Tháng 12</option>
+                        </select>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+
+                        Năm: @*<input type="number" value="" name="Year" required />*@
+                        <select class="form-select" aria-label="Default select example" style="height: 27px">
+                            <option selected>-Chọn Năm--</option>
+                            <option value="" name="Year">2015</option>
+                            <option value="" name="Year">2016</option>
+                            <option value="" name="Year">2017</option>
+                            <option value="" name="Year">2018</option>
+                            <option value="" name="Year">2019</option>
+                            <option value="" name="Year">2020</option>
+                            <option value="" name="Year">2021</option>
+                            <option value="" name="Year">2022</option>
+                        </select>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <input type="submit" value="Xem" class="btn btn-primary" />
+                    </p>
+                }
+            </div>
+        </div>
         <div class="x_panel">
             <br />
             <div id="chart_Container">
                 <canvas id="bar_chart"></canvas>
             </div>
             <script>
-        var doanhThuArray = @Html.Raw(Json.Encode(ViewBag.DOANHTHU));
+                var doanhThuArray = @Html.Raw(Json.Encode(ViewBag.DOANHTHU));
                 var doanhThuArray2 = @Html.Raw(Json.Encode(ViewBag.DATAS));
                 var tensp = @Html.Raw(Json.Encode(ViewBag.TENSP));
-        var ctx = $("#bar_chart");
-        var barChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: doanhThuArray2,
-                datasets: [{
-                    label: tensp,
-                    data: doanhThuArray,
-                    backgroundColor: ["rgba(242,166,54,.5)", "rgba(145,65,72,.5)", "rgba(74,25,92,.5)"],
-                    borderColor: ["rgba(242,166,54)", "rgba(145,65,72)", "rgba(74,25,92)"],
-                    borderWidth: 1
-                }]
-            },
+                var ctx = $("#bar_chart");
+                var barChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: doanhThuArray2,
+                        datasets: [{
+                            label: "Doanh thu",
+                            data: doanhThuArray,
+                            backgroundColor: ["rgba(242,166,54,.5)", "rgba(145,65,72,.5)", "rgba(74,25,92,.5)"],
+                            borderColor: ["rgba(242,166,54)", "rgba(145,65,72)", "rgba(74,25,92)"],
+                            borderWidth: 1
+                        }]
+                    },
 
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    xAses: [{
-                        ticks: { BeginAtZero: true }
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAses: [{
+                                ticks: { BeginAtZero: true }
+                            }
+                            ]
+                        },
+                        legend: { display: false }
                     }
-                    ]
-                },
-                legend: { display: false }
-            }
-        });
+                });
             </script>
         </div>
     </div>

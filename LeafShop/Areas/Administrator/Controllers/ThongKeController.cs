@@ -1,11 +1,8 @@
 ﻿
 using LeafShop.Models;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.UI.DataVisualization.Charting;
 
 namespace LeafShop.Areas.Administrator.Controllers
 {
@@ -30,7 +27,7 @@ namespace LeafShop.Areas.Administrator.Controllers
             }
             foreach (var item in datas2)
             {
-                doanhThu.Add(existData2.Count(x => x.TenSanPham == item));
+                tensp.Add(item);
             }
             var rep = doanhThu;
             var rep2 = tensp;
