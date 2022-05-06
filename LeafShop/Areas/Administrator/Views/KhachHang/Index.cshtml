@@ -16,20 +16,16 @@
         <div class="x_content">
             <div class="row">
                 <div class="col-sm-8">
-                    @*<span class="glyphicon glyphicon-plus"></span>@Html.ActionLink("Thêm mới", "Create")*@
-                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
                         Thêm mới
                     </button>
                 </div>
                 <div class="col-sm-4">
                     <div id="datatable_filter" class="dataTables_filter">
-                        <div id="datatable_filter" class="dataTables_filter">
-                            <form>
-                                <button type="submit" hidden>My Button</button>
-                                <input type="text" class="form-control" name="searchString" value="@ViewBag.searchString" id="searchString" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2" />
-                            </form>
-                        </div>
+                        <form>
+                            <button type="submit" hidden>My Button</button>
+                            <input type="text" class="form-control" name="searchString" value="@ViewBag.searchString" id="searchString" placeholder="Tìm kiếm" aria-label="Search" aria-describedby="basic-addon2" />
+                        </form>
                     </div>
                 </div>
             </div>

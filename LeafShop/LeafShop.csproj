@@ -228,6 +228,7 @@
     <Compile Include="Areas\Administrator\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\Administrator\Controllers\SanPhamController.cs" />
     <Compile Include="Areas\Administrator\Controllers\TaikhoanController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\ThongKeController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ThuongHieuController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -5188,6 +5189,8 @@
     <Content Include="Areas\Administrator\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Areas\Administrator\ckeditor\SECURITY.md" />
     <Content Include="Areas\Administrator\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Areas\Administrator\Views\ThongKe\Details.cshtml" />
+    <Content Include="Areas\Administrator\Views\ThongKe\Index.cshtml" />
     <None Include="LeafShopDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LeafShopDataSet.Designer.cs</LastGenOutput>
