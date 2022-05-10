@@ -35,10 +35,24 @@ namespace LeafShop.Areas.Administrator.Controllers
                 SearchString = currentFilter;
             }
             ViewBag.CurrentFilter = SearchString;
+            int tongTien = 0;
             //var ctdh = db.ChiTietDatHangs.Select(d => d);
             IQueryable<ChiTietDatHang> ctdh = (from ct in db.ChiTietDatHangs
                                                select ct).Include("DatHang").Include("SanPham")
                     .OrderBy(x => x.MaDatHang);
+            foreach (var item in ctdh)
+            {
+                if (item.SoLuong != null && item.DonGia != null)
+                {
+                    tongTien = (int)(tongTien + (item.SoLuong * item.DonGia));
+                }
+            }
+            ViewBag.DoanhThu = tongTien;
+            var datas = db.SanPhams.Select(d => d).OrderByDescending(x => x.SoLuongBan).Take(1).ToList();
+            foreach (var item in datas)
+            {
+                ViewBag.SanPhamBanChayNhat = item.TenSanPham;
+            }
             if (!String.IsNullOrEmpty(SearchString))
             {
                 ctdh = ctdh.Where(p => p.SanPham.TenSanPham.Contains(SearchString));

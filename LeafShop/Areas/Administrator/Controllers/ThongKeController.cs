@@ -12,29 +12,29 @@ namespace LeafShop.Areas.Administrator.Controllers
 
         public ActionResult Index()
         {
-            var existData = db.ChiTietDatHangs.Select(d => d);
-            var existData2 = db.SanPhams.Select(d => d);
-
+            var chiTietDatHangs = db.ChiTietDatHangs.Select(d => d);
+            var sanPhams = db.SanPhams.Select(d => d);
+            //Khởi tạo
             List<long> doanhThu = new List<long>();
-            List<string> tensp = new List<string>();
+            List<int> soLuongBan = new List<int>();
+            List<string> tenSP = new List<string>();
 
-            var datas = existData.Select(x => x.MaSanPham).Distinct();
-            var datas2 = existData2.Select(x => x.TenSanPham).Distinct();
+            //Lọc
+            var sortTenSP = sanPhams.OrderByDescending(x => x.SoLuongBan).Select(x => x.TenSanPham).Distinct();
+            var sortSoLuongBan = sanPhams.Select(x => x.SoLuongBan).Distinct();
 
-            foreach (var item in datas)
+            foreach (var item in sortSoLuongBan)
             {
-                doanhThu.Add(existData.Count(x => x.MaSanPham == item));
+                soLuongBan.Add(sanPhams.Count(x => x.SoLuongBan == item));
             }
-            foreach (var item in datas2)
+            foreach (var item in sortTenSP)
             {
-                tensp.Add(item);
+                tenSP.Add(item);
             }
-            var rep = doanhThu;
-            var rep2 = tensp;
-            ViewBag.DATAS = datas;
-            ViewBag.DOANHTHU = doanhThu.ToList();
-            ViewBag.TENSP = tensp.ToList();
 
+            //ViewBag.DATAS = datas;
+            ViewBag.SoLuongBan = soLuongBan.ToList();
+            ViewBag.TenSanPham = tenSP.ToList();
             return View();
         }
 

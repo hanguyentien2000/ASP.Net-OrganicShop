@@ -83,17 +83,16 @@
                 <canvas id="bar_chart"></canvas>
             </div>
             <script>
-                var doanhThuArray = @Html.Raw(Json.Encode(ViewBag.DOANHTHU));
-                var doanhThuArray2 = @Html.Raw(Json.Encode(ViewBag.DATAS));
-                var tensp = @Html.Raw(Json.Encode(ViewBag.TENSP));
+                var soLuongBan = @Html.Raw(Json.Encode(ViewBag.SoLuongBan));
+                var tensp = @Html.Raw(Json.Encode(ViewBag.TenSanPham));
                 var ctx = $("#bar_chart");
                 var barChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: doanhThuArray2,
+                        labels: tensp,
                         datasets: [{
                             label: "So luong",
-                            data: doanhThuArray,
+                            data: soLuongBan,
                             backgroundColor: ["rgba(242,166,54,.5)", "rgba(145,65,72,.5)", "rgba(74,25,92,.5)"],
                             borderColor: ["rgba(242,166,54)", "rgba(145,65,72)", "rgba(74,25,92)"],
                             borderWidth: 1
