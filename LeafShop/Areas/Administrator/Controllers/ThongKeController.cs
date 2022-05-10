@@ -1,5 +1,6 @@
 ﻿
 using LeafShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,117 +11,200 @@ namespace LeafShop.Areas.Administrator.Controllers
     {
         private LeafShopDb db = new LeafShopDb();
 
-        public ActionResult Index()
+        public ActionResult Index(int? Month, int? Year)
         {
-            var chiTietDatHangs = db.ChiTietDatHangs.Select(d => d);
-            var sanPhams = db.SanPhams.Select(d => d);
-            //Khởi tạo
-            List<long> doanhThu = new List<long>();
-            List<int> soLuongBan = new List<int>();
-            List<string> tenSP = new List<string>();
-
-            //Lọc
-            var sortTenSP = sanPhams.OrderByDescending(x => x.SoLuongBan).Select(x => x.TenSanPham).Distinct();
-            var sortSoLuongBan = sanPhams.Select(x => x.SoLuongBan).Distinct();
-
-            foreach (var item in sortSoLuongBan)
+            decimal sumMonth = 0;
+            if (Month == null && Year == null)
             {
-                soLuongBan.Add(sanPhams.Count(x => x.SoLuongBan == item));
+                ViewBag.MonthYear = DateTime.Now.Month + "/" + DateTime.Now.Year;
+
+                var listSpMonth = this.IndexByMonth(DateTime.Now.Month, DateTime.Now.Year);
+                List<string> listTenSP = new List<string>();
+                foreach (var item in listSpMonth)
+                {
+                    string tenSp = item.TenSanPham;
+                    listTenSP.Add(tenSp);
+                }
+                ViewBag.ListSanPhamMonth = listTenSP;
+                List<decimal> listMoneyMonth = new List<decimal>();
+                foreach (var item in listSpMonth)
+                {
+                    decimal tien = item.SoLuong * item.DonGia;
+                    listMoneyMonth.Add(tien);
+                    sumMonth += tien;
+                }
+                ViewBag.ListMoneyMonth = listMoneyMonth;
+                ViewBag.Sum = sumMonth;
             }
-            foreach (var item in sortTenSP)
+            else if (Year != null && Month == null)
             {
-                tenSP.Add(item);
+                ViewBag.MonthYear = Year;
+                var listSpMonth = this.IndexByYear(DateTime.Now.Month, (int)Year);
+                List<string> listTenSP = new List<string>();
+                foreach (var item in listSpMonth)
+                {
+                    string tenSp = item.TenSanPham;
+                    listTenSP.Add(tenSp);
+                }
+                ViewBag.ListSanPhamMonth = listTenSP;
+                List<decimal> listMoneyMonth = new List<decimal>();
+                foreach (var item in listSpMonth)
+                {
+                    decimal tien = item.SoLuong * item.DonGia;
+                    listMoneyMonth.Add(tien);
+                    sumMonth += tien;
+                }
+                
+                ViewBag.ListMoneyMonth = listMoneyMonth;
+                ViewBag.Sum = sumMonth;
             }
 
-            //ViewBag.DATAS = datas;
-            ViewBag.SoLuongBan = soLuongBan.ToList();
-            ViewBag.TenSanPham = tenSP.ToList();
+            else if (Year == null && Month != null)
+            {
+                ViewBag.MonthYear = Month + "/" + DateTime.Now.Year;
+
+                var listSpMonth = this.IndexByMonth((int)Month, DateTime.Now.Year);
+                List<string> listTenSP = new List<string>();
+                foreach (var item in listSpMonth)
+                {
+                    string tenSp = item.TenSanPham;
+                    listTenSP.Add(tenSp);
+                }
+                ViewBag.ListSanPhamMonth = listTenSP;
+                List<decimal> listMoneyMonth = new List<decimal>();
+                foreach (var item in listSpMonth)
+                {
+                    decimal tien = item.SoLuong * item.DonGia;
+                    listMoneyMonth.Add(tien);
+                    sumMonth += tien;
+                }
+
+                ViewBag.ListMoneyMonth = listMoneyMonth;
+                ViewBag.Sum = sumMonth;
+            }
+
+            else if (Month != null && Year != null)
+            {
+                ViewBag.MonthYear = Month + "/" + Year;
+                var listSpMonth = this.IndexByMonth((int)Month, (int)Year);
+                List<string> listTenSP = new List<string>();
+                foreach (var item in listSpMonth)
+                {
+                    string tenSp = item.TenSanPham;
+                    listTenSP.Add(tenSp);
+                }
+                ViewBag.ListSanPhamMonth = listTenSP;
+                List<decimal> listMoneyMonth = new List<decimal>();
+                foreach (var item in listSpMonth)
+                {
+                    decimal tien = item.SoLuong * item.DonGia;
+                    listMoneyMonth.Add(tien);
+                    sumMonth += tien;
+                }
+                ViewBag.ListMoneyMonth = listMoneyMonth;
+                ViewBag.Sum = sumMonth;
+            }
             return View();
         }
 
-        //public ActionResult StatisticsByMonth(int? Month, int? Year)
-        //{
-        //    decimal sumMonth = 0;
-        //    if (Month == null && Year == null)
-        //    {
-        //        ViewBag.MonthYear = DateTime.Now.Month + "/" + DateTime.Now.Year;
-        //        //phòng
+        public List<SanPham> IndexByMonth(int Month, int Year)
+        {
+            DateTime startDay = new DateTime(Year, Month, 1);
+            DateTime endDay = startDay.AddMonths(1).AddDays(-1);
+            ViewBag.MonthYear = Month + "/" + Year;
+            var result = new List<SanPham>();
+            var response = db.SanPhams.Select(d => d).ToList();
+            foreach (var item in response)
+            {
+                var list = new SanPham
+                {
+                    TenSanPham = item.TenSanPham,
+                    SoLuong = item.SoLuong,
+                    SoLuongBan = item.SoLuongBan,
+                    DonGia = (int)this.StatisticsMonth(item.MaSanPham, Month, Year)
+                };
+                result.Add(list);
+            }
+            return result;
+        }
 
-        //        var listRoomMonth = bookingService.StatisticsRoomByMonth(DateTime.Now.Month, DateTime.Now.Year);
-        //        List<string> listRoomNameMonth = new List<string>();
-        //        foreach (var item in listRoomMonth)
-        //        {
-        //            string roomName = item.RoomName;
-        //            listRoomNameMonth.Add(roomName);
-        //        }
-        //        ViewBag.ListRoomNameMonth = listRoomNameMonth;
-        //        List<decimal> listMoneyMonth = new List<decimal>();
-        //        foreach (var item in listRoomMonth)
-        //        {
-        //            decimal tien = item.Money;
-        //            listMoneyMonth.Add(tien);
-        //            sumMonth += tien;
-        //        }
-        //        ViewBag.ListMoneyMonth = listMoneyMonth;
-        //        ViewBag.Sum = sumMonth;
+        public List<SanPham> IndexByYear(int Month, int Year)
+        {
+            DateTime startDay = new DateTime(Year, Month, 1);
+            DateTime endDay = startDay.AddMonths(1).AddDays(-1);
+            ViewBag.MonthYear = Month + "/" + Year;
+            var result = new List<SanPham>();
+            var response = db.SanPhams.Select(d => d).ToList();
+            foreach (var item in response)
+            {
+                var list = new SanPham
+                {
+                    TenSanPham = item.TenSanPham,
+                    SoLuong = item.SoLuong,
+                    SoLuongBan = item.SoLuongBan,
+                    DonGia = (int)this.StatisticsByYear(item.MaSanPham, Year)
+                };
+                result.Add(list);
+            }
+            return result;
+        }
 
-        //        //loại phòng
-        //        var listRoomTypeMonth = bookingService.StatisticsRoomTypeByMonth(DateTime.Now.Month, DateTime.Now.Year);
-        //        List<string> listRoomTypeNameMonth = new List<string>();
-        //        foreach (var item in listRoomTypeMonth)
-        //        {
-        //            string roomTypeNameMonth = item.RoomTypeName;
-        //            listRoomTypeNameMonth.Add(roomTypeNameMonth);
-        //        }
-        //        ViewBag.ListRoomTypeNameMonth = listRoomTypeNameMonth;
-        //        List<decimal> listRoomTypeMoneyMonth = new List<decimal>();
-        //        foreach (var item in listRoomTypeMonth)
-        //        {
-        //            decimal tien = item.Money;
-        //            listRoomTypeMoneyMonth.Add(tien);
-        //        }
-        //        ViewBag.ListRoomTypeMoneyMonth = listRoomTypeMoneyMonth;
-        //    }
-        //    else
-        //    {
-        //        ViewBag.MonthYear = Month + "/" + Year;
-        //        //phòng
-        //        var listRoomMonth = bookingService.StatisticsRoomByMonth((int)Month, (int)Year);
-        //        List<string> listRoomNameMonth = new List<string>();
-        //        foreach (var item in listRoomMonth)
-        //        {
-        //            string roomName = item.RoomName;
-        //            listRoomNameMonth.Add(roomName);
-        //        }
-        //        ViewBag.ListRoomNameMonth = listRoomNameMonth;
-        //        List<decimal> listMoneyMonth = new List<decimal>();
-        //        foreach (var item in listRoomMonth)
-        //        {
-        //            decimal tien = item.Money;
-        //            listMoneyMonth.Add(tien);
-        //            sumMonth += tien;
-        //        }
-        //        ViewBag.ListMoneyMonth = listMoneyMonth;
-        //        ViewBag.Sum = sumMonth;
+        public decimal StatisticsMonth(int Id, int Month, int Year)
+        {
+            DateTime startDay = new DateTime(Year, Month, 1);
+            DateTime endDay = startDay.AddMonths(1).AddDays(-1);
+            var list = from c in db.DatHangs
+                       join p in db.ChiTietDatHangs on c.MaDatHang equals p.MaDatHang
+                       join d in db.SanPhams on p.MaSanPham equals d.MaSanPham
+                       where d.MaSanPham == Id
+                       && c.NgayKhoiTao >= startDay
+                       && c.NgayKhoiTao <= endDay
+                       select d;
+            var a = list.OrderByDescending(x => x.SoLuongBan).Take(1).ToList();
+            var b = list.OrderByDescending(x => x.SoLuong).Take(1).ToList();
+            foreach (var item in a)
+            {
+                ViewBag.SanPhamBanChay = item.TenSanPham;
+            }
+            foreach (var item in b)
+            {
+                ViewBag.SanPhamTonKho = item.TenSanPham;
+            }
+            decimal count = 0;
+            if (list.Count() == 0)
+                count = 0;
+            else 
+                count = (decimal)list.Sum(s => s.SoLuong * s.DonGia);
+            return count;
+        }
 
-        //        //loại phòng
-        //        var listRoomTypeMonth = bookingService.StatisticsRoomTypeByMonth((int)Month, (int)Year);
-        //        List<string> listRoomTypeNameMonth = new List<string>();
-        //        foreach (var item in listRoomTypeMonth)
-        //        {
-        //            string roomTypeNameMonth = item.RoomTypeName;
-        //            listRoomTypeNameMonth.Add(roomTypeNameMonth);
-        //        }
-        //        ViewBag.ListRoomTypeNameMonth = listRoomTypeNameMonth;
-        //        List<decimal> listRoomTypeMoneyMonth = new List<decimal>();
-        //        foreach (var item in listRoomTypeMonth)
-        //        {
-        //            decimal tien = item.Money;
-        //            listRoomTypeMoneyMonth.Add(tien);
-        //        }
-        //        ViewBag.ListRoomTypeMoneyMonth = listRoomTypeMoneyMonth;
-        //    }
-        //    return View();
-        //}
+        public decimal StatisticsByYear(int Id, int Year)
+        {
+            DateTime startDay = new DateTime(Year, 1, 1);
+            DateTime endDay = new DateTime(Year, 12, 31);
+            var list = from c in db.DatHangs
+                       join p in db.ChiTietDatHangs on c.MaDatHang equals p.MaDatHang
+                       join d in db.SanPhams on p.MaSanPham equals d.MaSanPham
+                       where d.MaSanPham == Id
+                       && c.NgayKhoiTao >= startDay
+                       && c.NgayKhoiTao <= endDay
+                       select d;
+            var a = list.OrderByDescending(x => x.SoLuongBan).Take(1).ToList();
+            var b = list.OrderByDescending(x => x.SoLuong).Take(1).ToList();
+            foreach (var item in a)
+            {
+                ViewBag.SanPhamBanChay = item.TenSanPham;
+            }
+            foreach (var item in b)
+            {
+                ViewBag.SanPhamTonKho = item.TenSanPham;
+            }
+            decimal count = 0;
+            if (list.Count() == 0)
+                count = 0;
+            else
+                count = (decimal)list.Sum(s => s.SoLuong * s.DonGia);
+            return count;
+        }
     }
 }
