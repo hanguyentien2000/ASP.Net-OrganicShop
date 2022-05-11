@@ -48,7 +48,7 @@ namespace LeafShop.Areas.Administrator.Controllers
                 }
             }
             ViewBag.DoanhThu = tongTien;
-            var datas = db.SanPhams.Select(d => d).OrderByDescending(x => x.SoLuongBan).Take(1).ToList();
+            var datas = db.SanPhams.Select(d => d).OrderByDescending(x => x.SoLuongBan).Take(2).ToList();
             foreach (var item in datas)
             {
                 ViewBag.SanPhamBanChayNhat = item.TenSanPham;

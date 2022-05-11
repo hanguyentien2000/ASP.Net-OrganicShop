@@ -54,6 +54,7 @@ namespace LeafShop.Controllers
         {
             bool isExists = false;
             List<ChiTietDatHang> list = new List<ChiTietDatHang>();
+            var datas = db.SanPhams.Select(d => d).Where(x => x.MaSanPham == chiTiet.MaSanPham).FirstOrDefault();
             if (Session[LeafShop.Session.ConstaintCart.CART] != null)
             {
                 list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
@@ -65,15 +66,25 @@ namespace LeafShop.Controllers
                         isExists = true;
                     }
                 }
-                if (!isExists)
+                if (!isExists && chiTiet.SoLuong > datas.SoLuong)
+                {
+                    ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
+                    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                }
+                else if(!isExists && chiTiet.SoLuong < datas.SoLuong)
                 {
                     list.Add(chiTiet);
                 }
             }
-            else
+            else if(chiTiet.SoLuong < datas.SoLuong)
             {
                 list = new List<ChiTietDatHang>();
                 list.Add(chiTiet);
+            }
+            else
+            {
+                ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
             list.RemoveAll((x) => x.SoLuong <= 0);
             foreach (ChiTietDatHang item in list)
