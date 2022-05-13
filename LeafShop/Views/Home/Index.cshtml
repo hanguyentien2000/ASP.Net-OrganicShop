@@ -82,10 +82,10 @@
 
     <div id="bottom-left" class="hidden-xs">
         @*<a href="http://leafshop.vn/pages/phuong-thuc-van-chuyen">
-            <div class="text">
-                <i style="font-size:20px;" class="fa fa-caret-right" aria-hidden="true"></i> Chính sách vận chuyển
-            </div>
-        </a>*@
+                <div class="text">
+                    <i style="font-size:20px;" class="fa fa-caret-right" aria-hidden="true"></i> Chính sách vận chuyển
+                </div>
+            </a>*@
     </div>
 
 
@@ -472,7 +472,7 @@
                                 <div class="top-cart-content">
                                     <div class="top-cart-title">
                                         <h4>Giỏ hàng</h4>
-                                        
+
                                     </div>
                                     <div class="top-cart-action clearfix">
                                         <span class="fleft top-checkout-price">0₫</span>
@@ -711,21 +711,21 @@
                                     slidesToScroll: 1,
                                     responsive: [
                                         {
-                                        breakpoint: 991,
+                                            breakpoint: 991,
                                             settings: {
-                                            arrows: false
+                                                arrows: false
                                             },
                                         },
                                         {
-                                        breakpoint: 767,
+                                            breakpoint: 767,
                                             settings: {
-                                            slidesToShow: 3,
+                                                slidesToShow: 3,
                                                 arrows: false
                                             }
                                         }
                                     ]
                                 });
-                                });</script>
+                            });</script>
 
 
                         <!-- end popular brand -->
@@ -808,9 +808,9 @@
                                                     </div>
                                                     <div class="product-desc">
                                                         <div class="product-price">
-                                                           
+
                                                             <ins>
-                                                               
+
                                                                 @String.Format("{0:0,0đ}", item.DonGia)
                                                             </ins>
                                                         </div>
@@ -835,7 +835,7 @@
                             </div>
                         </div>
 
-                        
+
                         <script>
 
                             function loadsp(id) {
@@ -918,7 +918,7 @@
                                     }
                                 });
                             }
-              
+
                             function redirect() {
                                 window.location.href = "/Cart/Orders";
                             }
@@ -932,10 +932,13 @@
                                     success: function (response) {
                                         if (response.status) {
                                             getCart();
+                                            console.log(response, status);
                                         }
+                                        else if (response.status == 404)
+                                            alert(@ViewBag.ErrorCart);
                                     },
                                     error: function (response) {
-
+                                       alert(@ViewBag.ErrorCart);
                                     },
 
                                 });
@@ -952,11 +955,12 @@
                                         if (response.status) {
                                             getCart();
                                             window.location.href = "/Cart/CheckOut";
-
                                         }
+                                        else if (response.status == 404)
+                                            alert(@ViewBag.ErrorCart);
+
                                     },
                                     error: function (response) {
-
                                     },
 
                                 });
@@ -1057,18 +1061,18 @@
                 <div class="container">
 
                     <!-- Footer Widgets
-                    ============================================= -->
+    ============================================= -->
                     <div class="footer-widgets-wrap clearfix footer_wrap_2">
                         <div class="prefooter_one col-sm-3 col-xs-12">
                             <div class="widget clearfix">
-                                <h4>Cửa hàng</h4>
+                                <h4>Thông số truy cập</h4>
                                 <div class="info_more">
                                     <p class="diachi_hot" style="padding-left: 15px;">
                                         @*<strong style="color:#555">Tên công ty</strong>: Công Ty TNHH Leaf Organic Việt Nam<br />Số 2 ngõ 70/58 đường Văn Trì, P. Minh Khai, Q.Bắc Từ Liêm, Hà Nội, Việt Nam<br />
 
-                                        <strong style="color:#555">MST:</strong> 0107693727<br />
+                            <strong style="color:#555">MST:</strong> 0107693727<br />
 
-                                        <strong style="color:#555">Hà nội: </strong>Số 29 Nguyễn Chí Thanh, Quận Ba Đình,Hà Nội*@
+                            <strong style="color:#555">Hà nội: </strong>Số 29 Nguyễn Chí Thanh, Quận Ba Đình,Hà Nội*@
                                     </p>
                                     <p class="diachi_hot" style="padding-left: 15px;">
                                         @*<strong style="color:#555">HCM: </strong>7B/8-Nguyễn Thị Minh Khai, P.Bến Nghé, Quận 1, HCM*@
@@ -1077,15 +1081,19 @@
 
                                     <div class="hotline-ss">
                                         @*<strong style="color:#555" class="local_io">Hotline: </strong>
-                                        <span>Hà Nội: 0975.380.816</span><br>
-                                        <span style="padding-left: 63.5px;">Hồ Chí Minh: 0901.469.786</span>*@
+                            <span>Hà Nội: 0975.380.816</span><br>
+                            <span style="padding-left: 63.5px;">Hồ Chí Minh: 0901.469.786</span>*@
                                     </div>
                                 </div>
 
                                 <div class="email-xl">
-                                    <strong style="color:#555" class="local_io">Email: </strong>
+                                    <strong style="color:#555" class="local_io"> </strong>
 
-                                    <span>contact@hanguyen</span>
+                                    <span>
+                                        <a href='https://www.symptoma.it/'>Sintomi</a>
+                                        <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=87f4c8d5e6f7c8b43402d27ef0d5be04b75804c4'></script>
+                                        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/942464/t/0"></script>
+                                    </span>
 
                                 </div>
 
@@ -1147,7 +1155,7 @@
 
                         <div class="prefooter_one col-sm-3 col-xs-12">
                             <div class="widget widget_links clearfix">
-                               
+
                                 <h4>Kết nối với chúng tôi</h4>
                                 <div class="social-link">
 
@@ -1164,10 +1172,10 @@
 
                                 <div class="logo-footer">
                                     @*<a href="http://online.gov.vn/CustomWebsiteDisplay.aspx?DocId=53001" target="_blank">
-                                        <img src="~/Content/image/logo-bct9a76.png?v=3659" alt="Bộ Công Thương">
-                                    </a>*@
+                <img src="~/Content/image/logo-bct9a76.png?v=3659" alt="Bộ Công Thương">
+            </a>*@
                                 </div>
-
+                               
 
                             </div>
                         </div>
@@ -1176,6 +1184,8 @@
                     <p class="copyright">
                         Copyright by hanguyen
                     </p>
+                    
+
                 </div>
             </footer>
         </div>
@@ -1210,7 +1220,7 @@
                 <div class="line"></div>
 
                 <!-- Product Single - Quantity & Cart Button
-    ============================================= -->
+                ============================================= -->
                 <div id='ProductDetailsFormQV' class="nobottommargin clearfix">
                     <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
                         <p>Số lượng</p>
@@ -1707,3 +1717,4 @@
     })();
 </script>
 <!--End of Tawk.to Script-->
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,32 @@ namespace LeafShop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            if(!File.Exists(Server.MapPath("Count_Visited.txt")))
+            File.WriteAllText(Server.MapPath("Count_Visited.txt"), "0");
+            Application["DaTruyCap"] = int.Parse(File.ReadAllText(Server.MapPath("Count_Visited.txt")));
+        }
+
+        void Application_End(object sender, EventArgs e)
+        {
+
+        }
+
+        void Application_Error(object sender, EventArgs e)
+        {
+
+        }
+
+        void Session_Start(object sender, EventArgs e)
+        {
+            // Tăng số đang truy cập lên 1 nếu có khách truy cập
+            if (Application["DangTruyCap"] == null)
+                Application["DangTruyCap"] = 1;
+            else
+                Application["DangTruyCap"] = (int)Application["DangTruyCap"] + 1;
+            // Tăng số đã truy cập lên 1 nếu có khách truy cập
+            Application["DaTruyCap"] = (int)Application["DaTruyCap"] + 1;
+            File.WriteAllText(Server.MapPath("Count_Visited.txt"), Application["DaTruyCap"].ToString());
         }
     }
 }

@@ -557,7 +557,7 @@
 
                             <div class="widget clearfix">
 
-                                <h4>Cửa hàng</h4>
+                                <h4>Thông số truy cập</h4>
                                 <div class="info_more">
                                     <p class="diachi_hot" style="padding-left: 15px;">
                                         @*<strong style="color:#555">Tên công ty</strong>: Công Ty TNHH Leaf Organic Việt Nam<br />Số 2 ngõ 70/58 đường Văn Trì, P. Minh Khai, Q.Bắc Từ Liêm, Hà Nội, Việt Nam<br />
@@ -579,8 +579,11 @@
                                 </div>
 
                                 <div class="email-xl">
-                                    <strong style="color:#555" class="local_io">Email: </strong>
-                                    <span>contact@hanguyen</span>
+                                    <span>
+                                        <a href='https://www.symptoma.it/'>Sintomi</a>
+                                        <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=87f4c8d5e6f7c8b43402d27ef0d5be04b75804c4'></script>
+                                        <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/942464/t/0"></script>
+                                    </span>
                                 </div>
 
 
@@ -668,6 +671,9 @@
 
                     <p class="copyright">
                         Copyright 2022 Harave Template
+                    </p>
+                    <p>Số lượt truy cập website: <%=Application[“DaTruyCap”].ToString()%></p>
+                    <p>Số người đang online: <%=Application[“DangTruyCap”].ToString()%></p>
                 </div>
 
 
@@ -704,30 +710,29 @@
                 <div class="line"></div>
 
                 <!-- Product Single - Quantity & Cart Button
-    ============================================= -->
+                ============================================= -->
                 <div id='ProductDetailsFormQV' class="nobottommargin clearfix">
                     <div class="quantity product-quantity clearfix col-xs-6 noleftpadding">
                         <p>Số lượng</p>
                         <input type="number" class='qty' id='product_quantity1' step="1" min="1" name="quantity" value="1" title="Qty" size="4" style="margin-top: -28px" />
+                        <input type="number" class='qty1' id='GhiChu' value="@ViewBag.ErrorCart" hidden="hidden" />
                     </div>
                     <script></script>
                     <div class="hidden" style="">
                         <select id="product-select-qw" name="id">
                         </select>
+
                         <input type="hidden" class="unit_price_not_formated" value="">
                         <input type="hidden" class="product_url" value="">
                         <input type="hidden" class="product_title_hd" value="">
                         <input type="hidden" class="product_img_small" value="">
                     </div>
                     <button type="button" id='addtocartQV' class="addtocartQV button nomargin col-xs-6">Add to cart</button>
-                    <button class='buynow button col-xs-12 noleftmargin norightmargin' id='buynow'>Mua ngay</button>
-
+                    <button class='buynow button col-xs-12 noleftmargin norightmargin' id='buynow' onclick="return ValidateInformation()">Mua ngay</button>
                 </div><!-- Product Single - Quantity & Cart Button End -->
 
                 <div class="clear"></div>
                 <div class="line"></div>
-                <h1 style="color: red">@ViewBag.ErrorCart</h1>
-
                 <p class="description" id="motasp">Mô tả</p>
             </div>
         </div>
@@ -926,9 +931,11 @@
                 success: function (response) {
                     if (response.status) {
                         getCart();
+                        console.log(response.status);
                     }
                 },
                 error: function (response) {
+                    alert(@ViewBag.ErrorCart);
 
                 },
 
@@ -941,24 +948,20 @@
                 type: "POST",
                 contentType: 'application/json',
                 data: JSON.stringify({ "MaSanPham": id, "SoLuong": soluong }),
-                url: "/Cart/if (item.MaSanPham == chiTiet.MaSanPham && item.SoLuong <= datas.SoLuong)
-                        {
-                    item.SoLuong += chiTiet.SoLuong;
-                    isExists = true;
-                }",
-                    success: function (response) {
-                if (response.status) {
-                    getCart();
-                    window.location.href = "/Cart/CheckOut";
-
-                }
-            },
+                url: "/Cart/AddToCart",
+                success: function (response) {
+                    if (response.status) {
+                        getCart();
+                        window.location.href = "/Cart/CheckOut";
+                        console.log(response.status);
+                    }
+                },
                 error: function (response) {
-
+                     alert(@ViewBag.ErrorCart);
                 },
 
-                });
-            }
+            });
+        }
 
 
         function deleteFromCart(id) {
@@ -972,6 +975,7 @@
                     }
                 },
                 error: function (response) {
+                    alert('Sản phẩm không đủ số lượng để đặt');
 
                 },
 
@@ -1004,5 +1008,24 @@
         s1.setAttribute('crossorigin', '*');
         s0.parentNode.insertBefore(s1, s0);
     })();
+</script>
+<script>
+    function ValidateInformation() {
+        var ghichu = document.getElementById('GhiChu');
+        if (ghichu.value != "") {
+            alert('Sản phẩm không đủ số lượng để đặt');
+            ghichu.focus();
+            return false;
+        } else {
+            var result = confirm('Bạn có chắc chắn muốn đặt hàng?')
+            if (result) {
+                alert('Đặt hàng THÀNH CÔNG!!!')
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
 </script>
 
