@@ -89,9 +89,9 @@ namespace LeafShop.Controllers
             dh.NgayGiaoHang = null;
             dh.DiaChi = kh.DiaChiKhachHang;
             dh.TongTien = tongTien;
-            dh.TrangThai = true;
+            dh.TrangThai = false;
             dh.MaNhanVien = null;
-            dh.GhiChu = "Đặt hàng thành công";
+            dh.GhiChu = "Đơn hàng đã thanh toán online";
             db.DatHangs.Add(dh);
             db.SaveChanges();
             List<ChiTietDatHang> list = (List<ChiTietDatHang>)Session[LeafShop.Session.ConstaintCart.CART];
