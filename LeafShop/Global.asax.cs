@@ -44,5 +44,11 @@ namespace LeafShop
             Application["DaTruyCap"] = (int)Application["DaTruyCap"] + 1;
             File.WriteAllText(Server.MapPath("Count_Visited.txt"), Application["DaTruyCap"].ToString());
         }
+
+        void Session_End(object sender, EventArgs e)
+        {
+            //Khi hết session hoặc người dùng thoát khỏi website thì giảm số người đang truy cập đi 1
+            Application["DangTruyCap"] = (int)Application["DangTruyCap"] - 1;
+        }
     }
 }

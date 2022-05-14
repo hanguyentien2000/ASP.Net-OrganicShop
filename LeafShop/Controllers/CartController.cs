@@ -71,12 +71,12 @@ namespace LeafShop.Controllers
                     ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
                     return Json(new { status = false }, JsonRequestBehavior.AllowGet);
                 }
-                else if(!isExists && chiTiet.SoLuong < datas.SoLuong)
+                else if(!isExists && chiTiet.SoLuong <= datas.SoLuong)
                 {
                     list.Add(chiTiet);
                 }
             }
-            else if(chiTiet.SoLuong < datas.SoLuong)
+            else if(chiTiet.SoLuong <= datas.SoLuong)
             {
                 list = new List<ChiTietDatHang>();
                 list.Add(chiTiet);
