@@ -105,7 +105,9 @@ namespace LeafShop.Areas.Administrator.Controllers
         // GET: Administrator/ChiTietDatHang/Edit/5
         public ActionResult Edit(int id)
         {
-            ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Find(id);
+            //ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Find(id);
+            ChiTietDatHang chiTietDatHang = db.ChiTietDatHangs.Where(s => s.MaDatHang == id).FirstOrDefault();
+
             if (chiTietDatHang == null)
             {
                 return HttpNotFound();
@@ -120,17 +122,14 @@ namespace LeafShop.Areas.Administrator.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDatHang,MaSanPham,SoLuong,DonGia")] ChiTietDatHang chiTietDatHang)
+        public ActionResult Edit([Bind(Include = "MaDatHang,MaSanPham,SoLuong,DonGia")] ChiTietDatHang model)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(chiTietDatHang).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MaDatHang = new SelectList(db.DatHangs, "MaDatHang", "MaKhachHang", chiTietDatHang.MaDatHang);
-            ViewBag.MaSanPham = new SelectList(db.SanPhams, "MaSanPham", "TenSanPham", chiTietDatHang.MaSanPham);
-            return View(chiTietDatHang);
+            var datas = db.ChiTietDatHangs.Select(d => d).Where(s => s.MaDatHang == model.MaDatHang).FirstOrDefault();
+            ViewBag.MaDatHang = new SelectList(db.DatHangs, "MaDatHang", "MaKhachHang", model.MaDatHang);
+            ViewBag.MaSanPham = new SelectList(db.SanPhams, "MaSanPham", "TenSanPham", model.MaSanPham);
+            //ChiTietDatHang ctdh = db.ChiTietDatHangs.Where(s => s.MaDatHang == model.MaDatHang).FirstOrDefault();
+            datas.SoLuong = model.SoLuong;
+            return View(model);
         }
 
         // GET: Administrator/ChiTietDatHang/Delete/5

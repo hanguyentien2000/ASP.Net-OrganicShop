@@ -935,6 +935,9 @@
                         getCart();
                         console.log(response.status);
                     }
+                    else {
+                        alert(response.message);
+                    }
                 },
                 error: function (response) {
                     alert(@ViewBag.ErrorCart);
@@ -956,6 +959,9 @@
                         getCart();
                         window.location.href = "/Cart/CheckOut";
                         console.log(response.status);
+                    }
+                    else {
+                        alert(response.message);
                     }
                 },
                 error: function (response) {

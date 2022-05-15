@@ -68,8 +68,8 @@ namespace LeafShop.Controllers
                 }
                 if (!isExists && chiTiet.SoLuong > datas.SoLuong)
                 {
-                    ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
-                    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                    //ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
+                    return Json(new { status = false, message = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong}, JsonRequestBehavior.AllowGet);
                 }
                 else if(!isExists && chiTiet.SoLuong <= datas.SoLuong)
                 {
@@ -83,8 +83,8 @@ namespace LeafShop.Controllers
             }
             else
             {
-                ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                //ViewBag.ErrorCart = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong;
+                return Json(new { status = false, message = "Số lượng sản phẩm còn lại trong kho chỉ là: " + datas.SoLuong }, JsonRequestBehavior.AllowGet);
             }
             list.RemoveAll((x) => x.SoLuong <= 0);
             foreach (ChiTietDatHang item in list)
