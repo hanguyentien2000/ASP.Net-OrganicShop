@@ -89,7 +89,7 @@ namespace LeafShop.Controllers
             dh.NgayGiaoHang = null;
             dh.DiaChi = kh.DiaChiKhachHang;
             dh.TongTien = tongTien;
-            dh.TrangThai = false;
+            dh.TrangThai = true;
             dh.MaNhanVien = null;
             dh.GhiChu = "Đơn hàng đã thanh toán online";
             db.DatHangs.Add(dh);

@@ -55,7 +55,7 @@ namespace LeafShop.Controllers
                 dh.NgayGiaoHang = null;
                 dh.DiaChi = diaChi;
                 dh.TongTien = tongtien;
-                dh.TrangThai = false;
+                dh.TrangThai = true;
                 dh.MaNhanVien = null;
                 dh.GhiChu = ghiChu;
                 db.DatHangs.Add(dh);

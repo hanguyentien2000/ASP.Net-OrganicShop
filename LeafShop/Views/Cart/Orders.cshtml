@@ -81,10 +81,19 @@
                                         <label for="note">Ghi chú </label>
                                         <textarea style='height:85px' id="note" class='sm-form-control' name="ghichu" rows="8" cols="50">@ViewBag.GhiChu</textarea>
                                     </div>*@
+                                    <h4 style="color: red; margin-left: 30px">@ViewBag.ErrorQuantity</h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 topmargin nopadding">
+                                    @if (@ViewBag.ErrorQuantity != null)
+                                    {
+                                        <button type="submit" class="button button-3d nomargin fright">Cập nhật giỏ hàng</button>
+
+                                    }
+                                    @if (@ViewBag.ErrorQuantity == null){
                                     <button type="submit" class="button button-3d nomargin fright">Cập nhật giỏ hàng</button>
                                     <a class=" button button-3d notopmargin fright" href="@Url.Action("CheckOut","Cart", new {ghichu = ViewBag.GhiChu })">Thanh toán</a>
+                                    }
+
                                 </div>
                             </div>
                         }

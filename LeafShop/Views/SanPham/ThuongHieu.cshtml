@@ -76,10 +76,13 @@
                   
                     <div id="shop" class="product-3 clearfix">
                         <div class="dess">
-                            <p style="margin-bottom:5px;">@ViewBag.thuongHieu.TenThuongHieu</p>
+                            <h1 style="margin-bottom:5px;"><b>@ViewBag.thuongHieu.TenThuongHieu</b></h1>
                             <img src="@ViewBag.thuongHieu.AnhThuongHieu" style="margin-bottom:5px;width:150px;height:150px;"/>
                             <p>
-                                @ViewBag.thuongHieu.MoTaThuongHieu
+                                @{
+                                    HtmlString mt = new HtmlString(@ViewBag.thuongHieu.MoTaThuongHieu);
+                                }
+                                @mt
                             </p>
                         </div>
                         <div class='sort-wrapper'>

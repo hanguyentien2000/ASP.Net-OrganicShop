@@ -314,7 +314,9 @@
                                             </div>
                                             <div>
                                                 <span style="font-weight: 400;">
-                                                    @ViewBag.thuongHieu.MoTaThuongHieu
+                                                    @{
+                                                        HtmlString th = new HtmlString(@ViewBag.thuongHieu.MoTaThuongHieu);
+                                                    }@th
                                                 </span>
                                             </div>
 

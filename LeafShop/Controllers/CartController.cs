@@ -40,9 +40,16 @@ namespace LeafShop.Controllers
             Session.Remove(LeafShop.Session.ConstaintCart.CART);
             foreach(ChiTietDatHang item in list)
             {
+                
                 item.DonGia = db.SanPhams.Where(s => s.MaSanPham == item.MaSanPham).FirstOrDefault().DonGia;
                 SanPham sp = db.SanPhams.Where(x => x.MaSanPham == item.MaSanPham).FirstOrDefault();
-                item.SanPham = sp;
+                if (item.SoLuong > sp.SoLuong)
+                {
+                    item.SanPham = sp;
+                    ViewBag.ErrorQuantity = "Sản phẩm " + sp.TenSanPham +  " trong kho chỉ còn lại: " + sp.SoLuong;
+                }
+                else
+                    item.SanPham = sp;
             }
             Session[LeafShop.Session.ConstaintCart.CART] = list;
             return View(list);
